@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraint_layout_login"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/ic_bg">
+    android:layout_height="match_parent">
 
     <include layout="@layout/toolbar" />
 
@@ -67,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:text="@string/MobEmailTxtViewReg"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/id_mobile_icons"
                 app:layout_constraintTop_toTopOf="@+id/id_mobile_icons" />
@@ -90,6 +89,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:maxLength="10"
+                android:backgroundTint="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/mobile_no"
                 app:layout_constraintTop_toBottomOf="@+id/mobile_no" />
@@ -169,7 +169,7 @@
             android:id="@+id/btn_login"
             style="@style/btn_login"
             android:layout_marginTop="@dimen/_30sdp"
-            android:background="@drawable/selector_login_button_blue_rounded_corner"
+            android:background="@drawable/access_pack_bg_gradient"
             android:text="@string/continueBtnLogin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

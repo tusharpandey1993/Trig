@@ -2,11 +2,10 @@
 <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/white"
+    android:background="@drawable/main_bg_gradient"
     app:popupTheme="@style/AppTheme"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:backgroundTint="@color/colorPrimary">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/backIcon"
@@ -19,8 +18,8 @@
 
     <ImageView
         android:id="@+id/logoXmarks"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:adjustViewBounds="true"
         android:layout_marginLeft="@dimen/_20sdp"
         android:src="@drawable/trig_logo" />
@@ -31,8 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_10sdp"
         android:textColor="@color/white"
-        android:textSize="@dimen/_20sdp"
-        android:fontFamily="@font/roboto_bold"
+        android:textSize="@dimen/_18sdp"
+        android:fontFamily="@font/open_sans_semibold"
         android:text="Trig Group"/>
 
 

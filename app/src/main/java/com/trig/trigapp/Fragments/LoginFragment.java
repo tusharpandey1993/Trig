@@ -98,8 +98,10 @@ public class LoginFragment extends Fragment {
 //        emailid = editEmailId.getText().toString();
 
         if (mobileNumber.startsWith("0")) {
+            Utility.getInstance().hideKeyboard(mActivity);
             Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.error_mobilenumberZero));
         } else if (TextUtils.isEmpty(mobileNumber) || mobileNumber.length() != 10) {
+            Utility.getInstance().hideKeyboard(mActivity);
             Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.error_invalid_mobilenumber));
         } else {
             Navigation.findNavController(requireActivity(),R.id.navHostFragment)

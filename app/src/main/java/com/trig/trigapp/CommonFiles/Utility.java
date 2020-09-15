@@ -26,7 +26,7 @@ public class Utility {
         return utilities;
     }
 
-    public void hideKeyboard(Context ctx) {
+    public void hideKeyboard(Activity ctx) {
         try {
             InputMethodManager inputManager = (InputMethodManager) ctx
                     .getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -90,6 +90,20 @@ public class Utility {
         return haveConnectedWifi || haveConnectedMobile;
     }
 
+    public void hideKeyboard(Context ctx) {
+        try {
+            InputMethodManager inputManager = (InputMethodManager) ctx
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            View v = ((Activity) ctx).getCurrentFocus();
+            if (v == null)
+                return;
+
+            inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        } catch (Exception e) {
+            Log.d("util", "hideKeyboard: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
 
 

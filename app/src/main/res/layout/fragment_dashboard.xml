@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="0dp"
         android:layout_height="@dimen/_250sdp"
-        android:src="@color/colorPrimary"
+        android:src="@drawable/main_bg_gradient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,9 +44,10 @@
                 android:layout_marginRight="@dimen/_30sdp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center"
+                android:textColor="@color/white"
                 android:text="Welcome to Trig Training App"
                 android:textAlignment="center"
-                android:textSize="@dimen/_20sdp"
+                android:textSize="@dimen/_16ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/singleChild" />
@@ -98,7 +99,7 @@
                     android:fontFamily="@font/roboto_light"
                     android:gravity="center"
                     android:text="Time Spent 00h 16m"
-                    android:textSize="@dimen/_11ssp"
+                    android:textSize="@dimen/_10ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textViewChildProfileDetails" />
@@ -111,7 +112,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
                     android:text="Induction Training"
-                    android:textSize="@dimen/_14ssp"
+                    android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/inductionIcon" />
@@ -199,7 +200,7 @@
                     android:fontFamily="@font/roboto_light"
                     android:gravity="center"
                     android:text="Time Spent hh mm"
-                    android:textSize="@dimen/_11ssp"
+                    android:textSize="@dimen/_10ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/functionHeading" />
@@ -212,7 +213,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
                     android:text="Functional Training"
-                    android:textSize="@dimen/_14ssp"
+                    android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/functionalIcon" />
@@ -297,7 +298,7 @@
                     android:fontFamily="@font/roboto_light"
                     android:gravity="center"
                     android:text="Time Spent hh mm"
-                    android:textSize="@dimen/_11ssp"
+                    android:textSize="@dimen/_10ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/skillTrainingHeading" />
@@ -310,7 +311,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
                     android:text="Skill Training"
-                    android:textSize="@dimen/_14ssp"
+                    android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/skillTrainingIcon" />
@@ -397,7 +398,7 @@
                     android:fontFamily="@font/roboto_light"
                     android:gravity="center"
                     android:text="Time Spent hh mm"
-                    android:textSize="@dimen/_11ssp"
+                    android:textSize="@dimen/_10ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/otherTrainingHeading" />
@@ -410,7 +411,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
                     android:text="Other Courses"
-                    android:textSize="@dimen/_14ssp"
+                    android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/otherTrainingIcon" />
@@ -467,10 +468,10 @@
                     android:id="@+id/assessmentIcon"
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_marginLeft="@dimen/_20sdp"
                     android:src="@drawable/ic_assessment"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/assessmentNumber"
+                    app:layout_constraintStart_toStartOf="@+id/assessmentHeading"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -483,7 +484,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
                     android:text="Assessments"
-                    android:textSize="@dimen/_14ssp"
+                    android:textSize="@dimen/_12ssp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -496,7 +497,8 @@
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
                     android:text="10"
-                    android:textSize="@dimen/_14ssp"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/assessmentHeading"
                     app:layout_constraintStart_toEndOf="@+id/assessmentHeading"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -509,7 +511,7 @@
                     android:fontFamily="@font/roboto"
                     android:gravity="center"
                     android:text="Completed: "
-                    android:textSize="@dimen/_14ssp"
+                    android:textSize="@dimen/_11ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -535,7 +537,7 @@
                     android:fontFamily="@font/roboto"
                     android:gravity="center"
                     android:text="Due: "
-                    android:textSize="@dimen/_14ssp"
+                    android:textSize="@dimen/_11ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/completedNumber" />
 
@@ -562,6 +564,8 @@
                     android:id="@+id/pieChart"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_20sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -579,7 +583,7 @@
                 android:fontFamily="@font/roboto_bold"
                 android:text="Feedback"
                 android:textColor="@color/theme_bg_color"
-                android:textSize="@dimen/_20ssp"
+                android:textSize="@dimen/_16ssp"
                 app:layout_constraintBottom_toTopOf="@+id/bottomGuide"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
