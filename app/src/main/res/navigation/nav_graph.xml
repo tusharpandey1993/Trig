@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/SplashFragment"
+    android:id="@+id/nav_graph">
+
+    <fragment
+        android:id="@+id/SplashFragment"
+        android:name="com.trig.trigapp.Fragments.SplashFragment"
+        android:label="Splash Fragment"
+        tools:layout="@layout/splash_activty">
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_dashboardFragment"
+            app:destination="@id/DashboardFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="com.trig.trigapp.Fragments.LoginFragment"
+        android:label="Login Fragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_otpFragment"
+            app:destination="@id/OtpFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/OtpFragment"
+        android:name="com.trig.trigapp.Fragments.OtpFragment"
+        android:label="Otp Fragment"
+        tools:layout="@layout/fragment_otp">
+        <action
+            android:id="@+id/action_otpFragment_to_dashboardFragment"
+            app:destination="@id/DashboardFragment" />
+        <action
+            android:id="@+id/action_otpFragment_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/DashboardFragment"
+        android:name="com.trig.trigapp.Fragments.DashboardFragment"
+        android:label="Dashboard Fragment"
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFrag_to_VideoFragment"
+            app:destination="@id/VideoFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_AssessmentFragment"
+            app:destination="@id/AssessmentFragmentNew" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_FeedbackFragment"
+            app:destination="@id/FeedbackFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/VideoFragment"
+        android:name="com.trig.trigapp.Fragments.VideoListFragment"
+        android:label="Video Fragment"
+        tools:layout="@layout/fragment_video_list">
+    <action
+        android:id="@+id/action_VideoListFrag_to_VideoStreamingFrag"
+        app:destination="@id/VideoStreamingFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/VideoStreamingFragment"
+        android:name="com.trig.trigapp.Fragments.VideoStreamingFragment"
+        android:label="Video Streaming Fragment"
+        tools:layout="@layout/fragment_video_streaming">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/AssessmentFragmentNew"
+        android:name="com.trig.trigapp.Fragments.AssessmentFragmentNew"
+        android:label="Assessment Fragment"
+        tools:layout="@layout/quiz_layout">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/FeedbackFragment"
+        android:name="com.trig.trigapp.Fragments.FeedbackFragment"
+        android:label="Feedback Fragment"
+        tools:layout="@layout/fragment_feedback">
+
+        <action
+            android:id="@+id/action_dashboardFrag_to_SuccessFragment"
+            app:destination="@id/SuccessFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/SuccessFragment"
+        android:name="com.trig.trigapp.Fragments.SuccessFragment"
+        android:label="Success Fragment"
+        tools:layout="@layout/fragment_success">
+
+        <action
+            android:id="@+id/action_fragment_success_to_dashboardFragment"
+            app:destination="@id/DashboardFragment" />
+
+    </fragment>
+
+
+</navigation>

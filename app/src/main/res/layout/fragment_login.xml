@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_layout_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_bg">
+
+    <include layout="@layout/toolbar" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parent_constraintlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/welcome_login"
+            style="@style/login_header_text"
+            android:text="@string/welcome_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/Login_infoTxtView"
+            style="@style/Login_infoTxtView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/infoTxtViewLogin"
+            app:layout_constraintTop_toBottomOf="@+id/welcome_login" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linear_input_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Login_infoTxtView">
+
+
+            <ImageView
+                android:id="@+id/id_mobile_icons"
+                style="@style/image_left_drawable_icon_size"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_phone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/mobile_no"
+                style="@style/login_subheader_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:text="@string/MobEmailTxtViewReg"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/id_mobile_icons"
+                app:layout_constraintTop_toTopOf="@+id/id_mobile_icons" />
+
+
+            <!--   <com.hbb20.CountryCodePicker
+                android:id="@+id/ccp"
+                style="@style/countryCodePicker_txt"
+                android:background="@drawable/underlinebg"
+                app:ccpDialog_keyboardAutoPopup="false"
+                app:ccp_textSize="@dimen/_13sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/id_mobile_icons"
+                app:layout_constraintTop_toBottomOf="@+id/mobile_no" />-->
+
+            <EditText
+                android:id="@+id/edit_mobile_number"
+                style="@style/login_editText_style"
+                android:background="@drawable/underlinebg"
+                android:hint="@string/MobileNoHintRegOnLogin"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/mobile_no"
+                app:layout_constraintTop_toBottomOf="@+id/mobile_no" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <!--  <TextView
+
+            android:id="@+id/orlogin"
+            style="@style/Login_ORTxtView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="or"
+            app:layout_constraintTop_toBottomOf="@+id/linear_input_view" />
+
+        <LinearLayout
+            android:id="@+id/linear_input_view_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_38sdp"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orlogin">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/id_email_icon"
+                    style="@style/image_left_drawable_icon_size"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_emaill" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/email_address"
+                    style="@style/login_subheader_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/EmailTxtViewReg"
+                    android:textColor="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edit_email_id"
+                        style="@style/login_editText_style"
+                        android:layout_marginRight="@dimen/_20sdp"
+                        android:background="@drawable/underlinebg"
+                        android:hint="@string/EmailIdHintRegOnLogin"
+                        android:imeOptions="actionDone"
+                        android:inputType="text" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>-->
+
+
+        <Button
+            android:id="@+id/btn_login"
+            style="@style/btn_login"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:background="@drawable/selector_login_button_blue_rounded_corner"
+            android:text="@string/continueBtnLogin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="@dimen/_5sdp"
+            app:layout_constraintTop_toBottomOf="@+id/linear_input_view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
