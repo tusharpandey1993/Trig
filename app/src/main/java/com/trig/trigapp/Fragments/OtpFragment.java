@@ -82,7 +82,8 @@ public class OtpFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                // Handle the back button event
+                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                        .navigate(R.id.action_otpFragment_to_LoginFragment);
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);

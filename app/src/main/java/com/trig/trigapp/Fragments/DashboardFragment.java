@@ -3,17 +3,29 @@ package com.trig.trigapp.Fragments;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,20 +40,29 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.CommonFiles.ViewDialogCustom;
 import com.trig.trigapp.CommonFiles.onDialogClickCallback;
 import com.trig.trigapp.R;
+import com.trig.trigapp.menu.DrawerAdapter;
+import com.trig.trigapp.menu.DrawerItem;
+import com.trig.trigapp.menu.SimpleItem;
+import com.trig.trigapp.menu.SpaceItem;
+import com.yarolegovich.slidingrootnav.SlideGravity;
+import com.yarolegovich.slidingrootnav.SlidingRootNav;
+import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import info.hoang8f.widget.FButton;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment implements onDialogClickCallback, View.OnClickListener {
+public class DashboardFragment extends Fragment implements onDialogClickCallback, View.OnClickListener, DrawerAdapter.OnItemSelectedListener {
 
     private static final String TAG = "DashboardFragment";
     FragmentActivity mActivity;
@@ -58,6 +79,15 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
     PieDataSet pieDataSet;
     ArrayList pieEntries;
     ArrayList PieEntryLabels;
+
+    private SlidingRootNav slidingRootNav;
+    private static final int POS_DASHBOARD = 0;
+    private static final int POS_ACCOUNT = 1;
+//    private static final int POS_MESSAGES = 2;
+//    private static final int POS_CART = 3;
+    private static final int POS_LOGOUT = 2;
+    private String[] screenTitles;
+    private Drawable[] screenIcons;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -88,6 +118,33 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
         };
         mActivity.getOnBackPressedDispatcher().addCallback(this, callback);
 
+        Toolbar toolbar = mView.findViewById(R.id.toolbar2);
+
+        slidingRootNav = new SlidingRootNavBuilder(mActivity)
+                .withToolbarMenuToggle(toolbar)
+                .withMenuOpened(false)
+                .withGravity(SlideGravity.LEFT)
+                .withContentClickableWhenMenuOpened(true)
+                .withMenuLayout(R.layout.menu_left_drawer)
+                .inject();
+
+
+        screenIcons = loadScreenIcons();
+        screenTitles = loadScreenTitles();
+
+        DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
+                createItemFor(POS_DASHBOARD).setChecked(true),
+                createItemFor(POS_ACCOUNT),
+                createItemFor(POS_LOGOUT)));
+        adapter.setListener(this);
+
+        RecyclerView list = mActivity.findViewById(R.id.list);
+
+        list.setNestedScrollingEnabled(false);
+        list.setLayoutManager(new LinearLayoutManager(mActivity));
+        list.setAdapter(adapter);
+
+        adapter.setSelected(POS_DASHBOARD);
 
         constraintLayout1.setOnClickListener(this);
         skillContainer.setOnClickListener(this);
@@ -106,13 +163,18 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
         otherCoursesContainer = mView.findViewById(R.id.otherCoursesContainer);
         assessmentContainer = mView.findViewById(R.id.assessmentContainer);
         feedback = mView.findViewById(R.id.feedback);
-        toolBarText = mView.findViewById(R.id.toolBarText);
-        logout = mView.findViewById(R.id.logout);
 
 
-        toolBarText.setText("Dashboard");
 
-        logout.setVisibility(View.VISIBLE);
+
+//        toolBarText = mView.findViewById(R.id.toolBarText);
+//        logout = mView.findViewById(R.id.logout);
+
+
+//        toolBarText.setText("Dashboard");
+
+//        logout.setVisibility(View.VISIBLE);
+/*
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +183,7 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
                         .navigate(R.id.action_dashboardFrag_to_LoginFragment);
             }
         });
+*/
 
 
 
@@ -239,5 +302,53 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
             }
         });
     }
+
+    @Override
+    public void onItemSelected(int position) {
+        if (position == POS_LOGOUT) {
+
+        }
+        slidingRootNav.closeMenu();
+//        Fragment selectedScreen = CenteredTextFragment.createFor(screenTitles[position]);
+//        showFragment(selectedScreen);
+    }
+
+    private void showFragment(Fragment fragment) {
+        mActivity.getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit();
+    }
+
+    @SuppressWarnings("rawtypes")
+    private DrawerItem createItemFor(int position) {
+        return new SimpleItem(screenIcons[position], screenTitles[position])
+                .withIconTint(color(R.color.gray))
+                .withTextTint(color(R.color.gray))
+                .withSelectedIconTint(color(R.color.colorAccent))
+                .withSelectedTextTint(color(R.color.colorAccent));
+    }
+
+    private String[] loadScreenTitles() {
+        return getResources().getStringArray(R.array.ld_activityScreenTitles);
+    }
+
+    private Drawable[] loadScreenIcons() {
+        TypedArray ta = getResources().obtainTypedArray(R.array.ld_activityScreenIcons);
+        Drawable[] icons = new Drawable[ta.length()];
+        for (int i = 0; i < ta.length(); i++) {
+            int id = ta.getResourceId(i, 0);
+            if (id != 0) {
+                icons[i] = ContextCompat.getDrawable(mActivity, id);
+            }
+        }
+        ta.recycle();
+        return icons;
+    }
+
+    @ColorInt
+    private int color(@ColorRes int res) {
+        return ContextCompat.getColor(mActivity, res);
+    }
+
 
 }

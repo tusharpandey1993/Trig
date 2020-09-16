@@ -38,7 +38,7 @@
             app:destination="@id/DashboardFragment" />
         <action
             android:id="@+id/action_otpFragment_to_LoginFragment"
-            app:destination="@id/LoginFragment" />
+            app:popUpTo="@+id/LoginFragment"  />
     </fragment>
 
     <fragment
