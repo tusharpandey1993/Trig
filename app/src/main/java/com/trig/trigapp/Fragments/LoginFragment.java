@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,11 +29,12 @@ import com.trig.trigapp.R;
  * A simple {@link Fragment} subclass.
  */
 public class LoginFragment extends Fragment {
+    private static final String TAG = "LoginFragment";
 
     private View mView;
     private FragmentActivity mActivity;
-    String mobileNumber, emailid;
-    EditText editMobileNo, editEmailId;
+    String mobileNumber, passWord;
+    EditText editMobileNo, edit_password;
     Button btn_login;
     TextView toolBarText;
 
@@ -73,6 +75,19 @@ public class LoginFragment extends Fragment {
                 return false;
             }
         });
+
+        edit_password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    Utility.getInstance().hideKeyboard(mActivity);
+                    checkValidation();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +100,7 @@ public class LoginFragment extends Fragment {
 
     private void init(View  mView) {
         editMobileNo = (EditText) mView.findViewById(R.id.edit_mobile_number);
+        edit_password = (EditText) mView.findViewById(R.id.edit_password);
         btn_login = (Button) mView.findViewById(R.id.btn_login);
         toolBarText = mView.findViewById(R.id.toolBarText);
         toolBarText.setText("Login");
@@ -94,6 +110,8 @@ public class LoginFragment extends Fragment {
 
     public void checkValidation() {
         mobileNumber = editMobileNo.getText().toString();
+        passWord = edit_password.getText().toString();
+        Log.d(TAG, "checkValidation: " + passWord);
         TrigAppPreferences.setMobileNumber(mActivity, mobileNumber);
 //        emailid = editEmailId.getText().toString();
 
@@ -103,9 +121,12 @@ public class LoginFragment extends Fragment {
         } else if (TextUtils.isEmpty(mobileNumber) || mobileNumber.length() != 10) {
             Utility.getInstance().hideKeyboard(mActivity);
             Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.error_invalid_mobilenumber));
-        } else {
+        } else if (TextUtils.isEmpty(passWord) && mobileNumber.length() > 1) {
+            Utility.getInstance().hideKeyboard(mActivity);
+            Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.error_invalid_password));
+        }else {
             Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                    .navigate(R.id.action_loginFragment_to_otpFragment);
+                    .navigate(R.id.action_loginFragment_to_dashboardFragment);
         }
 
     }

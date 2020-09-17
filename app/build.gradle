@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.trig.trigapp"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 2
         versionName "2.0"
@@ -41,4 +41,7 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.3.1'
     //navigation drawer
     implementation 'com.yarolegovich:sliding-root-nav:1.1.1'
+    // 3rd card
+    implementation 'com.github.fornewid:neumorphism:0.2.0'
+
 }

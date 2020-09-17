@@ -41,7 +41,7 @@
             android:id="@+id/linear_input_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -97,73 +97,56 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-      <!--  <TextView
 
-            android:id="@+id/orlogin"
-            style="@style/Login_ORTxtView"
-            android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/password_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="or"
-            app:layout_constraintTop_toBottomOf="@+id/linear_input_view" />
-
-        <LinearLayout
-            android:id="@+id/linear_input_view_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_38sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/orlogin">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_input_view">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+
+            <ImageView
+                android:id="@+id/id_password_icon"
+                style="@style/image_left_drawable_icon_size"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_password"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/password_hint"
+                style="@style/login_subheader_text"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:text="@string/Password"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/id_password_icon"
+                app:layout_constraintTop_toTopOf="@+id/id_password_icon" />
 
-                <ImageView
-                    android:id="@+id/id_email_icon"
-                    style="@style/image_left_drawable_icon_size"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_emaill" />
+            <EditText
+                android:id="@+id/edit_password"
+                style="@style/login_editText_style"
+                android:background="@drawable/underlinebg"
+                android:hint="@string/MobileNoHintRegOnLogin"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:maxLength="10"
+                android:backgroundTint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/password_hint"
+                app:layout_constraintTop_toBottomOf="@+id/password_hint" />
 
-            </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_15sdp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/email_address"
-                    style="@style/login_subheader_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/EmailTxtViewReg"
-                    android:textColor="@color/white" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/edit_email_id"
-                        style="@style/login_editText_style"
-                        android:layout_marginRight="@dimen/_20sdp"
-                        android:background="@drawable/underlinebg"
-                        android:hint="@string/EmailIdHintRegOnLogin"
-                        android:imeOptions="actionDone"
-                        android:inputType="text" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>-->
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/btn_login"
@@ -177,7 +160,7 @@
             app:layout_constraintLeft_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="@dimen/_5sdp"
-            app:layout_constraintTop_toBottomOf="@+id/linear_input_view" />
+            app:layout_constraintTop_toBottomOf="@+id/password_parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

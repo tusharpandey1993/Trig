@@ -2,8 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@+id/SplashFragment"
-    android:id="@+id/nav_graph">
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/SplashFragment">
 
     <fragment
         android:id="@+id/SplashFragment"
@@ -26,6 +26,10 @@
         <action
             android:id="@+id/action_loginFragment_to_otpFragment"
             app:destination="@id/OtpFragment" />
+
+        <action
+            android:id="@+id/action_loginFragment_to_dashboardFragment"
+            app:destination="@id/DashboardFragment" />
     </fragment>
 
     <fragment
@@ -38,7 +42,7 @@
             app:destination="@id/DashboardFragment" />
         <action
             android:id="@+id/action_otpFragment_to_LoginFragment"
-            app:popUpTo="@+id/LoginFragment"  />
+            app:popUpTo="@+id/LoginFragment" />
     </fragment>
 
     <fragment
@@ -65,9 +69,9 @@
         android:name="com.trig.trigapp.Fragments.VideoListFragment"
         android:label="Video Fragment"
         tools:layout="@layout/fragment_video_list">
-    <action
-        android:id="@+id/action_VideoListFrag_to_VideoStreamingFrag"
-        app:destination="@id/VideoStreamingFragment" />
+        <action
+            android:id="@+id/action_VideoListFrag_to_VideoStreamingFrag"
+            app:destination="@id/VideoStreamingFragment" />
     </fragment>
 
 
@@ -107,6 +111,18 @@
 
         <action
             android:id="@+id/action_fragment_success_to_dashboardFragment"
+            app:destination="@id/DashboardFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/ProfileFragment"
+        android:name="com.trig.trigapp.Fragments.ProfileFragment"
+        android:label="Profile Fragment"
+        tools:layout="@layout/profile">
+
+        <action
+            android:id="@+id/action_fragment_profile_to_dashboardFragment"
             app:destination="@id/DashboardFragment" />
 
     </fragment>
