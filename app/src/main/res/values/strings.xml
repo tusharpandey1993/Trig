@@ -174,4 +174,15 @@
     <string name="readMore">Read More</string>
     <string name="readLess">Read Less</string>
     <string name="share">Share</string>
+    <string name="appExit">Are you sure you want to Exit?</string>
+    <string name="DialogHeading">Notification</string>
+    <string name="close_image_desc">Close</string>
+    <string name="nameHint">Name</string>
+    <string name="emailHint">Email</string>
+    <string name="employeeCode">Employee Code</string>
+    <string name="designation">Designation</string>
+    <string name="gender">Gender</string>
+    <string name="address">Address</string>
+    <string name="dob">Date of birth</string>
+    <string name="doJoining">Date of joining</string>
 </resources>

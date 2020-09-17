@@ -11,6 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:windowSoftInputMode="adjustPan">
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"

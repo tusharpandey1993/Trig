@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 
+import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.R;
@@ -114,7 +115,6 @@ public class LoginFragment extends Fragment {
         passWord = edit_password.getText().toString();
         Log.d(TAG, "checkValidation: " + passWord);
         TrigAppPreferences.setMobileNumber(mActivity, mobileNumber);
-//        emailid = editEmailId.getText().toString();
 
         if (mobileNumber.startsWith("0")) {
             Utility.getInstance().hideKeyboard(mActivity);
@@ -130,13 +130,16 @@ public class LoginFragment extends Fragment {
         }else {
             Log.d(TAG, "checkValidation: passWord " + passWord);
             if(passWord.equalsIgnoreCase("1")){
+                TrigAppPreferences.setLoginPref(mActivity, true);
+                TrigAppPreferences.setLoginCategory(mActivity, Constants.getInstance().user);
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                         .navigate(R.id.action_loginFragment_to_dashboardFragment);
             } else if(passWord.equalsIgnoreCase("0")){
+                TrigAppPreferences.setLoginPref(mActivity, true);
+                TrigAppPreferences.setLoginCategory(mActivity, Constants.getInstance().trainer);
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                         .navigate(R.id.action_loginFragment_to_dashboardTrainerFragment);
             }
-
         }
     }
 }

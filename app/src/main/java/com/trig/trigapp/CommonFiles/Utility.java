@@ -10,7 +10,12 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.google.android.material.snackbar.Snackbar;
+import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogBuilder;
+import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogPopup;
 import com.trig.trigapp.R;
 
 import java.util.regex.Pattern;
@@ -110,5 +115,11 @@ public class Utility {
         view.requestFocus();
         InputMethodManager imm = (InputMethodManager) context.getSystemService(context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    // Show generic Dialog PopUp
+    public void showDynamicDialog(Context context, GenericDialogBuilder genericDialogBuilder, GenericDialogPopup genericDialogPopup, FragmentManager fragmentManager) {
+        genericDialogPopup = new GenericDialogPopup(genericDialogBuilder);
+        genericDialogPopup.show(fragmentManager, "TAG");
     }
 }

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_splashFragment_to_dashboardFragment"
             app:destination="@id/DashboardFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_dashboardTrainerFragment"
+            app:destination="@id/DashboardTrainer" />
     </fragment>
 
     <fragment
@@ -65,6 +68,9 @@
         <action
             android:id="@+id/action_dashboardFrag_to_FeedbackFragment"
             app:destination="@id/FeedbackFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
     </fragment>
 
     <fragment

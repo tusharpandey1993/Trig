@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 
+import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.R;
 
@@ -22,7 +23,7 @@ public class SplashFragment extends Fragment {
     private View mView;
     private FragmentActivity mActivity;
 
-    private final int ANIMATE_DURATION = 4000;
+    private final int ANIMATE_DURATION = 2000;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -37,11 +38,16 @@ public class SplashFragment extends Fragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(TrigAppPreferences.isLoggedIn(mActivity)){
+                if (TrigAppPreferences.isLoggedIn(mActivity)) {
                     Log.d(TAG, "run: true ");
-                    Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                            .navigate(R.id.action_splashFragment_to_dashboardFragment);
-                }else {
+                    if (TrigAppPreferences.getLoginCategory(mActivity).equalsIgnoreCase(Constants.getInstance().user)) {
+                        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                                .navigate(R.id.action_splashFragment_to_dashboardFragment);
+                    } else if (TrigAppPreferences.getLoginCategory(mActivity).equalsIgnoreCase(Constants.getInstance().trainer)) {
+                        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                                .navigate(R.id.action_splashFragment_to_dashboardTrainerFragment);
+                    }
+                } else {
                     Log.d(TAG, "run: false");
                     Navigation.findNavController(requireActivity(), R.id.navHostFragment)
                             .navigate(R.id.action_splashFragment_to_loginFragment);

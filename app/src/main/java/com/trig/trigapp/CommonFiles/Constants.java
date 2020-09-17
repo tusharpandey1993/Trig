@@ -1,6 +1,17 @@
 package com.trig.trigapp.CommonFiles;
 
 public class Constants {
+
+
+    private static Constants constants;
+
+    public static Constants getInstance() {
+        if (constants == null) {
+            constants = new Constants();
+        }
+        return constants;
+    }
+
     public static final String IS_LOGGED_IN = "is_logged_in";
     public static final String SCHEDULED_DATE_FORMAT = "dd MMM, yyyy,HH:mm";
 
@@ -193,6 +204,10 @@ public class Constants {
     // TRIG App Constants
 
     public static final Integer ExitConfirm = 10;
+
+    public String user = "user";
+    public String trainer = "trainer";
+    public static final Integer exitApp = 800;
 
 
 }

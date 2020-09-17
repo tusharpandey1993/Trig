@@ -167,4 +167,9 @@
     <color name="trans_black">#99FFFFFF</color>
     <color name="readMoreColor">#1FCECB</color>
     <color name="gray_indicator">#d8d8d8</color>
+    <color name="region_lebel">#888888</color>
+    <color name="dialog_subhead">#333333</color>
+    <color name="dialog_head">#333333</color>
+    <color name="dialog_negativeColor">#b7b7b7</color>
+    <color name="dialog_confirm">#3376f6</color>
 </resources>

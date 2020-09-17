@@ -10,6 +10,7 @@ import android.text.TextUtils;
 public class TrigAppPreferences {
     public static final String KEY_METER_VALUE = "ParentalPreferences";
     private static final String KEY_PREF_LOGGEDIN = "login";
+    private static final String KEY_PREF_CATEGORY = "loginCategory";
     private static final String KEY_PREF_MOBILE_NUMBER = "mobilenum";
     private static final String KEY_PREF_EMAIL = "email";
     private static final String KEY_PREF_NAME = "name";
@@ -135,6 +136,16 @@ public class TrigAppPreferences {
 
     public static String getEmail(Context context) {
         String value = getStringPrefrence(context, KEY_PREF_EMAIL);
+        return value;
+    }
+
+
+    public static void setLoginCategory(Context context, String value) {
+        setStringPrefrence(context, KEY_PREF_CATEGORY, value);
+    }
+
+    public static String getLoginCategory(Context context) {
+        String value = getStringPrefrence(context, KEY_PREF_CATEGORY);
         return value;
     }
 

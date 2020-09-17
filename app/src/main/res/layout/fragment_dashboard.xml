@@ -36,6 +36,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/userInfo"
+                style="@style/login_header_text"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_30sdp"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:text="Welcome to Trig Training App"
+                android:textAlignment="center"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/singleChild" />
+
 
             <TextView
                 android:id="@+id/welcomeText"
@@ -51,7 +67,7 @@
                 android:textSize="@dimen/_16ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/singleChild" />
+                app:layout_constraintTop_toTopOf="@+id/userInfo" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout1"
@@ -61,7 +77,8 @@
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:background="@drawable/round_bg"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:visibility="visible"
+                android:visibility="gone
+"
                 app:layout_constraintEnd_toStartOf="@+id/center"
                 app:layout_constraintStart_toStartOf="@+id/leftGuide"
                 app:layout_constraintTop_toBottomOf="@+id/welcomeText">
@@ -161,7 +178,7 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:background="@drawable/round_bg"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/center"
                 app:layout_constraintStart_toStartOf="@id/leftGuide"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout1">
@@ -260,6 +277,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_40sdp"
                 android:background="@drawable/round_bg"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/rightGuide"
                 app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="@+id/center"
@@ -360,6 +378,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/round_bg"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/rightGuide"
                 app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="@+id/center"
@@ -454,6 +473,128 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/courseContainer"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_140sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:background="@drawable/round_bg"
+                app:layout_constraintEnd_toStartOf="@+id/rightGuide"
+                app:layout_constraintStart_toStartOf="@+id/leftGuide"
+                app:layout_constraintTop_toBottomOf="@+id/welcomeText">
+
+                <ImageView
+                    android:id="@+id/courseIcon"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:src="@drawable/ic_course"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/courseNumber"
+                    app:layout_constraintStart_toStartOf="@+id/courseHeading"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/courseHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="Courses"
+                    android:textSize="@dimen/_20ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/courseNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/courseHeading"
+                    app:layout_constraintStart_toEndOf="@+id/courseHeading"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/completedCourse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="Completed: "
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/couseCompletedNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/completedCourse"
+                    app:layout_constraintStart_toEndOf="@+id/completedCourse"
+                    app:layout_constraintTop_toTopOf="@+id/completedCourse" />
+
+
+                <TextView
+                    android:id="@+id/courseDue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="Due: "
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/couseCompletedNumber" />
+
+                <TextView
+                    android:id="@+id/courseDueNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="8"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/courseDue"
+                    app:layout_constraintStart_toEndOf="@+id/courseDue"
+                    app:layout_constraintTop_toTopOf="@+id/courseDue" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideCourse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.6" />
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/coursePieChart"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/guideCourse"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/assessmentContainer"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_140sdp"
@@ -463,7 +604,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/feedback"
                 app:layout_constraintEnd_toStartOf="@+id/rightGuide"
                 app:layout_constraintStart_toStartOf="@+id/leftGuide"
-                app:layout_constraintTop_toBottomOf="@+id/otherCoursesContainer">
+                app:layout_constraintTop_toBottomOf="@+id/courseContainer">
 
                 <ImageView
                     android:id="@+id/assessmentIcon"
@@ -485,7 +626,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
                     android:text="Assessments"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/_20ssp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -588,7 +729,6 @@
                 app:layout_constraintBottom_toTopOf="@+id/bottomGuide"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-
 
 
             <androidx.constraintlayout.widget.Guideline

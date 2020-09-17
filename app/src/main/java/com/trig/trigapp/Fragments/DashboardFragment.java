@@ -40,7 +40,13 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.trig.trigapp.CommonFiles.Constants;
+import com.trig.trigapp.CommonFiles.Utility;
+import com.trig.trigapp.CommonFiles.ViewDialogCustom;
 import com.trig.trigapp.CommonFiles.onDialogClickCallback;
+import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogBuilder;
+import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogClickListener;
+import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogPopup;
 import com.trig.trigapp.R;
 import com.trig.trigapp.menu.DrawerAdapter;
 import com.trig.trigapp.menu.DrawerItem;
@@ -57,13 +63,13 @@ import info.hoang8f.widget.FButton;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment implements onDialogClickCallback, View.OnClickListener, DrawerAdapter.OnItemSelectedListener {
+public class DashboardFragment extends Fragment implements GenericDialogClickListener, View.OnClickListener, DrawerAdapter.OnItemSelectedListener {
 
     private static final String TAG = "DashboardFragment";
     FragmentActivity mActivity;
 
     private View mView;
-    ConstraintLayout constraintLayout1, skillContainer, constraintLayout3, otherCoursesContainer, assessmentContainer;
+    ConstraintLayout constraintLayout1, skillContainer, constraintLayout3, otherCoursesContainer, courseContainer, assessmentContainer;
     TextView toolBarText, feedback;
     ImageView logout;
 
@@ -103,16 +109,7 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
         mView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         init(mView);
 
-        OnBackPressedCallback callback = new  OnBackPressedCallback(true ) {
-            @Override
-            public void handleOnBackPressed() {
-                // Handle the back button event
-                Log.d(TAG, "handleOnBackPressed: ");
-//                ViewDialogCustom.customDialog2Btn(mActivity, mActivity.getResources().getString(R.string.exitConfirmation),
-//                        Constants.Cancel , Constants.Ok, Constants.ExitConfirm,  DashboardFragment.this);
-            }
-        };
-        mActivity.getOnBackPressedDispatcher().addCallback(this, callback);
+        backButtonHandling();
 
         Toolbar toolbar = mView.findViewById(R.id.toolbar2);
 
@@ -149,6 +146,7 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
         skillContainer.setOnClickListener(this);
         constraintLayout3.setOnClickListener(this);
         otherCoursesContainer.setOnClickListener(this);
+        courseContainer.setOnClickListener(this);
         assessmentContainer.setOnClickListener(this);
         feedback.setOnClickListener(this);
 
@@ -160,6 +158,7 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
         skillContainer = mView.findViewById(R.id.skillContainer);
         constraintLayout3 = mView.findViewById(R.id.constraintLayout3);
         otherCoursesContainer = mView.findViewById(R.id.otherCoursesContainer);
+        courseContainer = mView.findViewById(R.id.courseContainer);
         assessmentContainer = mView.findViewById(R.id.assessmentContainer);
         feedback = mView.findViewById(R.id.feedback);
 
@@ -199,25 +198,6 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
         pieDataSet.setSliceSpace(5f);
     }
 
-    @Override
-    public void onLeftClick(Context context, String text, Integer FunctionNum) {
-
-    }
-
-    @Override
-    public void onRightClick(Context context, String text, Integer FunctionNum) {
-        switch (FunctionNum){
-            case 10:
-
-                break;
-        }
-
-    }
-
-    @Override
-    public void onOkClick(Context context, String text, Integer FunctionNum) {
-
-    }
 
     @Override
     public void onClick(View view) {
@@ -246,6 +226,12 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
 
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                         .navigate(R.id.action_dashboardFrag_to_VideoFragment);
+                break;
+            case R.id.courseContainer:
+//                toolBarText.setText("Assessments");
+
+                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                        .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
                 break;
             case R.id.assessmentContainer:
 //                toolBarText.setText("Assessments");
@@ -349,5 +335,58 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
         return ContextCompat.getColor(mActivity, res);
     }
 
+    private void backButtonHandling() {
+        try {
+            OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    // Handle the back button event
+                    Log.d(TAG, "handleOnBackPressed: ");
+                    GenericDialogPopup genericDialogPopup = null;
+                    GenericDialogBuilder genericDialogBuilder = new GenericDialogBuilder.Builder()
+                            .setShowCloseButton(false)
+                            .setHeading(mActivity.getResources().getString(R.string.DialogHeading))
+                            .setDescription(mActivity.getResources().getString(R.string.appExit))
+                            .setPositiveButtonText(Constants.EXIT)
+                            .setNegativeButtonText(Constants.Cancel)
+                            .setGenericDialogClickListener(DashboardFragment.this)
+                            .setFucntionNumber(Constants.getInstance().exitApp)
+                            .build();
+                    Utility.getInstance().showDynamicDialog(mActivity, genericDialogBuilder, genericDialogPopup, mActivity.getSupportFragmentManager());
+                }
+            };
+            mActivity.getOnBackPressedDispatcher().addCallback(this, callback);
+        } catch (Exception e) {
+            Log.e(TAG, "backButtonHandling: exception" + e.getMessage());
+        }
+    }
 
+    @Override
+    public void onPositiveButtonClick(View view, int FucntionNumber) {
+        try {
+
+            switch (FucntionNumber) {
+                case 800:
+                    Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                            .navigate(R.id.action_fragment_success_to_dashboardFragment);
+//                    mActivity.finish();
+                    break;
+                default:
+                    break;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onNegativeButtonClick(View view, int FucntionNumber) {
+
+    }
+
+    @Override
+    public void onDialogCloseButtonClick(View view, int FucntionNumber) {
+
+    }
 }
