@@ -44,6 +44,6 @@ dependencies {
     // OnBoarding
     implementation 'com.romandanylyk:pageindicatorview:1.0.2@aar'
     // 3rd card
-    implementation 'com.github.fornewid:neumorphism:0.2.0'
+//    implementation 'com.github.fornewid:neumorphism:0.2.0'
 
 }

@@ -103,7 +103,7 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
         mView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         init(mView);
 
-        OnBackPressedCallback callback = new OnBackPressedCallback(true ) {
+        OnBackPressedCallback callback = new  OnBackPressedCallback(true ) {
             @Override
             public void handleOnBackPressed() {
                 // Handle the back button event
