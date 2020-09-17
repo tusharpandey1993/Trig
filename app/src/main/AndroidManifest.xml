@@ -12,8 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="false"
-        android:largeHeap="true"
-        android:windowSoftInputMode="adjustPan">
+        android:largeHeap="true">
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
