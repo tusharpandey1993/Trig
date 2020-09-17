@@ -19,17 +19,5 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         navController = Navigation.findNavController(this, R.id.navHostFragment);
-        // Set up ActionBar
-//        setSupportActionBar(toolbar);
-
-      /*  getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.container, new LoginFragment(), LoginFragment.class.getSimpleName())
-                .commit();*/
     }
-
-    /*@Override
-    public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
-    }*/
 }

@@ -243,7 +243,7 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
                         .navigate(R.id.action_dashboardFrag_to_VideoFragment);
                 break;
             case R.id.otherCoursesContainer:
-                toolBarText.setText("Other Courses");
+//                toolBarText.setText("Other Courses");
 
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                         .navigate(R.id.action_dashboardFrag_to_VideoFragment);

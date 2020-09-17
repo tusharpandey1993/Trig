@@ -1,23 +1,25 @@
 package com.trig.trigapp.Fragments;
 
-import android.os.Bundle;
-import android.view.View;
-import com.trig.trigapp.R;
-import android.view.ViewGroup;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
-import androidx.navigation.Navigation;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.activity.OnBackPressedCallback;
+import androidx.navigation.Navigation;
 
-public class ProfileFragment extends Fragment {
+import com.trig.trigapp.R;
+
+public class DashboardTrainer extends Fragment {
 
     private static final String TAG = "ProfileFragment";
     FragmentActivity mActivity;
     View mView;
 
-    public ProfileFragment() {
+    public DashboardTrainer() {
         // Required empty public constructor
     }
 
@@ -31,7 +33,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.profile, container, false);
+        mView = inflater.inflate(R.layout.dashboard_trainer, container, false);
         init(mView);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {

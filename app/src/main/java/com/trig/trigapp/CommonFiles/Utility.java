@@ -105,6 +105,10 @@ public class Utility {
         }
     }
 
-
-
+    // This will focus on specific edit text without opening keyboard
+    public void requestFocus(Context context, View view) {
+        view.requestFocus();
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 }

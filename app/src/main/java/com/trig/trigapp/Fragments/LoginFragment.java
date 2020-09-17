@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -121,16 +122,21 @@ public class LoginFragment extends Fragment {
         } else if (TextUtils.isEmpty(mobileNumber) || mobileNumber.length() != 10) {
             Utility.getInstance().hideKeyboard(mActivity);
             Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.error_invalid_mobilenumber));
+            Utility.getInstance().requestFocus(mActivity, editMobileNo);
         } else if (TextUtils.isEmpty(passWord) && mobileNumber.length() > 1) {
             Utility.getInstance().hideKeyboard(mActivity);
             Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.error_invalid_password));
+            Utility.getInstance().requestFocus(mActivity, edit_password);
         }else {
-            Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                    .navigate(R.id.action_loginFragment_to_dashboardFragment);
+            Log.d(TAG, "checkValidation: passWord " + passWord);
+            if(passWord.equalsIgnoreCase("1")){
+                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                        .navigate(R.id.action_loginFragment_to_dashboardFragment);
+            } else if(passWord.equalsIgnoreCase("0")){
+                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                        .navigate(R.id.action_loginFragment_to_dashboardTrainerFragment);
+            }
+
         }
-
     }
-
-
-
 }

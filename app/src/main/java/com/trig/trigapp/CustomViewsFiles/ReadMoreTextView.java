@@ -29,7 +29,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import com.mlmnote.app.R;
+import com.trig.trigapp.R;
+
 
 public class ReadMoreTextView extends androidx.appcompat.widget.AppCompatTextView {
 

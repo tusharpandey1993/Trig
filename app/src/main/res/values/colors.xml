@@ -164,5 +164,7 @@
 
     <color name="lightGreen">#8BC34A</color>
     <color name="button_blue">#5dabe6</color>
+    <color name="trans_black">#99FFFFFF</color>
+    <color name="readMoreColor">#1FCECB</color>
 
 </resources>
