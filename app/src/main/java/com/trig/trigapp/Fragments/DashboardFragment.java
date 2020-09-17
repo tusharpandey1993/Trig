@@ -40,16 +40,11 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.trig.trigapp.CommonFiles.Constants;
-import com.trig.trigapp.CommonFiles.TrigAppPreferences;
-import com.trig.trigapp.CommonFiles.ViewDialogCustom;
 import com.trig.trigapp.CommonFiles.onDialogClickCallback;
 import com.trig.trigapp.R;
 import com.trig.trigapp.menu.DrawerAdapter;
 import com.trig.trigapp.menu.DrawerItem;
 import com.trig.trigapp.menu.SimpleItem;
-import com.trig.trigapp.menu.SpaceItem;
 import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
@@ -82,10 +77,11 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
 
     private SlidingRootNav slidingRootNav;
     private static final int POS_DASHBOARD = 0;
-    private static final int POS_ACCOUNT = 1;
-//    private static final int POS_MESSAGES = 2;
-//    private static final int POS_CART = 3;
-    private static final int POS_LOGOUT = 2;
+    private static final int POS_COURCES = 1;
+    private static final int POS_ASSESSMENT = 2;
+    private static final int POS_PROFILE = 3;
+    private static final int POS_CONTACT_US = 4;
+    private static final int POS_LOGOUT = 5;
     private String[] screenTitles;
     private Drawable[] screenIcons;
 
@@ -134,7 +130,10 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
 
         DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
                 createItemFor(POS_DASHBOARD).setChecked(true),
-                createItemFor(POS_ACCOUNT),
+                createItemFor(POS_COURCES),
+                createItemFor(POS_ASSESSMENT),
+                createItemFor(POS_PROFILE),
+                createItemFor(POS_CONTACT_US),
                 createItemFor(POS_LOGOUT)));
         adapter.setListener(this);
 
@@ -225,31 +224,31 @@ public class DashboardFragment extends Fragment implements onDialogClickCallback
         switch (view.getId()) {
 
             case R.id.constraintLayout1:
-                toolBarText.setText("Induction Training");
+//                toolBarText.setText("Induction Training");
 
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                         .navigate(R.id.action_dashboardFrag_to_VideoFragment);
                 break;
             case R.id.skillContainer:
-                toolBarText.setText("Skill Training");
+//                toolBarText.setText("Skill Training");
 
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                         .navigate(R.id.action_dashboardFrag_to_VideoFragment);
                 break;
             case R.id.constraintLayout3:
-                toolBarText.setText("Functional Training");
+//                toolBarText.setText("Functional Training");
 
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                         .navigate(R.id.action_dashboardFrag_to_VideoFragment);
                 break;
             case R.id.otherCoursesContainer:
-                toolBarText.setText("Other Courses");
+//                toolBarText.setText("Other Courses");
 
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                         .navigate(R.id.action_dashboardFrag_to_VideoFragment);
                 break;
             case R.id.assessmentContainer:
-                toolBarText.setText("Assessments");
+//                toolBarText.setText("Assessments");
 
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                         .navigate(R.id.action_dashboardFrag_to_AssessmentFragment);
