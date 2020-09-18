@@ -15,6 +15,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.trig.trigapp.CommonFiles.Constants;
+import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.R;
 
 public class SuccessFragment extends Fragment {
@@ -23,8 +25,8 @@ public class SuccessFragment extends Fragment {
 
     private View mView;
     private FragmentActivity mActivity;
-    private TextView toolBarText;
-    private final int ANIMATE_DURATION = 3000;
+    private TextView toolBarText, SuccessTitle;
+    private final int ANIMATE_DURATION = 1500;
     private LottieAnimationView lottieAnimationView;
 
 
@@ -45,9 +47,7 @@ public class SuccessFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         mView = inflater.inflate(R.layout.fragment_success, container, false);
-        lottieAnimationView = mView.findViewById(R.id.lottieAnimationView);
-        lottieAnimationView.setAnimation("done_tick.json");
-        lottieAnimationView.playAnimation();
+        init(mView);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -58,11 +58,32 @@ public class SuccessFragment extends Fragment {
         return mView;
     }
 
-    public void proceed() {
+    private void init(View mView) {
+        lottieAnimationView = mView.findViewById(R.id.lottieAnimationView);
+        SuccessTitle = mView.findViewById(R.id.SuccessTitle);
 
-        Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                .navigate(R.id.action_fragment_success_to_dashboardFragment);
+        if(TrigAppPreferences.getSource_To_Desitnation(mActivity) == Constants.getInstance().loginScreen) {
+            SuccessTitle.setText("Login Success");
+        } else if(TrigAppPreferences.getSource_To_Desitnation(mActivity) == Constants.getInstance().feedback){
+            SuccessTitle.setText("Feedback Successfully Submitted!");
+        } else {
+            SuccessTitle.setText("Success");
+        }
+
+        lottieAnimationView.setAnimation("done_tick.json");
+        lottieAnimationView.playAnimation();
     }
 
-
+    public void proceed() {
+        if(TrigAppPreferences.getSource_To_Desitnation(mActivity) == Constants.getInstance().loginScreen) {
+            Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                    .navigate(R.id.action_fragment_success_to_dashboardFragment);
+        } else if(TrigAppPreferences.getSource_To_Desitnation(mActivity) == Constants.getInstance().loginScreen) {
+            Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                    .navigate(R.id.action_fragment_success_to_dashboardFragment);
+        } else {
+            Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                    .navigate(R.id.action_fragment_success_to_dashboardFragment);
+        }
+    }
 }

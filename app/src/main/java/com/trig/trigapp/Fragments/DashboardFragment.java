@@ -332,6 +332,7 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
     public void onDialogCloseButtonClick(View view, int FucntionNumber) {
 
     }
+
     public final int POS_DASHBOARD = 0;
     public final int POS_COURCES = 1;
     public final int POS_ASSESSMENT = 2;
@@ -339,36 +340,44 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
     public final int POS_CONTACT_US = 4;
     public final int POS_FEEDBACK = 5;
     public final int POS_LOGOUT = 6;
+
     @Override
     public void onClick(View view, int position) {
-        switch (position) {
-            case POS_DASHBOARD:
-            break;
-            case POS_COURCES:
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_VideoFragment);
-            break;
-            case POS_ASSESSMENT:
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_AssessmentFragment);
-            break;
-            case POS_PROFILE:
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
-            break;
-            case POS_CONTACT_US:
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_Contact);
-            break;
-            case POS_FEEDBACK:
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_FeedbackFragment);
-            break;
-            case POS_LOGOUT:TrigAppPreferences.setLoginPref(mActivity, false);
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_LoginFragment);
-            break;
+        try {
+
+            switch (position) {
+                case POS_DASHBOARD:
+                    break;
+                case POS_COURCES:
+                    Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                            .navigate(R.id.action_dashboardFrag_to_VideoFragment);
+                    break;
+                case POS_ASSESSMENT:
+                    Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                            .navigate(R.id.action_dashboardFrag_to_AssessmentFragment);
+                    break;
+                case POS_PROFILE:
+                    Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                            .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
+                    break;
+                case POS_CONTACT_US:
+                    Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                            .navigate(R.id.action_dashboardFrag_to_Contact);
+                    break;
+                case POS_FEEDBACK:
+                    Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                            .navigate(R.id.action_dashboardFrag_to_FeedbackFragment);
+                    break;
+                case POS_LOGOUT:TrigAppPreferences.setLoginPref(mActivity, false);
+                    Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                            .navigate(R.id.action_dashboardFrag_to_LoginFragment);
+                    break;
+            }
+            if(slidingRootNav != null) {
+                slidingRootNav.closeMenu();
+            }
+        } catch (Exception e){
+            Log.e(TAG, "onClick: exception" + e.getMessage());
         }
-        slidingRootNav.closeMenu();
     }
 }

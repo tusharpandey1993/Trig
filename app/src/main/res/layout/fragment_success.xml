@@ -27,7 +27,7 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_margin="@dimen/_10sdp"
         android:gravity="center"
-        android:text="Feedback Successfully Submitted!"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView" />

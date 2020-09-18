@@ -209,5 +209,8 @@ public class Constants {
     public String trainer = "trainer";
     public final Integer exitApp = 800;
 
+    public final Integer loginScreen = 100;
+    public final Integer feedback = 101;
+
 
 }

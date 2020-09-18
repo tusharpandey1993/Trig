@@ -26,18 +26,15 @@
         android:name="com.trig.trigapp.Fragments.LoginFragment"
         android:label="Login Fragment"
         tools:layout="@layout/fragment_login">
-       <!-- <action
-            android:id="@+id/action_loginFragment_to_otpFragment"
-            app:destination="@id/OtpFragment" />-->
 
         <action
-            android:id="@+id/action_loginFragment_to_dashboardFragment"
-            app:destination="@id/DashboardFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_dashboardTrainerFragment"
-            app:destination="@id/DashboardTrainer" />
+            android:id="@+id/action_loginFragment_to_successFragment"
+            app:destination="@id/SuccessFragment" />
+
+        <argument android:name="fromPage"
+            app:argType="string"/>
     </fragment>
-<!--
+    <!--
 
     <fragment
         android:id="@+id/OtpFragment"
@@ -136,6 +133,10 @@
         <action
             android:id="@+id/action_fragment_success_to_dashboardFragment"
             app:destination="@id/DashboardFragment" />
+
+        <action
+            android:id="@+id/action_fragment_success_to_dashboardTrainerFragment"
+            app:destination="@id/DashboardTrainer" />
 
     </fragment>
 

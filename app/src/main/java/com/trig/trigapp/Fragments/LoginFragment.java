@@ -143,7 +143,14 @@ public class LoginFragment extends Fragment {
             Utility.getInstance().requestFocus(mActivity, edit_password);
         }else {
             Log.d(TAG, "checkValidation: passWord " + passWord);
-            if(passWord.equalsIgnoreCase("1")){
+
+            TrigAppPreferences.setLoginPref(mActivity, true);
+            TrigAppPreferences.setSource_To_Desitnation(mActivity, Constants.getInstance().loginScreen);
+            TrigAppPreferences.setLoginCategory(mActivity, Constants.getInstance().user);
+            Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                    .navigate(R.id.action_loginFragment_to_successFragment);
+
+            /*if(passWord.equalsIgnoreCase("1")){
                 TrigAppPreferences.setLoginPref(mActivity, true);
                 TrigAppPreferences.setLoginCategory(mActivity, Constants.getInstance().user);
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
@@ -158,7 +165,7 @@ public class LoginFragment extends Fragment {
                 TrigAppPreferences.setLoginCategory(mActivity, Constants.getInstance().user);
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                         .navigate(R.id.action_loginFragment_to_dashboardFragment);
-            }
+            }*/
         }
     }
 
