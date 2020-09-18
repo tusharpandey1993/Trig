@@ -3,8 +3,6 @@ package com.trig.trigapp.Fragments;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -14,16 +12,12 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,15 +34,15 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.trig.trigapp.Adapter.NavDrawerAdapter;
+import com.trig.trigapp.Adapter.OnClickInterface;
 import com.trig.trigapp.CommonFiles.Constants;
+import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.CommonFiles.Utility;
-import com.trig.trigapp.CommonFiles.ViewDialogCustom;
-import com.trig.trigapp.CommonFiles.onDialogClickCallback;
 import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogBuilder;
 import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogClickListener;
 import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogPopup;
 import com.trig.trigapp.R;
-import com.trig.trigapp.menu.DrawerAdapter;
 import com.trig.trigapp.menu.DrawerItem;
 import com.trig.trigapp.menu.SimpleItem;
 import com.yarolegovich.slidingrootnav.SlideGravity;
@@ -56,14 +50,13 @@ import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import info.hoang8f.widget.FButton;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment implements GenericDialogClickListener, View.OnClickListener, DrawerAdapter.OnItemSelectedListener {
+public class DashboardFragment extends Fragment implements GenericDialogClickListener, View.OnClickListener , OnClickInterface {
 
     private static final String TAG = "DashboardFragment";
     FragmentActivity mActivity;
@@ -72,6 +65,7 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
     ConstraintLayout constraintLayout1, skillContainer, constraintLayout3, otherCoursesContainer, courseContainer, assessmentContainer;
     TextView toolBarText, feedback;
     ImageView logout;
+    RecyclerView list;
 
 
 
@@ -88,8 +82,6 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
     private static final int POS_PROFILE = 3;
     private static final int POS_CONTACT_US = 4;
     private static final int POS_LOGOUT = 5;
-    private String[] screenTitles;
-    private Drawable[] screenIcons;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -121,26 +113,9 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
                 .withMenuLayout(R.layout.menu_left_drawer)
                 .inject();
 
+        list = mActivity.findViewById(R.id.list);
+        setAdapter();
 
-        screenIcons = loadScreenIcons();
-        screenTitles = loadScreenTitles();
-
-        DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
-                createItemFor(POS_DASHBOARD).setChecked(true),
-                createItemFor(POS_COURCES),
-                createItemFor(POS_ASSESSMENT),
-                createItemFor(POS_PROFILE),
-                createItemFor(POS_CONTACT_US),
-                createItemFor(POS_LOGOUT)));
-        adapter.setListener(this);
-
-        RecyclerView list = mActivity.findViewById(R.id.list);
-
-        list.setNestedScrollingEnabled(false);
-        list.setLayoutManager(new LinearLayoutManager(mActivity));
-        list.setAdapter(adapter);
-
-        adapter.setSelected(POS_DASHBOARD);
 
         constraintLayout1.setOnClickListener(this);
         skillContainer.setOnClickListener(this);
@@ -152,6 +127,13 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
 
         return mView;
     }
+    
+    public void setAdapter(){
+        list.setNestedScrollingEnabled(false);
+        NavDrawerAdapter asCommonAdapter = new NavDrawerAdapter(mActivity, this);
+        list.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        list.setAdapter(asCommonAdapter);
+    }
 
     private void init(View mView){
         constraintLayout1 = mView.findViewById(R.id.constraintLayout1);
@@ -161,7 +143,6 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
         courseContainer = mView.findViewById(R.id.courseContainer);
         assessmentContainer = mView.findViewById(R.id.assessmentContainer);
         feedback = mView.findViewById(R.id.feedback);
-
 
 
 
@@ -288,52 +269,6 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
         });
     }
 
-    @Override
-    public void onItemSelected(int position) {
-        if (position == POS_LOGOUT) {
-
-        }
-        slidingRootNav.closeMenu();
-//        Fragment selectedScreen = CenteredTextFragment.createFor(screenTitles[position]);
-//        showFragment(selectedScreen);
-    }
-
-    private void showFragment(Fragment fragment) {
-        mActivity.getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit();
-    }
-
-    @SuppressWarnings("rawtypes")
-    private DrawerItem createItemFor(int position) {
-        return new SimpleItem(screenIcons[position], screenTitles[position])
-                .withIconTint(color(R.color.gray))
-                .withTextTint(color(R.color.gray))
-                .withSelectedIconTint(color(R.color.colorAccent))
-                .withSelectedTextTint(color(R.color.colorAccent));
-    }
-
-    private String[] loadScreenTitles() {
-        return getResources().getStringArray(R.array.ld_activityScreenTitles);
-    }
-
-    private Drawable[] loadScreenIcons() {
-        TypedArray ta = getResources().obtainTypedArray(R.array.ld_activityScreenIcons);
-        Drawable[] icons = new Drawable[ta.length()];
-        for (int i = 0; i < ta.length(); i++) {
-            int id = ta.getResourceId(i, 0);
-            if (id != 0) {
-                icons[i] = ContextCompat.getDrawable(mActivity, id);
-            }
-        }
-        ta.recycle();
-        return icons;
-    }
-
-    @ColorInt
-    private int color(@ColorRes int res) {
-        return ContextCompat.getColor(mActivity, res);
-    }
 
     private void backButtonHandling() {
         try {
@@ -388,5 +323,16 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
     @Override
     public void onDialogCloseButtonClick(View view, int FucntionNumber) {
 
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        if (position == POS_LOGOUT) {
+            TrigAppPreferences.setLoginPref(mActivity, false);
+            Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                    .navigate(R.id.action_dashboardFrag_to_LoginFragment);
+        }else{
+//            slidingRootNav.closeMenu();
+        }
     }
 }

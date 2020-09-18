@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@android:color/white"
+    android:background="#ffcccccc"
     android:layout_height="match_parent"
     android:visibility="visible">
 
@@ -45,7 +45,8 @@
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:text="Welcome to Trig Training App"
+                android:text=""
+                android:visibility="gone"
                 android:textAlignment="center"
                 android:textSize="@dimen/_16ssp"
                 app:layout_constraintEnd_toEndOf="parent"

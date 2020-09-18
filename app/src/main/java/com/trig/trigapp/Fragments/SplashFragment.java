@@ -23,7 +23,7 @@ public class SplashFragment extends Fragment {
     private View mView;
     private FragmentActivity mActivity;
 
-    private final int ANIMATE_DURATION = 2000;
+    private final int ANIMATE_DURATION = 1000;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="viewEnd"
             android:layout_marginTop="6dp"
+            android:visibility="invisible"
             android:text="$" />
 
         <TextView
@@ -38,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="524.99"
+            android:visibility="invisible"
             android:textAlignment="viewStart"
             android:textSize="34sp" />
 
