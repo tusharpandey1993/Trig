@@ -76,12 +76,6 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
     ArrayList PieEntryLabels;
 
     private SlidingRootNav slidingRootNav;
-    private static final int POS_DASHBOARD = 0;
-    private static final int POS_COURCES = 1;
-    private static final int POS_ASSESSMENT = 2;
-    private static final int POS_PROFILE = 3;
-    private static final int POS_CONTACT_US = 4;
-    private static final int POS_LOGOUT = 5;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -200,7 +194,7 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
 //                toolBarText.setText("Functional Training");
 
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_VideoFragment);
+                        .navigate(R.id.action_dashboardFrag_to_AssessmentFragment);
                 break;
             case R.id.otherCoursesContainer:
 //                toolBarText.setText("Other Courses");
@@ -212,17 +206,21 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
 //                toolBarText.setText("Assessments");
 
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_Contact);
+                        .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
                 break;
             case R.id.assessmentContainer:
 //                toolBarText.setText("Assessments");
 
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
+                        .navigate(R.id.action_dashboardFrag_to_Contact);
                 break;
             case R.id.feedback:
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                         .navigate(R.id.action_dashboardFrag_to_FeedbackFragment);
+                break;
+            case R.id.logout:
+                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                        .navigate(R.id.action_dashboardFrag_to_LoginFragment);
                 break;
         }
     }
@@ -324,13 +322,42 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
     public void onDialogCloseButtonClick(View view, int FucntionNumber) {
 
     }
-
+    public final int POS_DASHBOARD = 0;
+    public final int POS_COURCES = 1;
+    public final int POS_ASSESSMENT = 2;
+    public final int POS_PROFILE = 3;
+    public final int POS_CONTACT_US = 4;
+    public final int POS_FEEDBACK = 5;
+    public final int POS_LOGOUT = 6;
     @Override
     public void onClick(View view, int position) {
-        if (position == POS_LOGOUT) {
-            TrigAppPreferences.setLoginPref(mActivity, false);
-            Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                    .navigate(R.id.action_dashboardFrag_to_LoginFragment);
+        switch (position) {
+            case POS_DASHBOARD:
+            break;
+            case POS_COURCES:
+                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                        .navigate(R.id.action_dashboardFrag_to_VideoFragment);
+            break;
+            case POS_ASSESSMENT:
+                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                        .navigate(R.id.action_dashboardFrag_to_AssessmentFragment);
+            break;
+            case POS_PROFILE:
+                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                        .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
+            break;
+            case POS_CONTACT_US:
+                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                        .navigate(R.id.action_dashboardFrag_to_Contact);
+            break;
+            case POS_FEEDBACK:
+                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                        .navigate(R.id.action_dashboardFrag_to_FeedbackFragment);
+            break;
+            case POS_LOGOUT:TrigAppPreferences.setLoginPref(mActivity, false);
+                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                        .navigate(R.id.action_dashboardFrag_to_LoginFragment);
+            break;
         }
         slidingRootNav.closeMenu();
     }

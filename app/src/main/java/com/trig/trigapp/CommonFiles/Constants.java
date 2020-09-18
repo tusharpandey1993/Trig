@@ -207,7 +207,7 @@ public class Constants {
 
     public String user = "user";
     public String trainer = "trainer";
-    public static final Integer exitApp = 800;
+    public final Integer exitApp = 800;
 
 
 }

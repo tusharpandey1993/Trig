@@ -22,6 +22,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     FragmentActivity mActivity;
     View mView;
     private ImageView backgroundImageChange2;
+    public static ImageView profileImg;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -53,6 +54,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private void init(View mView) {
         backgroundImageChange2 = mView.findViewById(R.id.backgroundImageChange2);
+        profileImg = mView.findViewById(R.id.profileImg);
 
         backgroundImageChange2.setOnClickListener(this);
     }

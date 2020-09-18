@@ -26,9 +26,9 @@
         android:name="com.trig.trigapp.Fragments.LoginFragment"
         android:label="Login Fragment"
         tools:layout="@layout/fragment_login">
-        <action
+       <!-- <action
             android:id="@+id/action_loginFragment_to_otpFragment"
-            app:destination="@id/OtpFragment" />
+            app:destination="@id/OtpFragment" />-->
 
         <action
             android:id="@+id/action_loginFragment_to_dashboardFragment"
@@ -37,6 +37,7 @@
             android:id="@+id/action_loginFragment_to_dashboardTrainerFragment"
             app:destination="@id/DashboardTrainer" />
     </fragment>
+<!--
 
     <fragment
         android:id="@+id/OtpFragment"
@@ -50,6 +51,7 @@
             android:id="@+id/action_otpFragment_to_LoginFragment"
             app:popUpTo="@+id/LoginFragment" />
     </fragment>
+-->
 
     <fragment
         android:id="@+id/DashboardFragment"

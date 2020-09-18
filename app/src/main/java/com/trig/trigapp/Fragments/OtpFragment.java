@@ -82,14 +82,14 @@ public class OtpFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_otpFragment_to_LoginFragment);
+//                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+//                        .navigate(R.id.action_otpFragment_to_LoginFragment);
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
 
         countDownTimer.start();
-        disableResendOtp();
+        /*disableResendOtp();
 
         changeNumber.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +98,7 @@ public class OtpFragment extends Fragment {
                         .navigate(R.id.action_otpFragment_to_LoginFragment);
 
             }
-        });
+        });*/
 
         number_message.setText(mActivity.getResources().getString(R.string.text_number_messsage, TrigAppPreferences.getMobileNumber(mActivity)));
 
@@ -142,8 +142,8 @@ public class OtpFragment extends Fragment {
 
     private void verifyOtp(String otp) {
         if(otp.equals("0000")){
-            Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                    .navigate(R.id.action_otpFragment_to_dashboardFragment);
+            /*Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                    .navigate(R.id.action_otpFragment_to_dashboardFragment);*/
 
             TrigAppPreferences.setLoginPref(mActivity, true);
         }else{
