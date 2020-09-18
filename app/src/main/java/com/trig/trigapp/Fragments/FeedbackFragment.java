@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -32,7 +34,7 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener {
     private Button btn_submit;
     private String feedBackText, feebackRemarkText, feedbackByText, feedbackOnText;
     private TextInputEditText feedback, suggestion, FeedbackBy, FeedbackOn;
-
+    ImageView backIcon;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -54,12 +56,30 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener {
 
         init(mView);
 
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button event
+                Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                        .navigate(R.id.action_Feedback_to_Dasboard);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(mActivity, callback);
+
+        backIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                        .navigate(R.id.action_Feedback_to_Dasboard);
+            }
+        });
+
         return mView;
     }
 
     private void init(View mView) {
         toolBarText = mView.findViewById(R.id.toolBarText);
-        toolBarText.setText("Feedback");
+        toolBarText.setText("Feedback Form");
 
         feedback = mView.findViewById(R.id.feedback);
         suggestion = mView.findViewById(R.id.suggestion);
@@ -68,6 +88,7 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener {
 
         btn_submit = mView.findViewById(R.id.btn_submit);
         btn_submit.setOnClickListener(this);
+        backIcon = mView.findViewById(R.id.backIcon);
     }
 
 
@@ -91,19 +112,19 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener {
 
         if (TextUtils.isEmpty(feedBackText) && feedBackText.length() < 1) {
             Utility.getInstance().hideKeyboard(mActivity);
-            Utility.getInstance().showSnackbar(getView(), "Feedback"+ getResources().getString(R.string.error_empty_field));
+            Utility.getInstance().showSnackbar(getView(), "Feedback "+ getResources().getString(R.string.error_empty_field));
             Utility.getInstance().requestFocus(mActivity, feedback);
         } else if (TextUtils.isEmpty(feebackRemarkText) && feedBackText.length() < 1) {
             Utility.getInstance().hideKeyboard(mActivity);
-            Utility.getInstance().showSnackbar(getView(), "Suggestion/Remarks"+getResources().getString(R.string.error_empty_field));
+            Utility.getInstance().showSnackbar(getView(), "Suggestion/Remarks "+getResources().getString(R.string.error_empty_field));
             Utility.getInstance().requestFocus(mActivity, suggestion);
         } else if (TextUtils.isEmpty(feedbackByText) && feedBackText.length() < 1) {
             Utility.getInstance().hideKeyboard(mActivity);
-            Utility.getInstance().showSnackbar(getView(), "Feedback By"+getResources().getString(R.string.error_empty_field));
+            Utility.getInstance().showSnackbar(getView(), "Feedback By "+getResources().getString(R.string.error_empty_field));
             Utility.getInstance().requestFocus(mActivity, FeedbackBy);
         } else if (TextUtils.isEmpty(feedbackOnText) && feedBackText.length() < 1) {
             Utility.getInstance().hideKeyboard(mActivity);
-            Utility.getInstance().showSnackbar(getView(), "Feedback On"+getResources().getString(R.string.error_empty_field));
+            Utility.getInstance().showSnackbar(getView(), "Feedback On "+getResources().getString(R.string.error_empty_field));
             Utility.getInstance().requestFocus(mActivity, FeedbackOn);
         } else {
             Navigation.findNavController(requireActivity(), R.id.navHostFragment)

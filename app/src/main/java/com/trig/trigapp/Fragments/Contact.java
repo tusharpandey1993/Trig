@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -23,7 +24,8 @@ public class Contact  extends Fragment implements View.OnClickListener {
     private static final String TAG = "ProfileFragment";
     FragmentActivity mActivity;
     View mView;
-    private TextView mail, mail2, callNumber, callNumber2;
+    private TextView mail, mail2, callNumber, callNumber2,toolBarText;
+    ImageView backIcon;
 
     public Contact() {
         // Required empty public constructor
@@ -56,6 +58,14 @@ public class Contact  extends Fragment implements View.OnClickListener {
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
+        backIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                        .navigate(R.id.action_contact_to_dashboardFragment);
+            }
+        });
     }
 
     private void init(View mView) {
@@ -68,6 +78,9 @@ public class Contact  extends Fragment implements View.OnClickListener {
         mail2.setOnClickListener(this);
         callNumber.setOnClickListener(this);
         callNumber2.setOnClickListener(this);
+        backIcon = mView.findViewById(R.id.backIcon);
+        toolBarText = mView.findViewById(R.id.toolBarText);
+        toolBarText.setText("Contact Us");
     }
 
 

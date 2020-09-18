@@ -5,13 +5,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -43,7 +46,7 @@ public class VideoStreamingFragment extends Fragment {
     private View mView;
     private FragmentActivity mActivity;
     public TextView toolBarText;
-
+    ImageView backIcon;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -66,7 +69,25 @@ public class VideoStreamingFragment extends Fragment {
 
         toolBarText = mView.findViewById(R.id.toolBarText);
         toolBarText.setText("Video");
+        backIcon = mView.findViewById(R.id.backIcon);
 
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button event
+                Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                        .navigate(R.id.action_VideoStreamingFrag_to_VideoListFragment);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(mActivity, callback);
+
+        backIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                        .navigate(R.id.action_VideoStreamingFrag_to_VideoListFragment);
+            }
+        });
         if(Utility.getInstance().isNetworkAvailable(mActivity)) {
             startVideoStreaming(mActivity);
         } else {

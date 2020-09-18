@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.navigation.Navigation;
 import androidx.fragment.app.Fragment;
@@ -23,6 +24,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     View mView;
     private ImageView backgroundImageChange2;
     public static ImageView profileImg;
+    ImageView backIcon;
+    TextView toolBarText;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -49,13 +52,24 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
+        backIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                        .navigate(R.id.action_profile_to_dashboardFragment);
+            }
+        });
+
         return mView;
     }
 
     private void init(View mView) {
         backgroundImageChange2 = mView.findViewById(R.id.backgroundImageChange2);
         profileImg = mView.findViewById(R.id.profileImg);
-
+        backIcon = mView.findViewById(R.id.backIcon);
+        toolBarText = mView.findViewById(R.id.toolBarText);
+        toolBarText.setText("User Profile");
         backgroundImageChange2.setOnClickListener(this);
     }
 

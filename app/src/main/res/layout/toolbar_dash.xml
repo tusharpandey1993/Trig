@@ -7,6 +7,7 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -17,6 +18,10 @@
             android:layout_height="wrap_content"
             android:background="@drawable/main_bg_gradient"
             app:popupTheme="@style/ToolBarTheme" />
+
+
     </com.google.android.material.appbar.AppBarLayout>
+
+
 
 </LinearLayout>

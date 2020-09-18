@@ -22,6 +22,8 @@ import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 
+import com.trig.trigapp.CommonFiles.Constants;
+import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.R;
 
 import java.util.ArrayList;
@@ -86,15 +88,8 @@ public class OnboardingDialogFragment extends DialogFragment {
         tv_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                .setIsShowedShowcaseAppStore(mActivity, true);
-                /*if(MLMAppPreferences.isLoggedIn(mActivity)){
-                    Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                            .navigate(R.id.action_splashFragment_to_dashboardFragment);
-                }else {
-                    Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                            .navigate(R.id.action_splashFragment_to_loginFragment);
-                }*/
-                Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                TrigAppPreferences.setIsShowedShowcaseAppStore(mActivity, true);
+               Navigation.findNavController(requireActivity(), R.id.navHostFragment)
                         .navigate(R.id.action_splashFragment_to_loginFragment);
                 dismiss();
             }
@@ -105,18 +100,9 @@ public class OnboardingDialogFragment extends DialogFragment {
                 if (view_pager_onboarding.getCurrentItem() < 3) {
                     view_pager_onboarding.setCurrentItem(view_pager_onboarding.getCurrentItem() + 1);
                 } else {
+                    TrigAppPreferences.setIsShowedShowcaseAppStore(mActivity, true);
                     Navigation.findNavController(requireActivity(), R.id.navHostFragment)
                             .navigate(R.id.action_splashFragment_to_loginFragment);
-                    /*if(MLMAppPreferences.isLoggedIn(mActivity)){
-                        Log.d(TAG, "run: true ");
-                        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                                .navigate(R.id.action_splashFragment_to_dashboardFragment);
-                    }else {
-                        Log.d(TAG, "run: false");
-                        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                                .navigate(R.id.action_splashFragment_to_loginFragment);
-                    }*/
-//                    MLMAppPreferences.setIsShowedShowcaseAppStore(mActivity, true);
                     dismiss();
                 }
             }

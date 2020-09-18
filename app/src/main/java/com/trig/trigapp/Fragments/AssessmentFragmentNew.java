@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import com.trig.trigapp.AssessmentFactory.TriviaQuestion;
 import com.trig.trigapp.AssessmentFactory.TriviaQuizHelper;
@@ -17,9 +18,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.Navigation;
+
 import com.trig.trigapp.R;
 import java.util.List;
 import info.hoang8f.widget.FButton;
@@ -46,6 +50,7 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
     Typeface tb, sb;
     String test_result;
     Button endTestButton;
+    ImageView backIcon;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -66,15 +71,31 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
         mView = inflater.inflate(R.layout.quiz_layout, container, false);
 
         init(mView);
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                        .navigate(R.id.action_AssessmentFrag_to_DashbordFragment);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
+        backIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                        .navigate(R.id.action_AssessmentFrag_to_DashbordFragment);
+            }
+        });
 
         return mView;
     }
 
     public void init(View mView) {
 //        end_Test(mView);
-//        toolBarText = mView.findViewById(R.id.toolBarText);
-//        toolBarText.setText("Assessment");
-
+        toolBarText = mView.findViewById(R.id.toolBarText);
+        toolBarText.setText("Functional Training");
+        backIcon = mView.findViewById(R.id.backIcon);
 
         question_1 = (RadioGroup) mView.findViewById(R.id.question_1);
         RadioGroup question_2 = (RadioGroup) mView.findViewById(R.id.question_2);

@@ -2,6 +2,8 @@ package com.trig.trigapp.Fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 
@@ -15,9 +17,11 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
@@ -26,6 +30,7 @@ import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.R;
+import com.trig.trigapp.onBoarding.OnboardingDialogFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +44,7 @@ public class LoginFragment extends Fragment {
     EditText editMobileNo, edit_password;
     Button btn_login;
     TextView toolBarText;
-
+    ImageView backIcon;
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -105,7 +110,16 @@ public class LoginFragment extends Fragment {
         edit_password = (EditText) mView.findViewById(R.id.edit_password);
         btn_login = (Button) mView.findViewById(R.id.btn_login);
         toolBarText = mView.findViewById(R.id.toolBarText);
+        backIcon = mView.findViewById(R.id.backIcon);
+        backIcon.setVisibility(View.GONE);
         toolBarText.setText("Login");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Utility.getInstance().arePermissionsEnabled(mActivity)) {
+            } else {
+                Utility.getInstance().requestMultiplePermissions(mActivity);
+            }
+        }
 //        editEmailId = (EditText) mView.findViewById(R.id.edit_email_id);
     }
 
@@ -147,4 +161,5 @@ public class LoginFragment extends Fragment {
             }
         }
     }
+
 }

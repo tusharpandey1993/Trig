@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/include2"
-        layout="@layout/toolbar_dash" />
+        layout="@layout/toolbar" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_165sdp"
+                android:layout_height="@dimen/_120sdp"
                 android:src="@drawable/main_bg_gradient"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +38,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
+<!--
             <TextView
                 android:id="@+id/contactUsText"
                 style="@style/heading_text"
@@ -49,7 +49,7 @@
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/contactUsIcon" />
+                app:layout_constraintTop_toBottomOf="@+id/contactUsIcon" />-->
 
             <TextView
                 android:id="@+id/branchAddressText"

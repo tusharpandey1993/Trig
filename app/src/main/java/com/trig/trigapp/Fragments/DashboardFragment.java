@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Lifecycle;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -107,6 +108,9 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
                 .withMenuLayout(R.layout.menu_left_drawer)
                 .inject();
 
+
+
+
         list = mActivity.findViewById(R.id.list);
         setAdapter();
 
@@ -121,7 +125,14 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
 
         return mView;
     }
-    
+
+    @NonNull
+    @Override
+    public Lifecycle getLifecycle() {
+        Log.e(TAG, "getLifecycle: "+super.getLifecycle().getCurrentState());
+        return super.getLifecycle();
+    }
+
     public void setAdapter(){
         list.setNestedScrollingEnabled(false);
         NavDrawerAdapter asCommonAdapter = new NavDrawerAdapter(mActivity, this);
@@ -139,12 +150,10 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
         feedback = mView.findViewById(R.id.feedback);
 
 
-
-//        toolBarText = mView.findViewById(R.id.toolBarText);
 //        logout = mView.findViewById(R.id.logout);
 
 
-//        toolBarText.setText("Dashboard");
+
 
 //        logout.setVisibility(View.VISIBLE);
 /*
@@ -215,6 +224,7 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
                         .navigate(R.id.action_dashboardFrag_to_Contact);
                 break;
             case R.id.feedback:
+//                toolBarText.setText("Feedback");
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                         .navigate(R.id.action_dashboardFrag_to_FeedbackFragment);
                 break;

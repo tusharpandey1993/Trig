@@ -86,6 +86,9 @@
         <action
             android:id="@+id/action_VideoListFrag_to_VideoStreamingFrag"
             app:destination="@id/VideoStreamingFragment" />
+        <action
+            android:id="@+id/action_VideoListFrag_to_DashbordFragment"
+            app:destination="@id/DashboardFragment" />
     </fragment>
 
 
@@ -94,7 +97,9 @@
         android:name="com.trig.trigapp.Fragments.VideoStreamingFragment"
         android:label="Video Streaming Fragment"
         tools:layout="@layout/fragment_video_streaming">
-
+        <action
+            android:id="@+id/action_VideoStreamingFrag_to_VideoListFragment"
+            app:destination="@id/VideoFragment" />
     </fragment>
 
     <fragment
@@ -102,7 +107,9 @@
         android:name="com.trig.trigapp.Fragments.AssessmentFragmentNew"
         android:label="Assessment Fragment"
         tools:layout="@layout/quiz_layout">
-
+        <action
+            android:id="@+id/action_AssessmentFrag_to_DashbordFragment"
+            app:destination="@id/DashboardFragment" />
     </fragment>
 
     <fragment
@@ -114,6 +121,9 @@
         <action
             android:id="@+id/action_dashboardFrag_to_SuccessFragment"
             app:destination="@id/SuccessFragment" />
+        <action
+            android:id="@+id/action_Feedback_to_Dasboard"
+            app:destination="@id/DashboardFragment" />
 
     </fragment>
 
@@ -138,6 +148,7 @@
         <action
             android:id="@+id/action_profile_to_dashboardFragment"
             app:destination="@id/DashboardFragment" />
+
 
     </fragment>
 
