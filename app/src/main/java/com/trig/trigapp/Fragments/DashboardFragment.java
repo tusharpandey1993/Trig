@@ -212,13 +212,13 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
 //                toolBarText.setText("Assessments");
 
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
+                        .navigate(R.id.action_dashboardFrag_to_Contact);
                 break;
             case R.id.assessmentContainer:
 //                toolBarText.setText("Assessments");
 
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_AssessmentFragment);
+                        .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
                 break;
             case R.id.feedback:
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)

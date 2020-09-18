@@ -72,8 +72,8 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
 
     public void init(View mView) {
 //        end_Test(mView);
-        toolBarText = mView.findViewById(R.id.toolBarText);
-        toolBarText.setText("Assessment");
+//        toolBarText = mView.findViewById(R.id.toolBarText);
+//        toolBarText.setText("Assessment");
 
 
         question_1 = (RadioGroup) mView.findViewById(R.id.question_1);
