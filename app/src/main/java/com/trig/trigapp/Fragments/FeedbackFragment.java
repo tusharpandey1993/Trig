@@ -106,6 +106,7 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener {
             Utility.getInstance().showSnackbar(getView(), "Feedback On"+getResources().getString(R.string.error_empty_field));
             Utility.getInstance().requestFocus(mActivity, FeedbackOn);
         } else {
+            TrigAppPreferences.setSource_To_Desitnation(mActivity, Constants.getInstance().feedback);
             Navigation.findNavController(requireActivity(), R.id.navHostFragment)
                     .navigate(R.id.action_dashboardFrag_to_SuccessFragment);
         }

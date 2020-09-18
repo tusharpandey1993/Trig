@@ -22,7 +22,8 @@ public class TrigAppPreferences {
     private static final String CountryCode = "CountryCode";
     private static final String tempMobile = "tempMobile";
     private static final String tempEmail = "tempEmail";
-        private static final String  KEY_PREF_UserName = "UserName";
+    private static final String  KEY_PREF_UserName = "UserName";
+    private static final String  Source_To_Desitnation = "Source_To_Desitnation";
 
 
     private static TrigAppPreferences instance;
@@ -117,6 +118,16 @@ public class TrigAppPreferences {
         String UserName = getStringPrefrence(context, KEY_PREF_UserName);
         return UserName;
     }
+
+
+    public static int getSource_To_Desitnation(Context context) {
+        return getPreferences(context).getInt(Source_To_Desitnation, -1);
+    }
+
+    public static void setSource_To_Desitnation(Context context, int value) {
+        getPreferences(context).edit().putInt(Source_To_Desitnation, value).commit();
+    }
+
 
     public static void setName(Context context, String value) {
         setStringPrefrence(context, KEY_PREF_NAME, value);

@@ -2,18 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#ffcccccc"
+    android:background="#ffffff"
     android:layout_height="match_parent"
     android:visibility="visible">
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_250sdp"
-        android:src="@drawable/main_bg_gradient"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <include
         android:id="@+id/include2"
@@ -62,7 +55,7 @@
                 android:layout_marginRight="@dimen/_30sdp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:text="Welcome to Trig Training App"
                 android:textAlignment="center"
                 android:textSize="@dimen/_16ssp"
@@ -78,8 +71,7 @@
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:background="@drawable/round_bg"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:visibility="gone
-"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/center"
                 app:layout_constraintStart_toStartOf="@+id/leftGuide"
                 app:layout_constraintTop_toBottomOf="@+id/welcomeText">
@@ -476,7 +468,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/courseContainer"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_140sdp"
+                android:layout_height="@dimen/_180sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_40sdp"
                 android:background="@drawable/round_bg"
@@ -598,7 +590,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/assessmentContainer"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_140sdp"
+                android:layout_height="@dimen/_180sdp"
                 android:background="@drawable/round_bg"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_20sdp"
