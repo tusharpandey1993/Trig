@@ -139,6 +139,11 @@ public class LoginFragment extends Fragment {
                 TrigAppPreferences.setLoginCategory(mActivity, Constants.getInstance().trainer);
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                         .navigate(R.id.action_loginFragment_to_dashboardTrainerFragment);
+            } else {
+                TrigAppPreferences.setLoginPref(mActivity, true);
+                TrigAppPreferences.setLoginCategory(mActivity, Constants.getInstance().user);
+                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                        .navigate(R.id.action_loginFragment_to_dashboardFragment);
             }
         }
     }

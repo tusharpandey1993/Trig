@@ -145,5 +145,17 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/Contact"
+        android:name="com.trig.trigapp.Fragments.Contact"
+        android:label="Contact Fragment"
+        tools:layout="@layout/contact">
+
+        <action
+            android:id="@+id/action_contact_to_dashboardFragment"
+            app:destination="@id/DashboardFragment" />
+
+    </fragment>
+
 
 </navigation>

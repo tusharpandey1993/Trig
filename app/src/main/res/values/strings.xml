@@ -14,6 +14,7 @@
     <string name="error_mobilenumber_emailid_empty">Number or Email address cannot be empty</string>
     <string name="error_invalid_mobilenumber">Please enter a valid number.</string>
     <string name="error_invalid_password">Please enter a valid password.</string>
+    <string name="error_empty_field"> cannot be emoty.</string>
     <string name="error_mobilenumberZero">"Mobile number cannot begin with a '0'."</string>
     <string name="error_invalid_email">Please enter valid email address</string>
     <string name="changeNumber"><u>Change Mobile No</u></string>
@@ -190,4 +191,7 @@
     <string name="FeedbackOn">Feedback On</string>
     <string name="enter_feedbackon">Enter FeedbackOn</string>
     <string name="enter_designation">Enter your Name and Designation</string>
+    <string name="branch_address">Regd. Off.: Off. No. D/3-6, Ground Floor, Sitaladevi CHSL, Opp. Indian Oil Nagar, D.N. Nagar, Andheri (West), Mumbai – 400 053. (INDIA).</string>
+    <string name="email_address">info@triggroup.in</string>
+    <string name="contact_number">+(91)-22-66783333</string>
 </resources>

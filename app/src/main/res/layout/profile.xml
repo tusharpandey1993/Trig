@@ -164,7 +164,7 @@
             style="@style/normal_text"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_20sdp"
-            android:text="NB0000004277"
+            android:text="User"
             app:layout_constraintBottom_toBottomOf="@+id/designationIcon"
             app:layout_constraintStart_toEndOf="@+id/designationIcon"
             app:layout_constraintTop_toBottomOf="@+id/designationHint" />
