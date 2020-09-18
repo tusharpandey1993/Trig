@@ -331,8 +331,7 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
             TrigAppPreferences.setLoginPref(mActivity, false);
             Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                     .navigate(R.id.action_dashboardFrag_to_LoginFragment);
-        }else{
-//            slidingRootNav.closeMenu();
         }
+        slidingRootNav.closeMenu();
     }
 }

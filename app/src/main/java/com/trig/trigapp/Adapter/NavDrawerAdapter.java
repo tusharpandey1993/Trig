@@ -57,7 +57,7 @@ public class NavDrawerAdapter extends RecyclerView.Adapter<NavDrawerAdapter.NavH
             public void onClick(View v) {
                 if (selectedPosition >= 0) {
                     selectedPosition = position;
-                    notifyItemChanged(selectedPosition);
+                    notifyDataSetChanged();
                 }
                 onClickListner.onClick(view, position);
             }
