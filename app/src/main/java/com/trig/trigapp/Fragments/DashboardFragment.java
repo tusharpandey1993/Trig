@@ -17,8 +17,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,6 +51,8 @@ import com.trig.trigapp.menu.SimpleItem;
 import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
+import com.yarolegovich.slidingrootnav.callback.DragListener;
+import com.yarolegovich.slidingrootnav.callback.DragStateListener;
 
 import java.util.ArrayList;
 
@@ -57,7 +61,7 @@ import info.hoang8f.widget.FButton;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment implements GenericDialogClickListener, View.OnClickListener , OnClickInterface {
+public class DashboardFragment extends Fragment implements GenericDialogClickListener, View.OnClickListener , OnClickInterface, DragListener {
 
     private static final String TAG = "DashboardFragment";
     FragmentActivity mActivity;
@@ -103,6 +107,7 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
         slidingRootNav = new SlidingRootNavBuilder(mActivity)
                 .withToolbarMenuToggle(toolbar)
                 .withMenuOpened(false)
+                .addDragListener(this)
                 .withGravity(SlideGravity.LEFT)
                 .withContentClickableWhenMenuOpened(true)
                 .withMenuLayout(R.layout.menu_left_drawer)
@@ -378,6 +383,22 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
             }
         } catch (Exception e){
             Log.e(TAG, "onClick: exception" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void onDrag(float progress) {
+        Fragment navHostFragment = mActivity.getSupportFragmentManager().findFragmentById(R.id.navHostFragment);
+        Fragment fragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
+        if (fragment!=null && !(fragment instanceof DashboardFragment)){
+            slidingRootNav = new SlidingRootNavBuilder(mActivity)
+                    .withMenuOpened(false)
+                    .addDragListener(this)
+                    .withGravity(SlideGravity.LEFT)
+                    .withContentClickableWhenMenuOpened(true)
+                    .withMenuLayout(R.layout.menu_left_drawer)
+                    .withMenuLocked(true)
+                    .inject();
         }
     }
 }
