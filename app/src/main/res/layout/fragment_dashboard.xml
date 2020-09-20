@@ -472,6 +472,7 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_40sdp"
                 android:background="@drawable/round_bg"
+                android:elevation="@dimen/_10sdp"
                 app:layout_constraintEnd_toStartOf="@+id/rightGuide"
                 app:layout_constraintStart_toStartOf="@+id/leftGuide"
                 app:layout_constraintTop_toBottomOf="@+id/welcomeText">
@@ -482,7 +483,6 @@
                     android:layout_height="@dimen/_40sdp"
                     android:src="@drawable/ic_course"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/courseNumber"
                     app:layout_constraintStart_toStartOf="@+id/courseHeading"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -594,6 +594,7 @@
                 android:background="@drawable/round_bg"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:elevation="@dimen/_10sdp"
                 app:layout_constraintBottom_toTopOf="@+id/feedback"
                 app:layout_constraintEnd_toStartOf="@+id/rightGuide"
                 app:layout_constraintStart_toStartOf="@+id/leftGuide"
@@ -605,7 +606,6 @@
                     android:layout_height="@dimen/_40sdp"
                     android:src="@drawable/ic_assessment"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/assessmentNumber"
                     app:layout_constraintStart_toStartOf="@+id/assessmentHeading"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -737,14 +737,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="@dimen/_8sdp" />
+                app:layout_constraintGuide_begin="15dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/rightGuide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/_8sdp" />
+                app:layout_constraintGuide_end="15dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/topGuide"

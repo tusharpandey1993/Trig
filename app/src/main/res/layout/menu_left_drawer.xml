@@ -1,61 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="90dp" />
+    <ImageView
+        android:id="@+id/closeApp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:src="@drawable/main_bg_gradient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-  <!--  <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:paddingStart="24dp"
-        android:text="Account Balance"
-        android:textSize="12sp" />-->
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/userNameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="left"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:layout_marginStart="@dimen/_15sdp"
+        android:fontFamily="@font/open_sans_semibold"
+        android:text="Hi, Tushar !"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_19ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/closeIcon" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="viewEnd"
-            android:layout_marginTop="6dp"
-            android:visibility="invisible"
-            android:text="$" />
 
-        <TextView
-            android:id="@+id/txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="524.99"
-            android:visibility="invisible"
-            android:textAlignment="viewStart"
-            android:textSize="34sp" />
-
-    </LinearLayout>
-
-    <Space
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="56dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/open_sans_semibold"
+        android:text="What would you like to change?"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintStart_toStartOf="@+id/userNameTxt"
+        app:layout_constraintTop_toBottomOf="@+id/userNameTxt" />
+
+    <ImageView
+        android:id="@+id/closeIcon"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:src="@drawable/ic_close_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
-        android:layout_gravity="left"
         android:layout_width="240dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="@dimen/_50sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/closeApp" />
 
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="40dp" />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

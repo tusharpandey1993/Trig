@@ -71,9 +71,7 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
     TextView toolBarText, feedback;
     ImageView logout;
     RecyclerView list;
-
-
-
+    ImageView closeIcon;
     PieChart pieChart;
     PieData pieData;
     PieDataSet pieDataSet;
@@ -114,9 +112,9 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
                 .inject();
 
 
-
-
         list = mActivity.findViewById(R.id.list);
+        closeIcon = mActivity.findViewById(R.id.closeIcon);
+        closeIcon.setOnClickListener(this);
         setAdapter();
 
 
@@ -153,27 +151,6 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
         courseContainer = mView.findViewById(R.id.courseContainer);
         assessmentContainer = mView.findViewById(R.id.assessmentContainer);
         feedback = mView.findViewById(R.id.feedback);
-
-
-//        logout = mView.findViewById(R.id.logout);
-
-
-
-
-//        logout.setVisibility(View.VISIBLE);
-/*
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TrigAppPreferences.setLoginPref(mActivity, false);
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_LoginFragment);
-            }
-        });
-*/
-
-
-
 
         pieChart = mView.findViewById(R.id.pieChart);
         getEntries();
@@ -236,6 +213,10 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
             case R.id.logout:
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                         .navigate(R.id.action_dashboardFrag_to_LoginFragment);
+                break;
+
+            case R.id.closeIcon:
+                slidingRootNav.closeMenu();
                 break;
         }
     }
