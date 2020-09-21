@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_15sdp"
         android:fontFamily="@font/open_sans_semibold"
-        android:text="Hi, Tushar !"
+        android:text="Hi, User !"
         android:layout_marginTop="@dimen/_40sdp"
         android:textColor="@color/white"
         android:textSize="@dimen/_19ssp"

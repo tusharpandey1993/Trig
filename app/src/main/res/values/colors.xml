@@ -38,8 +38,8 @@
     <color name="gray">#FF8A8A8A</color>
 
 
-    <color name="gray_300">#E0E0E0</color>
-    <color name="greyish_brown">#494949</color>
+    <color name="gray_300">#f2f2f2</color>
+    <color name="greyish_brown">#CFCFCF</color>
     <color name="dark_greyish">#5e5e5e</color>
     <color name="dark_brown">#b38133</color>
 

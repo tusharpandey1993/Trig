@@ -176,7 +176,10 @@
     <string name="readLess">Read Less</string>
     <string name="share">Share</string>
     <string name="appExit">Are you sure you want to Exit?</string>
+    <string name="appLogout">Are you sure you want to Logout?</string>
     <string name="DialogHeading">Notification</string>
+    <string name="logoutHeading">Logout</string>
+    <string name="exitHeading">Notification</string>
     <string name="close_image_desc">Close</string>
     <string name="nameHint">Name</string>
     <string name="emailHint">Email</string>

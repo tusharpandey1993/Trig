@@ -11,6 +11,8 @@
     <ImageView
         android:id="@+id/id_icon"
         style="@style/image_left_drawable_icon_size"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -31,8 +31,9 @@
             android:id="@+id/action_loginFragment_to_successFragment"
             app:destination="@id/SuccessFragment" />
 
-        <argument android:name="fromPage"
-            app:argType="string"/>
+        <argument
+            android:name="fromPage"
+            app:argType="string" />
     </fragment>
     <!--
 
@@ -73,6 +74,11 @@
         <action
             android:id="@+id/action_dashboardFrag_to_Contact"
             app:destination="@id/Contact" />
+
+        <action
+            android:id="@+id/action_dashboardFrag_to_topics"
+            app:destination="@id/CoursesTopics" />
+
     </fragment>
 
     <fragment
@@ -159,6 +165,10 @@
         android:label="Dashboard Fragment"
         tools:layout="@layout/dashboard_trainer">
 
+        <action
+            android:id="@+id/action_dashboard_trainer_to_topics"
+            app:destination="@id/CoursesTopics" />
+
 
     </fragment>
 
@@ -170,6 +180,19 @@
 
         <action
             android:id="@+id/action_contact_to_dashboardFragment"
+            app:destination="@id/DashboardFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/CoursesTopics"
+        android:name="com.trig.trigapp.Fragments.CoursesTopics"
+        android:label="Contact Fragment"
+        tools:layout="@layout/course_topic">
+
+
+        <action
+            android:id="@+id/action_topics_to_dashboardFragment"
             app:destination="@id/DashboardFragment" />
 
     </fragment>

@@ -99,12 +99,6 @@ public class VideoStreamingFragment extends Fragment {
     private void startVideoStreaming(Context mActivity) {
         // Estimates bandwidth
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-
-        // TrackSelector is used When a piece of media contains multiple tracks of a given type,
-        // for example multiple video tracks in different qualities or multiple audio tracks in
-        // different languages
-        // Adaptative: selected track is updated to be the one of highest quality given the
-        // current network conditions and the state of the buffer
         TrackSelection.Factory videoTrackSelectionFactory =
                 new AdaptiveTrackSelection.Factory(bandwidthMeter);
 
@@ -128,7 +122,7 @@ public class VideoStreamingFragment extends Fragment {
         // Produces Extractor instances for parsing the media data.
         ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
 
-        String mp4VideoUrl = "https://www.radiantmediaplayer.com/media/bbb-360p.mp4";
+        String mp4VideoUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
         Uri mp4VideoUri = Uri.parse(mp4VideoUrl);
 

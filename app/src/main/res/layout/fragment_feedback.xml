@@ -40,6 +40,16 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.94" />
 
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_100sdp"
+                android:src="@drawable/main_bg_gradient"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <ImageView
                 android:id="@+id/profileImg"
                 android:layout_width="@dimen/_70sdp"
@@ -50,39 +60,14 @@
                 app:layout_constraintStart_toStartOf="@+id/startGuide"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-         <!--   <TextView
-                android:id="@+id/number_message"
-                style="@style/sub_heading_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:gravity="start"
-                android:text="@string/feedbackIntro2"
-                app:layout_constraintBottom_toBottomOf="@+id/profileImg"
-                app:layout_constraintEnd_toStartOf="@+id/endGuide"
-                app:layout_constraintStart_toEndOf="@+id/profileImg"
-                app:layout_constraintTop_toTopOf="@+id/profileImg" />-->
-
-
-            <ImageView
-                android:id="@+id/nameIcon"
-                android:layout_width="1dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/_40sdp"
-                android:src="@drawable/ic_name"
-                android:visibility="invisible"
-                app:layout_constraintStart_toStartOf="@+id/startGuide"
-                app:layout_constraintTop_toBottomOf="@+id/profileImg" />
-
             <TextView
                 android:id="@+id/feedbackHint"
                 style="@style/hint_text"
                 android:layout_marginBottom="@dimen/_20sdp"
                 android:text="@string/feedback"
-                app:layout_constraintBottom_toBottomOf="@+id/nameIcon"
-                app:layout_constraintStart_toEndOf="@+id/startGuide"
-                app:layout_constraintTop_toTopOf="@+id/nameIcon" />
+                android:layout_marginTop="@dimen/_40sdp"
+                app:layout_constraintStart_toStartOf="@+id/startGuide"
+                app:layout_constraintTop_toBottomOf="@+id/profileImg" />
 
 
             <com.google.android.material.textfield.TextInputEditText

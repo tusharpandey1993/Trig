@@ -44,11 +44,10 @@
                 android:id="@+id/profileImg"
                 android:layout_width="@dimen/_110sdp"
                 android:layout_height="@dimen/_110sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_40sdp"
                 android:src="@drawable/trig_bg"
                 app:civ_border_color="@color/trans_black"
                 app:civ_border_width="6dp"
-                app:layout_constraintBottom_toTopOf="@+id/nameHint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -85,9 +84,9 @@
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_25sdp"
                 android:src="@drawable/ic_name"
-                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 app:layout_constraintStart_toStartOf="@+id/startGuide"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                app:layout_constraintTop_toBottomOf="@+id/profileImg" />
 
             <TextView
                 android:id="@+id/nameHint"
@@ -295,7 +294,6 @@
                 android:layout_marginTop="24dp"
                 android:src="@drawable/ic_calendar"
                 android:layout_marginBottom="@dimen/_15sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/startGuide"
                 app:layout_constraintTop_toBottomOf="@+id/dob" />
 
@@ -318,6 +316,15 @@
                 app:layout_constraintBottom_toBottomOf="@+id/doJoiningIcon"
                 app:layout_constraintStart_toEndOf="@+id/doJoiningIcon"
                 app:layout_constraintTop_toBottomOf="@+id/doJoiningHint" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/bottomSpace"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/doJoiningIcon" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

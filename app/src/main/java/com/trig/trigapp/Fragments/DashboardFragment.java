@@ -33,9 +33,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.trig.trigapp.Adapter.NavDrawerAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
@@ -46,8 +47,6 @@ import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogBuilder;
 import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogClickListener;
 import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogPopup;
 import com.trig.trigapp.R;
-import com.trig.trigapp.menu.DrawerItem;
-import com.trig.trigapp.menu.SimpleItem;
 import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
@@ -67,16 +66,20 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
     FragmentActivity mActivity;
 
     private View mView;
-    ConstraintLayout constraintLayout1, skillContainer, constraintLayout3, otherCoursesContainer, courseContainer, assessmentContainer;
+    ConstraintLayout courseContainer, assessmentContainer;
     TextView toolBarText, feedback;
-    ImageView logout;
     RecyclerView list;
+    public static boolean fromCourses = false;
+
+
     ImageView closeIcon;
     PieChart pieChart;
     PieData pieData;
     PieDataSet pieDataSet;
     ArrayList pieEntries;
     ArrayList PieEntryLabels;
+    PieChart coursePieChart;
+    ArrayList<Entry> entries ;
 
     private SlidingRootNav slidingRootNav;
 
@@ -117,11 +120,6 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
         closeIcon.setOnClickListener(this);
         setAdapter();
 
-
-        constraintLayout1.setOnClickListener(this);
-        skillContainer.setOnClickListener(this);
-        constraintLayout3.setOnClickListener(this);
-        otherCoursesContainer.setOnClickListener(this);
         courseContainer.setOnClickListener(this);
         assessmentContainer.setOnClickListener(this);
         feedback.setOnClickListener(this);
@@ -144,66 +142,52 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
     }
 
     private void init(View mView){
-        constraintLayout1 = mView.findViewById(R.id.constraintLayout1);
-        skillContainer = mView.findViewById(R.id.skillContainer);
-        constraintLayout3 = mView.findViewById(R.id.constraintLayout3);
-        otherCoursesContainer = mView.findViewById(R.id.otherCoursesContainer);
         courseContainer = mView.findViewById(R.id.courseContainer);
         assessmentContainer = mView.findViewById(R.id.assessmentContainer);
         feedback = mView.findViewById(R.id.feedback);
 
         pieChart = mView.findViewById(R.id.pieChart);
-        getEntries();
-        pieDataSet = new PieDataSet(pieEntries, "");
-        pieData = new PieData(pieDataSet);
+        coursePieChart = mView.findViewById(R.id.coursePieChart);
+
+        entries = new ArrayList<>();
+        PieEntryLabels = new ArrayList<String>();
+
+        AddValuesToPIEENTRY();
+        AddValuesToPieEntryLabels();
+
+        pieDataSet = new PieDataSet(entries, "");
+        pieData = new PieData(PieEntryLabels, pieDataSet);
+        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieChart.setData(pieData);
-        pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-        pieDataSet.setSliceSpace(2f);
-        pieDataSet.setValueTextColor(Color.WHITE);
-        pieDataSet.setValueTextSize(10f);
-        pieDataSet.setSliceSpace(5f);
+        coursePieChart.setData(pieData);
+        pieChart.animateY(1000);
+        coursePieChart.animateY(1000);
     }
 
+    public void AddValuesToPIEENTRY(){
+        entries.add(new BarEntry(2f, 0));
+        entries.add(new BarEntry(8f, 1));
+    }
+
+    public void AddValuesToPieEntryLabels(){
+        PieEntryLabels.add("Completed");
+        PieEntryLabels.add("Pending");
+    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-
-            case R.id.constraintLayout1:
-//                toolBarText.setText("Induction Training");
-
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_VideoFragment);
-                break;
-            case R.id.skillContainer:
-//                toolBarText.setText("Skill Training");
-
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_VideoFragment);
-                break;
-            case R.id.constraintLayout3:
-//                toolBarText.setText("Functional Training");
-
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_AssessmentFragment);
-                break;
-            case R.id.otherCoursesContainer:
-//                toolBarText.setText("Other Courses");
-
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_VideoFragment);
-                break;
             case R.id.courseContainer:
 //                toolBarText.setText("Assessments");
-
+                fromCourses = true;
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
+                        .navigate(R.id.action_dashboardFrag_to_topics);
                 break;
             case R.id.assessmentContainer:
 //                toolBarText.setText("Assessments");
-
+                fromCourses = false;
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_Contact);
+                        .navigate(R.id.action_dashboardFrag_to_topics);
                 break;
             case R.id.feedback:
 //                toolBarText.setText("Feedback");
@@ -222,11 +206,11 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
     }
 
 
-    private void getEntries() {
+    /*private void getEntries() {
         pieEntries = new ArrayList<>();
         pieEntries.add(new PieEntry(2f, 0));
         pieEntries.add(new PieEntry(8f, 1));
-    }
+    }*/
 
 
 
@@ -238,31 +222,7 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
             ColorDrawable colorDrawable = new ColorDrawable(Color.TRANSPARENT);
             dialogCorrect.getWindow().setBackgroundDrawable(colorDrawable);
         }
-        dialogCorrect.setContentView(R.layout.feedback_dialog);
-        dialogCorrect.setCancelable(false);
-        dialogCorrect.show();
-
-        //Since the dialog is show to user just pause the timer in background
-        onPause();
-
-
-        TextView correctText = (TextView) dialogCorrect.findViewById(R.id.correctText);
-        FButton buttonNext = (FButton) dialogCorrect.findViewById(R.id.dialogNext);
-
-
-
-
-        //OnCLick listener to go next que
-        buttonNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //This will dismiss the dialog
-                dialogCorrect.dismiss();
-                //it will increment the question numbe
-            }
-        });
     }
-
 
     private void backButtonHandling() {
         try {
@@ -293,12 +253,13 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
     @Override
     public void onPositiveButtonClick(View view, int FucntionNumber) {
         try {
-
             switch (FucntionNumber) {
                 case 800:
+                    mActivity.finish();
+                    break;
+                case 810:
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                            .navigate(R.id.action_fragment_success_to_dashboardFragment);
-//                    mActivity.finish();
+                            .navigate(R.id.action_dashboardFrag_to_LoginFragment);
                     break;
                 default:
                     break;
@@ -355,8 +316,17 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
                             .navigate(R.id.action_dashboardFrag_to_FeedbackFragment);
                     break;
                 case POS_LOGOUT:TrigAppPreferences.setLoginPref(mActivity, false);
-                    Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                            .navigate(R.id.action_dashboardFrag_to_LoginFragment);
+                    GenericDialogPopup genericDialogPopup = null;
+                    GenericDialogBuilder genericDialogBuilder = new GenericDialogBuilder.Builder()
+                            .setShowCloseButton(false)
+                            .setHeading(mActivity.getResources().getString(R.string.logoutHeading))
+                            .setDescription(mActivity.getResources().getString(R.string.appLogout))
+                            .setPositiveButtonText(Constants.LOGOUT)
+                            .setNegativeButtonText(Constants.Cancel)
+                            .setGenericDialogClickListener(DashboardFragment.this)
+                            .setFucntionNumber(Constants.getInstance().logout)
+                            .build();
+                    Utility.getInstance().showDynamicDialog(mActivity, genericDialogBuilder, genericDialogPopup, mActivity.getSupportFragmentManager());
                     break;
             }
             if(slidingRootNav != null) {

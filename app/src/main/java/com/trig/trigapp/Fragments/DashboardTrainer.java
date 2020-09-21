@@ -42,6 +42,9 @@ public class DashboardTrainer extends Fragment implements onDialogClickCallback,
 
         backButtonHandling();
 
+        Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                .navigate(R.id.action_dashboard_trainer_to_topics);
+
         return mView;
     }
 

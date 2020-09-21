@@ -130,7 +130,6 @@ public class OtpFragment extends Fragment {
                 Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.otpSent));
                 txtPinEntry.setText("");
                 countDownTimer.start();
-                //TODO: resend otp from server here
                 disableResendOtp();
                 //}
             }

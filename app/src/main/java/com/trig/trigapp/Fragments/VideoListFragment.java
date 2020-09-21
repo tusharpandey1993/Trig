@@ -87,7 +87,7 @@ public class VideoListFragment extends Fragment implements OnClickInterface {
         videoListRecycler =  view.findViewById(R.id.videoListRecycler);
         backIcon = view.findViewById(R.id.backIcon);
         toolBarText = view.findViewById(R.id.toolBarText);
-        toolBarText.setText("Induction Training");
+        toolBarText.setText("My Courses");
     }
 
     @Override

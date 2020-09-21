@@ -54,6 +54,7 @@ public class Constants {
 
     //    DIALOG MESSAGES
 
+    public static String LOGOUT = "LOGOUT";
     public static String EXIT = "EXIT";
     public static String RETRY = "RETRY";
     public static String DISMISS = "DISMISS";
@@ -208,6 +209,7 @@ public class Constants {
     public String user = "user";
     public String trainer = "trainer";
     public final Integer exitApp = 800;
+    public final Integer logout = 810;
 
     public final Integer loginScreen = 100;
     public final Integer feedback = 101;
