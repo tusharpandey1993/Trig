@@ -297,11 +297,11 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
                     break;
                 case POS_COURCES:
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                            .navigate(R.id.action_dashboardFrag_to_VideoFragment);
+                            .navigate(R.id.action_dashboardFrag_to_topics);
                     break;
                 case POS_ASSESSMENT:
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                            .navigate(R.id.action_dashboardFrag_to_AssessmentFragment);
+                            .navigate(R.id.action_dashboardFrag_to_topics);
                     break;
                 case POS_PROFILE:
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)
