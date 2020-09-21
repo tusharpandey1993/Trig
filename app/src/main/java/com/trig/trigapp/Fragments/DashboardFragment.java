@@ -296,6 +296,7 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
                 case POS_DASHBOARD:
                     break;
                 case POS_COURCES:
+                    fromCourses = true;
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                             .navigate(R.id.action_dashboardFrag_to_topics);
                     break;
