@@ -110,7 +110,7 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
                 .withMenuOpened(false)
                 .addDragListener(this)
                 .withGravity(SlideGravity.LEFT)
-                .withContentClickableWhenMenuOpened(true)
+                .withContentClickableWhenMenuOpened(false)
                 .withMenuLayout(R.layout.menu_left_drawer)
                 .inject();
 

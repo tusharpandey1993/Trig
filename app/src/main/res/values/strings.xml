@@ -191,6 +191,7 @@
     <string name="doJoining">Date of joining</string>
     <string name="feedback">Feedback</string>
     <string name="suggestionHint">Suggestion/Remarks</string>
+    <string name="suggestionByHint">Suggestion By</string>
     <string name="FeedbackOn">Feedback On</string>
     <string name="enter_feedbackon">Enter FeedbackOn</string>
     <string name="enter_designation">Enter your Name and Designation</string>
@@ -200,4 +201,5 @@
     <string name="contact_number">+(91)-22-66783333</string>
     <string name="branch_heading">Branch Address</string>
     <string name="administrative_heading">Administrative Address</string>
+    <string name="lorem">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
 </resources>

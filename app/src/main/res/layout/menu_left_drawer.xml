@@ -24,7 +24,7 @@
         android:layout_marginStart="@dimen/_15sdp"
         android:fontFamily="@font/open_sans_semibold"
         android:text="Hi, User !"
-        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_35sdp"
         android:textColor="@color/white"
         android:textSize="@dimen/_19ssp"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,15 +32,27 @@
 
 
     <TextView
+        android:id="@+id/userCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
         android:fontFamily="@font/open_sans_semibold"
-        android:text="What would you like to change?"
+        android:text="USER (U)  "
         android:textColor="@color/white"
         android:textSize="@dimen/_11ssp"
         app:layout_constraintStart_toStartOf="@+id/userNameTxt"
         app:layout_constraintTop_toBottomOf="@+id/userNameTxt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/open_sans_semibold"
+        android:text="SATYA MISHRA (NB0000004277)"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintStart_toStartOf="@+id/userCategory"
+        app:layout_constraintTop_toBottomOf="@+id/userCategory" />
 
     <ImageView
         android:id="@+id/closeIcon"

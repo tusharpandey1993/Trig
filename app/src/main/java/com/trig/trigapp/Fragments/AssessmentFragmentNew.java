@@ -75,7 +75,7 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
             @Override
             public void handleOnBackPressed() {
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_AssessmentFrag_to_DashbordFragment);
+                        .navigate(R.id.action_AssessmentFrag_to_VideoListFragment);
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
@@ -84,7 +84,7 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                        .navigate(R.id.action_AssessmentFrag_to_DashbordFragment);
+                        .navigate(R.id.action_AssessmentFrag_to_VideoListFragment);
             }
         });
 

@@ -21,6 +21,8 @@ import com.trig.trigapp.Adapter.DynamicSliderAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
 import com.trig.trigapp.R;
 
+import static com.trig.trigapp.Fragments.DashboardFragment.fromCourses;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -57,7 +59,7 @@ public class VideoListFragment extends Fragment implements OnClickInterface {
             public void handleOnBackPressed() {
                 // Handle the back button event
                 Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                        .navigate(R.id.action_VideoListFrag_to_DashbordFragment);
+                        .navigate(R.id.action_VideoListFrag_to_topics);
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(mActivity, callback);
@@ -66,7 +68,7 @@ public class VideoListFragment extends Fragment implements OnClickInterface {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                        .navigate(R.id.action_VideoListFrag_to_DashbordFragment);
+                        .navigate(R.id.action_VideoListFrag_to_topics);
             }
         });
 
@@ -87,12 +89,22 @@ public class VideoListFragment extends Fragment implements OnClickInterface {
         videoListRecycler =  view.findViewById(R.id.videoListRecycler);
         backIcon = view.findViewById(R.id.backIcon);
         toolBarText = view.findViewById(R.id.toolBarText);
-        toolBarText.setText("My Courses");
+
+        if(fromCourses) {
+            toolBarText.setText("My Courses");
+        } else {
+            toolBarText.setText("My Assessments");
+        }
     }
 
     @Override
     public void onClick(View view, int position) {
-        Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                .navigate(R.id.action_VideoListFrag_to_VideoStreamingFrag);
+        if(fromCourses) {
+            Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                    .navigate(R.id.action_VideoListFrag_to_VideoStreamingFrag);
+        } else {
+            Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                    .navigate(R.id.action_VideoListFrag_to_AssessmentFragment);
+        }
     }
 }

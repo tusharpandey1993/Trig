@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -59,7 +60,9 @@ public class CoursesTopics extends Fragment implements CourseTopicAdapter.ItemLi
         arrayList.add(new DataModel("Induction Training",10,10, "#09A9FF"));
         arrayList.add(new DataModel("Functional Training",10,7, "#09A9FF"));
         arrayList.add(new DataModel("Skill Training",10,6, "#09A9FF"));
-        arrayList.add(new DataModel("Other Training",10,1, "#09A9FF"));
+        arrayList.add(new DataModel("Other Training",10,2, "#09A9FF"));
+        arrayList.add(new DataModel("Other Training 2",10,5, "#09A9FF"));
+        arrayList.add(new DataModel("Other Training 3",10,9, "#09A9FF"));
 
         CourseTopicAdapter adapter = new CourseTopicAdapter(mActivity, arrayList, this);
         recyclerView.setAdapter(adapter);
@@ -76,11 +79,17 @@ public class CoursesTopics extends Fragment implements CourseTopicAdapter.ItemLi
         recyclerView = (RecyclerView) mView.findViewById(R.id.recyclerView);
         if(fromCourses){
             toolBarText.setText("Courses");
-            fromCourses = false;
         } else {
             toolBarText.setText("Assessment");
         }
-
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                        .navigate(R.id.action_topics_to_dashboardFragment);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,7 +101,9 @@ public class CoursesTopics extends Fragment implements CourseTopicAdapter.ItemLi
 
     @Override
     public void onItemClick(DataModel item) {
-        Toast.makeText(mActivity, item.cardHeading + " is clicked", Toast.LENGTH_SHORT).show();
+        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                .navigate(R.id.action_topics_to_VideoFragment);
+//        Toast.makeText(mActivity, item.cardHeading + " is clicked", Toast.LENGTH_SHORT).show();
 
     }
 }

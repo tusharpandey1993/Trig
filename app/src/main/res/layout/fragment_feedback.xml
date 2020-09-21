@@ -125,7 +125,7 @@
                 android:id="@+id/FeedbackByHint"
                 style="@style/hint_text"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:text="@string/suggestionHint"
+                android:text="@string/suggestionByHint"
                 app:layout_constraintStart_toStartOf="@+id/startGuide"
                 app:layout_constraintTop_toBottomOf="@+id/suggestion" />
 
@@ -137,7 +137,7 @@
                 android:background="@drawable/feedback_bg"
                 android:fontFamily="@font/open_sans_semibold"
                 android:gravity="start"
-                android:hint="@string/enter_designation"
+                android:hint="SATYA MISHRA"
                 android:imeOptions="actionNext"
                 android:maxLength="200"
                 android:maxLines="2"

@@ -85,12 +85,8 @@ public class CourseTopicAdapter extends RecyclerView.Adapter<CourseTopicAdapter.
             cardHeading.setText(item.cardHeading);
             totalCourses.setText(String.valueOf(item.totalCourses));
             completedCourses.setText(String.valueOf(item.completedCourses));
-//            relativeLayout.setBackgroundColor(Color.parseColor(item.color));
 
             float percentage = (float)((item.completedCourses  * 100)/ item.totalCourses);
-            Log.d("Progress", "setData: "+ percentage);
-//            Log.d("Progress", "setData: completedCourses "+ item.completedCourses);
-//            Log.d("Progress", "setData: totalCourses "+ item.totalCourses);
             courseCompletionProgess.setProgress((int) percentage);
         }
 
