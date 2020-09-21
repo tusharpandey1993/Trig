@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        card_view:cardCornerRadius="0dp"
+        android:layout_margin="@dimen/_15sdp"
+        android:background="@drawable/round_bg"
+        android:elevation="@dimen/_10sdp"
+        card_view:cardElevation="@dimen/margin10"
+        card_view:cardMaxElevation="@dimen/margin10"
+        card_view:contentPadding="@dimen/margin10">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/cardHeading"
+                style="@style/sub_heading_text"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="Card Heading"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/totalCourses"
+                style="@style/hint_text"
+                android:text="10"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/_5sdp"
+                app:layout_constraintBottom_toTopOf="@+id/courseCompletionProgess"
+                app:layout_constraintEnd_toEndOf="@+id/totalCoursesHeading"
+                app:layout_constraintStart_toStartOf="@+id/totalCoursesHeading" />
+
+            <TextView
+                android:id="@+id/totalCoursesHeading"
+                style="@style/hint_text"
+                android:text="Total"
+                android:layout_marginRight="@dimen/_5sdp"
+                app:layout_constraintBottom_toTopOf="@+id/totalCourses"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/completedCoursesHeading"
+                style="@style/hint_text"
+                android:text="Completed"
+                android:layout_marginLeft="@dimen/_5sdp"
+                app:layout_constraintBottom_toTopOf="@+id/completedCourses"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/completedCourses"
+                style="@style/hint_text"
+                android:text="5"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/_5sdp"
+                app:layout_constraintBottom_toTopOf="@+id/courseCompletionProgess"
+                app:layout_constraintEnd_toEndOf="@+id/completedCoursesHeading"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/courseCompletionProgess"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_15sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

@@ -57,9 +57,6 @@
         android:label="Dashboard Fragment"
         tools:layout="@layout/fragment_dashboard">
         <action
-            android:id="@+id/action_dashboardFrag_to_VideoFragment"
-            app:destination="@id/VideoFragment" />
-        <action
             android:id="@+id/action_dashboardFrag_to_LoginFragment"
             app:destination="@id/LoginFragment" />
         <action
@@ -194,6 +191,11 @@
         <action
             android:id="@+id/action_topics_to_dashboardFragment"
             app:destination="@id/DashboardFragment" />
+
+
+        <action
+            android:id="@+id/action_topics_to_VideoFragment"
+            app:destination="@id/VideoFragment" />
 
     </fragment>
 
