@@ -83,12 +83,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/mobile_no" />-->
 
             <EditText
-                android:id="@+id/edit_mobile_number"
+                android:id="@+id/edit_UserName"
                 style="@style/login_editText_style"
                 android:background="@drawable/underlinebg"
-                android:hint="@string/MobileNoHintRegOnLogin"
-                android:inputType="number"
-                android:maxLength="10"
+                android:hint="@string/UserNameHintRegOnLogin"
+                android:maxLength="20"
+                android:text="PN0000010232"
                 android:imeOptions="actionNext"
                 android:backgroundTint="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"

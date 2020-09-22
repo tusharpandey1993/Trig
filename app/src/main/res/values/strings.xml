@@ -7,12 +7,13 @@
     <string name="infoTxtViewLogin">Enter your account details to get started.</string>
 
 
-    <string name="MobEmailTxtViewReg">Mobile Number</string>
+    <string name="MobEmailTxtViewReg">UserName</string>
     <string name="Password">Password</string>
     <string name="MobileNoHintRegOnLogin">Enter Password</string>
+    <string name="UserNameHintRegOnLogin">Enter UserName</string>
     <string name="EmailIdHintRegOnLogin">Enter valid email id</string>
     <string name="error_mobilenumber_emailid_empty">Number or Email address cannot be empty</string>
-    <string name="error_invalid_mobilenumber">Please enter a valid number.</string>
+    <string name="error_invalid_username">Please enter a valid username.</string>
     <string name="error_invalid_password">Please enter a valid password.</string>
     <string name="error_empty_field"> cannot be empty.</string>
     <string name="error_mobilenumberZero">"Mobile number cannot begin with a '0'."</string>

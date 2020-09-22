@@ -20,13 +20,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogBuilder;
 import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogPopup;
 import com.trig.trigapp.R;
+import com.trig.trigapp.api.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Utility {
 
@@ -187,6 +196,53 @@ public class Utility {
         }
 
         return false;
+    }
+
+    public synchronized Service createServiceForTrigApp(Context context) {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://training.triggroup.in/service/api/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(getClient(null, context))
+                .build();
+        return retrofit.create(Service.class);
+    }
+
+
+
+
+    private OkHttpClient getClient(String authorizationValue, final Context context) {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
+        okHttpClient.connectTimeout(30, TimeUnit.SECONDS);
+        okHttpClient.readTimeout(30, TimeUnit.SECONDS);
+        okHttpClient.writeTimeout(5, TimeUnit.MINUTES);
+        okHttpClient.addInterceptor(interceptor);
+
+       /* authorizationValue = "2bd7f907b7f5b6bbd91822c0c7b835f6";
+        if (!TextUtils.isEmpty(authorizationValue)) {
+            final String finalAuthorizationValue = authorizationValue;
+            okHttpClient.addInterceptor(interceptor)
+                    .addNetworkInterceptor(
+                            new Interceptor() {
+                                @Override
+                                public Response intercept(Interceptor.Chain chain) throws IOException {
+                                    Request original = chain.request();
+                                    Request request = original.newBuilder()
+                                            .header("User-Agent", Utils.getInstance().getDefaultUserAgentString(context))
+                                            .header("Accept", "application/json")
+                                            .header("Authorization", finalAuthorizationValue)
+                                            .method(original.method(), original.body())
+                                            .build();
+                                    return chain.proceed(request);
+                                }
+                            });
+
+        }*/
+        return okHttpClient.build();
     }
 
 

@@ -12,16 +12,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.trig.trigapp.CommonFiles.Constants;
+import com.trig.trigapp.CommonFiles.CustomSelectionDialog;
 import com.trig.trigapp.CommonFiles.ViewDialogCustom;
 import com.trig.trigapp.CommonFiles.onDialogClickCallback;
 import com.trig.trigapp.R;
+
+import java.util.ArrayList;
 
 public class DashboardTrainer extends Fragment implements onDialogClickCallback, View.OnClickListener{
 
     private static final String TAG = "ProfileFragment";
     FragmentActivity mActivity;
     View mView;
+    TextInputEditText edit_city;
+    ArrayList<String> typeOfList;
 
     public DashboardTrainer() {
         // Required empty public constructor
@@ -64,11 +70,28 @@ public class DashboardTrainer extends Fragment implements onDialogClickCallback,
     }
 
     private void init(View mView) {
+        edit_city = mView.findViewById(R.id.edit_city);
+        edit_city.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+        switch(v.getId()) {
 
+            case R.id.edit_city:
+                openDialog(typeOfList,0,0,"Category");
+                break;
+
+        }
+    }
+
+    private void openDialog(ArrayList<String> typeOfList, int pos, int po, String title) {
+        try {
+            CustomSelectionDialog cdd = new CustomSelectionDialog(mActivity, typeOfList, pos, po, title);
+            cdd.show();
+        } catch (Exception e){
+            Log.e("", "onClick: " + e.getMessage() );
+        }
     }
 
     @Override

@@ -16,7 +16,7 @@ public class Constants {
     public static final String SCHEDULED_DATE_FORMAT = "dd MMM, yyyy,HH:mm";
 
     public static String internetCheck = "http://13.127.232.32/speed_test/download/";
-
+    public final Integer NoInternetCase = 900 ;
 
     public static String APP_COLOUR = "app_colour";
     public static String My_PREFERENCE = "my_preference";
