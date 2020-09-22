@@ -134,6 +134,7 @@ public class Utility {
     public String[] permissions =
             {
                     Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.CALL_PHONE,
                     Manifest.permission.ACCESS_FINE_LOCATION,
 // Manifest.permission.READ_EXTERNAL_STORAGE,
 // Manifest.permission.READ_PHONE_STATE,

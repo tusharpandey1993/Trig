@@ -5,46 +5,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.trig.trigapp.CustomViewsFiles.CircleImageView
         android:id="@+id/iv_onboarding"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
-        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_120sdp"
+        android:layout_marginTop="@dimen/_30sdp"
         android:layout_marginBottom="@dimen/_5sdp"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toTopOf="@+id/tv_onboarding_title"
+        app:civ_border_color="@color/trans_black"
+        app:civ_border_width="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_onboarding_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_7sdp"
+        android:layout_margin="@dimen/_5sdp"
         android:gravity="center"
         android:textColor="@color/black_333333"
         android:textSize="@dimen/_20ssp"
-        android:layout_margin="@dimen/_5sdp"
         app:fontFamily="@font/open_sans_semibold"
-        app:layout_constraintBottom_toTopOf="@+id/tv_onboarding_desc"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_onboarding"
         tools:text="Talent Store" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_onboarding_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
         android:layout_marginBottom="@dimen/_35sdp"
         android:gravity="center|top"
         android:minLines="2"
+        android:textAlignment="viewStart"
         android:textColor="@color/black_333333"
-        android:textSize="@dimen/_12ssp"
-        android:layout_margin="@dimen/_5sdp"
+        android:textSize="@dimen/_11ssp"
         app:fontFamily="@font/open_sans"
         app:layout_constraintBottom_toTopOf="@+id/tv_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="Explore and install Miko talents" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_onboarding_title"
+        tools:text="Explore and install Miko talents"
+        tools:ignore="RtlCompat" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_next"
@@ -55,7 +61,7 @@
         android:gravity="center"
         android:minWidth="@dimen/_200sdp"
         android:paddingTop="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_5sdp"
         android:text="@string/next"
         android:textColor="@color/bg_chipview_likes"
         android:textSize="@dimen/_16ssp"

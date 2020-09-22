@@ -101,9 +101,14 @@ public class CoursesTopics extends Fragment implements CourseTopicAdapter.ItemLi
 
     @Override
     public void onItemClick(DataModel item) {
-        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                .navigate(R.id.action_topics_to_VideoFragment);
-//        Toast.makeText(mActivity, item.cardHeading + " is clicked", Toast.LENGTH_SHORT).show();
+
+        if(fromCourses){
+            Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                    .navigate(R.id.action_topics_to_VideoFragment);
+        } else {
+            Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                    .navigate(R.id.action_topics_to_AssessmentFragment);
+        }
 
     }
 }

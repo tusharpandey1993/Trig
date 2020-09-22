@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,10 +44,13 @@ import com.trig.trigapp.R;
  */
 public class VideoStreamingFragment extends Fragment {
 
+    private static final String TAG = "VideoStreamingFragment";
+
     private View mView;
     private FragmentActivity mActivity;
-    public TextView toolBarText;
-    ImageView backIcon;
+    private TextView toolBarText;
+    private ImageView backIcon;
+    private SimpleExoPlayer player;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -108,7 +112,7 @@ public class VideoStreamingFragment extends Fragment {
         // Controls buffering of media
         LoadControl loadControl = new DefaultLoadControl();
 
-        SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(mActivity, trackSelector, loadControl);
+        player = ExoPlayerFactory.newSimpleInstance(mActivity, trackSelector, loadControl);
 
         SimpleExoPlayerView simpleExoPlayerView = (SimpleExoPlayerView) mView.findViewById(R.id.video_player);
 
@@ -138,5 +142,42 @@ public class VideoStreamingFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        try {
+            if (player != null) {
+                player.stop();
+                player.release();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onDestroyView: exception" + e.getMessage());
+        }
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        try {
+            if (player != null) {
+                player.stop();
+                player.release();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onDestroyView: exception" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        try {
+            if (player != null) {
+                player.stop();
+                player.release();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onDestroyView: exception" + e.getMessage());
+        }
+    }
 }

@@ -29,8 +29,7 @@
                 style="@style/sub_heading_text"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:text="Card Heading"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
+                android:padding="@dimen/_5sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

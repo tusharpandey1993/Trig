@@ -1,5 +1,6 @@
 package com.trig.trigapp.Fragments;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 
+import com.trig.trigapp.CommonFiles.MobileConnectPermissions;
+import com.trig.trigapp.CommonFiles.PermissionCallback;
 import com.trig.trigapp.R;
 
 
@@ -42,7 +45,7 @@ public class Contact  extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.contact, container, false);
-
+        MobileConnectPermissions.init(mActivity);
         init(mView);
         backButtonHandling();
 
@@ -94,13 +97,42 @@ public class Contact  extends Fragment implements View.OnClickListener {
                 sendEmail();
             break;
             case R.id.callNumber:
-                callContact();
+                checkPermissionAndThenLoad();
             break;
             case R.id.callNumber2:
-                callContact();
+                checkPermissionAndThenLoad();
             break;
         }
     }
+
+    private boolean checkPermissionAndThenLoad() {
+        if (MobileConnectPermissions.checkPermission(Manifest.permission.CALL_PHONE)) {
+            callContact();
+        } else {
+            if (MobileConnectPermissions.shouldShowRequestPermissionRationale(mActivity, android.Manifest.permission.CALL_PHONE)) {
+                MobileConnectPermissions.askForPermission(mActivity,
+                        new String[]{android.Manifest.permission.CALL_PHONE}, permissionReadstorageCallback);
+            } else {
+                MobileConnectPermissions.askForPermission(mActivity, new String[]{
+                                android.Manifest.permission.CALL_PHONE
+                        },
+                        permissionReadstorageCallback);
+            }
+        }
+        return false;
+    }
+
+    private final PermissionCallback permissionReadstorageCallback = new PermissionCallback() {
+        @Override
+        public void permissionGranted() {
+            callContact();
+        }
+
+        @Override
+        public void permissionRefused() {
+            checkPermissionAndThenLoad();
+        }
+    };
 
     public void sendEmail() {
         final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);

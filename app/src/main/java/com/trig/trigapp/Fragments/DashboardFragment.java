@@ -353,4 +353,12 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
                     .inject();
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
+        fromCourses = false;
+
+    }
 }

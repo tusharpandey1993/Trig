@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.viewpager.widget.PagerAdapter;
 
 
+import com.trig.trigapp.CustomViewsFiles.CircleImageView;
 import com.trig.trigapp.R;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class OnBoardingPagerAdapter extends PagerAdapter {
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.list_item_onboarding, collection, false);
 
         try {
-            AppCompatImageView iv_onboarding = layout.findViewById(R.id.iv_onboarding);
+            CircleImageView iv_onboarding = layout.findViewById(R.id.iv_onboarding);
             AppCompatTextView tv_onboarding_title = layout.findViewById(R.id.tv_onboarding_title);
             AppCompatTextView tv_onboarding_desc = layout.findViewById(R.id.tv_onboarding_desc);
 

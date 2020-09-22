@@ -126,6 +126,9 @@
         <action
             android:id="@+id/action_AssessmentFrag_to_VideoListFragment"
             app:destination="@id/VideoFragment" />
+        <action
+            android:id="@+id/action_AssessmentFrag_to_CoursesTopics"
+            app:destination="@id/CoursesTopics" />
     </fragment>
 
     <fragment
@@ -135,11 +138,13 @@
         tools:layout="@layout/fragment_feedback">
 
         <action
-            android:id="@+id/action_dashboardFrag_to_SuccessFragment"
-            app:destination="@id/SuccessFragment" />
-        <action
             android:id="@+id/action_Feedback_to_Dasboard"
             app:destination="@id/DashboardFragment" />
+
+        <action
+            android:id="@+id/action_dashboardFrag_to_SuccessFragment"
+            app:destination="@id/SuccessFragment" />
+
 
     </fragment>
 
@@ -177,12 +182,6 @@
         android:name="com.trig.trigapp.Fragments.DashboardTrainer"
         android:label="Dashboard Fragment"
         tools:layout="@layout/dashboard_trainer">
-
-        <action
-            android:id="@+id/action_dashboard_trainer_to_topics"
-            app:destination="@id/CoursesTopics" />
-
-
     </fragment>
 
     <fragment
@@ -211,6 +210,10 @@
         <action
             android:id="@+id/action_topics_to_VideoFragment"
             app:destination="@id/VideoFragment" />
+
+        <action
+            android:id="@+id/action_topics_to_AssessmentFragment"
+            app:destination="@id/AssessmentFragmentNew" />
 
     </fragment>
 

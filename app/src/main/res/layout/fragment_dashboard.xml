@@ -99,9 +99,11 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/round_bg"
                 android:elevation="@dimen/_10sdp"
+                app:layout_constraintBottom_toTopOf="@+id/assessmentContainer"
                 app:layout_constraintEnd_toStartOf="@+id/rightGuide"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/leftGuide"
-                app:layout_constraintTop_toBottomOf="@+id/Category">
+                app:layout_constraintTop_toBottomOf="@+id/initials">
 
                 <ImageView
                     android:id="@+id/courseIcon"
@@ -221,7 +223,9 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/round_bg"
                 android:elevation="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/rightGuide"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/leftGuide"
                 app:layout_constraintTop_toBottomOf="@+id/courseContainer">
 
