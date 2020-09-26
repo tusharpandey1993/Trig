@@ -23,6 +23,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.CommonFiles.TrigAppPreferences;
@@ -33,12 +35,15 @@ import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.R;
 import com.trig.trigapp.api.Request.LoginRequest;
 import com.trig.trigapp.MVP.ViewModel;
+import com.trig.trigapp.api.Response.CourseListResponse;
+import com.trig.trigapp.api.Response.DashboardResponse;
 import com.trig.trigapp.api.Response.LoginResponse;
+import com.trig.trigapp.api.Response.ProfileResponse;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LoginFragment extends Fragment implements IPresenter, GenericDialogClickListener {
+public class LoginFragment extends BaseFragment implements IPresenter, GenericDialogClickListener {
     private static final String TAG = "LoginFragment";
 
     private View mView;
@@ -126,7 +131,6 @@ public class LoginFragment extends Fragment implements IPresenter, GenericDialog
                 Utility.getInstance().requestMultiplePermissions(mActivity);
             }
         }
-//        editEmailId = (EditText) mView.findViewById(R.id.edit_email_id);
     }
 
 
@@ -159,6 +163,7 @@ public class LoginFragment extends Fragment implements IPresenter, GenericDialog
             } else {
                 if(Utility.getInstance().isNetworkAvailable(mActivity)) {
                     LoginRequest request = new LoginRequest(UserName, passWord);
+                    showLoader();
                     viewModel.callLoginApi(request);
                 }else{
                     ShowGenericDialog(Constants.getInstance().NoInternetCase, Constants.OK, mActivity.getResources().getString(R.string.no_internet_message),"");
@@ -198,32 +203,82 @@ public class LoginFragment extends Fragment implements IPresenter, GenericDialog
 
     @Override
     public void onError(String error) {
-
+        if(isLoading()){
+            hideLoader();
+        }
     }
 
     @Override
     public void onError(String error, int code) {
-
+        if(isLoading()){
+            hideLoader();
+        }
     }
 
     @Override
     public void onError(Object error) {
+        if(isLoading()){
+            hideLoader();
+        }
 
     }
 
     @Override
     public void onError(Object error, int Code) {
-
+        if(isLoading()){
+            hideLoader();
+        }
     }
 
     @Override
     public void onResponse(LoginResponse loginResponse) {
-        TrigAppPreferences.setLoginCategory(mActivity, Constants.getInstance().user);
-        TrigAppPreferences.setLoginPref(mActivity, true);
-        TrigAppPreferences.setSource_To_Desitnation(mActivity, Constants.getInstance().loginScreen);
+        try {
+            if(isLoading()){
+                hideLoader();
+            }
 
-        Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                .navigate(R.id.action_loginFragment_to_successFragment);
+            if(loginResponse != null) {
+                if(new Gson().toJson(loginResponse).equals("{}")) {
+                    Log.d(TAG, "onResponse:  1" + new Gson().toJson(loginResponse));
+                    Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.error_invalid_username_password));
+                } else {
+                    TrigAppPreferences.setLoginCategory(mActivity, Constants.getInstance().user);
+                    TrigAppPreferences.setLoginPref(mActivity, true);
+                    TrigAppPreferences.setSource_To_Desitnation(mActivity, Constants.getInstance().loginScreen);
+
+                    if (loginResponse != null && loginResponse.getUsername() != null && !loginResponse.getUsername().isEmpty()) {
+                        TrigAppPreferences.setName(mActivity, loginResponse.getUsername());
+                    }
+                    if (loginResponse != null && loginResponse.getUserType() != null && !loginResponse.getUserType().isEmpty()) {
+                        TrigAppPreferences.setUser_Type(mActivity, loginResponse.getUserType());
+                    }
+                    if (loginResponse != null && loginResponse.getTirgEmpCode() != null && !loginResponse.getTirgEmpCode().isEmpty()) {
+                        TrigAppPreferences.setEmployee_Code(mActivity, loginResponse.getTirgEmpCode());
+                    }
+
+                    Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                            .navigate(R.id.action_loginFragment_to_successFragment);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onResponse: exception"  + e.getMessage() );
+        }
+
+    }
+
+    @Override
+    public void onResponseProfile(ProfileResponse profileResponse) {
+
+    }
+
+    @Override
+    public void onResponseProfile(DashboardResponse dashboardResponse) {
+
+    }
+
+    @Override
+    public void onResponseCourseList(JsonArray jsonArray) {
+
     }
 
     @Override

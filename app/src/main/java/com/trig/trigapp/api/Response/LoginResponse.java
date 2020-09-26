@@ -82,4 +82,17 @@ public class LoginResponse {
     public void setIsTrainerPlusUser(String isTrainerPlusUser) {
         this.isTrainerPlusUser = isTrainerPlusUser;
     }
+
+    @Override
+    public String toString() {
+        return "LoginResponse{" +
+                "userType='" + userType + '\'' +
+                ", tirgEmpCode='" + tirgEmpCode + '\'' +
+                ", isActive='" + isActive + '\'' +
+                ", userid='" + userid + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", isTrainerPlusUser='" + isTrainerPlusUser + '\'' +
+                '}';
+    }
 }

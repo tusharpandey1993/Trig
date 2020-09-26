@@ -1,31 +1,38 @@
 package com.trig.trigapp.Fragments;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.trig.trigapp.MVP.IPresenter;
+import com.trig.trigapp.MVP.ViewModel;
+import com.trig.trigapp.R;
+import java.util.ArrayList;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.activity.OnBackPressedCallback;
+import android.content.Context;
+import android.view.LayoutInflater;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
+import com.trig.trigapp.Model.DataModel;
+import androidx.fragment.app.FragmentActivity;
+import androidx.activity.OnBackPressedCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trig.trigapp.Adapter.CourseTopicAdapter;
-import com.trig.trigapp.Model.DataModel;
-import com.trig.trigapp.R;
-import java.util.ArrayList;
+import com.trig.trigapp.api.Response.CourseListResponse;
+import com.trig.trigapp.api.Response.DashboardResponse;
+import com.trig.trigapp.api.Response.LoginResponse;
+import com.trig.trigapp.api.Response.ProfileResponse;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import static com.trig.trigapp.Fragments.DashboardFragment.fromCourses;
 
-public class CoursesTopics extends Fragment implements CourseTopicAdapter.ItemListener{
+public class CoursesTopics extends Fragment implements IPresenter, CourseTopicAdapter.ItemListener{
 
     private static final String TAG = "FeedbackFragment";
 
@@ -35,6 +42,7 @@ public class CoursesTopics extends Fragment implements CourseTopicAdapter.ItemLi
     ArrayList arrayList;
     TextView toolBarText;
     ImageView backIcon;
+    ViewModel viewModel;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -53,16 +61,14 @@ public class CoursesTopics extends Fragment implements CourseTopicAdapter.ItemLi
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         mView = inflater.inflate(R.layout.course_topic, container, false);
+        viewModel = new ViewModel(mActivity,this);
+        viewModel.callCourses();
         init(mView);
 
 
         arrayList = new ArrayList();
-        arrayList.add(new DataModel("Induction Training",10,10, "#09A9FF"));
-        arrayList.add(new DataModel("Functional Training",10,7, "#09A9FF"));
-        arrayList.add(new DataModel("Skill Training",10,6, "#09A9FF"));
-        arrayList.add(new DataModel("Other Training",10,2, "#09A9FF"));
-        arrayList.add(new DataModel("Other Training 2",10,5, "#09A9FF"));
-        arrayList.add(new DataModel("Other Training 3",10,9, "#09A9FF"));
+        arrayList.add(new DataModel("TRIG Introduction",1,1, "#09A9FF"));
+        arrayList.add(new DataModel("Skill Training",1,1, "#09A9FF"));
 
         CourseTopicAdapter adapter = new CourseTopicAdapter(mActivity, arrayList, this);
         recyclerView.setAdapter(adapter);
@@ -110,5 +116,59 @@ public class CoursesTopics extends Fragment implements CourseTopicAdapter.ItemLi
                     .navigate(R.id.action_topics_to_AssessmentFragment);
         }
 
+    }
+
+    @Override
+    public void showProgressDialog() {
+
+    }
+
+    @Override
+    public void hideProgressDialog() {
+
+    }
+
+    @Override
+    public void onError(String error) {
+
+    }
+
+    @Override
+    public void onError(String error, int code) {
+
+    }
+
+    @Override
+    public void onError(Object error) {
+
+    }
+
+    @Override
+    public void onError(Object error, int Code) {
+
+    }
+
+    @Override
+    public void onResponse(LoginResponse loginResponse) {
+
+    }
+
+    @Override
+    public void onResponseProfile(ProfileResponse profileResponse) {
+
+    }
+
+    @Override
+    public void onResponseProfile(DashboardResponse dashboardResponse) {
+
+    }
+
+    @Override
+    public void onResponseCourseList(JsonArray jsonArray) {
+        for(int i =0; i < jsonArray.size(); i++) {
+            new Gson().fromJson(jsonArray.get(i), CourseListResponse.class);
+            Log.d(TAG, "onResponseCourseList: ");
+            Log.d(TAG, "onResponseCourseList: " + jsonArray.get(i));
+        }
     }
 }

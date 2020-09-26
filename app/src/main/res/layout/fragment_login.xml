@@ -8,7 +8,28 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <include layout="@layout/toolbar" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar" />
+
+    <ImageView
+        android:id="@+id/trigLogo"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:src="@drawable/trig_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+    <TextView
+        android:id="@+id/trigText"
+        style="@style/heading_text"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="TRIG GROUP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trigLogo" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parent_constraintlayout"
@@ -17,13 +38,14 @@
         android:layout_marginLeft="@dimen/_30sdp"
         android:layout_marginRight="@dimen/_30sdp"
         android:layout_marginBottom="@dimen/_20sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/trigText">
 
         <TextView
             android:id="@+id/welcome_login"
             style="@style/login_header_text"
             android:text="@string/welcome_login"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -88,7 +110,7 @@
                 android:background="@drawable/underlinebg"
                 android:hint="@string/UserNameHintRegOnLogin"
                 android:maxLength="20"
-                android:text="PN0000010232"
+                android:text=""
                 android:imeOptions="actionNext"
                 android:backgroundTint="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"

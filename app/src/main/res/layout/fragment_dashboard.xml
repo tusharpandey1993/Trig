@@ -116,13 +116,36 @@
 
 
                 <TextView
+                    android:id="@+id/courseCompleted"
+                    style="@style/sub_heading_text"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:text="Completed"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/courseIcon" />
+
+
+                <TextView
+                    android:id="@+id/courseCompletedNumber"
+                    style="@style/sub_heading_text"
+                    android:gravity="center"
+                    android:text=""
+                    android:textSize="@dimen/_13ssp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/courseCompleted"
+                    app:layout_constraintStart_toEndOf="@+id/courseCompleted"
+                    app:layout_constraintTop_toTopOf="@+id/courseCompleted" />
+
+                <TextView
                     android:id="@+id/courseHeading"
                     style="@style/sub_heading_text"
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:layout_marginTop="16dp"
                     android:gravity="center"
                     android:text="Courses"
-                    android:textSize="@dimen/_20ssp"
+                    android:textSize="@dimen/_13ssp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -132,8 +155,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:gravity="center"
-                    android:text="10"
-                    android:textSize="@dimen/_20ssp"
+                    android:text=""
+                    android:textSize="@dimen/_13ssp"
                     app:layout_constraintBottom_toBottomOf="@+id/courseHeading"
                     app:layout_constraintStart_toEndOf="@+id/courseHeading"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -238,6 +261,28 @@
                     app:layout_constraintStart_toStartOf="@+id/assessmentHeading"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/assementCompletedText"
+                    style="@style/sub_heading_text"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:text="Completed"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/assessmentIcon" />
+
+
+                <TextView
+                    android:id="@+id/assementCompleted"
+                    style="@style/sub_heading_text"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:text=""
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/assementCompletedText"
+                    app:layout_constraintStart_toEndOf="@+id/assementCompletedText"
+                    app:layout_constraintTop_toTopOf="@+id/assementCompletedText" />
 
                 <TextView
                     android:id="@+id/assessmentHeading"
@@ -246,7 +291,7 @@
                     android:layout_marginTop="16dp"
                     android:gravity="center"
                     android:text="Assessments"
-                    android:textSize="@dimen/_20ssp"
+                    android:textSize="@dimen/_13ssp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -257,8 +302,8 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
-                    android:text="10"
-                    android:textSize="@dimen/_20ssp"
+                    android:text=""
+                    android:textSize="@dimen/_13ssp"
                     app:layout_constraintBottom_toBottomOf="@+id/assessmentHeading"
                     app:layout_constraintStart_toEndOf="@+id/assessmentHeading"
                     app:layout_constraintTop_toTopOf="parent" />

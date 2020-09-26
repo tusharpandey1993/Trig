@@ -103,7 +103,7 @@
                 style="@style/normal_text"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_20sdp"
-                android:text="SATYA MISHRA"
+                android:text=""
                 app:layout_constraintBottom_toBottomOf="@+id/nameIcon"
                 app:layout_constraintStart_toEndOf="@+id/nameIcon"
                 app:layout_constraintTop_toBottomOf="@+id/nameHint" />
@@ -133,7 +133,7 @@
                 style="@style/normal_text"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_20sdp"
-                android:text="satyamishra@gmail.com"
+                android:text=""
                 app:layout_constraintBottom_toBottomOf="@+id/emailIcon"
                 app:layout_constraintStart_toEndOf="@+id/emailIcon"
                 app:layout_constraintTop_toBottomOf="@+id/emailHint" />
@@ -163,7 +163,7 @@
                 style="@style/normal_text"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_20sdp"
-                android:text="NB0000004277"
+                android:text=""
                 app:layout_constraintBottom_toBottomOf="@+id/employeeIcon"
                 app:layout_constraintStart_toEndOf="@+id/employeeIcon"
                 app:layout_constraintTop_toBottomOf="@+id/employeeCodeHint" />
@@ -191,7 +191,7 @@
                 style="@style/normal_text"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_20sdp"
-                android:text="User"
+                android:text=""
                 app:layout_constraintBottom_toBottomOf="@+id/designationIcon"
                 app:layout_constraintStart_toEndOf="@+id/designationIcon"
                 app:layout_constraintTop_toBottomOf="@+id/designationHint" />
@@ -221,7 +221,7 @@
                 style="@style/normal_text"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_20sdp"
-                android:text="Male"
+                android:text=""
                 app:layout_constraintBottom_toBottomOf="@+id/genderIcon"
                 app:layout_constraintStart_toEndOf="@+id/genderIcon"
                 app:layout_constraintTop_toBottomOf="@+id/genderHint" />
@@ -249,10 +249,14 @@
             <TextView
                 android:id="@+id/address"
                 style="@style/normal_text"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="0dp"
                 android:layout_marginStart="@dimen/_20sdp"
-                android:text="Mumbai"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:minLines="2"
+
+                android:text=""
                 app:layout_constraintBottom_toBottomOf="@+id/addressIcon"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/addressIcon"
                 app:layout_constraintTop_toBottomOf="@+id/addressHint" />
 
@@ -281,7 +285,7 @@
                 style="@style/normal_text"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_20sdp"
-                android:text="12-12-88"
+                android:text=""
                 app:layout_constraintBottom_toBottomOf="@+id/dobIcon"
                 app:layout_constraintStart_toEndOf="@+id/dobIcon"
                 app:layout_constraintTop_toBottomOf="@+id/dobHint" />
@@ -312,10 +316,40 @@
                 style="@style/normal_text"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_20sdp"
-                android:text="12-12-2019"
+                android:text=""
                 app:layout_constraintBottom_toBottomOf="@+id/doJoiningIcon"
                 app:layout_constraintStart_toEndOf="@+id/doJoiningIcon"
                 app:layout_constraintTop_toBottomOf="@+id/doJoiningHint" />
+
+            <ImageView
+                android:id="@+id/ageIcon"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_age"
+                android:layout_marginBottom="@dimen/_15sdp"
+                app:layout_constraintStart_toStartOf="@+id/startGuide"
+                app:layout_constraintTop_toBottomOf="@+id/doJoining" />
+
+            <TextView
+                android:id="@+id/ageHint"
+                style="@style/hint_text"
+                android:text="@string/age"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/ageIcon"
+                app:layout_constraintStart_toEndOf="@+id/ageIcon"
+                app:layout_constraintTop_toTopOf="@+id/ageIcon" />
+
+            <TextView
+                android:id="@+id/age"
+                style="@style/normal_text"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:text=""
+                app:layout_constraintBottom_toBottomOf="@+id/ageIcon"
+                app:layout_constraintStart_toEndOf="@+id/ageIcon"
+                app:layout_constraintTop_toBottomOf="@+id/ageIcon" />
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/bottomSpace"

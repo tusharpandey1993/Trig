@@ -38,6 +38,9 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.trig.trigapp.Adapter.NavDrawerAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
 import com.trig.trigapp.CommonFiles.Constants;
@@ -46,7 +49,13 @@ import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogBuilder;
 import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogClickListener;
 import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogPopup;
+import com.trig.trigapp.MVP.IPresenter;
+import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
+import com.trig.trigapp.api.Response.CourseListResponse;
+import com.trig.trigapp.api.Response.DashboardResponse;
+import com.trig.trigapp.api.Response.LoginResponse;
+import com.trig.trigapp.api.Response.ProfileResponse;
 import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
@@ -60,26 +69,33 @@ import info.hoang8f.widget.FButton;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment implements GenericDialogClickListener, View.OnClickListener , OnClickInterface, DragListener {
+public class DashboardFragment extends BaseFragment implements GenericDialogClickListener, View.OnClickListener , OnClickInterface, DragListener, IPresenter {
 
     private static final String TAG = "DashboardFragment";
     FragmentActivity mActivity;
 
     private View mView;
     ConstraintLayout courseContainer, assessmentContainer;
-    TextView toolBarText, feedback;
+    TextView toolBarText, feedback, userText, courseNumber, courseCompletedNumber, assessmentNumber, assementCompleted;
+    MaterialButton Category, initials;
     RecyclerView list;
+    private ViewModel viewModel;
     public static boolean fromCourses = false;
+    public static boolean goToContactTrainer = false;
 
 
     ImageView closeIcon;
     PieChart pieChart;
-    PieData pieData;
-    PieDataSet pieDataSet;
+    PieData pieData1;
+    PieData pieData2;
+    PieDataSet pieDataSet1;
+    PieDataSet pieDataSet2;
     ArrayList pieEntries;
     ArrayList PieEntryLabels;
-    PieChart coursePieChart;
-    ArrayList<Entry> entries ;
+    PieChart coursePieChart1;
+    PieChart coursePieChart2;
+    ArrayList<Entry> entries1;
+    ArrayList<Entry> entries2;
 
     private SlidingRootNav slidingRootNav;
 
@@ -99,6 +115,8 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
         // Inflate the layout for this fragment
 
         mView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        viewModel = new ViewModel(mActivity,this);
+        viewModel.callDashboardApi();
         init(mView);
 
         backButtonHandling();
@@ -147,26 +165,47 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
         feedback = mView.findViewById(R.id.feedback);
 
         pieChart = mView.findViewById(R.id.pieChart);
-        coursePieChart = mView.findViewById(R.id.coursePieChart);
+        coursePieChart1 = mView.findViewById(R.id.coursePieChart);
+        coursePieChart2 = mView.findViewById(R.id.coursePieChart);
+        userText = mView.findViewById(R.id.userText);
+        Category = mView.findViewById(R.id.Category);
+        initials = mView.findViewById(R.id.initials);
+        courseNumber = mView.findViewById(R.id.courseNumber);
+        courseCompletedNumber = mView.findViewById(R.id.courseCompletedNumber);
+        assessmentNumber = mView.findViewById(R.id.assessmentNumber);
+        assementCompleted = mView.findViewById(R.id.assementCompleted);
 
-        entries = new ArrayList<>();
+        entries1 = new ArrayList<>();
+        entries2 = new ArrayList<>();
         PieEntryLabels = new ArrayList<String>();
 
         AddValuesToPIEENTRY();
         AddValuesToPieEntryLabels();
 
-        pieDataSet = new PieDataSet(entries, "");
-        pieData = new PieData(PieEntryLabels, pieDataSet);
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieChart.setData(pieData);
-        coursePieChart.setData(pieData);
+        pieDataSet1 = new PieDataSet(entries1, "");
+        pieDataSet2 = new PieDataSet(entries1, "");
+        pieData1 = new PieData(PieEntryLabels, pieDataSet1);
+        pieData2 = new PieData(PieEntryLabels, pieDataSet2);
+        pieDataSet1.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieDataSet2.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieChart.setData(pieData1);
+        coursePieChart1.setData(pieData1);
+        coursePieChart2.setData(pieData2);
         pieChart.animateY(1000);
-        coursePieChart.animateY(1000);
+        coursePieChart1.animateY(1000);
+        coursePieChart2.animateY(1000);
+
+        userText.setText(TrigAppPreferences.getName(mActivity) + " (" + TrigAppPreferences.getEmployee_Code(mActivity) + ")");
+        Category.setText(TrigAppPreferences.getUser_Type(mActivity));
+        String initialsExtract =TrigAppPreferences.getUser_Type(mActivity);
+        initials.setText(initialsExtract.substring(0,1));
     }
 
     public void AddValuesToPIEENTRY(){
-        entries.add(new BarEntry(2f, 0));
-        entries.add(new BarEntry(8f, 1));
+        entries1.add(new BarEntry(2f, 0));
+        entries1.add(new BarEntry(2f, 1));
+        entries2.add(new BarEntry(2f, 0));
+        entries2.add(new BarEntry(1f, 1));
     }
 
     public void AddValuesToPieEntryLabels(){
@@ -285,8 +324,9 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
     public final int POS_ASSESSMENT = 2;
     public final int POS_PROFILE = 3;
     public final int POS_CONTACT_US = 4;
-    public final int POS_FEEDBACK = 5;
-    public final int POS_LOGOUT = 6;
+    public final int POS_CONTACT_TRAINER = 5;
+    public final int POS_FEEDBACK = 6;
+    public final int POS_LOGOUT = 7;
 
     @Override
     public void onClick(View view, int position) {
@@ -309,6 +349,12 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
                             .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
                     break;
                 case POS_CONTACT_US:
+                    goToContactTrainer = true;
+                    Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                            .navigate(R.id.action_dashboardFrag_to_Contact);
+                    break;
+                case POS_CONTACT_TRAINER:
+                    goToContactTrainer = false;
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                             .navigate(R.id.action_dashboardFrag_to_Contact);
                     break;
@@ -359,6 +405,98 @@ public class DashboardFragment extends Fragment implements GenericDialogClickLis
         super.onResume();
         Log.d(TAG, "onResume: ");
         fromCourses = false;
+
+    }
+
+    @Override
+    public void showProgressDialog() {
+        try {
+            hideLoader();
+        } catch (Exception e) {
+            Log.e(TAG, "onResponseProfile: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        try {
+            hideLoader();
+        } catch (Exception e) {
+            Log.e(TAG, "onResponseProfile: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void onError(String error) {
+        try {
+            hideLoader();
+        } catch (Exception e) {
+            Log.e(TAG, "onResponseProfile: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void onError(String error, int code) {
+        try {
+            hideLoader();
+        } catch (Exception e) {
+            Log.e(TAG, "onResponseProfile: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void onError(Object error) {
+        try {
+            hideLoader();
+        } catch (Exception e) {
+            Log.e(TAG, "onResponseProfile: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void onError(Object error, int Code) {
+        try {
+            hideLoader();
+        } catch (Exception e) {
+            Log.e(TAG, "onResponseProfile: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void onResponse(LoginResponse loginResponse) {
+        try {
+            hideLoader();
+        } catch (Exception e) {
+            Log.e(TAG, "onResponseProfile: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void onResponseProfile(ProfileResponse profileResponse) {
+        try {
+            hideLoader();
+        } catch (Exception e) {
+            Log.e(TAG, "onResponseProfile: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void onResponseProfile(DashboardResponse dashboardResponse) {
+        try {
+            hideLoader();
+            if (dashboardResponse != null && !new Gson().toJson(dashboardResponse).equals("{}")) {
+                courseNumber.setText(String.valueOf((dashboardResponse.getCourseAssigned())));
+                courseCompletedNumber.setText(String.valueOf(dashboardResponse.getCourseCompleted()));
+                assessmentNumber.setText(String.valueOf(dashboardResponse.getAssessmentAssigned()));
+                assementCompleted.setText(String.valueOf(dashboardResponse.getAssessmentCompleted()));
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onResponseProfile: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void onResponseCourseList(JsonArray jsonArray) {
 
     }
 }

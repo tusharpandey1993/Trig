@@ -137,7 +137,7 @@
                 android:background="@drawable/feedback_bg"
                 android:fontFamily="@font/open_sans_semibold"
                 android:gravity="start"
-                android:hint="SATYA MISHRA"
+                android:hint="Enter Name"
                 android:imeOptions="actionNext"
                 android:maxLength="200"
                 android:maxLines="2"

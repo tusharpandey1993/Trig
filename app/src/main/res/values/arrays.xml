@@ -6,6 +6,7 @@
         <item>My Cources</item>
         <item>Assessment</item>
         <item>Profile</item>
+        <item>Contact Trainer</item>
         <item>Contact Us</item>
         <item>Feedback</item>
         <item>Log Out</item>
@@ -17,6 +18,7 @@
         <item>@drawable/ic_course</item>
         <item>@drawable/ic_assessment</item>
         <item>@drawable/ic_profile</item>
+        <item>@drawable/ic_contact_trainer</item>
         <item>@drawable/ic_contact</item>
         <item>@drawable/ic_feedback</item>
         <item>@drawable/ic_logout</item>

@@ -18,7 +18,7 @@
 
 
     <TextView
-        android:id="@+id/userNameTxt"
+        android:id="@+id/userNameTxtMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_15sdp"
@@ -40,8 +40,9 @@
         android:text="USER (U)  "
         android:textColor="@color/white"
         android:textSize="@dimen/_11ssp"
-        app:layout_constraintStart_toStartOf="@+id/userNameTxt"
-        app:layout_constraintTop_toBottomOf="@+id/userNameTxt" />
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/userNameTxtMenu"
+        app:layout_constraintTop_toBottomOf="@+id/userNameTxtMenu" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,6 +52,7 @@
         android:text="SATYA MISHRA (NB0000004277)"
         android:textColor="@color/white"
         android:textSize="@dimen/_11ssp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="@+id/userCategory"
         app:layout_constraintTop_toBottomOf="@+id/userCategory" />
 

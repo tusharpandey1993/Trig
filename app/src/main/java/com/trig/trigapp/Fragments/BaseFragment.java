@@ -1,33 +1,55 @@
 package com.trig.trigapp.Fragments;
 
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.airbnb.lottie.utils.Utils;
 import com.trig.trigapp.Adapter.NavDrawerAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
 import com.trig.trigapp.CommonFiles.TrigAppPreferences;
+import com.trig.trigapp.CommonFiles.Utility;
+import com.trig.trigapp.CustomViewsFiles.LoaderFragment;
 import com.trig.trigapp.R;
 import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
+import java.util.HashMap;
+import java.util.Map;
 
-public class BaseFragment extends Fragment{ /*implements  View.OnClickListener , OnClickInterface {
 
-    private static final String TAG = "BaseFragment";
-    FragmentActivity mActivity;
-    RecyclerView list;
-    TextView toolBarText;
+public class BaseFragment  extends Fragment {
+
+    protected final String TAG = getClass().getSimpleName();
+    protected View mContent;
+    private FragmentActivity mActivity;
+    private ProgressDialog mProgressDialog;
+    private LoaderFragment loaderFragment;
+    public long mLastClickTime = 0;
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -36,129 +58,156 @@ public class BaseFragment extends Fragment{ /*implements  View.OnClickListener ,
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        try {
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                return;
+            }
+            mLastClickTime = SystemClock.elapsedRealtime();
 
-       *//* Toolbar toolbar = mView.findViewById(R.id.toolbar2);
-
-        slidingRootNav = new SlidingRootNavBuilder(mActivity)
-                .withToolbarMenuToggle(toolbar)
-                .withMenuOpened(false)
-                .withGravity(SlideGravity.LEFT)
-                .withContentClickableWhenMenuOpened(true)
-                .withMenuLayout(R.layout.menu_left_drawer)
-                .inject();
-
-        list = mActivity.findViewById(R.id.list);
-        setAdapter();
-
-        return mView;*//*
-    }
-
-    public void setAdapter(){
-        list.setNestedScrollingEnabled(false);
-        NavDrawerAdapter asCommonAdapter = new NavDrawerAdapter(mActivity, this);
-        list.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-        list.setAdapter(asCommonAdapter);
-    }
-
-    private void init(View mView){
-        toolBarText = mView.findViewById(R.id.toolBarText);
-        toolBarText.setText("Dashboard");
-    }
-
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-
-            case R.id.constraintLayout1:
-                toolBarText.setText("Induction Training");
-
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_VideoFragment);
-                break;
-            case R.id.skillContainer:
-                toolBarText.setText("Skill Training");
-
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_VideoFragment);
-                break;
-            case R.id.constraintLayout3:
-                toolBarText.setText("Functional Training");
-
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_AssessmentFragment);
-                break;
-            case R.id.otherCoursesContainer:
-                toolBarText.setText("Other Courses");
-
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_VideoFragment);
-                break;
-            case R.id.courseContainer:
-                toolBarText.setText("Assessments");
-
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
-                break;
-            case R.id.assessmentContainer:
-                toolBarText.setText("Assessments");
-
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_Contact);
-                break;
-            case R.id.feedback:
-                toolBarText.setText("Feedback Form");
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_FeedbackFragment);
-                break;
-            case R.id.logout:
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_LoginFragment);
-                break;
+        } catch (Exception e) {
+            Log.e(TAG, "  error " + e.getMessage());
         }
     }
 
 
 
-    public final int POS_DASHBOARD = 0;
-    public final int POS_COURCES = 1;
-    public final int POS_ASSESSMENT = 2;
-    public final int POS_PROFILE = 3;
-    public final int POS_CONTACT_US = 4;
-    public final int POS_FEEDBACK = 5;
-    public final int POS_LOGOUT = 6;
     @Override
-    public void onClick(View view, int position) {
-        switch (position) {
-            case POS_DASHBOARD:
-                break;
-            case POS_COURCES:
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_VideoFragment);
-                break;
-            case POS_ASSESSMENT:
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_AssessmentFragment);
-                break;
-            case POS_PROFILE:
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
-                break;
-            case POS_CONTACT_US:
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_Contact);
-                break;
-            case POS_FEEDBACK:
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_FeedbackFragment);
-                break;
-            case POS_LOGOUT:TrigAppPreferences.setLoginPref(mActivity, false);
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_LoginFragment);
-                break;
+    public void onStop() {
+        try {
+            // getActivity().unregisterReceiver(mReceiver);
+        } catch (Exception e) {
         }
-        slidingRootNav.closeMenu();
-    }*/
+        super.onStop();
+    }
+
+
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mContent = view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        hideLoader();
+    }
+
+
+    protected void showProgressBar(String message) {
+        if (isAdded()) {
+            if (mProgressDialog == null) {
+                mProgressDialog = new ProgressDialog(mActivity);
+                mProgressDialog.setCancelable(false);
+            }
+            mProgressDialog.setMessage(message);
+            mProgressDialog.show();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        /**
+         * We release the broadcast receiver service here to avoid memory leak and crashes
+         */
+        try {
+
+        } catch (Exception e) {
+            Log.e(TAG, " unregisterReceiver error " + e.getMessage() );
+        }
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+    }
+
+    public void showLoader() {
+        try {
+            if (Utility.getInstance().isAppOnForeground(mActivity, mActivity.getPackageName())) {
+                loaderFragment = new LoaderFragment();
+                loaderFragment.show(mActivity.getSupportFragmentManager(), TAG);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public boolean isLoading() {
+        try {
+            if (Utility.getInstance().isAppOnForeground(mActivity, mActivity.getPackageName()) && loaderFragment != null) {
+                return loaderFragment.getDialog().isShowing();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void hideLoader() {
+        try {
+                if (Utility.getInstance().isAppOnForeground(mActivity, mActivity.getPackageName())) {
+                    if (loaderFragment != null) {
+                        loaderFragment.dismiss();
+                    }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        try {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        /*inflater.inflate(R.menu.menu_region, menu);
+        final MenuItem menuItem = menu.findItem(R.id.menu_id_help);
+        View actionView = menuItem.getActionView();
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+                onOptionsItemSelected(menuItem);
+            }
+        });*/
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        try {
+            switch (item.getItemId()) {
+
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onOptionsItemSelected: error "+ e.getMessage());
+        }
+        return true;
+    }
+
+
 }

@@ -25,6 +25,8 @@ public class TrigAppPreferences {
     private static final String  KEY_PREF_UserName = "UserName";
     private static final String KEY_IS_COACH_MARKS_SHOWN_APP_STORE = "isCoachMarkShownAppStore";
     private static final String  Source_To_Desitnation = "Source_To_Desitnation";
+    private static final String User_Type = "User_Type";
+    private static final String Employee_Code = "Employee_Code";
 
 
     private static TrigAppPreferences instance;
@@ -147,9 +149,25 @@ public class TrigAppPreferences {
 
     public static String getName(Context context) {
         String value = getStringPrefrence(context, KEY_PREF_NAME);
-        if (TextUtils.isEmpty(value)) {
-            return "MIKO";
-        }
+        return value;
+    }
+
+
+    public static void setUser_Type(Context context, String value) {
+        setStringPrefrence(context, User_Type, value);
+    }
+
+    public static String getUser_Type(Context context) {
+        String value = getStringPrefrence(context, User_Type);
+        return value;
+    }
+
+    public static void setEmployee_Code(Context context, String value) {
+        setStringPrefrence(context, Employee_Code, value);
+    }
+
+    public static String getEmployee_Code(Context context) {
+        String value = getStringPrefrence(context, Employee_Code);
         return value;
     }
 
