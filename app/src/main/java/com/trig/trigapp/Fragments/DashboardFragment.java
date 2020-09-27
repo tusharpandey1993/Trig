@@ -116,7 +116,7 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
 
         mView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         viewModel = new ViewModel(mActivity,this);
-        viewModel.callDashboardApi();
+        viewModel.callDashboardApi("9919");
         init(mView);
 
         backButtonHandling();

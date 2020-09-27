@@ -62,7 +62,7 @@ public class CoursesTopics extends Fragment implements IPresenter, CourseTopicAd
 
         mView = inflater.inflate(R.layout.course_topic, container, false);
         viewModel = new ViewModel(mActivity,this);
-        viewModel.callCourses();
+        viewModel.callCourses(1);
         init(mView);
 
 

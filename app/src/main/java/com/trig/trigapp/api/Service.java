@@ -1,42 +1,50 @@
 package com.trig.trigapp.api;
 
-
 import com.google.gson.JsonArray;
+import com.trig.trigapp.api.Request.CommonReq;
+import com.trig.trigapp.api.Request.LoadAssignmentsReq;
 import com.trig.trigapp.api.Request.LoginRequest;
-import com.trig.trigapp.api.Response.CourseListResponse;
+import com.trig.trigapp.api.Request.GetProfileDetailsReq;
+import com.trig.trigapp.api.Request.getCourseDetailsReq;
 import com.trig.trigapp.api.Response.DashboardResponse;
+import com.trig.trigapp.api.Response.LoadAssignmentsRes;
 import com.trig.trigapp.api.Response.LoginResponse;
 import com.trig.trigapp.api.Response.ProfileResponse;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
-import retrofit2.http.Url;
 
 public interface Service {
 
-//    @Headers("Content-Type: application/json")
-//    @POST("login")
-//    Call<ParentalLoginResponse> loginUser(@Body LoginRequest loginRequest);
 
     @POST("login/login")
     Call<LoginResponse> callLogin(@Body LoginRequest loginRequest);
 
-    @POST("UserProfile\\GetProfile?userid=9919&profile=user")
-    Call<ProfileResponse> callProfile(@Query("user_id") String user);
+    @POST("UserDashBoard/getdashboard")
+    Call<DashboardResponse> getDashboard(@Body CommonReq req);
 
-    @POST("UserDashBoard/getdashboard?user_id=9919")
-    Call<DashboardResponse> callDashboard();
+    @POST("Course/GetCourseList")
+    Call<JsonArray> getCourseList(@Body getCourseDetailsReq req);
 
-    @POST("Course/GetCourseTopics?user_id=9919")
-    Call<JsonArray> getCourses();
+    @POST("CourseDetails/GetCourseDetails")
+    Call<LoadAssignmentsRes> getCourseDetails(@Body CommonReq req);
+
+    @POST("Course/GetCourseTopics")
+    Call<LoadAssignmentsRes> getCourseTopics(@Body CommonReq req);
+
+    @POST("UserProfile/GetFeedback")
+    Call<LoadAssignmentsRes> getFeedback(@Body CommonReq req);
+
+    @POST("UserProfile/GetProfile")
+    Call<ProfileResponse> getProfile(@Body GetProfileDetailsReq req);
+
+    @POST("UserAssessment/getAssessmentList")
+    Call<LoadAssignmentsRes> getAssessmentList(@Body CommonReq req);
+
+    @POST("SubmitAssessment/getScore")
+    Call<LoadAssignmentsRes> getScore(@Body LoadAssignmentsReq req);
+
+    @POST("UserAssessment/LoadAssessment")
+    Call<LoadAssignmentsRes> loadAssignments(@Body LoadAssignmentsReq req);
 
    }

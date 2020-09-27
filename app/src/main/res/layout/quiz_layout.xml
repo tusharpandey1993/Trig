@@ -34,9 +34,6 @@
             android:paddingRight="10dp"
             android:paddingBottom="10dp">
 
-
-
-
             <EditText
                 android:id="@+id/name_field"
                 android:layout_width="match_parent"
