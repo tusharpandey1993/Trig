@@ -5,22 +5,16 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.ColorInt;
-import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,19 +46,15 @@ import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogPopup;
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
-import com.trig.trigapp.api.Response.CourseListResponse;
-import com.trig.trigapp.api.Response.DashboardResponse;
-import com.trig.trigapp.api.Response.LoginResponse;
+import com.trig.trigapp.api.Response.getDashboardRes;
+import com.trig.trigapp.api.Response.getLoginRes;
 import com.trig.trigapp.api.Response.ProfileResponse;
 import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 import com.yarolegovich.slidingrootnav.callback.DragListener;
-import com.yarolegovich.slidingrootnav.callback.DragStateListener;
 
 import java.util.ArrayList;
-
-import info.hoang8f.widget.FButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -463,7 +453,7 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
     }
 
     @Override
-    public void onResponse(LoginResponse loginResponse) {
+    public void onResponse(getLoginRes loginResponse) {
         try {
             hideLoader();
         } catch (Exception e) {
@@ -481,7 +471,7 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
     }
 
     @Override
-    public void onResponseProfile(DashboardResponse dashboardResponse) {
+    public void onResponseProfile(getDashboardRes dashboardResponse) {
         try {
             hideLoader();
             if (dashboardResponse != null && !new Gson().toJson(dashboardResponse).equals("{}")) {

@@ -8,7 +8,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <include
         android:id="@+id/include2"
         layout="@layout/toolbar"
@@ -16,32 +15,28 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 
-    <ScrollView
-        android:layout_width="0dp"
+    <EditText
+        android:id="@+id/name_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_your_name"
+        android:layout_margin="@dimen/_5sdp"
+        android:inputType="textCapWords"
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/quizListRecycler"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2">
+        app:layout_constraintTop_toBottomOf="@+id/name_field" />
 
-        <LinearLayout
-            android:id="@+id/activity_main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp">
 
-            <EditText
-                android:id="@+id/name_field"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/enter_your_name"
-                android:inputType="textCapWords" />
-
-            <RadioGroup
+        <!-- <RadioGroup
                 android:id="@+id/question_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -436,7 +431,7 @@
 
             <View style="@style/Line"></View>
 
-            <!--Question 1-->
+            &lt;!&ndash;Question 1&ndash;&gt;
             <Button
                 android:id="@+id/end_test_button"
                 style="@style/btn_login"
@@ -462,7 +457,6 @@
 
             <View style="@style/Line"></View>
 
+-->
 
-        </LinearLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

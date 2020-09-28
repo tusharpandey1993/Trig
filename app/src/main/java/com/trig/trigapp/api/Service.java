@@ -1,15 +1,21 @@
 package com.trig.trigapp.api;
 
-import com.google.gson.JsonArray;
 import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Request.LoadAssignmentsReq;
 import com.trig.trigapp.api.Request.LoginRequest;
 import com.trig.trigapp.api.Request.GetProfileDetailsReq;
 import com.trig.trigapp.api.Request.getCourseDetailsReq;
-import com.trig.trigapp.api.Response.DashboardResponse;
-import com.trig.trigapp.api.Response.LoadAssignmentsRes;
-import com.trig.trigapp.api.Response.LoginResponse;
-import com.trig.trigapp.api.Response.ProfileResponse;
+import com.trig.trigapp.api.Response.getCourseListRes;
+import com.trig.trigapp.api.Response.getDashboardRes;
+import com.trig.trigapp.api.Response.getLoginRes;
+import com.trig.trigapp.api.Response.getAssessmentListRes;
+import com.trig.trigapp.api.Response.getCourseDetailsRes;
+import com.trig.trigapp.api.Response.getCourseTopicsRes;
+import com.trig.trigapp.api.Response.getFeedbackRes;
+import com.trig.trigapp.api.Response.getLoadAssignmentsRes;
+import com.trig.trigapp.api.Response.getProfileRes;
+import com.trig.trigapp.api.Response.getScoreRes;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -18,33 +24,33 @@ public interface Service {
 
 
     @POST("login/login")
-    Call<LoginResponse> callLogin(@Body LoginRequest loginRequest);
+    Call<getLoginRes> callLogin(@Body LoginRequest loginRequest);
 
     @POST("UserDashBoard/getdashboard")
-    Call<DashboardResponse> getDashboard(@Body CommonReq req);
+    Call<getDashboardRes> getDashboard(@Body CommonReq req);
 
     @POST("Course/GetCourseList")
-    Call<JsonArray> getCourseList(@Body getCourseDetailsReq req);
+    Call<getCourseListRes> getCourseList(@Body getCourseDetailsReq req);
 
     @POST("CourseDetails/GetCourseDetails")
-    Call<LoadAssignmentsRes> getCourseDetails(@Body CommonReq req);
+    Call<getCourseDetailsRes> getCourseDetails(@Body CommonReq req);
 
     @POST("Course/GetCourseTopics")
-    Call<LoadAssignmentsRes> getCourseTopics(@Body CommonReq req);
+    Call<getCourseTopicsRes> getCourseTopics(@Body CommonReq req);
 
     @POST("UserProfile/GetFeedback")
-    Call<LoadAssignmentsRes> getFeedback(@Body CommonReq req);
+    Call<getFeedbackRes> getFeedback(@Body CommonReq req);
 
     @POST("UserProfile/GetProfile")
-    Call<ProfileResponse> getProfile(@Body GetProfileDetailsReq req);
+    Call<getProfileRes> getProfile(@Body GetProfileDetailsReq req);
 
     @POST("UserAssessment/getAssessmentList")
-    Call<LoadAssignmentsRes> getAssessmentList(@Body CommonReq req);
+    Call<getAssessmentListRes> getAssessmentList(@Body CommonReq req);
 
     @POST("SubmitAssessment/getScore")
-    Call<LoadAssignmentsRes> getScore(@Body LoadAssignmentsReq req);
+    Call<getScoreRes> getScore(@Body LoadAssignmentsReq req);
 
     @POST("UserAssessment/LoadAssessment")
-    Call<LoadAssignmentsRes> loadAssignments(@Body LoadAssignmentsReq req);
+    Call<getLoadAssignmentsRes> loadAssignments(@Body LoadAssignmentsReq req);
 
    }

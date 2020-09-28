@@ -34,8 +34,6 @@ public class AssessmentFragment extends Fragment implements View.OnClickListener
     private View mView;
     private FragmentActivity mActivity;
     public TextView toolBarText;
-
-
     FButton buttonA, buttonB, buttonC, buttonD;
     TextView questionText, triviaQuizText, timeText, resultText, coinText;
     TriviaQuizHelper triviaQuizHelper;

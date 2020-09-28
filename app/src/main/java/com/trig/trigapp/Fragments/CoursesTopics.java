@@ -24,9 +24,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.activity.OnBackPressedCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trig.trigapp.Adapter.CourseTopicAdapter;
-import com.trig.trigapp.api.Response.CourseListResponse;
-import com.trig.trigapp.api.Response.DashboardResponse;
-import com.trig.trigapp.api.Response.LoginResponse;
+import com.trig.trigapp.api.Response.getCourseListRes;
+import com.trig.trigapp.api.Response.getDashboardRes;
+import com.trig.trigapp.api.Response.getLoginRes;
 import com.trig.trigapp.api.Response.ProfileResponse;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -149,7 +149,7 @@ public class CoursesTopics extends Fragment implements IPresenter, CourseTopicAd
     }
 
     @Override
-    public void onResponse(LoginResponse loginResponse) {
+    public void onResponse(getLoginRes loginResponse) {
 
     }
 
@@ -159,14 +159,14 @@ public class CoursesTopics extends Fragment implements IPresenter, CourseTopicAd
     }
 
     @Override
-    public void onResponseProfile(DashboardResponse dashboardResponse) {
+    public void onResponseProfile(getDashboardRes dashboardResponse) {
 
     }
 
     @Override
     public void onResponseCourseList(JsonArray jsonArray) {
         for(int i =0; i < jsonArray.size(); i++) {
-            new Gson().fromJson(jsonArray.get(i), CourseListResponse.class);
+            new Gson().fromJson(jsonArray.get(i), getCourseListRes.class);
             Log.d(TAG, "onResponseCourseList: ");
             Log.d(TAG, "onResponseCourseList: " + jsonArray.get(i));
         }

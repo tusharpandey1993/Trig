@@ -10,17 +10,14 @@ import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.MobileConnectPermissions;
 import com.trig.trigapp.CommonFiles.PermissionCallback;
 import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
-import com.trig.trigapp.api.Request.LoginRequest;
-import com.trig.trigapp.api.Response.CourseListResponse;
-import com.trig.trigapp.api.Response.DashboardResponse;
-import com.trig.trigapp.api.Response.LoginResponse;
+import com.trig.trigapp.api.Response.getDashboardRes;
+import com.trig.trigapp.api.Response.getLoginRes;
 import com.trig.trigapp.api.Response.ProfileResponse;
 
 import android.view.ViewGroup;
@@ -30,7 +27,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.navigation.Navigation;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.activity.OnBackPressedCallback;
 
@@ -183,7 +179,7 @@ public class ProfileFragment extends BaseFragment implements IPresenter, View.On
     }
 
     @Override
-    public void onResponse(LoginResponse loginResponse) {
+    public void onResponse(getLoginRes loginResponse) {
         hideLoader();
     }
 
@@ -238,7 +234,7 @@ public class ProfileFragment extends BaseFragment implements IPresenter, View.On
     };
 
     @Override
-    public void onResponseProfile(DashboardResponse dashboardResponse) {
+    public void onResponseProfile(getDashboardRes dashboardResponse) {
 
     }
 

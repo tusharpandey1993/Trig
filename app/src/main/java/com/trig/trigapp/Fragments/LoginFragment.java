@@ -35,9 +35,8 @@ import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.R;
 import com.trig.trigapp.api.Request.LoginRequest;
 import com.trig.trigapp.MVP.ViewModel;
-import com.trig.trigapp.api.Response.CourseListResponse;
-import com.trig.trigapp.api.Response.DashboardResponse;
-import com.trig.trigapp.api.Response.LoginResponse;
+import com.trig.trigapp.api.Response.getDashboardRes;
+import com.trig.trigapp.api.Response.getLoginRes;
 import com.trig.trigapp.api.Response.ProfileResponse;
 
 /**
@@ -231,7 +230,7 @@ public class LoginFragment extends BaseFragment implements IPresenter, GenericDi
     }
 
     @Override
-    public void onResponse(LoginResponse loginResponse) {
+    public void onResponse(getLoginRes loginResponse) {
         try {
             if(isLoading()){
                 hideLoader();
@@ -272,7 +271,7 @@ public class LoginFragment extends BaseFragment implements IPresenter, GenericDi
     }
 
     @Override
-    public void onResponseProfile(DashboardResponse dashboardResponse) {
+    public void onResponseProfile(getDashboardRes dashboardResponse) {
 
     }
 
