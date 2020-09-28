@@ -5,15 +5,15 @@ import com.trig.trigapp.api.Request.LoadAssignmentsReq;
 import com.trig.trigapp.api.Request.LoginRequest;
 import com.trig.trigapp.api.Request.GetProfileDetailsReq;
 import com.trig.trigapp.api.Request.getCourseDetailsReq;
-import com.trig.trigapp.api.Response.getCourseListRes;
-import com.trig.trigapp.api.Response.getDashboardRes;
-import com.trig.trigapp.api.Response.getLoginRes;
+import com.trig.trigapp.api.Response.CommonResponse;
 import com.trig.trigapp.api.Response.getAssessmentListRes;
 import com.trig.trigapp.api.Response.getCourseDetailsRes;
+import com.trig.trigapp.api.Response.getCourseListRes;
 import com.trig.trigapp.api.Response.getCourseTopicsRes;
+import com.trig.trigapp.api.Response.getDashboardRes;
 import com.trig.trigapp.api.Response.getFeedbackRes;
 import com.trig.trigapp.api.Response.getLoadAssignmentsRes;
-import com.trig.trigapp.api.Response.getProfileRes;
+import com.trig.trigapp.api.Response.getLoginRes;
 import com.trig.trigapp.api.Response.getScoreRes;
 
 import retrofit2.Call;
@@ -42,7 +42,7 @@ public interface Service {
     Call<getFeedbackRes> getFeedback(@Body CommonReq req);
 
     @POST("UserProfile/GetProfile")
-    Call<getProfileRes> getProfile(@Body GetProfileDetailsReq req);
+    Call<CommonResponse> getProfile(@Body GetProfileDetailsReq req);
 
     @POST("UserAssessment/getAssessmentList")
     Call<getAssessmentListRes> getAssessmentList(@Body CommonReq req);

@@ -17,10 +17,8 @@ import com.trig.trigapp.api.Response.getDashboardRes;
 import com.trig.trigapp.api.Response.getFeedbackRes;
 import com.trig.trigapp.api.Response.getLoadAssignmentsRes;
 import com.trig.trigapp.api.Response.getLoginRes;
-import com.trig.trigapp.api.Response.ProfileResponse;
-import com.trig.trigapp.api.Response.getProfileRes;
 import com.trig.trigapp.api.Response.getScoreRes;
-
+import com.trig.trigapp.api.Response.CommonResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -65,7 +63,7 @@ public class ViewModel {
 
 
 
-    public void callDashboardApi(String userId) {
+    public void getDashboard(String userId) {
         Utility.getInstance().createServiceForTrigApp(mContext)
                 .getDashboard(new CommonReq(userId))
                 .enqueue(new Callback<getDashboardRes>() {
@@ -239,16 +237,16 @@ public class ViewModel {
 
         Utility.getInstance().createServiceForTrigApp(mContext)
                 .getProfile(new GetProfileDetailsReq(userId,type))
-                .enqueue(new Callback<getProfileRes>() {
+                .enqueue(new Callback<CommonResponse>() {
                     @Override
-                    public void onResponse(Call<getProfileRes> call,
-                                           Response<getProfileRes> response) {
+                    public void onResponse(Call<CommonResponse> call,
+                                           Response<CommonResponse> response) {
                         Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
                             Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
-//                                iPresenter.onResponseProfile(response.body());
+                                iPresenter.onResponseProfile(response.body());
                                 Log.e(TAG, "onResponse:profile " + new Gson().toJson(response.body()));
                             }
                         } else {
@@ -261,7 +259,7 @@ public class ViewModel {
                     }
 
                     @Override
-                    public void onFailure(Call<getProfileRes> call, Throwable t) {
+                    public void onFailure(Call<CommonResponse> call, Throwable t) {
                         Log.e(TAG, "onFailure: " + t.getCause());
                         iPresenter.onError(t.getCause());
                     }

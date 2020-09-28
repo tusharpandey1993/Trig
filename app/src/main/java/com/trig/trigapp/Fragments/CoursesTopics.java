@@ -25,9 +25,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trig.trigapp.Adapter.CourseTopicAdapter;
 import com.trig.trigapp.api.Response.getCourseListRes;
-import com.trig.trigapp.api.Response.getDashboardRes;
-import com.trig.trigapp.api.Response.getLoginRes;
-import com.trig.trigapp.api.Response.ProfileResponse;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import static com.trig.trigapp.Fragments.DashboardFragment.fromCourses;
@@ -115,51 +112,6 @@ public class CoursesTopics extends Fragment implements IPresenter, CourseTopicAd
             Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                     .navigate(R.id.action_topics_to_AssessmentFragment);
         }
-
-    }
-
-    @Override
-    public void showProgressDialog() {
-
-    }
-
-    @Override
-    public void hideProgressDialog() {
-
-    }
-
-    @Override
-    public void onError(String error) {
-
-    }
-
-    @Override
-    public void onError(String error, int code) {
-
-    }
-
-    @Override
-    public void onError(Object error) {
-
-    }
-
-    @Override
-    public void onError(Object error, int Code) {
-
-    }
-
-    @Override
-    public void onResponse(getLoginRes loginResponse) {
-
-    }
-
-    @Override
-    public void onResponseProfile(ProfileResponse profileResponse) {
-
-    }
-
-    @Override
-    public void onResponseProfile(getDashboardRes dashboardResponse) {
 
     }
 

@@ -24,7 +24,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.CommonFiles.TrigAppPreferences;
@@ -35,9 +34,7 @@ import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.R;
 import com.trig.trigapp.api.Request.LoginRequest;
 import com.trig.trigapp.MVP.ViewModel;
-import com.trig.trigapp.api.Response.getDashboardRes;
 import com.trig.trigapp.api.Response.getLoginRes;
-import com.trig.trigapp.api.Response.ProfileResponse;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -262,36 +259,6 @@ public class LoginFragment extends BaseFragment implements IPresenter, GenericDi
         } catch (Exception e) {
             Log.e(TAG, "onResponse: exception"  + e.getMessage() );
         }
-
-    }
-
-    @Override
-    public void onResponseProfile(ProfileResponse profileResponse) {
-
-    }
-
-    @Override
-    public void onResponseProfile(getDashboardRes dashboardResponse) {
-
-    }
-
-    @Override
-    public void onResponseCourseList(JsonArray jsonArray) {
-
-    }
-
-    @Override
-    public void onPositiveButtonClick(View view, int FucntionNumber) {
-
-    }
-
-    @Override
-    public void onNegativeButtonClick(View view, int FucntionNumber) {
-
-    }
-
-    @Override
-    public void onDialogCloseButtonClick(View view, int FucntionNumber) {
 
     }
 }

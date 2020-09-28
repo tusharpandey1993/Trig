@@ -10,7 +10,7 @@ public interface GenericDialogClickListener {
      * @param view Clicked view
      *
      */
-    void onPositiveButtonClick(View view, int FucntionNumber);
+    default void  onPositiveButtonClick(View view, int FucntionNumber){}
     /**
      *
      * right side button i.e Confirm with data
@@ -25,7 +25,7 @@ public interface GenericDialogClickListener {
      * @param view clicked view
      *
      */
-    void onNegativeButtonClick(View view, int FucntionNumber);
+    default void  onNegativeButtonClick(View view, int FucntionNumber){}
 
     /**
      *
@@ -33,7 +33,7 @@ public interface GenericDialogClickListener {
      * @param view clicked view
      *
      */
-    void onDialogCloseButtonClick(View view, int FucntionNumber);
+    default void  onDialogCloseButtonClick(View view, int FucntionNumber){}
 
 }
 

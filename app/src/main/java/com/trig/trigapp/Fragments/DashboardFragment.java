@@ -34,7 +34,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.trig.trigapp.Adapter.NavDrawerAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
 import com.trig.trigapp.CommonFiles.Constants;
@@ -47,8 +46,6 @@ import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
 import com.trig.trigapp.api.Response.getDashboardRes;
-import com.trig.trigapp.api.Response.getLoginRes;
-import com.trig.trigapp.api.Response.ProfileResponse;
 import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
@@ -106,7 +103,7 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
 
         mView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         viewModel = new ViewModel(mActivity,this);
-        viewModel.callDashboardApi("9919");
+        viewModel.getDashboard("9919");
         init(mView);
 
         backButtonHandling();
@@ -453,24 +450,6 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
     }
 
     @Override
-    public void onResponse(getLoginRes loginResponse) {
-        try {
-            hideLoader();
-        } catch (Exception e) {
-            Log.e(TAG, "onResponseProfile: " + e.getMessage());
-        }
-    }
-
-    @Override
-    public void onResponseProfile(ProfileResponse profileResponse) {
-        try {
-            hideLoader();
-        } catch (Exception e) {
-            Log.e(TAG, "onResponseProfile: " + e.getMessage());
-        }
-    }
-
-    @Override
     public void onResponseProfile(getDashboardRes dashboardResponse) {
         try {
             hideLoader();
@@ -485,8 +464,4 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
         }
     }
 
-    @Override
-    public void onResponseCourseList(JsonArray jsonArray) {
-
-    }
 }

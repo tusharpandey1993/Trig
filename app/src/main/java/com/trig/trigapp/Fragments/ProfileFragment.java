@@ -10,15 +10,15 @@ import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.MobileConnectPermissions;
 import com.trig.trigapp.CommonFiles.PermissionCallback;
 import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
-import com.trig.trigapp.api.Response.getDashboardRes;
-import com.trig.trigapp.api.Response.getLoginRes;
-import com.trig.trigapp.api.Response.ProfileResponse;
+import com.trig.trigapp.api.Request.LoginRequest;
+import com.trig.trigapp.api.Response.CommonResponse;
 
 import android.view.ViewGroup;
 import android.content.Context;
@@ -67,11 +67,11 @@ public class ProfileFragment extends BaseFragment implements IPresenter, View.On
 //            ShowGenericDialog(Constants.getInstance().NoInternetCase, Constants.OK, mActivity.getResources().getString(R.string.no_internet_message),"");
         }
 
+
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                        .navigate(R.id.action_profile_to_dashboardFragment);
+                moveBackNavigation();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
@@ -79,12 +79,16 @@ public class ProfileFragment extends BaseFragment implements IPresenter, View.On
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                        .navigate(R.id.action_profile_to_dashboardFragment);
+                moveBackNavigation();
             }
         });
 
         return mView;
+    }
+
+    private void moveBackNavigation() {
+        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                .navigate(R.id.action_profile_to_dashboardFragment);
     }
 
     private void init(View mView) {
@@ -113,7 +117,7 @@ public class ProfileFragment extends BaseFragment implements IPresenter, View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.backgroundImageChange2:
-                checkPermissionAndThenLoad();
+//                checkPermissionAndThenLoad();
 
                 break;
 
@@ -179,24 +183,19 @@ public class ProfileFragment extends BaseFragment implements IPresenter, View.On
     }
 
     @Override
-    public void onResponse(getLoginRes loginResponse) {
-        hideLoader();
-    }
-
-    @Override
-    public void onResponseProfile(ProfileResponse profileResponse) {
+    public void onResponseProfile(CommonResponse commonResponse) {
         try {
             hideLoader();
-            if (profileResponse != null && !new Gson().toJson(profileResponse).equals("{}")) {
-                name.setText(profileResponse.getUsername());
-                email.setText(profileResponse.getEmailId());
-                employeeCode.setText(profileResponse.getTirgEmpCode());
-                designation.setText(profileResponse.getDesignation());
-                gender.setText(profileResponse.getGender());
-                address.setText(profileResponse.getAddress());
-                dob.setText(profileResponse.getDob());
-                doJoining.setText(profileResponse.getDoj());
-                age.setText(profileResponse.getAge());
+            if (commonResponse != null && !new Gson().toJson(commonResponse).equals("{}")) {
+                name.setText(commonResponse.getUsername());
+                email.setText(commonResponse.getEmailId());
+                employeeCode.setText(commonResponse.getTirgEmpCode());
+                designation.setText(commonResponse.getDesignation());
+                gender.setText(commonResponse.getGender());
+                address.setText(commonResponse.getAddress());
+                dob.setText(commonResponse.getDob());
+                doJoining.setText(commonResponse.getDoj());
+                age.setText(commonResponse.getAge());
             }
         } catch (Exception e) {
             Log.e(TAG, "onResponseProfile: " + e.getMessage());
@@ -233,15 +232,5 @@ public class ProfileFragment extends BaseFragment implements IPresenter, View.On
         }
     };
 
-    @Override
-    public void onResponseProfile(getDashboardRes dashboardResponse) {
-
-    }
-
-    @Override
-    public void onResponseCourseList(JsonArray jsonArray) {
-
-
-    }
 
 }

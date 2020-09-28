@@ -4,7 +4,7 @@ import android.view.View;
 
 public interface OnClickInterface {
 
-    void  onClick(View view, int position);
+    default void   onClick(View view, int position){}
 
 //    void  onClickChildView(View view, String viewID, int position);
 

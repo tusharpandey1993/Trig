@@ -206,13 +206,16 @@ public class Constants {
 
     public static final Integer ExitConfirm = 10;
 
-    public String user = "user";
-    public String trainer = "trainer";
     public final Integer exitApp = 800;
     public final Integer logout = 810;
 
     public final Integer loginScreen = 100;
     public final Integer feedback = 101;
 
+
+    // API Params
+    public String getbranch = "getbranch";
+    public String user = "user";
+    public String trainer = "trainer";
 
 }

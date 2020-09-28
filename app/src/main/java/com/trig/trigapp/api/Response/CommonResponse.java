@@ -3,7 +3,7 @@ package com.trig.trigapp.api.Response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ProfileResponse {
+public class CommonResponse {
 
 
     @Expose
@@ -194,9 +194,10 @@ public class ProfileResponse {
         UserType = userType;
     }
 
+
     @Override
     public String toString() {
-        return "ProfileResponse{" +
+        return "{" +
                 "branch='" + branch + '\'' +
                 ", emp_photo_path='" + emp_photo_path + '\'' +
                 ", age='" + age + '\'' +

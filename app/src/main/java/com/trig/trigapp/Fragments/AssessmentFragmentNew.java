@@ -106,7 +106,7 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
         toolBarText.setText("Assessment");
         backIcon = mView.findViewById(R.id.backIcon);
 
-        question_1 = mView.findViewById(R.id.question_1);
+        /*question_1 = mView.findViewById(R.id.question_1);
         RadioGroup question_2 = mView.findViewById(R.id.question_2);
         RadioGroup question_3 = mView.findViewById(R.id.question_3);
         RadioGroup question_4 = mView.findViewById(R.id.question_4);
@@ -130,9 +130,9 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
     }
 
 
-    /**
+    *//**
      * This method is called when the end test button is clicked.
-     */
+     *//*
     public void end_Test(View view) {
         EditText nameField = view.findViewById(R.id.name_field);
         String name = nameField.getText().toString();
@@ -155,7 +155,17 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
         // Disabled "End Test" button after clicking on it.
         endTestButton = view.findViewById(R.id.end_test_button);
         endTestButton.setEnabled(true);
-        endTestButton.setOnClickListener(this);
+        endTestButton.setOnClickListener(this);*/
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+
     }
 
     /**
@@ -164,7 +174,7 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
      * @param name  of the passing the test
      * @param score of the counting of right answers
      * @return text of the test result
-     */
+     *//*
     private String createTestResult(String name, int score) {
         String test_result = getString(R.string.test_result_name) + name;
         test_result += "\n" + getString(R.string.test_result_score) + score;
@@ -323,23 +333,23 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
         }
     }
 
-    /**
+    *//**
      * This method displays the given text on the screen.
-     */
+     *//*
     private void displayResult(String result, View view) {
         TextView testResultTextView = view.findViewById(R.id.test_result_text_view);
         testResultTextView.setText(result);
     }
 
-    /**
+    *//**
      * This method is called when user selected the correct answer.
      * Added +1 to score for each correct answer
-     */
+     *//*
     private int increment_score() {
         Log.d("increment_score", "before onClick: " + score);
         score = ++score;
         Log.d("increment_score", "after onClick: " + score);
-        /*if(increment_score() == 10) {
+        *//*if(increment_score() == 10) {
             endTestButton.setEnabled(true);
             endTestButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -347,7 +357,7 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
                     Log.d("result", "onClick: ");
                 }
             });
-        }*/
+        }*//*
         return score;
     }
 
@@ -435,5 +445,5 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
             default:
                 break;
         }
-    }
+    }*/
 }

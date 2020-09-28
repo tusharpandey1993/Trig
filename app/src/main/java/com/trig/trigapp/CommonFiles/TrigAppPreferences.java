@@ -27,6 +27,7 @@ public class TrigAppPreferences {
     private static final String  Source_To_Desitnation = "Source_To_Desitnation";
     private static final String User_Type = "User_Type";
     private static final String Employee_Code = "Employee_Code";
+    private static final String ContactApiResponse = "ContactApiResponse";
 
 
     private static TrigAppPreferences instance;
@@ -168,6 +169,15 @@ public class TrigAppPreferences {
 
     public static String getEmployee_Code(Context context) {
         String value = getStringPrefrence(context, Employee_Code);
+        return value;
+    }
+
+    public static void setContactApiResponse(Context context, String value) {
+        setStringPrefrence(context, ContactApiResponse, value);
+    }
+
+    public static String getContactApiResponse(Context context) {
+        String value = getStringPrefrence(context, ContactApiResponse);
         return value;
     }
 

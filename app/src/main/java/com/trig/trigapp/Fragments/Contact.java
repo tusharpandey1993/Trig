@@ -1,7 +1,6 @@
 package com.trig.trigapp.Fragments;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,22 +18,28 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.google.gson.Gson;
+import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.MobileConnectPermissions;
 import com.trig.trigapp.CommonFiles.PermissionCallback;
+import com.trig.trigapp.CommonFiles.TrigAppPreferences;
+import com.trig.trigapp.MVP.IPresenter;
+import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
-
+import com.trig.trigapp.api.Response.CommonResponse;
 import static com.trig.trigapp.Fragments.DashboardFragment.goToContactTrainer;
 
 
-public class Contact  extends Fragment implements View.OnClickListener {
+public class Contact  extends Fragment implements IPresenter, View.OnClickListener {
 
     private static final String TAG = "ProfileFragment";
     View mView; FragmentActivity mActivity;
-    private TextView mail, mail2, callNumber, callNumber2,toolBarText;
-    private ImageView backIcon, contactUsIcon ;
+    private TextView mail, mail2, callNumber, callNumber2, toolBarText, apibranchAddress, apibranchAddressText;
+    private ImageView backIcon, contactUsIcon, apilocationIcon;
     private RecyclerView contactUsRecyclerView;
     private ConstraintLayout contactTrainerContainer, contactUsContainer;
+    private View view12;
+    private ViewModel viewModel;
 
     public Contact() {}
 
@@ -51,6 +56,21 @@ public class Contact  extends Fragment implements View.OnClickListener {
         mView = inflater.inflate(R.layout.contact, container, false);
         MobileConnectPermissions.init(mActivity);
         init(mView);
+
+        // Make this invisible before api hit and then make visible from RESPONSE
+        CommonResponse commonResponse = new Gson().fromJson(TrigAppPreferences.getContactApiResponse(mActivity), CommonResponse.class);
+        if(commonResponse != null) {
+            apibranchAddress.setText(commonResponse.getBranch() + "\n" +commonResponse.getAddress());
+        } else {
+            makeViewGoneSinceNoResponseFromBE(false);
+        }
+        if(goToContactTrainer){
+            viewModel.callProfileApi("9919", Constants.getInstance().trainer);
+        } else {
+            viewModel.callProfileApi("9919", Constants.getInstance().getbranch);
+        }
+
+
         Log.d(TAG, "onCreateView:goToContactTrainer " + goToContactTrainer);
         if(goToContactTrainer) {
             toolBarText.setText("Contact Trainer");
@@ -64,6 +84,7 @@ public class Contact  extends Fragment implements View.OnClickListener {
             contactUsIcon.setBackground(getResources().getDrawable(R.drawable.ic_contact));
         }
         backButtonHandling();
+
 
         return mView;
     }
@@ -88,6 +109,7 @@ public class Contact  extends Fragment implements View.OnClickListener {
     }
 
     private void init(View mView) {
+        viewModel = new ViewModel(mActivity, this);
         mail = mView.findViewById(R.id.mail);
         mail2 = mView.findViewById(R.id.mail2);
         callNumber = mView.findViewById(R.id.callNumber);
@@ -95,6 +117,11 @@ public class Contact  extends Fragment implements View.OnClickListener {
         contactUsIcon = mView.findViewById(R.id.contactUsIcon);
         contactTrainerContainer = mView.findViewById(R.id.contactTrainerContainer);
         contactUsContainer = mView.findViewById(R.id.contactUsContainer);
+
+        view12 = mView.findViewById(R.id.view12);
+        apilocationIcon = mView.findViewById(R.id.apilocationIcon);
+        apibranchAddressText = mView.findViewById(R.id.apibranchAddressText);
+        apibranchAddress = mView.findViewById(R.id.apibranchAddress);
 
         mail.setOnClickListener(this);
         mail2.setOnClickListener(this);
@@ -164,5 +191,35 @@ public class Contact  extends Fragment implements View.OnClickListener {
     public void callContact() {
         Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "022 66783333"));
         mActivity.startActivity(intent2);
+    }
+
+    public void makeViewGoneSinceNoResponseFromBE(boolean makeItVisible) {
+        if(makeItVisible) {
+            view12.setVisibility(View.VISIBLE);
+            apilocationIcon.setVisibility(View.VISIBLE);
+            apibranchAddressText.setVisibility(View.VISIBLE);
+            apibranchAddress.setVisibility(View.VISIBLE);
+        } else {
+            view12.setVisibility(View.GONE);
+            apilocationIcon.setVisibility(View.GONE);
+            apibranchAddressText.setVisibility(View.GONE);
+            apibranchAddress.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onResponseProfile(CommonResponse commonResponse) {
+        try {
+            Log.d(TAG, "onResponseProfile: " + commonResponse.toString());
+            if (commonResponse != null && !new Gson().toJson(commonResponse).equals("{}")) {
+                TrigAppPreferences.setContactApiResponse(mActivity, commonResponse.toString());
+                if(!commonResponse.getAddress().isEmpty() || !commonResponse.getBranch().isEmpty()) {
+                    makeViewGoneSinceNoResponseFromBE(true);
+                    apibranchAddress.setText(commonResponse.getBranch() + "\n" +commonResponse.getAddress());
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onResponseProfile: " + e.getMessage());
+        }
     }
 }

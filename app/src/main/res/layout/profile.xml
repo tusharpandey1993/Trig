@@ -75,6 +75,7 @@
                 android:background="@drawable/ic_placeholder_grey_circle"
                 android:elevation="@dimen/_10sdp"
                 android:padding="@dimen/_5sdp"
+                android:visibility="gone"
                 android:src="@drawable/ic_camera"
                 app:layout_constraintBottom_toBottomOf="@+id/profileImg"
                 app:layout_constraintStart_toStartOf="@+id/profileImg" />
