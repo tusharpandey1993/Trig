@@ -13,6 +13,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 
+import com.trig.trigapp.Adapter.NavDrawerAdapter;
+import com.trig.trigapp.Adapter.OnClickInterface;
+import com.trig.trigapp.Adapter.QuizAdapter;
+import com.trig.trigapp.Adapter.QuizPayLoadModel;
 import com.trig.trigapp.AssessmentFactory.TriviaQuestion;
 import com.trig.trigapp.AssessmentFactory.TriviaQuizHelper;
 
@@ -25,14 +29,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.trig.trigapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import info.hoang8f.widget.FButton;
 
-public class AssessmentFragmentNew extends Fragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class AssessmentFragmentNew extends Fragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, OnClickInterface {
 
 
     private View mView;
@@ -55,6 +62,8 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
     String test_result;
     Button endTestButton;
     ImageView backIcon;
+    RecyclerView quizListRecycler;
+    List<QuizPayLoadModel> quizPayLoadModelList;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -89,8 +98,32 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
             }
         });
 
+        setData();
 
         return mView;
+    }
+
+    public void setData(){
+
+        quizPayLoadModelList = new ArrayList<>();
+        for (int i=1;i<10;i++){
+            QuizPayLoadModel model = new QuizPayLoadModel();
+            model.setHeaderTxt("Question"+i);
+            model.setQuestTxt(mActivity.getResources().getString(R.string.question_1));
+            model.setOption1Txt(mActivity.getResources().getString(R.string.answer_2_1));
+            model.setOption2Txt(mActivity.getResources().getString(R.string.answer_2_2));
+            model.setOption3Txt(mActivity.getResources().getString(R.string.answer_2_3));
+            model.setOption4Txt(mActivity.getResources().getString(R.string.answer_2_4));
+            quizPayLoadModelList.add(model);
+        }
+        setQuizAdapter();
+    }
+
+    public void setQuizAdapter(){
+        quizListRecycler.setNestedScrollingEnabled(false);
+        QuizAdapter quizAdapter = new QuizAdapter(mActivity, this,quizPayLoadModelList);
+        quizListRecycler.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        quizListRecycler.setAdapter(quizAdapter);
     }
 
     private void backToPreviousFragment() {
@@ -105,7 +138,9 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
         toolBarText = mView.findViewById(R.id.toolBarText);
         toolBarText.setText("Assessment");
         backIcon = mView.findViewById(R.id.backIcon);
-
+        quizListRecycler = mView.findViewById(R.id.quizListRecycler);
+        EditText nameField = mView.findViewById(R.id.name_field);
+//        String name = nameField.getText().toString();
         /*question_1 = mView.findViewById(R.id.question_1);
         RadioGroup question_2 = mView.findViewById(R.id.question_2);
         RadioGroup question_3 = mView.findViewById(R.id.question_3);
