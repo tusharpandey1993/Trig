@@ -52,6 +52,6 @@ public interface Service {
     Call<getScoreRes> getScore(@Body LoadAssignmentsReq req);
 
     @POST("UserAssessment/LoadAssessment")
-    Call<getLoadAssignmentsRes> loadAssignments(@Body LoadAssignmentsReq req);
+    Call<JsonArray> loadAssignments(@Body LoadAssignmentsReq req);
 
    }

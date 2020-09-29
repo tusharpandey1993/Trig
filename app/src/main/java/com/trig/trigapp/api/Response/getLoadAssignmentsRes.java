@@ -7,12 +7,6 @@ import java.util.List;
 
 public class getLoadAssignmentsRes {
 
-    public List<AssessmentResponse> assessmentResponses = null;
-
-}
-
-class AssessmentResponse {
-    
     @SerializedName("assestment_id")
     @Expose
     public Integer assestmentId;

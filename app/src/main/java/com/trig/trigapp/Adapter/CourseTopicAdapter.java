@@ -13,8 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-import com.trig.trigapp.Model.DataModel;
 import com.trig.trigapp.R;
+import com.trig.trigapp.api.Response.getCourseListRes;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -25,6 +25,7 @@ public class CourseTopicAdapter extends RecyclerView.Adapter<CourseTopicAdapter.
     ArrayList mValues;
     Context mContext;
     protected ItemListener mListener;
+    private static final String TAG = "CourseTopicAdapter";
 
     public CourseTopicAdapter(Context context, ArrayList values, ItemListener itemListener) {
 
@@ -44,7 +45,7 @@ public class CourseTopicAdapter extends RecyclerView.Adapter<CourseTopicAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull MyVi holder, int position) {
-        holder.setData((DataModel) mValues.get(position));
+        holder.setData((getCourseListRes) mValues.get(position));
     }
 
     @Override
@@ -54,7 +55,7 @@ public class CourseTopicAdapter extends RecyclerView.Adapter<CourseTopicAdapter.
     }
 
     public interface ItemListener {
-        void onItemClick(DataModel item);
+        void onItemClick(getCourseListRes item);
     }
 
 
@@ -64,7 +65,7 @@ public class CourseTopicAdapter extends RecyclerView.Adapter<CourseTopicAdapter.
         public ImageView imageView;
         public ConstraintLayout relativeLayout;
         public ProgressBar courseCompletionProgess;
-        DataModel item;
+        getCourseListRes item;
 
         public MyVi(View v) {
 
@@ -79,14 +80,15 @@ public class CourseTopicAdapter extends RecyclerView.Adapter<CourseTopicAdapter.
 
         }
 
-        public void setData(DataModel item) {
+        public void setData(getCourseListRes item) {
             this.item = item;
 
-            cardHeading.setText(item.cardHeading);
-            totalCourses.setText(String.valueOf(item.totalCourses));
-            completedCourses.setText(String.valueOf(item.completedCourses));
 
-            float percentage = (float)((item.completedCourses  * 100)/ item.totalCourses);
+            cardHeading.setText(item.getTopic_name());
+            totalCourses.setText(String.valueOf(item.getAll()));
+            completedCourses.setText(String.valueOf(item.getCompleted()));
+
+            float percentage = (float)((item.getCompleted()  * 100)/ item.getAll());
             courseCompletionProgess.setProgress((int) percentage);
         }
 

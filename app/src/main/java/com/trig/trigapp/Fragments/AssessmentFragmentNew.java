@@ -14,6 +14,10 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.trig.trigapp.Adapter.OnClickInterface;
+import com.trig.trigapp.Adapter.QuizAdapter;
+import com.trig.trigapp.Adapter.QuizPayLoadModel;
 import com.trig.trigapp.AssessmentFactory.TriviaQuestion;
 import com.trig.trigapp.AssessmentFactory.TriviaQuizHelper;
 
@@ -33,6 +37,7 @@ import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
+import com.trig.trigapp.api.Response.getCourseListRes;
 import com.trig.trigapp.api.Response.getLoadAssignmentsRes;
 
 import java.util.ArrayList;
@@ -67,6 +72,7 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
     RecyclerView quizListRecycler;
     List<QuizPayLoadModel> quizPayLoadModelList;
     private ViewModel viewModel;
+    private ArrayList<getLoadAssignmentsRes> getLoadAssignmentsRes;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -211,8 +217,13 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
     }
 
     @Override
-    public void onResponseLoadAssessmentQuestions(getLoadAssignmentsRes getLoadAssignmentsRes) {
-        Log.d(TAG, "onResponseLoadAssessmentQuestions: " + new Gson().toJson(getLoadAssignmentsRes));
+    public void onResponseLoadAssessmentQuestions(JsonArray jsonArray) {
+        getLoadAssignmentsRes = new ArrayList<>();
+        for(int i =0; i < jsonArray.size(); i++) {
+            getLoadAssignmentsRes getCourseListRes = new Gson().fromJson(jsonArray.get(i), getLoadAssignmentsRes.class);
+            getLoadAssignmentsRes.add(getCourseListRes);
+        }
+
     }
 
 

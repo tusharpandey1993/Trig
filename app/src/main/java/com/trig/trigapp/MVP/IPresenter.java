@@ -19,9 +19,9 @@ public interface IPresenter {
     default void onResponse(getLoginRes loginResponse){}
     default void onResponseProfile(CommonResponse commonResponse){}
     default void onResponseProfile(getDashboardRes dashboardResponse){}
-    default void onResponseCourseList(JsonArray JsonArray){}
+    default void onResponseCourseTopicList(JsonArray JsonArray){}
     default void onResponseFeedback(getFeedbackRes getFeedbackRes){}
-    default void onResponseLoadAssessmentQuestions(getLoadAssignmentsRes getLoadAssignmentsRes){}
+    default void onResponseLoadAssessmentQuestions(JsonArray jsonElements){}
 //    void callAPPListAPI(String userName, String miko){}
 //    void onResponseUnsubscribeFeedbacks(getUnsubscribeFeedbacksRes response) {}
 //    void subscribeFreeBundle(ASCommanResponse response) {}

@@ -36,10 +36,11 @@ public class CoursesTopics extends Fragment implements IPresenter, CourseTopicAd
     private View mView;
     private FragmentActivity mActivity;
     RecyclerView recyclerView;
-    ArrayList arrayList;
+//    ArrayList arrayList;
     TextView toolBarText;
     ImageView backIcon;
     ViewModel viewModel;
+    private ArrayList<getCourseListRes> arrayListOfgetCousreList;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -59,19 +60,15 @@ public class CoursesTopics extends Fragment implements IPresenter, CourseTopicAd
 
         mView = inflater.inflate(R.layout.course_topic, container, false);
         viewModel = new ViewModel(mActivity,this);
-        viewModel.callCourses(1);
+        viewModel.callgetCourseTopics("9919");
         init(mView);
 
 
-        arrayList = new ArrayList();
-        arrayList.add(new DataModel("TRIG Introduction",1,1, "#09A9FF"));
-        arrayList.add(new DataModel("Skill Training",1,1, "#09A9FF"));
+//        arrayList = new ArrayList();
+//        arrayList.add(new DataModel("TRIG Introduction",1,1, "#09A9FF"));
+//        arrayList.add(new DataModel("Skill Training",1,1, "#09A9FF"));
 
-        CourseTopicAdapter adapter = new CourseTopicAdapter(mActivity, arrayList, this);
-        recyclerView.setAdapter(adapter);
 
-        GridLayoutManager manager = new GridLayoutManager(mActivity, 2, GridLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(manager);
 
         return mView;
     }
@@ -103,23 +100,30 @@ public class CoursesTopics extends Fragment implements IPresenter, CourseTopicAd
     }
 
     @Override
-    public void onItemClick(DataModel item) {
+    public void onResponseCourseTopicList(JsonArray jsonArray) {
+        arrayListOfgetCousreList = new ArrayList<>();
+        for(int i =0; i < jsonArray.size(); i++) {
+            getCourseListRes getCourseListRes = new Gson().fromJson(jsonArray.get(i), getCourseListRes.class);
+            arrayListOfgetCousreList.add(getCourseListRes);
 
+        }
+
+        CourseTopicAdapter adapter = new CourseTopicAdapter(mActivity, arrayListOfgetCousreList, this);
+        recyclerView.setAdapter(adapter);
+
+        GridLayoutManager manager = new GridLayoutManager(mActivity, 2, GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(manager);
+
+    }
+
+    @Override
+    public void onItemClick(getCourseListRes item) {
         if(fromCourses){
             Navigation.findNavController(requireActivity(), R.id.navHostFragment)
                     .navigate(R.id.action_topics_to_VideoFragment);
         } else {
             Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                     .navigate(R.id.action_topics_to_AssessmentFragment);
-        }
-
-    }
-
-    @Override
-    public void onResponseCourseList(JsonArray jsonArray) {
-        for(int i =0; i < jsonArray.size(); i++) {
-            new Gson().fromJson(jsonArray.get(i), getCourseListRes.class);
-            Log.d(TAG, "onResponseCourseList: " + jsonArray.get(i));
         }
     }
 }

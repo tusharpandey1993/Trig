@@ -162,9 +162,9 @@ public class ViewModel {
                 });
     }
 
-    public void callgetCourseTopics() {
+    public void callgetCourseTopics(String userId) {
         Utility.getInstance().createServiceForTrigApp(mContext)
-                .getCourseTopics(new CommonReq(""))
+                .getCourseTopics(new CommonReq(userId))
                 .enqueue(new Callback<JsonArray>() {
                     @Override
                     public void onResponse(Call<JsonArray> call,
@@ -174,7 +174,7 @@ public class ViewModel {
                             Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
-                                iPresenter.onResponseCourseList(response.body());
+                                iPresenter.onResponseCourseTopicList(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + new Gson().toJson(response.body()));
                             }
                         } else {
@@ -337,10 +337,10 @@ public class ViewModel {
     public void callLoadAssessment(Integer assessmentId, String user_id,String flag) {
         Utility.getInstance().createServiceForTrigApp(mContext)
                 .loadAssignments(new LoadAssignmentsReq(assessmentId, user_id, flag))
-                .enqueue(new Callback<getLoadAssignmentsRes>() {
+                .enqueue(new Callback<JsonArray>() {
                     @Override
-                    public void onResponse(Call<getLoadAssignmentsRes> call,
-                                           Response<getLoadAssignmentsRes> response) {
+                    public void onResponse(Call<JsonArray> call,
+                                           Response<JsonArray> response) {
                         Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
                             Log.d(TAG, "onResponse: 2 " + response.body());
@@ -359,7 +359,7 @@ public class ViewModel {
                     }
 
                     @Override
-                    public void onFailure(Call<getLoadAssignmentsRes> call, Throwable t) {
+                    public void onFailure(Call<JsonArray> call, Throwable t) {
                         Log.e(TAG, "onFailure: callLoadAssessment" + t.getCause());
                         iPresenter.onError(t.getCause());
                     }
