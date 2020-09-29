@@ -3,18 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingLeft="10dp"
-    android:paddingTop="10dp"
-    android:paddingRight="10dp"
-    android:paddingBottom="10dp">
+    android:paddingRight="10dp">
 
 
-    <View style="@style/Line"></View>
+    <View
+        android:id="@+id/view"
+        style="@style/Line"/>
 
     <RadioGroup
-        android:id="@+id/question_2"
+        android:id="@+id/radioGrp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp">

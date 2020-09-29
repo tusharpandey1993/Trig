@@ -26,6 +26,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.MVP.IPresenter;
@@ -33,11 +35,12 @@ import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
 import com.trig.trigapp.api.Response.getLoadAssignmentsRes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import info.hoang8f.widget.FButton;
 
-public class AssessmentFragmentNew extends Fragment implements IPresenter, View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class AssessmentFragmentNew extends Fragment implements IPresenter, View.OnClickListener, RadioGroup.OnCheckedChangeListener, OnClickInterface {
 
 
     private static final String TAG = "AssessmentFragmentNew";
@@ -61,6 +64,8 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
     String test_result;
     Button endTestButton;
     ImageView backIcon;
+    RecyclerView quizListRecycler;
+    List<QuizPayLoadModel> quizPayLoadModelList;
     private ViewModel viewModel;
 
     @Override
@@ -99,8 +104,32 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
             }
         });
 
+        setData();
 
         return mView;
+    }
+
+    public void setData(){
+
+        quizPayLoadModelList = new ArrayList<>();
+        for (int i=1;i<10;i++){
+            QuizPayLoadModel model = new QuizPayLoadModel();
+            model.setHeaderTxt("Question"+i);
+            model.setQuestTxt(mActivity.getResources().getString(R.string.question_1));
+            model.setOption1Txt(mActivity.getResources().getString(R.string.answer_2_1));
+            model.setOption2Txt(mActivity.getResources().getString(R.string.answer_2_2));
+            model.setOption3Txt(mActivity.getResources().getString(R.string.answer_2_3));
+            model.setOption4Txt(mActivity.getResources().getString(R.string.answer_2_4));
+            quizPayLoadModelList.add(model);
+        }
+        setQuizAdapter();
+    }
+
+    public void setQuizAdapter(){
+        quizListRecycler.setNestedScrollingEnabled(false);
+        QuizAdapter quizAdapter = new QuizAdapter(mActivity, this,quizPayLoadModelList);
+        quizListRecycler.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        quizListRecycler.setAdapter(quizAdapter);
     }
 
     private void backToPreviousFragment() {
@@ -116,7 +145,9 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
         toolBarText = mView.findViewById(R.id.toolBarText);
         toolBarText.setText("Assessment");
         backIcon = mView.findViewById(R.id.backIcon);
-
+        quizListRecycler = mView.findViewById(R.id.quizListRecycler);
+        EditText nameField = mView.findViewById(R.id.name_field);
+//        String name = nameField.getText().toString();
         /*question_1 = mView.findViewById(R.id.question_1);
         RadioGroup question_2 = mView.findViewById(R.id.question_2);
         RadioGroup question_3 = mView.findViewById(R.id.question_3);
