@@ -8,7 +8,6 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp">
 
-
     <View
         android:id="@+id/view"
         style="@style/Line"/>

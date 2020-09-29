@@ -18,6 +18,10 @@ import com.google.gson.JsonArray;
 import com.trig.trigapp.Adapter.OnClickInterface;
 import com.trig.trigapp.Adapter.QuizAdapter;
 import com.trig.trigapp.Adapter.QuizPayLoadModel;
+import com.trig.trigapp.Adapter.OnClickInterface;
+import com.trig.trigapp.Adapter.QuizAdapter;
+import com.trig.trigapp.Adapter.QuizModel;
+import com.trig.trigapp.Adapter.QuizPayLoadModel;
 import com.trig.trigapp.AssessmentFactory.TriviaQuestion;
 import com.trig.trigapp.AssessmentFactory.TriviaQuizHelper;
 
@@ -72,7 +76,10 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
     RecyclerView quizListRecycler;
     List<QuizPayLoadModel> quizPayLoadModelList;
     private ViewModel viewModel;
-    private ArrayList<getLoadAssignmentsRes> getLoadAssignmentsRes;
+    private List<getLoadAssignmentsRes> getLoadAssignmentsRes;
+
+    private QuizModel quizModel = new QuizModel();
+    private List<QuizModel> quizModelList;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -94,7 +101,7 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
 
         init(mView);
 
-        viewModel.callLoadAssessment(2,"9919", Constants.getInstance().ATTEMPT);
+        viewModel.callLoadAssessment(2, "9919", Constants.getInstance().ATTEMPT);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
@@ -110,32 +117,30 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
             }
         });
 
-        setData();
-
         return mView;
     }
 
-    public void setData(){
 
-        quizPayLoadModelList = new ArrayList<>();
-        for (int i=1;i<10;i++){
-            QuizPayLoadModel model = new QuizPayLoadModel();
-            model.setHeaderTxt("Question"+i);
-            model.setQuestTxt(mActivity.getResources().getString(R.string.question_1));
-            model.setOption1Txt(mActivity.getResources().getString(R.string.answer_2_1));
-            model.setOption2Txt(mActivity.getResources().getString(R.string.answer_2_2));
-            model.setOption3Txt(mActivity.getResources().getString(R.string.answer_2_3));
-            model.setOption4Txt(mActivity.getResources().getString(R.string.answer_2_4));
-            quizPayLoadModelList.add(model);
-        }
-        setQuizAdapter();
-    }
-
-    public void setQuizAdapter(){
+    public void setQuizAdapter() {
         quizListRecycler.setNestedScrollingEnabled(false);
-        QuizAdapter quizAdapter = new QuizAdapter(mActivity, this,quizPayLoadModelList);
+        QuizAdapter quizAdapter = new QuizAdapter(mActivity, this, getLoadAssignmentsRes);
         quizListRecycler.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         quizListRecycler.setAdapter(quizAdapter);
+    }
+
+    @Override
+    public void onClickQuiz(View view, int position, int id, int assismentID, String optionID) {
+        quizModel.setPosition(position);
+        quizModel.setSelectedID(id);
+
+        if (quizModelList != null) {
+
+        } else {
+            quizModelList = new ArrayList<>();
+            quizModelList.add(quizModel);
+        }
+
+        Log.e(TAG, "onClickQuiz: "+new Gson().toJson(quizModelList));
     }
 
     private void backToPreviousFragment() {
@@ -153,50 +158,9 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
         backIcon = mView.findViewById(R.id.backIcon);
         quizListRecycler = mView.findViewById(R.id.quizListRecycler);
         EditText nameField = mView.findViewById(R.id.name_field);
-//        String name = nameField.getText().toString();
-        /*question_1 = mView.findViewById(R.id.question_1);
-        RadioGroup question_2 = mView.findViewById(R.id.question_2);
-        RadioGroup question_3 = mView.findViewById(R.id.question_3);
-        RadioGroup question_4 = mView.findViewById(R.id.question_4);
-        RadioGroup question_5 = mView.findViewById(R.id.question_5);
-        RadioGroup question_6 = mView.findViewById(R.id.question_6);
-        RadioGroup question_7 = mView.findViewById(R.id.question_7);
-        RadioGroup question_8 = mView.findViewById(R.id.question_8);
-        RadioGroup question_9 = mView.findViewById(R.id.question_9);
-        RadioGroup question_10 = mView.findViewById(R.id.question_10);
-
-        question_1.setOnCheckedChangeListener(this);
-        question_2.setOnCheckedChangeListener(this);
-        question_3.setOnCheckedChangeListener(this);
-        question_4.setOnCheckedChangeListener(this);
-        question_5.setOnCheckedChangeListener(this);
-        question_6.setOnCheckedChangeListener(this);
-        question_7.setOnCheckedChangeListener(this);
-        question_8.setOnCheckedChangeListener(this);
-        question_9.setOnCheckedChangeListener(this);
-        question_10.setOnCheckedChangeListener(this);
-    }
 
 
-    *//**
-     * This method is called when the end test button is clicked.
-     *//*
-    public void end_Test(View view) {
-        EditText nameField = view.findViewById(R.id.name_field);
-        String name = nameField.getText().toString();
-
-        radioQuestion_1(view);
-        radioQuestion_2(view);
-        radioQuestion_3(view);
-        radioQuestion_4(view);
-        radioQuestion_5(view);
-        radioQuestion_6(view);
-        radioQuestion_7(view);
-        radioQuestion_8(view);
-        radioQuestion_9(view);
-        radioQuestion_10(view);
-
-        // Display the test result on the screen
+   /*     // Display the test result on the screen
         test_result = createTestResult(name, score);
         displayResult(test_result, view);
 
@@ -219,12 +183,13 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
     @Override
     public void onResponseLoadAssessmentQuestions(JsonArray jsonArray) {
         getLoadAssignmentsRes = new ArrayList<>();
-        for(int i =0; i < jsonArray.size(); i++) {
+        for (int i = 0; i < jsonArray.size(); i++) {
             getLoadAssignmentsRes getCourseListRes = new Gson().fromJson(jsonArray.get(i), getLoadAssignmentsRes.class);
             getLoadAssignmentsRes.add(getCourseListRes);
         }
-
+        setQuizAdapter();
     }
+}
 
 
     /**
@@ -240,157 +205,6 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
         return test_result;
     }
 
-    public void radioQuestion_1(View view) {
-        Log.d("question1", "radioQuestion_1: onClick" + view);
-        RadioButton answerRadio;
-        RadioGroup answers = view.findViewById(R.id.question_2);
-        switch (answers.getCheckedRadioButtonId()) {
-            case R.id.answer_2_1_radiobutton:
-                answerRadio = view.findViewById(R.id.answer_2_1_radiobutton);
-                increment_score();
-                Log.d("question1", "radioQuestion_1: ");
-                break;
-            default:
-                answerRadio = view.findViewById(R.id.answer_2_2_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_3_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_4_radiobutton);
-        }
-    }
-
-    public void radioQuestion_2(View view) {
-        RadioButton answerRadio;
-        RadioGroup answers = view.findViewById(R.id.question_2);
-        switch (answers.getCheckedRadioButtonId()) {
-            case R.id.answer_2_1_radiobutton:
-                answerRadio = view.findViewById(R.id.answer_2_1_radiobutton);
-                increment_score();
-                break;
-            default:
-                answerRadio = view.findViewById(R.id.answer_2_2_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_3_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_4_radiobutton);
-        }
-    }
-
-    public void radioQuestion_3(View view) {
-        RadioButton answerRadio;
-        RadioGroup answers = view.findViewById(R.id.question_2);
-        switch (answers.getCheckedRadioButtonId()) {
-            case R.id.answer_2_1_radiobutton:
-                answerRadio = view.findViewById(R.id.answer_2_1_radiobutton);
-                increment_score();
-                break;
-            default:
-                answerRadio = view.findViewById(R.id.answer_2_2_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_3_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_4_radiobutton);
-        }
-    }
-
-    public void radioQuestion_4(View view) {
-        RadioButton answerRadio;
-        RadioGroup answers = view.findViewById(R.id.question_2);
-        switch (answers.getCheckedRadioButtonId()) {
-            case R.id.answer_2_1_radiobutton:
-                answerRadio = view.findViewById(R.id.answer_2_1_radiobutton);
-                increment_score();
-                break;
-            default:
-                answerRadio = view.findViewById(R.id.answer_2_2_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_3_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_4_radiobutton);
-        }
-    }
-
-    public void radioQuestion_5(View view) {
-        RadioButton answerRadio;
-        RadioGroup answers = view.findViewById(R.id.question_2);
-        switch (answers.getCheckedRadioButtonId()) {
-            case R.id.answer_2_1_radiobutton:
-                answerRadio = view.findViewById(R.id.answer_2_1_radiobutton);
-                increment_score();
-                break;
-            default:
-                answerRadio = view.findViewById(R.id.answer_2_2_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_3_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_4_radiobutton);
-        }
-    }
-
-    public void radioQuestion_6(View view) {
-        RadioButton answerRadio;
-        RadioGroup answers = view.findViewById(R.id.question_2);
-        switch (answers.getCheckedRadioButtonId()) {
-            case R.id.answer_2_1_radiobutton:
-                answerRadio = view.findViewById(R.id.answer_2_1_radiobutton);
-                increment_score();
-                break;
-            default:
-                answerRadio = view.findViewById(R.id.answer_2_2_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_3_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_4_radiobutton);
-        }
-    }
-
-    public void radioQuestion_7(View view) {
-        RadioButton answerRadio;
-        RadioGroup answers = view.findViewById(R.id.question_2);
-        switch (answers.getCheckedRadioButtonId()) {
-            case R.id.answer_2_1_radiobutton:
-                answerRadio = view.findViewById(R.id.answer_2_1_radiobutton);
-                increment_score();
-                break;
-            default:
-                answerRadio = view.findViewById(R.id.answer_2_2_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_3_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_4_radiobutton);
-        }
-    }
-
-    public void radioQuestion_8(View view) {
-        RadioButton answerRadio;
-        RadioGroup answers = view.findViewById(R.id.question_2);
-        switch (answers.getCheckedRadioButtonId()) {
-            case R.id.answer_2_1_radiobutton:
-                answerRadio = view.findViewById(R.id.answer_2_1_radiobutton);
-                increment_score();
-                break;
-            default:
-                answerRadio = view.findViewById(R.id.answer_2_2_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_3_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_4_radiobutton);
-        }
-    }
-
-    public void radioQuestion_9(View view) {
-        RadioButton answerRadio;
-        RadioGroup answers = view.findViewById(R.id.question_2);
-        switch (answers.getCheckedRadioButtonId()) {
-            case R.id.answer_2_1_radiobutton:
-                answerRadio = view.findViewById(R.id.answer_2_1_radiobutton);
-                increment_score();
-                break;
-            default:
-                answerRadio = view.findViewById(R.id.answer_2_2_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_3_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_4_radiobutton);
-        }
-    }
-
-    public void radioQuestion_10(View view) {
-        RadioButton answerRadio;
-        RadioGroup answers = view.findViewById(R.id.question_2);
-        switch (answers.getCheckedRadioButtonId()) {
-            case R.id.answer_2_1_radiobutton:
-                answerRadio = view.findViewById(R.id.answer_2_1_radiobutton);
-                increment_score();
-                break;
-            default:
-                answerRadio = view.findViewById(R.id.answer_2_2_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_3_radiobutton);
-                answerRadio = view.findViewById(R.id.answer_2_4_radiobutton);
-        }
-    }
 
     *//**
      * This method displays the given text on the screen.
@@ -416,7 +230,7 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
                     Log.d("result", "onClick: ");
                 }
             });
-        }*//*
+        }
         return score;
     }
 
@@ -425,85 +239,5 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
         increment_score();
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        View radioButton = group.findViewById(checkedId);
-        int index = group.indexOfChild(radioButton);
 
-        switch (group.getId()) {
-            case R.id.question_1:
-                switch (index) {
-                    case 2:
-                        Log.d("1", "onCheckedChanged: ");
-                        break;
-                }
-                break;
-            case R.id.question_2:
-                switch (index) {
-                    case 2:
-                        Log.d("2", "onCheckedChanged: ");
-                        break;
-                }
-                break;
-            case R.id.question_3:
-                switch (index) {
-                    case 2:
-                        Log.d("3", "onCheckedChanged: ");
-                        break;
-                }
-                break;
-            case R.id.question_4:
-                switch (index) {
-                    case 2:
-                        Log.d("4", "onCheckedChanged: ");
-                        break;
-                }
-                break;
-            case R.id.question_5:
-                switch (index) {
-                    case 2:
-                        Log.d("5", "onCheckedChanged: ");
-                        break;
-                }
-                break;
-            case R.id.question_6:
-                switch (index) {
-                    case 2:
-                        Log.d("6", "onCheckedChanged: ");
-                        break;
-                }
-                break;
-            case R.id.question_7:
-                switch (index) {
-                    case 2:
-                        Log.d("7", "onCheckedChanged: ");
-                        break;
-                }
-                break;
-            case R.id.question_8:
-                switch (index) {
-                    case 2:
-                        Log.d("8", "onCheckedChanged: ");
-                        break;
-                }
-                break;
-            case R.id.question_9:
-                switch (index) {
-                    case 2:
-                        Log.d("9", "onCheckedChanged: ");
-                        break;
-                }
-                break;
-            case R.id.question_10:
-                switch (index) {
-                    case 2:
-                        Log.d("10", "onCheckedChanged: ");
-                        break;
-                }
-                break;
-            default:
-                break;
-        }
-    }*/
-
-}
+}*/
