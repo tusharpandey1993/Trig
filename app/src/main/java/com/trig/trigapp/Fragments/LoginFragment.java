@@ -242,13 +242,16 @@ public class LoginFragment extends BaseFragment implements IPresenter, GenericDi
                     TrigAppPreferences.setLoginPref(mActivity, true);
                     TrigAppPreferences.setSource_To_Desitnation(mActivity, Constants.getInstance().loginScreen);
 
-                    if (loginResponse != null && loginResponse.getUsername() != null && !loginResponse.getUsername().isEmpty()) {
+                    if (loginResponse.getUserid() != null && !loginResponse.getUserid().isEmpty()) {
+                        TrigAppPreferences.setUserId(mActivity, loginResponse.getUserid());
+                    }
+                    if (loginResponse.getUsername() != null && !loginResponse.getUsername().isEmpty()) {
                         TrigAppPreferences.setName(mActivity, loginResponse.getUsername());
                     }
-                    if (loginResponse != null && loginResponse.getUserType() != null && !loginResponse.getUserType().isEmpty()) {
+                    if (loginResponse.getUserType() != null && !loginResponse.getUserType().isEmpty()) {
                         TrigAppPreferences.setUser_Type(mActivity, loginResponse.getUserType());
                     }
-                    if (loginResponse != null && loginResponse.getTirgEmpCode() != null && !loginResponse.getTirgEmpCode().isEmpty()) {
+                    if (loginResponse.getTirgEmpCode() != null && !loginResponse.getTirgEmpCode().isEmpty()) {
                         TrigAppPreferences.setEmployee_Code(mActivity, loginResponse.getTirgEmpCode());
                     }
                     if(loginResponse.getUserCourseCompletedStatus() != null  && !loginResponse.getUserCourseCompletedStatus().isEmpty() && loginResponse.getUserCourseCompletedStatus().equalsIgnoreCase("T")){

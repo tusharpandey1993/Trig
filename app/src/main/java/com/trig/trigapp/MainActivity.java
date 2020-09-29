@@ -1,10 +1,13 @@
 package com.trig.trigapp;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
 
             navController = Navigation.findNavController(this, R.id.navHostFragment);
+
         } catch (Exception e) {
             Log.e(TAG, "onCreate: " + e.getMessage() );
         }
@@ -50,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                             profileImg.setImageBitmap(selectedImage);
                         }
                     }
-
                     break;
                 case 1:
                     if (resultCode == RESULT_OK && data != null) {

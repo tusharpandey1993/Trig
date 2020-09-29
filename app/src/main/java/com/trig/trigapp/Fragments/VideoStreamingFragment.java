@@ -87,7 +87,7 @@ public class VideoStreamingFragment extends Fragment implements IPresenter {
         init(mView);
         mHandler = new Handler(getMainLooper());
         getCourseDetailsReq courseDetailsReq = new getCourseDetailsReq();
-        courseDetailsReq.setUserid("9919");
+        courseDetailsReq.setUserid(TrigAppPreferences.getUserId(mActivity));
         courseDetailsReq.setCourse_id(2);
 
         if(Utility.getInstance().isNetworkAvailable(mActivity)) {

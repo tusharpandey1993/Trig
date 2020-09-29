@@ -26,6 +26,7 @@ public class TrigAppPreferences {
     private static final String KEY_IS_COACH_MARKS_SHOWN_APP_STORE = "isCoachMarkShownAppStore";
     private static final String  Source_To_Desitnation = "Source_To_Desitnation";
     private static final String User_Type = "User_Type";
+    private static final String UserId = "UserId";
     private static final String Employee_Code = "Employee_Code";
     private static final String ContactApiResponse = "ContactApiResponse";
     private static final String ContactTrainerApiResponse = "ContactTrainerApiResponse";
@@ -161,6 +162,16 @@ public class TrigAppPreferences {
 
     public static String getName(Context context) {
         String value = getStringPrefrence(context, KEY_PREF_NAME);
+        return value;
+    }
+
+
+    public static void setUserId(Context context, String value) {
+        setStringPrefrence(context, UserId, value);
+    }
+
+    public static String getUserId(Context context) {
+        String value = getStringPrefrence(context, UserId);
         return value;
     }
 

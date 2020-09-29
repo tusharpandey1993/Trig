@@ -102,9 +102,10 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
         // Inflate the layout for this fragment
 
         mView = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        viewModel = new ViewModel(mActivity,this);
-        viewModel.getDashboard("9919");
+
+
         init(mView);
+        viewModel.getDashboard(TrigAppPreferences.getUserId(mActivity));
 
         backButtonHandling();
 
@@ -147,6 +148,7 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
     }
 
     private void init(View mView){
+        viewModel = new ViewModel(mActivity,this);
         courseContainer = mView.findViewById(R.id.courseContainer);
         assessmentContainer = mView.findViewById(R.id.assessmentContainer);
         feedback = mView.findViewById(R.id.feedback);

@@ -181,8 +181,7 @@
         android:id="@+id/DashboardTrainer"
         android:name="com.trig.trigapp.Fragments.DashboardTrainer"
         android:label="Dashboard Fragment"
-        tools:layout="@layout/dashboard_trainer">
-    </fragment>
+        tools:layout="@layout/dashboard_trainer"></fragment>
 
     <fragment
         android:id="@+id/Contact"
@@ -209,11 +208,20 @@
 
         <action
             android:id="@+id/action_topics_to_VideoFragment"
-            app:destination="@id/VideoFragment" />
-
+            app:destination="@id/VideoFragment">
+            <argument
+                android:name="item_id"
+                android:defaultValue="1"
+                app:argType="integer" />
+        </action>
         <action
             android:id="@+id/action_topics_to_AssessmentFragment"
-            app:destination="@id/AssessmentFragmentNew" />
+            app:destination="@id/AssessmentFragmentNew">
+            <argument
+                android:name="item_id"
+                android:defaultValue="1"
+                app:argType="integer" />
+        </action>
 
     </fragment>
 

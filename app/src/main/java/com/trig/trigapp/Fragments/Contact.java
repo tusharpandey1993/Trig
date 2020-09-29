@@ -77,7 +77,7 @@ public class Contact  extends Fragment implements IPresenter, View.OnClickListen
                     mail9.setOnClickListener(this);
                 }
             }
-            viewModel.callProfileApi("9919", Constants.getInstance().trainer);
+            viewModel.callProfileApi(TrigAppPreferences.getUserId(mActivity), Constants.getInstance().trainer);
 
         } else {
             CommonResponse commonResponse = Utility.getInstance().getG().fromJson(TrigAppPreferences.getContactApiResponse(mActivity), CommonResponse.class);
@@ -86,7 +86,7 @@ public class Contact  extends Fragment implements IPresenter, View.OnClickListen
             } else {
                 makeViewGoneSinceNoResponseFromBE(false);
             }
-            viewModel.callProfileApi("9919", Constants.getInstance().getbranch);
+            viewModel.callProfileApi(TrigAppPreferences.getUserId(mActivity), Constants.getInstance().getbranch);
         }
 
 

@@ -222,4 +222,17 @@ public class Constants {
     public String ATTEMPT = "ATTEMPT";
     public String REVIEW = "REVIEW";
 
+
+
+
+    // Toolbar Text
+    public String My_Assessments = "My Assessments";
+    public String My_Courses = "My Courses";
+    public String Courses = "Courses";
+    public String Assessments = "Assessments";
+
+
+    // Bundle
+    public String item_id = "item_id";
+
 }

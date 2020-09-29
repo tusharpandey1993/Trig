@@ -101,9 +101,9 @@
                 android:background="@drawable/round_bg"
                 android:elevation="@dimen/_10sdp"
                 app:layout_constraintBottom_toTopOf="@+id/assessmentContainer"
+                app:layout_constraintEnd_toEndOf="@+id/assessmentContainer"
                 app:layout_constraintEnd_toStartOf="@+id/rightGuide"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/leftGuide"
+                app:layout_constraintStart_toStartOf="@+id/assessmentContainer"
                 app:layout_constraintTop_toBottomOf="@+id/initials">
 
                 <ImageView
@@ -131,10 +131,10 @@
                 <TextView
                     android:id="@+id/courseCompletedNumber"
                     style="@style/sub_heading_text"
+                    android:layout_marginLeft="@dimen/_10sdp"
                     android:gravity="center"
                     android:text=""
                     android:textSize="@dimen/_13ssp"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/courseCompleted"
                     app:layout_constraintStart_toEndOf="@+id/courseCompleted"
                     app:layout_constraintTop_toTopOf="@+id/courseCompleted" />
@@ -247,10 +247,10 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/round_bg"
                 android:elevation="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/assessmentResultContainer"
+                app:layout_constraintEnd_toEndOf="@+id/assessmentResultContainer"
                 app:layout_constraintEnd_toStartOf="@+id/rightGuide"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/leftGuide"
+                app:layout_constraintStart_toStartOf="@+id/assessmentResultContainer"
                 app:layout_constraintTop_toBottomOf="@+id/courseContainer">
 
                 <ImageView
@@ -386,6 +386,152 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/assessmentResultContainer"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_170sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/round_bg"
+                android:elevation="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/rightGuide"
+                app:layout_constraintStart_toStartOf="@+id/leftGuide"
+                app:layout_constraintTop_toBottomOf="@+id/assessmentContainer">
+
+                <ImageView
+                    android:id="@+id/resultIcon"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_70sdp"
+                    android:src="@drawable/ic_result"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/resultHeading"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/resultCompletedText"
+                    style="@style/sub_heading_text"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:text="Completed"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/resultIcon" />
+
+
+                <TextView
+                    android:id="@+id/assementCompleted2"
+                    style="@style/sub_heading_text"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:text=""
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/resultCompletedText"
+                    app:layout_constraintStart_toEndOf="@+id/resultCompletedText"
+                    app:layout_constraintTop_toTopOf="@+id/resultCompletedText" />
+
+                <TextView
+                    android:id="@+id/resultHeading"
+                    style="@style/sub_heading_text"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:text="Results"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/assessmentNumber2"
+                    style="@style/sub_heading_text"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text=""
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/resultHeading"
+                    app:layout_constraintStart_toEndOf="@+id/resultHeading"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/completed2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="Completed: "
+                    android:textSize="@dimen/_11ssp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/completedNumber2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textSize="@dimen/_14ssp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/completed2"
+                    app:layout_constraintStart_toEndOf="@+id/completed2"
+                    app:layout_constraintTop_toTopOf="@+id/completed2" />
+
+
+                <TextView
+                    android:id="@+id/due2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="Due: "
+                    android:textSize="@dimen/_11ssp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/completedNumber2" />
+
+                <TextView
+                    android:id="@+id/dueNumber2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="8"
+                    android:textSize="@dimen/_14ssp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/due2"
+                    app:layout_constraintStart_toEndOf="@+id/due2"
+                    app:layout_constraintTop_toTopOf="@+id/due2" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineAssessment2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.6" />
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChart2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/guidelineAssessment2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/feedback"

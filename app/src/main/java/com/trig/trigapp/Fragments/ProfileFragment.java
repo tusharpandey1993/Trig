@@ -14,6 +14,7 @@ import com.google.gson.JsonArray;
 import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.MobileConnectPermissions;
 import com.trig.trigapp.CommonFiles.PermissionCallback;
+import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
@@ -63,7 +64,7 @@ public class ProfileFragment extends BaseFragment implements IPresenter, View.On
 
         if (Utility.getInstance().isNetworkAvailable(mActivity)) {
             showLoader();
-            viewModel.callProfileApi("9919","user");
+            viewModel.callProfileApi(TrigAppPreferences.getUserId(mActivity),"user");
         } else {
 //            ShowGenericDialog(Constants.getInstance().NoInternetCase, Constants.OK, mActivity.getResources().getString(R.string.no_internet_message),"");
         }

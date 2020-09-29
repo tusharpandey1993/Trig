@@ -34,6 +34,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trig.trigapp.CommonFiles.Constants;
+import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
@@ -95,7 +96,7 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
 
         init(mView);
 
-        viewModel.callLoadAssessment(2,"9919", Constants.getInstance().ATTEMPT);
+        viewModel.callLoadAssessment(2, TrigAppPreferences.getUserId(mActivity), Constants.getInstance().ATTEMPT);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
