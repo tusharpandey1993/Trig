@@ -5,115 +5,140 @@ import com.google.gson.annotations.SerializedName;
 
 public class getCourseDetailsRes {
 
-    @SerializedName("course_id")
+
     @Expose
-    private String courseId;
-    @SerializedName("course_name")
-    @Expose
-    private String courseName;
-    @SerializedName("course_detail")
-    @Expose
-    private String courseDetail;
-    @SerializedName("Status")
-    @Expose
-    private Object status;
-    @SerializedName("course_type")
-    @Expose
-    private String courseType;
-    @SerializedName("course_type_id")
-    @Expose
-    private Object courseTypeId;
-    @SerializedName("course_file")
-    @Expose
-    private String courseFile;
-    @SerializedName("courseText")
-    @Expose
-    private String courseText;
-    @SerializedName("is_active")
-    @Expose
-    private String isActive;
-    @SerializedName("has_assessment")
-    @Expose
-    private Object hasAssessment;
-    @SerializedName("is_deleted")
-    @Expose
-    private Object isDeleted;
-    @SerializedName("created_date")
-    @Expose
-    private Object createdDate;
-    @SerializedName("created_by")
-    @Expose
-    private Object createdBy;
-    @SerializedName("course_total_duration")
-    @Expose
-    private Object courseTotalDuration;
-    @SerializedName("course_topic")
-    @Expose
-    private Object courseTopic;
-    @SerializedName("course_start_date")
-    @Expose
-    private Object courseStartDate;
-    @SerializedName("course_assigned_date")
-    @Expose
-    private Object courseAssignedDate;
     @SerializedName("course_completed_date")
+    private String course_completed_date;
     @Expose
-    private Object courseCompletedDate;
+    @SerializedName("course_assigned_date")
+    private String course_assigned_date;
+    @Expose
+    @SerializedName("course_start_date")
+    private String course_start_date;
+    @Expose
+    @SerializedName("course_topic")
+    private String course_topic;
+    @Expose
+    @SerializedName("course_total_duration")
+    private String course_total_duration;
+    @Expose
+    @SerializedName("created_by")
+    private String created_by;
+    @Expose
+    @SerializedName("created_date")
+    private String created_date;
+    @Expose
+    @SerializedName("is_deleted")
+    private String is_deleted;
+    @Expose
+    @SerializedName("has_assessment")
+    private String has_assessment;
+    @Expose
+    @SerializedName("is_active")
+    private String is_active;
+    @Expose
+    @SerializedName("courseText")
+    private String courseText;
+    @Expose
+    @SerializedName("course_file")
+    private String course_file;
+    @Expose
+    @SerializedName("course_type_id")
+    private String course_type_id;
+    @Expose
+    @SerializedName("course_type")
+    private String course_type;
+    @Expose
+    @SerializedName("Status")
+    private String Status;
+    @Expose
+    @SerializedName("course_detail")
+    private String course_detail;
+    @Expose
+    @SerializedName("course_name")
+    private String course_name;
+    @Expose
+    @SerializedName("course_id")
+    private String course_id;
 
-    public String getCourseId() {
-        return courseId;
+    public String getCourse_completed_date() {
+        return course_completed_date;
     }
 
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
+    public void setCourse_completed_date(String course_completed_date) {
+        this.course_completed_date = course_completed_date;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public String getCourse_assigned_date() {
+        return course_assigned_date;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setCourse_assigned_date(String course_assigned_date) {
+        this.course_assigned_date = course_assigned_date;
     }
 
-    public String getCourseDetail() {
-        return courseDetail;
+    public String getCourse_start_date() {
+        return course_start_date;
     }
 
-    public void setCourseDetail(String courseDetail) {
-        this.courseDetail = courseDetail;
+    public void setCourse_start_date(String course_start_date) {
+        this.course_start_date = course_start_date;
     }
 
-    public Object getStatus() {
-        return status;
+    public String getCourse_topic() {
+        return course_topic;
     }
 
-    public void setStatus(Object status) {
-        this.status = status;
+    public void setCourse_topic(String course_topic) {
+        this.course_topic = course_topic;
     }
 
-    public String getCourseType() {
-        return courseType;
+    public String getCourse_total_duration() {
+        return course_total_duration;
     }
 
-    public void setCourseType(String courseType) {
-        this.courseType = courseType;
+    public void setCourse_total_duration(String course_total_duration) {
+        this.course_total_duration = course_total_duration;
     }
 
-    public Object getCourseTypeId() {
-        return courseTypeId;
+    public String getCreated_by() {
+        return created_by;
     }
 
-    public void setCourseTypeId(Object courseTypeId) {
-        this.courseTypeId = courseTypeId;
+    public void setCreated_by(String created_by) {
+        this.created_by = created_by;
     }
 
-    public String getCourseFile() {
-        return courseFile;
+    public String getCreated_date() {
+        return created_date;
     }
 
-    public void setCourseFile(String courseFile) {
-        this.courseFile = courseFile;
+    public void setCreated_date(String created_date) {
+        this.created_date = created_date;
+    }
+
+    public String getIs_deleted() {
+        return is_deleted;
+    }
+
+    public void setIs_deleted(String is_deleted) {
+        this.is_deleted = is_deleted;
+    }
+
+    public String getHas_assessment() {
+        return has_assessment;
+    }
+
+    public void setHas_assessment(String has_assessment) {
+        this.has_assessment = has_assessment;
+    }
+
+    public String getIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(String is_active) {
+        this.is_active = is_active;
     }
 
     public String getCourseText() {
@@ -124,84 +149,83 @@ public class getCourseDetailsRes {
         this.courseText = courseText;
     }
 
-    public String getIsActive() {
-        return isActive;
+    public String getCourse_file() {
+        return course_file;
     }
 
-    public void setIsActive(String isActive) {
-        this.isActive = isActive;
+    public void setCourse_file(String course_file) {
+        this.course_file = course_file;
     }
 
-    public Object getHasAssessment() {
-        return hasAssessment;
+    public String getCourse_type_id() {
+        return course_type_id;
     }
 
-    public void setHasAssessment(Object hasAssessment) {
-        this.hasAssessment = hasAssessment;
+    public void setCourse_type_id(String course_type_id) {
+        this.course_type_id = course_type_id;
     }
 
-    public Object getIsDeleted() {
-        return isDeleted;
+    public String getCourse_type() {
+        return course_type;
     }
 
-    public void setIsDeleted(Object isDeleted) {
-        this.isDeleted = isDeleted;
+    public void setCourse_type(String course_type) {
+        this.course_type = course_type;
     }
 
-    public Object getCreatedDate() {
-        return createdDate;
+    public String getStatus() {
+        return Status;
     }
 
-    public void setCreatedDate(Object createdDate) {
-        this.createdDate = createdDate;
+    public void setStatus(String status) {
+        Status = status;
     }
 
-    public Object getCreatedBy() {
-        return createdBy;
+    public String getCourse_detail() {
+        return course_detail;
     }
 
-    public void setCreatedBy(Object createdBy) {
-        this.createdBy = createdBy;
+    public void setCourse_detail(String course_detail) {
+        this.course_detail = course_detail;
     }
 
-    public Object getCourseTotalDuration() {
-        return courseTotalDuration;
+    public String getCourse_name() {
+        return course_name;
     }
 
-    public void setCourseTotalDuration(Object courseTotalDuration) {
-        this.courseTotalDuration = courseTotalDuration;
+    public void setCourse_name(String course_name) {
+        this.course_name = course_name;
     }
 
-    public Object getCourseTopic() {
-        return courseTopic;
+    public String getCourse_id() {
+        return course_id;
     }
 
-    public void setCourseTopic(Object courseTopic) {
-        this.courseTopic = courseTopic;
+    public void setCourse_id(String course_id) {
+        this.course_id = course_id;
     }
 
-    public Object getCourseStartDate() {
-        return courseStartDate;
+    @Override
+    public String toString() {
+        return "{" +
+                "course_completed_date='" + course_completed_date + '\'' +
+                ", course_assigned_date='" + course_assigned_date + '\'' +
+                ", course_start_date='" + course_start_date + '\'' +
+                ", course_topic='" + course_topic + '\'' +
+                ", course_total_duration='" + course_total_duration + '\'' +
+                ", created_by='" + created_by + '\'' +
+                ", created_date='" + created_date + '\'' +
+                ", is_deleted='" + is_deleted + '\'' +
+                ", has_assessment='" + has_assessment + '\'' +
+                ", is_active='" + is_active + '\'' +
+                ", courseText='" + courseText + '\'' +
+                ", course_file='" + course_file + '\'' +
+                ", course_type_id='" + course_type_id + '\'' +
+                ", course_type='" + course_type + '\'' +
+                ", Status='" + Status + '\'' +
+                ", course_detail='" + course_detail + '\'' +
+                ", course_name='" + course_name + '\'' +
+                ", course_id='" + course_id + '\'' +
+                '}';
     }
-
-    public void setCourseStartDate(Object courseStartDate) {
-        this.courseStartDate = courseStartDate;
-    }
-
-    public Object getCourseAssignedDate() {
-        return courseAssignedDate;
-    }
-
-    public void setCourseAssignedDate(Object courseAssignedDate) {
-        this.courseAssignedDate = courseAssignedDate;
-    }
-
-    public Object getCourseCompletedDate() {
-        return courseCompletedDate;
-    }
-
-    public void setCourseCompletedDate(Object courseCompletedDate) {
-        this.courseCompletedDate = courseCompletedDate;
-    }
-
 }

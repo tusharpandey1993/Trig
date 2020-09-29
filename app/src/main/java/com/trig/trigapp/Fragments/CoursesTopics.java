@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
@@ -103,7 +104,7 @@ public class CoursesTopics extends Fragment implements IPresenter, CourseTopicAd
     public void onResponseCourseTopicList(JsonArray jsonArray) {
         arrayListOfgetCousreList = new ArrayList<>();
         for(int i =0; i < jsonArray.size(); i++) {
-            getCourseListRes getCourseListRes = new Gson().fromJson(jsonArray.get(i), getCourseListRes.class);
+            getCourseListRes getCourseListRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), getCourseListRes.class);
             arrayListOfgetCousreList.add(getCourseListRes);
 
         }

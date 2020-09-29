@@ -234,8 +234,8 @@ public class LoginFragment extends BaseFragment implements IPresenter, GenericDi
             }
 
             if(loginResponse != null) {
-                if(new Gson().toJson(loginResponse).equals("{}")) {
-                    Log.d(TAG, "onResponse:  1" + new Gson().toJson(loginResponse));
+                if(Utility.getInstance().getG().toJson(loginResponse).equals("{}")) {
+                    Log.d(TAG, "onResponse:  1" + Utility.getInstance().getG().toJson(loginResponse));
                     Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.error_invalid_username_password));
                 } else {
                     TrigAppPreferences.setLoginCategory(mActivity, Constants.getInstance().user);

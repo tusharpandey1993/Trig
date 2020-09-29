@@ -184,8 +184,14 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
 
         userText.setText(TrigAppPreferences.getName(mActivity) + " (" + TrigAppPreferences.getEmployee_Code(mActivity) + ")");
         Category.setText(TrigAppPreferences.getUser_Type(mActivity));
-        String initialsExtract =TrigAppPreferences.getUser_Type(mActivity);
-        initials.setText(initialsExtract.substring(0,1));
+//        String initialsExtract =TrigAppPreferences.getUser_Type(mActivity);
+        if(TrigAppPreferences.getisUserModeTrainer(mActivity)){
+            initials.setVisibility(View.VISIBLE);
+            initials.setText("T");
+        } else {
+            initials.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     public void AddValuesToPIEENTRY(){
@@ -453,7 +459,7 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
     public void onResponseProfile(getDashboardRes dashboardResponse) {
         try {
             hideLoader();
-            if (dashboardResponse != null && !new Gson().toJson(dashboardResponse).equals("{}")) {
+            if (dashboardResponse != null && !Utility.getInstance().getG().toJson(dashboardResponse).equals("{}")) {
                 courseNumber.setText(String.valueOf((dashboardResponse.getCourseAssigned())));
                 courseCompletedNumber.setText(String.valueOf(dashboardResponse.getCourseCompleted()));
                 assessmentNumber.setText(String.valueOf(dashboardResponse.getAssessmentAssigned()));

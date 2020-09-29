@@ -35,6 +35,7 @@ public class ViewModel {
         this.iPresenter = iPresenter;
     }
 
+    // Login
     public void callLoginApi(LoginRequest request) {
         Utility.getInstance().createServiceForTrigApp(mContext)
                 .callLogin(request)
@@ -45,12 +46,12 @@ public class ViewModel {
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
                                 iPresenter.onResponse(response.body());
-                                Log.e(TAG, "onResponse:login " + new Gson().toJson(response.body()));
+                                Log.e(TAG, "onResponse:login " + Utility.getInstance().getG().toJson(response.body()));
                             }
                         } else {
                             if (response.errorBody() != null) {
                                 iPresenter.onError(response.errorBody());
-                                Log.e(TAG, "onerror:login " + new Gson().toJson(response.errorBody()));
+                                Log.e(TAG, "onerror:login " + Utility.getInstance().getG().toJson(response.errorBody()));
                             }
                         }
                     }
@@ -64,7 +65,7 @@ public class ViewModel {
     }
 
 
-
+    // Dashboard 1st and 2nd card details
     public void getDashboard(String userId) {
         Utility.getInstance().createServiceForTrigApp(mContext)
                 .getDashboard(new CommonReq(userId))
@@ -78,13 +79,13 @@ public class ViewModel {
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
                                 iPresenter.onResponseProfile(response.body());
-                                Log.e(TAG, "onResponse:DashboardResponse " + new Gson().toJson(response.body()));
+                                Log.e(TAG, "onResponse:DashboardResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
                         } else {
                             Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
                             if (response.errorBody() != null) {
                                 iPresenter.onError(response.errorBody());
-                                Log.e(TAG, "onerror:DashboardResponse " + new Gson().toJson(response.errorBody()));
+                                Log.e(TAG, "onerror:DashboardResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
                             }
                         }
                     }
@@ -97,32 +98,33 @@ public class ViewModel {
                 });
     }
 
-    public void callCourses(Integer courseId) {
+    // List of vidoes
+    public void callCourses(getCourseDetailsReq getCourseDetailsReq) {
         Utility.getInstance().createServiceForTrigApp(mContext)
-                .getCourseList(new getCourseDetailsReq("",courseId))
-                .enqueue(new Callback<getCourseListRes>() {
+                .getCourseList(getCourseDetailsReq)
+                .enqueue(new Callback<JsonArray>() {
                     @Override
-                    public void onResponse(Call<getCourseListRes> call,
-                                           Response<getCourseListRes> response) {
+                    public void onResponse(Call<JsonArray> call,
+                                           Response<JsonArray> response) {
                         Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
                             Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
-//                                iPresenter.onResponseCourseList(response.body());
-//                                Log.e(TAG, "onResponse:CourseListResponse " + new Gson().toJson(response.body()));
+                                iPresenter.onResponseVideoList(response.body());
+//                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
                         } else {
                             Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
                             if (response.errorBody() != null) {
                                 iPresenter.onError(response.errorBody());
-                                Log.e(TAG, "onerror:CourseListResponse " + new Gson().toJson(response.errorBody()));
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
                             }
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<getCourseListRes> call, Throwable t) {
+                    public void onFailure(Call<JsonArray> call, Throwable t) {
                         Log.e(TAG, "onFailure: callCourses" + t.getCause());
                         iPresenter.onError(t.getCause());
                     }
@@ -130,9 +132,10 @@ public class ViewModel {
     }
 
 
-    public void callgetCourseDetails() {
+    // To get Video URL
+    public void callgetCourseDetails(getCourseDetailsReq getCourseDetailsReq) {
         Utility.getInstance().createServiceForTrigApp(mContext)
-                .getCourseDetails(new CommonReq(""))
+                .getCourseDetails(getCourseDetailsReq)
                 .enqueue(new Callback<getCourseDetailsRes>() {
                     @Override
                     public void onResponse(Call<getCourseDetailsRes> call,
@@ -142,14 +145,14 @@ public class ViewModel {
                             Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
-//                                iPresenter.onResponseCourseList(response.body());
-//                                Log.e(TAG, "onResponse:CourseListResponse " + new Gson().toJson(response.body()));
+                                iPresenter.onResponseGetVideoUrl(response.body());
+//                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
                         } else {
                             Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
                             if (response.errorBody() != null) {
                                 iPresenter.onError(response.errorBody());
-                                Log.e(TAG, "onerror:CourseListResponse " + new Gson().toJson(response.errorBody()));
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
                             }
                         }
                     }
@@ -162,6 +165,7 @@ public class ViewModel {
                 });
     }
 
+    // To get Grid Cards data
     public void callgetCourseTopics(String userId) {
         Utility.getInstance().createServiceForTrigApp(mContext)
                 .getCourseTopics(new CommonReq(userId))
@@ -175,13 +179,13 @@ public class ViewModel {
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
                                 iPresenter.onResponseCourseTopicList(response.body());
-//                                Log.e(TAG, "onResponse:CourseListResponse " + new Gson().toJson(response.body()));
+//                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
                         } else {
                             Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
                             if (response.errorBody() != null) {
                                 iPresenter.onError(response.errorBody());
-                                Log.e(TAG, "onerror:CourseListResponse " + new Gson().toJson(response.errorBody()));
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
                             }
                         }
                     }
@@ -194,6 +198,7 @@ public class ViewModel {
                 });
     }
 
+    // To get Feedback From Trainer
     public void callgetFeedback(String userId) {
         Utility.getInstance().createServiceForTrigApp(mContext)
                 .getFeedback(new CommonReq(userId))
@@ -212,7 +217,7 @@ public class ViewModel {
                             Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
                             if (response.errorBody() != null) {
                                 iPresenter.onError(response.errorBody());
-                                Log.e(TAG, "onerror:CourseListResponse " + new Gson().toJson(response.errorBody()));
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
                             }
                         }
                     }
@@ -225,15 +230,7 @@ public class ViewModel {
                 });
     }
 
-//    """userid"":""9919"",
-//""profile"":""user"""
-//
-//            """userid"":""9919"",
-//""profile"":""trainer"""
-//
-//            """userid"":""9919"",
-//""profile"":""getbranch"""
-
+    // To get Profile details
     public void callProfileApi(String userId, String type) {
 
         Utility.getInstance().createServiceForTrigApp(mContext)
@@ -248,13 +245,13 @@ public class ViewModel {
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
                                 iPresenter.onResponseProfile(response.body());
-                                Log.e(TAG, "onResponse:profile " + new Gson().toJson(response.body()));
+                                Log.e(TAG, "onResponse:profile " + Utility.getInstance().getG().toJson(response.body()));
                             }
                         } else {
                             Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
                             if (response.errorBody() != null) {
                                 iPresenter.onError(response.errorBody());
-                                Log.e(TAG, "onerror:profile " + new Gson().toJson(response.errorBody()));
+                                Log.e(TAG, "onerror:profile " + Utility.getInstance().getG().toJson(response.errorBody()));
                             }
                         }
                     }
@@ -268,38 +265,40 @@ public class ViewModel {
     }
 
 
-    public void callgetAssessmentList() {
+    // For Dashboard: show Report
+    public void callgetAssessmentList(String userID) {
         Utility.getInstance().createServiceForTrigApp(mContext)
-                .getAssessmentList(new CommonReq(""))
-                .enqueue(new Callback<getAssessmentListRes>() {
+                .getAssessmentList(new CommonReq(userID))
+                .enqueue(new Callback<JsonArray>() {
                     @Override
-                    public void onResponse(Call<getAssessmentListRes> call,
-                                           Response<getAssessmentListRes> response) {
+                    public void onResponse(Call<JsonArray> call,
+                                           Response<JsonArray> response) {
                         Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
                             Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
-//                                iPresenter.onResponseCourseList(response.body());
-//                                Log.e(TAG, "onResponse:CourseListResponse " + new Gson().toJson(response.body()));
+//                                iPresenter.onResponseVideoList(response.body());
+//                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
                         } else {
                             Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
                             if (response.errorBody() != null) {
                                 iPresenter.onError(response.errorBody());
-                                Log.e(TAG, "onerror:CourseListResponse " + new Gson().toJson(response.errorBody()));
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
                             }
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<getAssessmentListRes> call, Throwable t) {
+                    public void onFailure(Call<JsonArray> call, Throwable t) {
                         Log.e(TAG, "onFailure: callgetAssessmentList" + t.getCause());
                         iPresenter.onError(t.getCause());
                     }
                 });
     }
 
+    // Dashboard Report
  public void callgetScore(Integer assessmentId) {
         Utility.getInstance().createServiceForTrigApp(mContext)
                 .getScore(new LoadAssignmentsReq(assessmentId,""))
@@ -313,13 +312,13 @@ public class ViewModel {
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
 //                                iPresenter.onResponseCourseList(response.body());
-//                                Log.e(TAG, "onResponse:CourseListResponse " + new Gson().toJson(response.body()));
+//                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
                         } else {
                             Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
                             if (response.errorBody() != null) {
                                 iPresenter.onError(response.errorBody());
-                                Log.e(TAG, "onerror:CourseListResponse " + new Gson().toJson(response.errorBody()));
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
                             }
                         }
                     }
@@ -333,7 +332,7 @@ public class ViewModel {
     }
 
     //flag = ATTEMPT and   flag = REVIEW
-
+    // For Assessment Quiz and Result
     public void callLoadAssessment(Integer assessmentId, String user_id,String flag) {
         Utility.getInstance().createServiceForTrigApp(mContext)
                 .loadAssignments(new LoadAssignmentsReq(assessmentId, user_id, flag))
@@ -347,13 +346,13 @@ public class ViewModel {
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
                                 iPresenter.onResponseLoadAssessmentQuestions(response.body());
-//                                Log.e(TAG, "onResponse:CourseListResponse " + new Gson().toJson(response.body()));
+//                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
                         } else {
                             Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
                             if (response.errorBody() != null) {
                                 iPresenter.onError(response.errorBody());
-                                Log.e(TAG, "onerror:CourseListResponse " + new Gson().toJson(response.errorBody()));
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
                             }
                         }
                     }

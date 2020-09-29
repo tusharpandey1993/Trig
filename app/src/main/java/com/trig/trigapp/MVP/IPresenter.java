@@ -2,6 +2,8 @@ package com.trig.trigapp.MVP;
 
 import com.google.gson.JsonArray;
 import com.trig.trigapp.api.Response.CommonResponse;
+import com.trig.trigapp.api.Response.getAssessmentListRes;
+import com.trig.trigapp.api.Response.getCourseDetailsRes;
 import com.trig.trigapp.api.Response.getDashboardRes;
 import com.trig.trigapp.api.Response.getFeedbackRes;
 import com.trig.trigapp.api.Response.getLoadAssignmentsRes;
@@ -22,8 +24,7 @@ public interface IPresenter {
     default void onResponseCourseTopicList(JsonArray JsonArray){}
     default void onResponseFeedback(getFeedbackRes getFeedbackRes){}
     default void onResponseLoadAssessmentQuestions(JsonArray jsonElements){}
-//    void callAPPListAPI(String userName, String miko){}
-//    void onResponseUnsubscribeFeedbacks(getUnsubscribeFeedbacksRes response) {}
-//    void subscribeFreeBundle(ASCommanResponse response) {}
+    default void onResponseVideoList(JsonArray jsonArray){}
+    default void onResponseGetVideoUrl(getCourseDetailsRes getCourseDetailsRes){}
 
 }
