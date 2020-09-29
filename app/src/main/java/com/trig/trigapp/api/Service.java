@@ -31,10 +31,10 @@ public interface Service {
     Call<getDashboardRes> getDashboard(@Body CommonReq req);
 
     @POST("Course/GetCourseList")
-    Call<getCourseListRes> getCourseList(@Body getCourseDetailsReq req);
+    Call<JsonArray> getCourseList(@Body getCourseDetailsReq req);
 
     @POST("CourseDetails/GetCourseDetails")
-    Call<getCourseDetailsRes> getCourseDetails(@Body CommonReq req);
+    Call<getCourseDetailsRes> getCourseDetails(@Body getCourseDetailsReq req);
 
     @POST("Course/GetCourseTopics")
     Call<JsonArray> getCourseTopics(@Body CommonReq req);
@@ -46,7 +46,7 @@ public interface Service {
     Call<CommonResponse> getProfile(@Body GetProfileDetailsReq req);
 
     @POST("UserAssessment/getAssessmentList")
-    Call<getAssessmentListRes> getAssessmentList(@Body CommonReq req);
+    Call<JsonArray> getAssessmentList(@Body CommonReq req);
 
     @POST("SubmitAssessment/getScore")
     Call<getScoreRes> getScore(@Body LoadAssignmentsReq req);

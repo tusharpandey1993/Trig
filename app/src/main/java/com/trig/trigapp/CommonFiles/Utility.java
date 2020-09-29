@@ -40,12 +40,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Utility {
 
     private static Utility utilities;
+    public Gson gson;
+    private static final String TAG = "Utility";
 
     public static Utility getInstance() {
         if (utilities == null) {
             utilities = new Utility();
         }
         return utilities;
+    }
+
+    public Gson getG() {
+        if(gson == null){
+            gson = new Gson();
+        }
+        return gson;
     }
 
     public void hideKeyboard(Activity ctx) {

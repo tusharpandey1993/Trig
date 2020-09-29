@@ -64,7 +64,7 @@ public class FeedbackFragment extends Fragment implements IPresenter, View.OnCli
 
         init(mView);
         viewModel.callgetFeedback("9919");
-        getFeedbackRes getFeedbackRes = new Gson().fromJson(TrigAppPreferences.getFeedbackApiResponse(mActivity), getFeedbackRes.class);
+        getFeedbackRes getFeedbackRes = Utility.getInstance().getG().fromJson(TrigAppPreferences.getFeedbackApiResponse(mActivity), getFeedbackRes.class);
         if(getFeedbackRes != null){
             if(!getFeedbackRes.getFeedback().isEmpty() || !getFeedbackRes.getRemarksSuggestion().isEmpty() || !getFeedbackRes.getFeedbackBy().isEmpty() || !getFeedbackRes.getFeedbackOn().isEmpty()){
                 feedback.setText(getFeedbackRes.getFeedback());
@@ -158,7 +158,7 @@ public class FeedbackFragment extends Fragment implements IPresenter, View.OnCli
 
     @Override
     public void onResponseFeedback(getFeedbackRes getFeedbackRes) {
-        if (getFeedbackRes != null && !new Gson().toJson(getFeedbackRes).equals("{}")) {
+        if (getFeedbackRes != null && !Utility.getInstance().getG().toJson(getFeedbackRes).equals("{}")) {
             TrigAppPreferences.setFeedbackApiResponse(mActivity, getFeedbackRes.toString());
             if(!getFeedbackRes.getFeedback().isEmpty() || !getFeedbackRes.getRemarksSuggestion().isEmpty() || !getFeedbackRes.getFeedbackBy().isEmpty() || !getFeedbackRes.getFeedbackOn().isEmpty()){
                 feedback.setText(getFeedbackRes.getFeedback());

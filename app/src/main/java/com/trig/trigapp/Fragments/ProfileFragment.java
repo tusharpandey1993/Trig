@@ -187,7 +187,7 @@ public class ProfileFragment extends BaseFragment implements IPresenter, View.On
     public void onResponseProfile(CommonResponse commonResponse) {
         try {
             hideLoader();
-            if (commonResponse != null && !new Gson().toJson(commonResponse).equals("{}")) {
+            if (commonResponse != null && !Utility.getInstance().getG().toJson(commonResponse).equals("{}")) {
                 name.setText(commonResponse.getUsername());
                 email.setText(commonResponse.getEmailId());
                 employeeCode.setText(commonResponse.getTirgEmpCode());

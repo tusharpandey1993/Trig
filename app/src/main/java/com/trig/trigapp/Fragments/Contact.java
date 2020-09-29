@@ -23,6 +23,7 @@ import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.MobileConnectPermissions;
 import com.trig.trigapp.CommonFiles.PermissionCallback;
 import com.trig.trigapp.CommonFiles.TrigAppPreferences;
+import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
@@ -62,7 +63,7 @@ public class Contact  extends Fragment implements IPresenter, View.OnClickListen
 
 
         if(goToContactTrainer){
-            CommonResponse commonResponse = new Gson().fromJson(TrigAppPreferences.getContactTrainerApiResponse(mActivity), CommonResponse.class);
+            CommonResponse commonResponse = Utility.getInstance().getG().fromJson(TrigAppPreferences.getContactTrainerApiResponse(mActivity), CommonResponse.class);
             Log.d(TAG, "onCreateView: commonResponse" + TrigAppPreferences.getContactTrainerApiResponse(mActivity));
             if(commonResponse != null) {
                 if(!commonResponse.getUsername().isEmpty() || !commonResponse.getEmailId().isEmpty() || !commonResponse.getMobileNo().isEmpty()){
@@ -79,7 +80,7 @@ public class Contact  extends Fragment implements IPresenter, View.OnClickListen
             viewModel.callProfileApi("9919", Constants.getInstance().trainer);
 
         } else {
-            CommonResponse commonResponse = new Gson().fromJson(TrigAppPreferences.getContactApiResponse(mActivity), CommonResponse.class);
+            CommonResponse commonResponse = Utility.getInstance().getG().fromJson(TrigAppPreferences.getContactApiResponse(mActivity), CommonResponse.class);
             if(commonResponse != null) {
                 apibranchAddress.setText(commonResponse.getBranch() + "\n" +commonResponse.getAddress());
             } else {
@@ -227,7 +228,7 @@ public class Contact  extends Fragment implements IPresenter, View.OnClickListen
         try {
             if(goToContactTrainer) {
                 Log.d(TAG, "onResponseProfile: " + commonResponse.toString());
-                if (commonResponse != null && !new Gson().toJson(commonResponse).equals("{}")) {
+                if (commonResponse != null && !Utility.getInstance().getG().toJson(commonResponse).equals("{}")) {
                     TrigAppPreferences.setContactTrainerApiResponse(mActivity, commonResponse.toString());
                     if(!commonResponse.getUsername().isEmpty() || !commonResponse.getEmailId().isEmpty() || !commonResponse.getMobileNo().isEmpty()){
                         branchAddress9.setText(commonResponse.getUsername());
@@ -240,7 +241,7 @@ public class Contact  extends Fragment implements IPresenter, View.OnClickListen
                 }
             } else {
                 Log.d(TAG, "onResponseProfile: " + commonResponse.toString());
-                if (commonResponse != null && !new Gson().toJson(commonResponse).equals("{}")) {
+                if (commonResponse != null && !Utility.getInstance().getG().toJson(commonResponse).equals("{}")) {
                     TrigAppPreferences.setContactApiResponse(mActivity, commonResponse.toString());
                     if(!commonResponse.getAddress().isEmpty() || !commonResponse.getBranch().isEmpty()) {
                         makeViewGoneSinceNoResponseFromBE(true);

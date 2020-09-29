@@ -38,6 +38,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trig.trigapp.CommonFiles.Constants;
+import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
@@ -183,8 +184,8 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
     @Override
     public void onResponseLoadAssessmentQuestions(JsonArray jsonArray) {
         getLoadAssignmentsRes = new ArrayList<>();
-        for (int i = 0; i < jsonArray.size(); i++) {
-            getLoadAssignmentsRes getCourseListRes = new Gson().fromJson(jsonArray.get(i), getLoadAssignmentsRes.class);
+        for(int i =0; i < jsonArray.size(); i++) {
+            getLoadAssignmentsRes getCourseListRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), getLoadAssignmentsRes.class);
             getLoadAssignmentsRes.add(getCourseListRes);
         }
         setQuizAdapter();

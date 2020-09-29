@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,21 +37,33 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.trig.trigapp.CommonFiles.Constants;
+import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.CommonFiles.Utility;
+import com.trig.trigapp.MVP.IPresenter;
+import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
+import com.trig.trigapp.api.Request.getCourseDetailsReq;
+import com.trig.trigapp.api.Response.getCourseDetailsRes;
+
+import static android.os.Looper.getMainLooper;
+import static com.trig.trigapp.Fragments.DashboardFragment.fromCourses;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VideoStreamingFragment extends Fragment {
+public class VideoStreamingFragment extends Fragment implements IPresenter {
 
     private static final String TAG = "VideoStreamingFragment";
 
     private View mView;
     private FragmentActivity mActivity;
-    private TextView toolBarText;
+    private TextView toolBarText, heading, desc;
     private ImageView backIcon;
     private SimpleExoPlayer player;
+    private ViewModel viewModel;
+    private SimpleExoPlayerView video_player;
+    private Handler mHandler;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -71,9 +84,17 @@ public class VideoStreamingFragment extends Fragment {
 
         mView = inflater.inflate(R.layout.fragment_video_streaming, container, false);
 
-        toolBarText = mView.findViewById(R.id.toolBarText);
-        toolBarText.setText("Video");
-        backIcon = mView.findViewById(R.id.backIcon);
+        init(mView);
+        mHandler = new Handler(getMainLooper());
+        getCourseDetailsReq courseDetailsReq = new getCourseDetailsReq();
+        courseDetailsReq.setUserid("9919");
+        courseDetailsReq.setCourse_id(2);
+
+        if(Utility.getInstance().isNetworkAvailable(mActivity)) {
+            viewModel.callgetCourseDetails(courseDetailsReq);
+        } else {
+            Utility.getInstance().showSnackbar(mView, mActivity.getResources().getString(R.string.no_internet_message));
+        }
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
@@ -92,15 +113,22 @@ public class VideoStreamingFragment extends Fragment {
                         .navigate(R.id.action_VideoStreamingFrag_to_VideoListFragment);
             }
         });
-        if(Utility.getInstance().isNetworkAvailable(mActivity)) {
-            startVideoStreaming(mActivity);
-        } else {
-            Utility.getInstance().showSnackbar(mView, mActivity.getResources().getString(R.string.no_internet_message));
-        }
+
+
         return mView;
     }
 
-    private void startVideoStreaming(Context mActivity) {
+    private void init(View mView) {
+        viewModel = new ViewModel(mActivity, this);
+        toolBarText = mView.findViewById(R.id.toolBarText);
+        toolBarText.setText("Video");
+        backIcon = mView.findViewById(R.id.backIcon);
+        video_player = mView.findViewById(R.id.video_player);
+        desc = mView.findViewById(R.id.desc);
+        heading = mView.findViewById(R.id.heading);
+    }
+
+    private void startVideoStreaming(Context mActivity, String url) {
         // Estimates bandwidth
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         TrackSelection.Factory videoTrackSelectionFactory =
@@ -126,7 +154,7 @@ public class VideoStreamingFragment extends Fragment {
         // Produces Extractor instances for parsing the media data.
         ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
 
-        String mp4VideoUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+        String mp4VideoUrl = url;
 
         Uri mp4VideoUri = Uri.parse(mp4VideoUrl);
 
@@ -146,10 +174,15 @@ public class VideoStreamingFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         try {
-            if (player != null) {
-                player.stop();
-                player.release();
-            }
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (player != null) {
+                        player.stop();
+                        player.release();
+                    }
+                }
+            });
         } catch (Exception e) {
             Log.e(TAG, "onDestroyView: exception" + e.getMessage());
         }
@@ -159,10 +192,15 @@ public class VideoStreamingFragment extends Fragment {
     public void onStop() {
         super.onStop();
         try {
-            if (player != null) {
-                player.stop();
-                player.release();
-            }
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (player != null) {
+                        player.stop();
+                        player.release();
+                    }
+                }
+            });
         } catch (Exception e) {
             Log.e(TAG, "onDestroyView: exception" + e.getMessage());
         }
@@ -172,12 +210,39 @@ public class VideoStreamingFragment extends Fragment {
     public void onPause() {
         super.onPause();
         try {
-            if (player != null) {
-                player.stop();
-                player.release();
-            }
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (player != null) {
+                        player.stop();
+                        player.release();
+                    }
+                }
+            });
         } catch (Exception e) {
             Log.e(TAG, "onDestroyView: exception" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void onResponseGetVideoUrl(getCourseDetailsRes getCourseDetailsRes) {
+        if(getCourseDetailsRes != null) {
+            if(!Utility.getInstance().getG().toJson(getCourseDetailsRes).equals("{}")) {
+                if(getCourseDetailsRes.getCourse_type() != null && !getCourseDetailsRes.getCourse_type().isEmpty() && getCourseDetailsRes.getCourse_type().equalsIgnoreCase("Media") && getCourseDetailsRes.getCourse_file() != null){
+                    video_player.setVisibility(View.VISIBLE);
+                    if(Utility.getInstance().isNetworkAvailable(mActivity)) {
+                        startVideoStreaming(mActivity, getCourseDetailsRes.getCourse_file() );
+                    } else {
+                        Utility.getInstance().showSnackbar(mView, mActivity.getResources().getString(R.string.no_internet_message));
+                    }
+                } else {
+                    video_player.setVisibility(View.GONE);
+                }
+                if(getCourseDetailsRes.getCourse_name() != null && getCourseDetailsRes.getCourseText() != null) {
+                    heading.setText(getCourseDetailsRes.getCourse_name());
+                    desc.setText(getCourseDetailsRes.getCourseText());
+                }
+            }
         }
     }
 }
