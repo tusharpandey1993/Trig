@@ -3,6 +3,7 @@ package com.trig.trigapp.MVP;
 import android.content.Context;
 import android.util.Log;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Request.GetProfileDetailsReq;
@@ -57,6 +58,7 @@ public class ViewModel {
                     @Override
                     public void onFailure(Call<getLoginRes> call, Throwable t) {
                         iPresenter.onError(t.getCause());
+                        Log.e(TAG, "onFailure: callLoginApi" + t.getCause());
                     }
                 });
     }
@@ -89,7 +91,7 @@ public class ViewModel {
 
                     @Override
                     public void onFailure(Call<getDashboardRes> call, Throwable t) {
-                        Log.e(TAG, "onFailure: " + t.getCause());
+                        Log.e(TAG, "onFailure: getDashboard" + t.getCause());
                         iPresenter.onError(t.getCause());
                     }
                 });
@@ -121,7 +123,7 @@ public class ViewModel {
 
                     @Override
                     public void onFailure(Call<getCourseListRes> call, Throwable t) {
-                        Log.e(TAG, "onFailure: " + t.getCause());
+                        Log.e(TAG, "onFailure: callCourses" + t.getCause());
                         iPresenter.onError(t.getCause());
                     }
                 });
@@ -154,7 +156,7 @@ public class ViewModel {
 
                     @Override
                     public void onFailure(Call<getCourseDetailsRes> call, Throwable t) {
-                        Log.e(TAG, "onFailure: " + t.getCause());
+                        Log.e(TAG, "onFailure: callgetCourseDetails" + t.getCause());
                         iPresenter.onError(t.getCause());
                     }
                 });
@@ -163,16 +165,16 @@ public class ViewModel {
     public void callgetCourseTopics() {
         Utility.getInstance().createServiceForTrigApp(mContext)
                 .getCourseTopics(new CommonReq(""))
-                .enqueue(new Callback<getCourseTopicsRes>() {
+                .enqueue(new Callback<JsonArray>() {
                     @Override
-                    public void onResponse(Call<getCourseTopicsRes> call,
-                                           Response<getCourseTopicsRes> response) {
+                    public void onResponse(Call<JsonArray> call,
+                                           Response<JsonArray> response) {
                         Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
                             Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
-//                                iPresenter.onResponseCourseList(response.body());
+                                iPresenter.onResponseCourseList(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + new Gson().toJson(response.body()));
                             }
                         } else {
@@ -185,16 +187,16 @@ public class ViewModel {
                     }
 
                     @Override
-                    public void onFailure(Call<getCourseTopicsRes> call, Throwable t) {
-                        Log.e(TAG, "onFailure: " + t.getCause());
+                    public void onFailure(Call<JsonArray> call, Throwable t) {
+                        Log.e(TAG, "onFailure: callgetCourseTopics" + t.getCause());
                         iPresenter.onError(t.getCause());
                     }
                 });
     }
 
-    public void callgetFeedback() {
+    public void callgetFeedback(String userId) {
         Utility.getInstance().createServiceForTrigApp(mContext)
-                .getFeedback(new CommonReq(""))
+                .getFeedback(new CommonReq(userId))
                 .enqueue(new Callback<getFeedbackRes>() {
                     @Override
                     public void onResponse(Call<getFeedbackRes> call,
@@ -204,8 +206,7 @@ public class ViewModel {
                             Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
-//                                iPresenter.onResponseCourseList(response.body());
-//                                Log.e(TAG, "onResponse:CourseListResponse " + new Gson().toJson(response.body()));
+                                iPresenter.onResponseFeedback(response.body());
                             }
                         } else {
                             Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
@@ -218,7 +219,7 @@ public class ViewModel {
 
                     @Override
                     public void onFailure(Call<getFeedbackRes> call, Throwable t) {
-                        Log.e(TAG, "onFailure: " + t.getCause());
+                        Log.e(TAG, "onFailure: callgetFeedback" + t.getCause());
                         iPresenter.onError(t.getCause());
                     }
                 });
@@ -260,7 +261,7 @@ public class ViewModel {
 
                     @Override
                     public void onFailure(Call<CommonResponse> call, Throwable t) {
-                        Log.e(TAG, "onFailure: " + t.getCause());
+                        Log.e(TAG, "onFailure: callProfileApi" + t.getCause());
                         iPresenter.onError(t.getCause());
                     }
                 });
@@ -293,7 +294,7 @@ public class ViewModel {
 
                     @Override
                     public void onFailure(Call<getAssessmentListRes> call, Throwable t) {
-                        Log.e(TAG, "onFailure: " + t.getCause());
+                        Log.e(TAG, "onFailure: callgetAssessmentList" + t.getCause());
                         iPresenter.onError(t.getCause());
                     }
                 });
@@ -325,7 +326,7 @@ public class ViewModel {
 
                     @Override
                     public void onFailure(Call<getScoreRes> call, Throwable t) {
-                        Log.e(TAG, "onFailure: " + t.getCause());
+                        Log.e(TAG, "onFailure: callgetScore" + t.getCause());
                         iPresenter.onError(t.getCause());
                     }
                 });
@@ -333,9 +334,9 @@ public class ViewModel {
 
     //flag = ATTEMPT and   flag = REVIEW
 
-    public void callLoadAssessment(Integer assessmentId,String flag) {
+    public void callLoadAssessment(Integer assessmentId, String user_id,String flag) {
         Utility.getInstance().createServiceForTrigApp(mContext)
-                .loadAssignments(new LoadAssignmentsReq(assessmentId,"",flag))
+                .loadAssignments(new LoadAssignmentsReq(assessmentId, user_id, flag))
                 .enqueue(new Callback<getLoadAssignmentsRes>() {
                     @Override
                     public void onResponse(Call<getLoadAssignmentsRes> call,
@@ -345,7 +346,7 @@ public class ViewModel {
                             Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
-//                                iPresenter.onResponseCourseList(response.body());
+                                iPresenter.onResponseLoadAssessmentQuestions(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + new Gson().toJson(response.body()));
                             }
                         } else {
@@ -359,7 +360,7 @@ public class ViewModel {
 
                     @Override
                     public void onFailure(Call<getLoadAssignmentsRes> call, Throwable t) {
-                        Log.e(TAG, "onFailure: " + t.getCause());
+                        Log.e(TAG, "onFailure: callLoadAssessment" + t.getCause());
                         iPresenter.onError(t.getCause());
                     }
                 });

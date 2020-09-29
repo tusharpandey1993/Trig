@@ -1,5 +1,6 @@
 package com.trig.trigapp.api;
 
+import com.google.gson.JsonArray;
 import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Request.LoadAssignmentsReq;
 import com.trig.trigapp.api.Request.LoginRequest;
@@ -36,7 +37,7 @@ public interface Service {
     Call<getCourseDetailsRes> getCourseDetails(@Body CommonReq req);
 
     @POST("Course/GetCourseTopics")
-    Call<getCourseTopicsRes> getCourseTopics(@Body CommonReq req);
+    Call<JsonArray> getCourseTopics(@Body CommonReq req);
 
     @POST("UserProfile/GetFeedback")
     Call<getFeedbackRes> getFeedback(@Body CommonReq req);

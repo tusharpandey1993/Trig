@@ -217,5 +217,9 @@ public class Constants {
     public String getbranch = "getbranch";
     public String user = "user";
     public String trainer = "trainer";
+    public String contactUsNumber = "022 66783333";
+    public String defaultEmail = "info@triggroup.in";
+    public String ATTEMPT = "ATTEMPT";
+    public String REVIEW = "REVIEW";
 
 }

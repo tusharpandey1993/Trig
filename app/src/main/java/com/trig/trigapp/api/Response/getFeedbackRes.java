@@ -61,4 +61,15 @@ public class getFeedbackRes {
         this.feedbackOn = feedbackOn;
     }
 
+
+    @Override
+    public String toString() {
+        return "{" +
+                "userid=" + userid +
+                ", feedback='" + feedback + '\'' +
+                ", remarksSuggestion='" + remarksSuggestion + '\'' +
+                ", feedbackBy='" + feedbackBy + '\'' +
+                ", feedbackOn='" + feedbackOn + '\'' +
+                '}';
+    }
 }

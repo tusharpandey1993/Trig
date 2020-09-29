@@ -26,6 +26,9 @@ public class getLoginRes {
     @SerializedName("isTrainerPlusUser")
     @Expose
     private String isTrainerPlusUser;
+    @SerializedName("UserCourseCompletedStatus")
+    @Expose
+    private String UserCourseCompletedStatus;
 
     public String getUserType() {
         return userType;
@@ -83,9 +86,17 @@ public class getLoginRes {
         this.isTrainerPlusUser = isTrainerPlusUser;
     }
 
+    public String getUserCourseCompletedStatus() {
+        return UserCourseCompletedStatus;
+    }
+
+    public void setUserCourseCompletedStatus(String userCourseCompletedStatus) {
+        UserCourseCompletedStatus = userCourseCompletedStatus;
+    }
+
     @Override
     public String toString() {
-        return "LoginResponse{" +
+        return "{" +
                 "userType='" + userType + '\'' +
                 ", tirgEmpCode='" + tirgEmpCode + '\'' +
                 ", isActive='" + isActive + '\'' +
@@ -93,6 +104,7 @@ public class getLoginRes {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", isTrainerPlusUser='" + isTrainerPlusUser + '\'' +
+                ", UserCourseCompletedStatus='" + UserCourseCompletedStatus + '\'' +
                 '}';
     }
 }

@@ -34,12 +34,13 @@ public class Contact  extends Fragment implements IPresenter, View.OnClickListen
 
     private static final String TAG = "ProfileFragment";
     View mView; FragmentActivity mActivity;
-    private TextView mail, mail2, callNumber, callNumber2, toolBarText, apibranchAddress, apibranchAddressText;
+    private TextView mail, mail2, callNumber, callNumber2, toolBarText, apibranchAddress, apibranchAddressText, mail9, branchAddress9, callNumber9;
     private ImageView backIcon, contactUsIcon, apilocationIcon;
     private RecyclerView contactUsRecyclerView;
     private ConstraintLayout contactTrainerContainer, contactUsContainer;
     private View view12;
     private ViewModel viewModel;
+    private String contactNumber, email;
 
     public Contact() {}
 
@@ -58,15 +59,32 @@ public class Contact  extends Fragment implements IPresenter, View.OnClickListen
         init(mView);
 
         // Make this invisible before api hit and then make visible from RESPONSE
-        CommonResponse commonResponse = new Gson().fromJson(TrigAppPreferences.getContactApiResponse(mActivity), CommonResponse.class);
-        if(commonResponse != null) {
-            apibranchAddress.setText(commonResponse.getBranch() + "\n" +commonResponse.getAddress());
-        } else {
-            makeViewGoneSinceNoResponseFromBE(false);
-        }
+
+
         if(goToContactTrainer){
+            CommonResponse commonResponse = new Gson().fromJson(TrigAppPreferences.getContactTrainerApiResponse(mActivity), CommonResponse.class);
+            Log.d(TAG, "onCreateView: commonResponse" + TrigAppPreferences.getContactTrainerApiResponse(mActivity));
+            if(commonResponse != null) {
+                if(!commonResponse.getUsername().isEmpty() || !commonResponse.getEmailId().isEmpty() || !commonResponse.getMobileNo().isEmpty()){
+                    branchAddress9.setText(commonResponse.getUsername());
+                    mail9.setText(commonResponse.getEmailId());
+                    callNumber9.setText(commonResponse.getMobileNo());
+
+                    contactNumber = commonResponse.getMobileNo();
+                    email = commonResponse.getEmailId();
+                    callNumber9.setOnClickListener(this);
+                    mail9.setOnClickListener(this);
+                }
+            }
             viewModel.callProfileApi("9919", Constants.getInstance().trainer);
+
         } else {
+            CommonResponse commonResponse = new Gson().fromJson(TrigAppPreferences.getContactApiResponse(mActivity), CommonResponse.class);
+            if(commonResponse != null) {
+                apibranchAddress.setText(commonResponse.getBranch() + "\n" +commonResponse.getAddress());
+            } else {
+                makeViewGoneSinceNoResponseFromBE(false);
+            }
             viewModel.callProfileApi("9919", Constants.getInstance().getbranch);
         }
 
@@ -123,6 +141,10 @@ public class Contact  extends Fragment implements IPresenter, View.OnClickListen
         apibranchAddressText = mView.findViewById(R.id.apibranchAddressText);
         apibranchAddress = mView.findViewById(R.id.apibranchAddress);
 
+        mail9 = mView.findViewById(R.id.mail9);
+        callNumber9 = mView.findViewById(R.id.callNumber9);
+        branchAddress9 = mView.findViewById(R.id.branchAddress9);
+
         mail.setOnClickListener(this);
         mail2.setOnClickListener(this);
         callNumber.setOnClickListener(this);
@@ -132,23 +154,7 @@ public class Contact  extends Fragment implements IPresenter, View.OnClickListen
 
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.mail:
-                sendEmail();
-            break;
-            case R.id.mail2:
-                sendEmail();
-            break;
-            case R.id.callNumber:
-                checkPermissionAndThenLoad();
-            break;
-            case R.id.callNumber2:
-                checkPermissionAndThenLoad();
-            break;
-        }
-    }
+
 
     private boolean checkPermissionAndThenLoad() {
         if (MobileConnectPermissions.checkPermission(Manifest.permission.CALL_PHONE)) {
@@ -182,14 +188,23 @@ public class Contact  extends Fragment implements IPresenter, View.OnClickListen
     public void sendEmail() {
         final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
         emailIntent.setType("plain/text");
-        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"info@triggroup.in"});
+        if(goToContactTrainer) {
+        } else {
+            email = Constants.getInstance().defaultEmail;
+        }
+        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{email});
         emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject");
         emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "");
         mActivity.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
     }
 
     public void callContact() {
-        Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "022 66783333"));
+
+        if(goToContactTrainer) {
+        } else {
+            contactNumber = Constants.getInstance().contactUsNumber;
+        }
+        Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + contactNumber));
         mActivity.startActivity(intent2);
     }
 
@@ -210,16 +225,47 @@ public class Contact  extends Fragment implements IPresenter, View.OnClickListen
     @Override
     public void onResponseProfile(CommonResponse commonResponse) {
         try {
-            Log.d(TAG, "onResponseProfile: " + commonResponse.toString());
-            if (commonResponse != null && !new Gson().toJson(commonResponse).equals("{}")) {
-                TrigAppPreferences.setContactApiResponse(mActivity, commonResponse.toString());
-                if(!commonResponse.getAddress().isEmpty() || !commonResponse.getBranch().isEmpty()) {
-                    makeViewGoneSinceNoResponseFromBE(true);
-                    apibranchAddress.setText(commonResponse.getBranch() + "\n" +commonResponse.getAddress());
+            if(goToContactTrainer) {
+                Log.d(TAG, "onResponseProfile: " + commonResponse.toString());
+                if (commonResponse != null && !new Gson().toJson(commonResponse).equals("{}")) {
+                    TrigAppPreferences.setContactTrainerApiResponse(mActivity, commonResponse.toString());
+                    if(!commonResponse.getUsername().isEmpty() || !commonResponse.getEmailId().isEmpty() || !commonResponse.getMobileNo().isEmpty()){
+                        branchAddress9.setText(commonResponse.getUsername());
+                        mail9.setText(commonResponse.getEmailId());
+                        callNumber9.setText(commonResponse.getMobileNo());
+
+                        contactNumber = commonResponse.getMobileNo();
+                        callNumber9.setOnClickListener(this);
+                    }
+                }
+            } else {
+                Log.d(TAG, "onResponseProfile: " + commonResponse.toString());
+                if (commonResponse != null && !new Gson().toJson(commonResponse).equals("{}")) {
+                    TrigAppPreferences.setContactApiResponse(mActivity, commonResponse.toString());
+                    if(!commonResponse.getAddress().isEmpty() || !commonResponse.getBranch().isEmpty()) {
+                        makeViewGoneSinceNoResponseFromBE(true);
+                        apibranchAddress.setText(commonResponse.getBranch() + "\n" +commonResponse.getAddress());
+                    }
                 }
             }
         } catch (Exception e) {
             Log.e(TAG, "onResponseProfile: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.mail:
+            case R.id.mail2:
+            case R.id.mail9:
+                sendEmail();
+                break;
+            case R.id.callNumber:
+            case R.id.callNumber2:
+            case R.id.callNumber9:
+                checkPermissionAndThenLoad();
+                break;
         }
     }
 }

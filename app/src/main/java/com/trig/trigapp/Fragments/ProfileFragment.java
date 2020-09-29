@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.trig.trigapp.CommonFiles.Constants;
@@ -196,6 +197,7 @@ public class ProfileFragment extends BaseFragment implements IPresenter, View.On
                 dob.setText(commonResponse.getDob());
                 doJoining.setText(commonResponse.getDoj());
                 age.setText(commonResponse.getAge());
+                Glide.with(mActivity).load(commonResponse.getEmp_photo_path()).centerCrop().placeholder(R.drawable.trig_bg).into(profileImg);
             }
         } catch (Exception e) {
             Log.e(TAG, "onResponseProfile: " + e.getMessage());

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 
+import com.google.gson.Gson;
 import com.trig.trigapp.AssessmentFactory.TriviaQuestion;
 import com.trig.trigapp.AssessmentFactory.TriviaQuizHelper;
 
@@ -26,15 +27,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 
+import com.trig.trigapp.CommonFiles.Constants;
+import com.trig.trigapp.MVP.IPresenter;
+import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
+import com.trig.trigapp.api.Response.getLoadAssignmentsRes;
 
 import java.util.List;
 
 import info.hoang8f.widget.FButton;
 
-public class AssessmentFragmentNew extends Fragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class AssessmentFragmentNew extends Fragment implements IPresenter, View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
 
+    private static final String TAG = "AssessmentFragmentNew";
     private View mView;
     private FragmentActivity mActivity;
     public TextView toolBarText;
@@ -55,6 +61,7 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
     String test_result;
     Button endTestButton;
     ImageView backIcon;
+    private ViewModel viewModel;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -75,6 +82,9 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
         mView = inflater.inflate(R.layout.quiz_layout, container, false);
 
         init(mView);
+
+        viewModel.callLoadAssessment(2,"9919", Constants.getInstance().ATTEMPT);
+
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
@@ -102,6 +112,7 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
 
     public void init(View mView) {
 //        end_Test(mView);
+        viewModel = new ViewModel(mActivity, this);
         toolBarText = mView.findViewById(R.id.toolBarText);
         toolBarText.setText("Assessment");
         backIcon = mView.findViewById(R.id.backIcon);
@@ -167,6 +178,12 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
     public void onCheckedChanged(RadioGroup group, int checkedId) {
 
     }
+
+    @Override
+    public void onResponseLoadAssessmentQuestions(getLoadAssignmentsRes getLoadAssignmentsRes) {
+        Log.d(TAG, "onResponseLoadAssessmentQuestions: " + new Gson().toJson(getLoadAssignmentsRes));
+    }
+
 
     /**
      * Create summary of the test result.
@@ -446,4 +463,5 @@ public class AssessmentFragmentNew extends Fragment implements View.OnClickListe
                 break;
         }
     }*/
+
 }

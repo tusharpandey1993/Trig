@@ -119,7 +119,6 @@ public class CoursesTopics extends Fragment implements IPresenter, CourseTopicAd
     public void onResponseCourseList(JsonArray jsonArray) {
         for(int i =0; i < jsonArray.size(); i++) {
             new Gson().fromJson(jsonArray.get(i), getCourseListRes.class);
-            Log.d(TAG, "onResponseCourseList: ");
             Log.d(TAG, "onResponseCourseList: " + jsonArray.get(i));
         }
     }

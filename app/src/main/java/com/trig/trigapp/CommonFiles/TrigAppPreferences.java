@@ -28,6 +28,9 @@ public class TrigAppPreferences {
     private static final String User_Type = "User_Type";
     private static final String Employee_Code = "Employee_Code";
     private static final String ContactApiResponse = "ContactApiResponse";
+    private static final String ContactTrainerApiResponse = "ContactTrainerApiResponse";
+    private static final String FeedbackApiResponse = "FeedbackApiResponse";
+    private static final String isUserModeTrainer = "isUserModeTrainer";
 
 
     private static TrigAppPreferences instance;
@@ -48,6 +51,14 @@ public class TrigAppPreferences {
     public static void setIsShowedShowcaseAppStore(Context context, boolean value) {
         getPreferences(context).edit().putBoolean( KEY_IS_COACH_MARKS_SHOWN_APP_STORE, value).apply();
 //        putBoolean(context, KEY_IS_COACH_MARKS_SHOWN_APP_STORE, value);
+    }
+
+    public static boolean getisUserModeTrainer(Context context) {
+        return getPreferences(context).getBoolean( isUserModeTrainer,false);
+    }
+
+    public static void setisUserModeTrainer(Context context, boolean value) {
+        getPreferences(context).edit().putBoolean( isUserModeTrainer, value).apply();
     }
 
 
@@ -178,6 +189,22 @@ public class TrigAppPreferences {
 
     public static String getContactApiResponse(Context context) {
         String value = getStringPrefrence(context, ContactApiResponse);
+        return value;
+    }
+    public static void setContactTrainerApiResponse(Context context, String value) {
+        setStringPrefrence(context, ContactTrainerApiResponse, value);
+    }
+
+    public static String getContactTrainerApiResponse(Context context) {
+        String value = getStringPrefrence(context, ContactTrainerApiResponse);
+        return value;
+    }
+    public static void setFeedbackApiResponse(Context context, String value) {
+        setStringPrefrence(context, FeedbackApiResponse, value);
+    }
+
+    public static String getFeedbackApiResponse(Context context) {
+        String value = getStringPrefrence(context, FeedbackApiResponse);
         return value;
     }
 
