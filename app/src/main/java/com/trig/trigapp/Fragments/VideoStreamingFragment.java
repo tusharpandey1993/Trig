@@ -64,6 +64,7 @@ public class VideoStreamingFragment extends Fragment implements IPresenter {
     private ViewModel viewModel;
     private SimpleExoPlayerView video_player;
     private Handler mHandler;
+    private int course_id;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -81,14 +82,14 @@ public class VideoStreamingFragment extends Fragment implements IPresenter {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        course_id = Constants.getInstance().Courses_2st_item;
         mView = inflater.inflate(R.layout.fragment_video_streaming, container, false);
 
         init(mView);
         mHandler = new Handler(getMainLooper());
         getCourseDetailsReq courseDetailsReq = new getCourseDetailsReq();
         courseDetailsReq.setUserid(TrigAppPreferences.getUserId(mActivity));
-        courseDetailsReq.setCourse_id(2);
+        courseDetailsReq.setCourse_id(course_id);
 
         if(Utility.getInstance().isNetworkAvailable(mActivity)) {
             viewModel.callgetCourseDetails(courseDetailsReq);

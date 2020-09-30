@@ -22,8 +22,10 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.trig.trigapp.Adapter.CourseTopicAdapter;
 import com.trig.trigapp.Adapter.DynamicSliderAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
+import com.trig.trigapp.Adapter.VideoListAdapter;
 import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.CommonFiles.Utility;
@@ -31,6 +33,7 @@ import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
 import com.trig.trigapp.api.Request.getCourseDetailsReq;
+import com.trig.trigapp.api.Response.VideoListResponse;
 import com.trig.trigapp.api.Response.getAssessmentListRes;
 import com.trig.trigapp.api.Response.getCourseListRes;
 import com.trig.trigapp.api.Response.getLoadAssignmentsRes;
@@ -44,7 +47,7 @@ import static com.trig.trigapp.Fragments.DashboardFragment.fromCourses;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VideoListFragment extends BaseFragment implements IPresenter, OnClickInterface {
+public class VideoListFragment extends BaseFragment implements IPresenter, OnClickInterface,  VideoListAdapter.ItemListener {
 
     private static final String TAG = VideoListFragment.class.getSimpleName();
     private RecyclerView videoListRecycler;
@@ -53,13 +56,14 @@ public class VideoListFragment extends BaseFragment implements IPresenter, OnCli
     private ImageView backIcon;
     private TextView toolBarText;
     private ViewModel viewModel;
-    private ArrayList<getCourseListRes> getAssessmentListResArray;
+    private ArrayList<VideoListResponse> videoListResponses;
     private int item_id_from_bundle;
 
     @Override
     public void onAttach(@NotNull Context context) {
         super.onAttach(context);
         mActivity = getActivity();
+        item_id_from_bundle = Constants.getInstance().Courses_1st_item;
     }
 
     public VideoListFragment() {
@@ -72,7 +76,7 @@ public class VideoListFragment extends BaseFragment implements IPresenter, OnCli
         super.onCreate(savedInstanceState);
         try {
             if (getArguments() != null) {
-                item_id_from_bundle = getArguments().getInt(Constants.getInstance().item_id);
+                item_id_from_bundle = Constants.getInstance().Courses_1st_item;
             }
         } catch (Exception e){
             Log.e(TAG, "onCreate: exception" + e.getMessage() );
@@ -99,8 +103,6 @@ public class VideoListFragment extends BaseFragment implements IPresenter, OnCli
             };
             requireActivity().getOnBackPressedDispatcher().addCallback(mActivity, callback);
 
-            setDataToRecyclerView();
-
         } catch (Exception e) {
             Log.e(TAG, "onCreateView: exception" + e.getMessage());
         }
@@ -112,7 +114,7 @@ public class VideoListFragment extends BaseFragment implements IPresenter, OnCli
             LinearLayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
             videoListRecycler.setLayoutManager(mLayoutManager);
             videoListRecycler.setNestedScrollingEnabled(false);
-            videoListRecycler.setAdapter(new DynamicSliderAdapter(mActivity,this));
+            videoListRecycler.setAdapter(new VideoListAdapter(mActivity, videoListResponses,this));
         } catch (Exception e) {
             Log.e(TAG, "setDataToRecyclerView: exception" + e.getMessage());
         }
@@ -178,14 +180,26 @@ public class VideoListFragment extends BaseFragment implements IPresenter, OnCli
     @Override
     public void onResponseVideoList(JsonArray jsonArray) {
         try {
-            getAssessmentListResArray = new ArrayList<>();
+            videoListResponses = new ArrayList<>();
             for(int i =0; i < jsonArray.size(); i++) {
-                getCourseListRes getAssessmentListRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), getCourseListRes.class);
-                getAssessmentListResArray.add(getAssessmentListRes);
+                VideoListResponse getAssessmentListRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), VideoListResponse.class);
+                videoListResponses.add(getAssessmentListRes);
+
+                setDataToRecyclerView();
             }
         } catch (Exception e) {
             Log.e(TAG, "onResponseVideoList: exception" + e.getMessage());
         }
 
+    }
+
+    @Override
+    public void onItemClick(VideoListResponse videoListResponse) {
+        Constants.getInstance().Courses_2st_item = Integer.parseInt(videoListResponse.getCourse_id());
+        if(fromCourses) {
+            navigationCode(R.id.action_VideoListFrag_to_VideoStreamingFrag);
+        } else {
+            navigationCode(R.id.action_VideoListFrag_to_AssessmentFragment);
+        }
     }
 }

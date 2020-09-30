@@ -146,7 +146,7 @@
                 android:id="@+id/percentage"
                 style="@style/normal_text"
                 android:layout_marginLeft="@dimen/_5sdp"
-                android:text="33.33 %"
+                android:text=""
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/barrier3"
                 app:layout_constraintStart_toEndOf="@+id/barrier3" />

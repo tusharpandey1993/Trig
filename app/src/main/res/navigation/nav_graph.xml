@@ -129,6 +129,10 @@
         <action
             android:id="@+id/action_AssessmentFrag_to_CoursesTopics"
             app:destination="@id/CoursesTopics" />
+
+        <action
+            android:id="@+id/action_AssessmentFrag_to_SuccessFragment"
+            app:destination="@id/SuccessFragment" />
     </fragment>
 
     <fragment

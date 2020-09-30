@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class SubmitAssessmentReq {
 
-
     @Expose
     @SerializedName("optString")
     private String optString;

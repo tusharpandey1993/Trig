@@ -211,6 +211,7 @@ public class Constants {
 
     public final Integer loginScreen = 100;
     public final Integer feedback = 101;
+    public final Integer assessment = 102;
 
 
     // API Params
@@ -236,4 +237,9 @@ public class Constants {
     // Bundle
     public String item_id = "item_id";
 
+    public int Courses_1st_item = 1;
+    public int Courses_2st_item = 1;
+
+
+    public int Assessment_1st_item = 1;
 }

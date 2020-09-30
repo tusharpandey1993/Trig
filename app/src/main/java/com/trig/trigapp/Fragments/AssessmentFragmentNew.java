@@ -97,7 +97,7 @@ public class AssessmentFragmentNew extends BaseFragment implements IPresenter, V
 
         init(mView);
 
-        viewModel.callLoadAssessment(2, TrigAppPreferences.getUserId(mActivity), Constants.getInstance().ATTEMPT);
+        viewModel.callLoadAssessment(Constants.getInstance().Assessment_1st_item, TrigAppPreferences.getUserId(mActivity), Constants.getInstance().ATTEMPT);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
@@ -211,5 +211,10 @@ public class AssessmentFragmentNew extends BaseFragment implements IPresenter, V
         setQuizAdapter();
     }
 
-
+    @Override
+    public void onResponseSubmitAssessment() {
+        TrigAppPreferences.setSource_To_Desitnation(mActivity, Constants.getInstance().assessment);
+        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                .navigate(R.id.action_AssessmentFrag_to_SuccessFragment);
+    }
 }

@@ -67,6 +67,12 @@
                 android:background="@drawable/access_pack_bg_gradient"
                 android:text="@string/end_test" />
 
+            <View
+                android:id="@+id/emptySpace"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_10sdp"
+                android:layout_below="@+id/end_test_button"/>
+
 
         </RelativeLayout>
     </LinearLayout>

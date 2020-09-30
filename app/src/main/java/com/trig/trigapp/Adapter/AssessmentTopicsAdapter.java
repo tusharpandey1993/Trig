@@ -22,14 +22,13 @@ import java.util.ArrayList;
 
 public class AssessmentTopicsAdapter extends RecyclerView.Adapter<AssessmentTopicsAdapter.MyVi> {
 
-    ArrayList mValues;
+    ArrayList mValuesAssessment;
     Context mContext;
     protected ItemListener mListener;
     private static final String TAG = "CourseTopicAdapter";
 
     public AssessmentTopicsAdapter(Context context, ArrayList values, ItemListener itemListener) {
-
-        mValues = values;
+        mValuesAssessment = values;
         mContext = context;
         mListener=itemListener;
     }
@@ -45,12 +44,12 @@ public class AssessmentTopicsAdapter extends RecyclerView.Adapter<AssessmentTopi
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull MyVi holder, int position) {
-        holder.setData((getAssessmentListRes) mValues.get(position));
+        holder.setData((getAssessmentListRes) mValuesAssessment.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mValuesAssessment.size();
     }
 
     public interface ItemListener {
@@ -60,7 +59,7 @@ public class AssessmentTopicsAdapter extends RecyclerView.Adapter<AssessmentTopi
 
     public class MyVi extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView assignedDate, completedOn, status, percentage;
+        public TextView cardHeading, assignedDate, completedOn, status, percentage;
         public ImageView imageView, completedIcon;
         public ConstraintLayout relativeLayout;
         public ProgressBar courseCompletionProgess;
@@ -71,6 +70,7 @@ public class AssessmentTopicsAdapter extends RecyclerView.Adapter<AssessmentTopi
             super(v);
 
             v.setOnClickListener(this);
+            cardHeading = (TextView) v.findViewById(R.id.cardHeading);
             assignedDate = (TextView) v.findViewById(R.id.assignedDate);
             completedOn = (TextView) v.findViewById(R.id.completedOn);
             status = (TextView) v.findViewById(R.id.status);
@@ -86,18 +86,23 @@ public class AssessmentTopicsAdapter extends RecyclerView.Adapter<AssessmentTopi
         public void setData(getAssessmentListRes item) {
             this.item = item;
 
-            assignedDate.setText(item.getAssignedDate());
-            completedOn.setText(item.getAssestmentCompletedDate());
+            cardHeading.setText(""+item.getAssessment_name());
+            assignedDate.setText(""+item.getAssigned_date());
+            completedOn.setText(item.getAssestment_completed_date());
             status.setText(item.getStatus());
-            percentage.setText(item.getScore());
+            if(!item.getScore().isEmpty()) {
+                float score = Float.parseFloat(item.getScore());
+                percentage.setText(""+Math.round(score) + "%");
+                courseCompletionProgess.setProgress(Math.round(score));
+            }
+
             if(item.getStatus().equalsIgnoreCase("Completed")) {
                 completedIcon.setVisibility(View.VISIBLE);
             } else {
                 completedIcon.setVisibility(View.INVISIBLE);
             }
 
-//            float percentage = (float)((item.getCompleted()  * 100)/ item.getAll());
-            courseCompletionProgess.setProgress(Integer.parseInt(item.getScore()));
+
         }
 
 

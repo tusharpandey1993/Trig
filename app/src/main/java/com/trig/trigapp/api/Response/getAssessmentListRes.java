@@ -5,96 +5,42 @@ import com.google.gson.annotations.SerializedName;
 
 public class getAssessmentListRes {
 
-    @SerializedName("assestment_id")
+
     @Expose
-    private Integer assestmentId;
-    @SerializedName("user_id")
-    @Expose
-    private Integer userId;
-    @SerializedName("is_active")
-    @Expose
-    private Integer isActive;
-    @SerializedName("assessment_name")
-    @Expose
-    private String assessmentName;
-    @SerializedName("assigned_date")
-    @Expose
-    private String assignedDate;
-    @SerializedName("assestment_completed_date")
-    @Expose
-    private String assestmentCompletedDate;
-    @SerializedName("Status")
-    @Expose
-    private String status;
     @SerializedName("Assessment_id")
+    private int Assessment_id_Capital;
     @Expose
-    private String Score;
     @SerializedName("Score")
+    private String Score;
     @Expose
-    private Integer assessmentId;
+    @SerializedName("Status")
+    private String Status;
+    @Expose
+    @SerializedName("assestment_completed_date")
+    private String assestment_completed_date;
+    @Expose
+    @SerializedName("assigned_date")
+    private String assigned_date;
+    @Expose
+    @SerializedName("assessment_name")
+    private String assessment_name;
+    @Expose
+    @SerializedName("is_active")
+    private int is_active;
+    @Expose
+    @SerializedName("user_id")
+    private int user_id;
+    @Expose
+    @SerializedName("assestment_id")
+    private int assestment_id;
 
-    public Integer getAssestmentId() {
-        return assestmentId;
+
+    public int getAssessment_id_Capital() {
+        return Assessment_id_Capital;
     }
 
-    public void setAssestmentId(Integer assestmentId) {
-        this.assestmentId = assestmentId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Integer isActive) {
-        this.isActive = isActive;
-    }
-
-    public String getAssessmentName() {
-        return assessmentName;
-    }
-
-    public void setAssessmentName(String assessmentName) {
-        this.assessmentName = assessmentName;
-    }
-
-    public String getAssignedDate() {
-        return assignedDate;
-    }
-
-    public void setAssignedDate(String assignedDate) {
-        this.assignedDate = assignedDate;
-    }
-
-    public String getAssestmentCompletedDate() {
-        return assestmentCompletedDate;
-    }
-
-    public void setAssestmentCompletedDate(String assestmentCompletedDate) {
-        this.assestmentCompletedDate = assestmentCompletedDate;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Integer getAssessmentId() {
-        return assessmentId;
-    }
-
-    public void setAssessmentId(Integer assessmentId) {
-        this.assessmentId = assessmentId;
+    public void setAssessment_id_Capital(int assessment_id_Capital) {
+        Assessment_id_Capital = assessment_id_Capital;
     }
 
     public String getScore() {
@@ -103,5 +49,61 @@ public class getAssessmentListRes {
 
     public void setScore(String score) {
         Score = score;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
+
+    public String getAssestment_completed_date() {
+        return assestment_completed_date;
+    }
+
+    public void setAssestment_completed_date(String assestment_completed_date) {
+        this.assestment_completed_date = assestment_completed_date;
+    }
+
+    public String getAssigned_date() {
+        return assigned_date;
+    }
+
+    public void setAssigned_date(String assigned_date) {
+        this.assigned_date = assigned_date;
+    }
+
+    public String getAssessment_name() {
+        return assessment_name;
+    }
+
+    public void setAssessment_name(String assessment_name) {
+        this.assessment_name = assessment_name;
+    }
+
+    public int getIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(int is_active) {
+        this.is_active = is_active;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public int getAssestment_id() {
+        return assestment_id;
+    }
+
+    public void setAssestment_id(int assestment_id) {
+        this.assestment_id = assestment_id;
     }
 }

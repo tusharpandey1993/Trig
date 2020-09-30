@@ -10,6 +10,7 @@ import com.trig.trigapp.api.Request.GetProfileDetailsReq;
 import com.trig.trigapp.api.Request.LoadAssignmentsReq;
 import com.trig.trigapp.api.Request.LoginRequest;
 import com.trig.trigapp.api.Request.SubmitAssessmentReq;
+import com.trig.trigapp.api.Request.User_id;
 import com.trig.trigapp.api.Request.getCourseDetailsReq;
 import com.trig.trigapp.api.Response.getAssessmentListRes;
 import com.trig.trigapp.api.Response.getCourseDetailsRes;
@@ -107,26 +108,26 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<JsonArray> call,
                                            Response<JsonArray> response) {
-                        Log.d(TAG, "onResponse: 1 " + response.body());
+                        Log.d(TAG, "onResponse: callCourses 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: 2 " + response.body());
+                            Log.d(TAG, "onResponse: callCourses 2 " + response.body());
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                Log.d(TAG, "onResponse: callCourses 3 " + response.body());
                                 iPresenter.onResponseVideoList(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
                         } else {
-                            Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
+                            Log.d(TAG, "onResponse:callCourses 4 errorBody " + response.errorBody());
                             if (response.errorBody() != null) {
                                 iPresenter.onError(response.errorBody());
-                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
+                                Log.e(TAG, "onerror:callCourses " + Utility.getInstance().getG().toJson(response.errorBody()));
                             }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<JsonArray> call, Throwable t) {
-                        Log.e(TAG, "onFailure: callCourses" + t.getCause());
+                        Log.e(TAG, "onFailure: callCourses " + t.getCause());
                         iPresenter.onError(t.getCause());
                     }
                 });
@@ -269,7 +270,7 @@ public class ViewModel {
     // For Dashboard: show Report
     public void callgetAssessmentList(String userID) {
         Utility.getInstance().createServiceForTrigApp(mContext)
-                .getAssessmentList(new CommonReq(userID))
+                .getAssessmentList(new User_id(userID))
                 .enqueue(new Callback<JsonArray>() {
                     @Override
                     public void onResponse(Call<JsonArray> call,
@@ -379,7 +380,7 @@ public class ViewModel {
                             Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
-//                                iPresenter.onResponseLoadAssessmentQuestions(response.body());
+                                iPresenter.onResponseSubmitAssessment();
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
                         } else {
@@ -394,6 +395,7 @@ public class ViewModel {
                     @Override
                     public void onFailure(Call<JsonArray> call, Throwable t) {
                         Log.e(TAG, "onFailure: callLoadAssessment" + t.getCause());
+                        iPresenter.onResponseSubmitAssessment();
                         iPresenter.onError(t.getCause());
                     }
                 });

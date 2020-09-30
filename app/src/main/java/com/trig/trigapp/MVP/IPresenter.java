@@ -27,5 +27,6 @@ public interface IPresenter {
     default void onResponseLoadAssessmentQuestions(JsonArray jsonElements){}
     default void onResponseVideoList(JsonArray jsonArray){}
     default void onResponseGetVideoUrl(getCourseDetailsRes getCourseDetailsRes){}
+    default void onResponseSubmitAssessment(){}
 
 }

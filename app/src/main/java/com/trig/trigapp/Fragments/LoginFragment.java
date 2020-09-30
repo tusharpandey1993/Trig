@@ -108,6 +108,8 @@ public class LoginFragment extends BaseFragment implements IPresenter, GenericDi
                 checkValidation();
             }
         });
+
+        Log.d(TAG, "onCreateView: " + TrigAppPreferences.getName(mActivity));
         return mView;
 
     }

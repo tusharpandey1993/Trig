@@ -66,6 +66,8 @@ public class SuccessFragment extends Fragment {
             SuccessTitle.setText("Login Success");
         } else if(TrigAppPreferences.getSource_To_Desitnation(mActivity) == Constants.getInstance().feedback){
             SuccessTitle.setText("Feedback Successfully Submitted!");
+        } else if(TrigAppPreferences.getSource_To_Desitnation(mActivity) == Constants.getInstance().assessment){
+            SuccessTitle.setText("Assessment Successfully Submitted!");
         } else {
             SuccessTitle.setText("Success");
         }

@@ -14,13 +14,15 @@ class VideoListViewHolder extends RecyclerView.ViewHolder implements View.OnClic
 
     OnClickInterface mListener = null;
     ConstraintLayout childMainLYT;
-    TextView listViewTitle;
+    TextView listViewTitle, status, date;
 
     public VideoListViewHolder(@NonNull View mView,Context mContext, OnClickInterface listener) {
         super(mView);
         mListener = listener;
         childMainLYT=mView.findViewById(R.id.childMainLYT);
         listViewTitle=mView.findViewById(R.id.listViewTitle);
+        status=mView.findViewById(R.id.status);
+        date=mView.findViewById(R.id.date);
         childMainLYT.setOnClickListener(this);
 
     }

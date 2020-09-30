@@ -134,34 +134,35 @@ public class CoursesTopics extends BaseFragment implements IPresenter, CourseTop
     }
 
     @Override
-    public void onResponseAssessmentTopicList(JsonArray jsonArray) {
+    public void onResponseAssessmentTopicList(JsonArray jsonArrayAssessment) {
         assessmentListResArrayList = new ArrayList<>();
-        for (int i = 0; i < jsonArray.size(); i++) {
-            getAssessmentListRes getAssessmentListRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), getAssessmentListRes.class);
+        for (int i = 0; i < jsonArrayAssessment.size(); i++) {
+            getAssessmentListRes getAssessmentListRes = Utility.getInstance().getG().fromJson(jsonArrayAssessment.get(i), getAssessmentListRes.class);
             assessmentListResArrayList.add(getAssessmentListRes);
         }
+        Log.d(TAG, "onResponseAssessmentTopicList: size " + assessmentListResArrayList.size());
 
-        AssessmentTopicsAdapter adapter = new AssessmentTopicsAdapter(mActivity, arrayListOfgetCousreList, this);
-        recyclerView.setAdapter(adapter);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
-        recyclerView.setLayoutManager(mLayoutManager);
+        AssessmentTopicsAdapter adapter2 = new AssessmentTopicsAdapter(mActivity, assessmentListResArrayList, this);
+        recyclerView.setAdapter(adapter2);
+        LinearLayoutManager mLayoutManager2 = new LinearLayoutManager(mActivity);
+        recyclerView.setLayoutManager(mLayoutManager2);
     }
 
     @Override
     public void onItemClick(getCourseListRes getCourseListRes) {
-        bundle.putInt(Constants.getInstance().item_id, getCourseListRes.getTopic_id());
+        Constants.getInstance().Courses_1st_item = getCourseListRes.getTopic_id();
 
-        if (fromCourses) {
-            Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                    .navigate(R.id.action_topics_to_VideoFragment, bundle);
-        } else {
-            Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                    .navigate(R.id.action_topics_to_AssessmentFragment, bundle);
-        }
+        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                .navigate(R.id.action_topics_to_VideoFragment, bundle);
+
     }
 
     @Override
     public void onItemClick(getAssessmentListRes item) {
+        Constants.getInstance().Assessment_1st_item = item.getAssestment_id();
+
+        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                .navigate(R.id.action_topics_to_AssessmentFragment, bundle);
 
     }
 }
