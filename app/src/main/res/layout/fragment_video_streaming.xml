@@ -28,13 +28,13 @@
         android:id="@+id/heading"
         style="@style/sub_heading_text"
         android:layout_margin="@dimen/_10sdp"
-        android:text="This Video is About Training"/>
+        android:text=""/>
 
     <TextView
         android:id="@+id/desc"
         style="@style/desc_text"
         android:layout_margin="@dimen/_10sdp"
-        android:text="@string/lorem"/>
+        android:text=""/>
 
 
 

@@ -20,7 +20,7 @@ public interface IPresenter {
     default void onError(Object error,int Code){}
     default void onResponse(getLoginRes loginResponse){}
     default void onResponseProfile(CommonResponse commonResponse){}
-    default void onResponseProfile(getDashboardRes dashboardResponse){}
+    default void onResponseGetDashboard(getDashboardRes dashboardResponse){}
     default void onResponseCourseTopicList(JsonArray JsonArray){}
     default void onResponseAssessmentTopicList(JsonArray JsonArray){}
     default void onResponseFeedback(getFeedbackRes getFeedbackRes){}

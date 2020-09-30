@@ -80,7 +80,7 @@ public class ViewModel {
                             Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
-                                iPresenter.onResponseProfile(response.body());
+                                iPresenter.onResponseGetDashboard(response.body());
                                 Log.e(TAG, "onResponse:DashboardResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
                         } else {

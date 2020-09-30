@@ -70,28 +70,9 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
     private ViewModel viewModel;
     public static boolean fromCourses = false;
     public static boolean goToContactTrainer = false;
-
+    private PieChart pieChartResult, pieChartCourses, pieChartAssessment;
 
     private ImageView closeIcon;
-    private PieChart pieChart;
-    private PieChart pieChart3;
-    private PieData pieData1;
-    private PieData pieData2;
-    private PieData pieData3;
-    private PieDataSet pieDataSet1;
-    private PieDataSet pieDataSet2;
-    private PieDataSet pieDataSet3;
-    private ArrayList pieEntries;
-    private ArrayList pieEntries2;
-    private ArrayList PieEntryLabels;
-    private ArrayList PieEntryLabels2;
-    private ArrayList PieEntryLabels3;
-    private PieChart coursePieChart1;
-    private PieChart coursePieChart2;
-    private PieChart coursePieChart3;
-    private ArrayList<Entry> entries1;
-    private ArrayList<Entry> entries2;
-    private ArrayList<Entry> entries3;
 
     private SlidingRootNav slidingRootNav;
 
@@ -161,11 +142,6 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
         courseContainer = mView.findViewById(R.id.courseContainer);
         assessmentContainer = mView.findViewById(R.id.assessmentContainer);
         feedback = mView.findViewById(R.id.feedback);
-
-        pieChart = mView.findViewById(R.id.pieChart);
-        pieChart3 = mView.findViewById(R.id.pieChart3);
-        coursePieChart1 = mView.findViewById(R.id.coursePieChart);
-        coursePieChart2 = mView.findViewById(R.id.coursePieChart);
         userText = mView.findViewById(R.id.userText);
         Category = mView.findViewById(R.id.Category);
         initials = mView.findViewById(R.id.initials);
@@ -174,39 +150,8 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
         assessmentNumber = mView.findViewById(R.id.assessmentNumber);
         assementCompleted = mView.findViewById(R.id.assementCompleted);
 
-        entries1 = new ArrayList<>();
-        entries2 = new ArrayList<>();
-        entries3 = new ArrayList<>();
-        PieEntryLabels = new ArrayList<String>();
-        PieEntryLabels2 = new ArrayList<String>();
-        PieEntryLabels3 = new ArrayList<String>();
-
-        AddValuesToPIEENTRY();
-        AddValuesToPieEntryLabels();
-
-        pieDataSet1 = new PieDataSet(entries1, "");
-        pieDataSet2 = new PieDataSet(entries1, "");
-        pieDataSet3 = new PieDataSet(entries1, "");
-        pieData1 = new PieData(PieEntryLabels, pieDataSet1);
-        pieData2 = new PieData(PieEntryLabels, pieDataSet2);
-//        pieData3 = new PieData(PieEntryLabels3, pieDataSet3);
-        pieDataSet1.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieDataSet2.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieDataSet3.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieChart.setData(pieData1);
-        pieChart3.setData(pieData1);
-        coursePieChart1.setData(pieData1);
-        coursePieChart2.setData(pieData2);
-//        coursePieChart3.setData(pieData3);
-        pieChart.animateY(1000);
-        pieChart3.animateY(1000);
-        coursePieChart1.animateY(1000);
-        coursePieChart2.animateY(1000);
-//        coursePieChart3.animateY(1000);
-
         userText.setText(TrigAppPreferences.getName(mActivity) + " (" + TrigAppPreferences.getEmployee_Code(mActivity) + ")");
         Category.setText(TrigAppPreferences.getUser_Type(mActivity));
-//        String initialsExtract =TrigAppPreferences.getUser_Type(mActivity);
         if(TrigAppPreferences.getisUserModeTrainer(mActivity)){
             initials.setVisibility(View.VISIBLE);
             initials.setText("T");
@@ -214,21 +159,10 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
             initials.setVisibility(View.INVISIBLE);
         }
 
-    }
+        pieChartCourses = mView.findViewById(R.id.pieChartCourses);
+        pieChartAssessment = mView.findViewById(R.id.pieChartAssessment);
+        pieChartResult = mView.findViewById(R.id.pieChartResult);
 
-    public void AddValuesToPIEENTRY(){
-        entries1.add(new BarEntry(2f, 0));
-        entries1.add(new BarEntry(2f, 1));
-        entries2.add(new BarEntry(2f, 0));
-        entries2.add(new BarEntry(1f, 1));
-        entries3.add(new BarEntry(2f, 0));
-        entries3.add(new BarEntry(1f, 1));
-    }
-
-    public void AddValuesToPieEntryLabels(){
-        PieEntryLabels.add("Completed");
-        PieEntryLabels.add("Pending");
-        PieEntryLabels3.add("Score");
     }
 
     @Override
@@ -473,18 +407,66 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
     }
 
     @Override
-    public void onResponseProfile(getDashboardRes dashboardResponse) {
+    public void onResponseGetDashboard(getDashboardRes dashboardResponse) {
         try {
             hideLoader();
             if (dashboardResponse != null && !Utility.getInstance().getG().toJson(dashboardResponse).equals("{}")) {
+
+//                {"assessmentAssigned":2,"assessmentCompleted":2,"courseAssigned":7,"courseCompleted":6,"courseInprogress":0}
+
                 courseNumber.setText(String.valueOf((dashboardResponse.getCourseAssigned())));
                 courseCompletedNumber.setText(String.valueOf(dashboardResponse.getCourseCompleted()));
                 assessmentNumber.setText(String.valueOf(dashboardResponse.getAssessmentAssigned()));
                 assementCompleted.setText(String.valueOf(dashboardResponse.getAssessmentCompleted()));
+
+                pieChartCourses.setDescription(null);
+                pieChartAssessment.setDescription(null);
+                pieChartResult.setDescription(null);
+
+                courseChart(dashboardResponse.getCourseCompleted(), dashboardResponse.getCourseAssigned());
+                assessmentChart(dashboardResponse.getAssessmentCompleted(), dashboardResponse.getAssessmentAssigned());
             }
         } catch (Exception e) {
             Log.e(TAG, "onResponseProfile: exception" + e.getMessage());
         }
     }
 
+    private void courseChart(int completed, int total){
+        float percentage = (float)((completed  * 100)/ total);
+        float remaining = 100 - percentage;
+        ArrayList completedCourses = new ArrayList();
+        completedCourses.add(new Entry(percentage, 6));
+        completedCourses.add(new Entry(remaining, 1 ));
+        PieDataSet dataSet = new PieDataSet(completedCourses, "");
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        PieData data = new PieData(textOnPieChart(), dataSet);
+        pieChartCourses.setData(data);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieChartCourses.animateXY(1000, 1000);
+    }
+
+
+    private void assessmentChart(int completed, int total){
+        float percentage = (float)((completed  * 100)/ total);
+        float remaining = 100 - percentage;
+        ArrayList completedCourses = new ArrayList();
+        completedCourses.add(new Entry(percentage, 6));
+        completedCourses.add(new Entry(remaining, 1 ));
+        PieDataSet dataSet = new PieDataSet(completedCourses, "");
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        PieData data = new PieData(textOnPieChart(), dataSet);
+        pieChartAssessment.setData(data);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieChartAssessment.animateXY(1000, 1000);
+        pieChartResult.setData(data);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieChartResult.animateXY(1000, 1000);
+    }
+
+    private ArrayList textOnPieChart(){
+        ArrayList textBelowPie = new ArrayList();
+        textBelowPie.add("Assigned %");
+        textBelowPie.add("Pending %");
+        return textBelowPie;
+    }
 }

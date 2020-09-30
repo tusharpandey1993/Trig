@@ -12,6 +12,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 
 import android.os.Handler;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -122,7 +124,7 @@ public class VideoStreamingFragment extends Fragment implements IPresenter {
     private void init(View mView) {
         viewModel = new ViewModel(mActivity, this);
         toolBarText = mView.findViewById(R.id.toolBarText);
-        toolBarText.setText("Video");
+        toolBarText.setText(Constants.getInstance().Video);
         backIcon = mView.findViewById(R.id.backIcon);
         video_player = mView.findViewById(R.id.video_player);
         desc = mView.findViewById(R.id.desc);
@@ -241,7 +243,9 @@ public class VideoStreamingFragment extends Fragment implements IPresenter {
                 }
                 if(getCourseDetailsRes.getCourse_name() != null && getCourseDetailsRes.getCourseText() != null) {
                     heading.setText(getCourseDetailsRes.getCourse_name());
-                    desc.setText(getCourseDetailsRes.getCourseText());
+
+                    Spanned htmlAsSpanned = Html.fromHtml(getCourseDetailsRes.getCourseText());
+                    desc.setText(htmlAsSpanned);
                 }
             }
         }
