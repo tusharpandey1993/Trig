@@ -62,27 +62,27 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
     FragmentActivity mActivity;
 
     private View mView;
-    ConstraintLayout courseContainer, assessmentContainer;
-    TextView toolBarText, feedback, userText, courseNumber, courseCompletedNumber, assessmentNumber, assementCompleted;
-    MaterialButton Category, initials;
-    RecyclerView list;
+    private ConstraintLayout courseContainer, assessmentContainer;
+    private TextView toolBarText, feedback, userText, courseNumber, courseCompletedNumber, assessmentNumber, assementCompleted;
+    private MaterialButton Category, initials;
+    private RecyclerView list;
     private ViewModel viewModel;
     public static boolean fromCourses = false;
     public static boolean goToContactTrainer = false;
 
 
-    ImageView closeIcon;
-    PieChart pieChart;
-    PieData pieData1;
-    PieData pieData2;
-    PieDataSet pieDataSet1;
-    PieDataSet pieDataSet2;
-    ArrayList pieEntries;
-    ArrayList PieEntryLabels;
-    PieChart coursePieChart1;
-    PieChart coursePieChart2;
-    ArrayList<Entry> entries1;
-    ArrayList<Entry> entries2;
+    private ImageView closeIcon;
+    private PieChart pieChart;
+    private PieData pieData1;
+    private PieData pieData2;
+    private PieDataSet pieDataSet1;
+    private PieDataSet pieDataSet2;
+    private ArrayList pieEntries;
+    private ArrayList PieEntryLabels;
+    private PieChart coursePieChart1;
+    private PieChart coursePieChart2;
+    private ArrayList<Entry> entries1;
+    private ArrayList<Entry> entries2;
 
     private SlidingRootNav slidingRootNav;
 
@@ -239,15 +239,6 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
         }
     }
 
-
-    /*private void getEntries() {
-        pieEntries = new ArrayList<>();
-        pieEntries.add(new PieEntry(2f, 0));
-        pieEntries.add(new PieEntry(8f, 1));
-    }*/
-
-
-
     //This dialog is show to the user after he ans correct
     public void feedBackDialog() {
         final Dialog dialogCorrect = new Dialog(mActivity);
@@ -398,7 +389,6 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: ");
         fromCourses = false;
 
     }
@@ -468,7 +458,7 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
                 assementCompleted.setText(String.valueOf(dashboardResponse.getAssessmentCompleted()));
             }
         } catch (Exception e) {
-            Log.e(TAG, "onResponseProfile: " + e.getMessage());
+            Log.e(TAG, "onResponseProfile: exception" + e.getMessage());
         }
     }
 

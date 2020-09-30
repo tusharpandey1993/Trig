@@ -28,6 +28,9 @@ public class getAssessmentListRes {
     private String status;
     @SerializedName("Assessment_id")
     @Expose
+    private String Score;
+    @SerializedName("Score")
+    @Expose
     private Integer assessmentId;
 
     public Integer getAssestmentId() {
@@ -92,5 +95,13 @@ public class getAssessmentListRes {
 
     public void setAssessmentId(Integer assessmentId) {
         this.assessmentId = assessmentId;
+    }
+
+    public String getScore() {
+        return Score;
+    }
+
+    public void setScore(String score) {
+        Score = score;
     }
 }

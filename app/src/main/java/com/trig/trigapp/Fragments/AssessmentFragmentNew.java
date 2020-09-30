@@ -40,53 +40,47 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.CommonFiles.Utility;
+import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogBuilder;
+import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogPopup;
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
+import com.trig.trigapp.api.Request.SubmitAssessmentReq;
 import com.trig.trigapp.api.Response.getCourseListRes;
 import com.trig.trigapp.api.Response.getLoadAssignmentsRes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import info.hoang8f.widget.FButton;
 
-public class AssessmentFragmentNew extends Fragment implements IPresenter, View.OnClickListener, RadioGroup.OnCheckedChangeListener, OnClickInterface {
+public class AssessmentFragmentNew extends BaseFragment implements IPresenter, View.OnClickListener, RadioGroup.OnCheckedChangeListener, OnClickInterface {
 
 
-    private static final String TAG = "AssessmentFragmentNew";
+    private static final String TAG = AssessmentFragmentNew.class.getSimpleName();
+
     private View mView;
     private FragmentActivity mActivity;
     public TextView toolBarText;
-    int score = 0;
-    RadioGroup question_1;
-
-
-    FButton buttonA, buttonB, buttonC, buttonD;
-    TextView questionText, triviaQuizText, timeText, resultText, coinText;
-    TriviaQuizHelper triviaQuizHelper;
-    TriviaQuestion currentQuestion;
-    List<TriviaQuestion> list;
-    int qid = 0;
-    int timeValue = 20;
-    int coinValue = 0;
-    CountDownTimer countDownTimer;
-    Typeface tb, sb;
-    String test_result;
-    Button endTestButton;
-    ImageView backIcon;
-    RecyclerView quizListRecycler;
-    List<QuizPayLoadModel> quizPayLoadModelList;
+    private ImageView backIcon;
+    private RecyclerView quizListRecycler;
     private ViewModel viewModel;
     private List<getLoadAssignmentsRes> getLoadAssignmentsRes;
-
     private QuizModel quizModel = new QuizModel();
     private List<QuizModel> quizModelList;
+    private Button end_test_button;
+    private int[] intArray = new int[3];
+    private int assismentId;
+    private HashMap<Integer,String > hashMap;
+
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         mActivity = getActivity();
+        hashMap = new HashMap<Integer,String>();
     }
 
 
@@ -132,49 +126,74 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
 
     @Override
     public void onClickQuiz(View view, int position, int id, int assismentID, String optionID) {
+
         quizModel.setPosition(position);
         quizModel.setSelectedID(id);
 
-        if (quizModelList != null) {
+        assismentId = assismentID;
 
-        } else {
-            quizModelList = new ArrayList<>();
-            quizModelList.add(quizModel);
+        switch (position) {
+            case 0:
+                hashMap.put(position, optionID+";");
+            break;
+            case 1:
+                hashMap.put(position, optionID+";");
+            break;
+            case 2:
+                hashMap.put(position, optionID+";");
+            break;
+            case 3:
+                hashMap.put(position, optionID+";");
+            break;
         }
-
-        Log.e(TAG, "onClickQuiz: "+new Gson().toJson(quizModelList));
     }
 
     private void backToPreviousFragment() {
-
         Navigation.findNavController(requireActivity(), R.id.navHostFragment)
                 .navigate(R.id.action_AssessmentFrag_to_CoursesTopics);
 
     }
 
     public void init(View mView) {
-//        end_Test(mView);
         viewModel = new ViewModel(mActivity, this);
+
         toolBarText = mView.findViewById(R.id.toolBarText);
-        toolBarText.setText("Assessment");
+        toolBarText.setText(Constants.getInstance().Assessments);
         backIcon = mView.findViewById(R.id.backIcon);
         quizListRecycler = mView.findViewById(R.id.quizListRecycler);
-        EditText nameField = mView.findViewById(R.id.name_field);
+        end_test_button = mView.findViewById(R.id.end_test_button);
 
+        end_test_button.setOnClickListener(this);
 
-   /*     // Display the test result on the screen
-        test_result = createTestResult(name, score);
-        displayResult(test_result, view);
-
-        // Disabled "End Test" button after clicking on it.
-        endTestButton = view.findViewById(R.id.end_test_button);
-        endTestButton.setEnabled(true);
-        endTestButton.setOnClickListener(this);*/
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.end_test_button:
+                if (Utility.getInstance().isNetworkAvailable(mActivity)) {
+                    if (getLoadAssignmentsRes.size() == hashMap.size()) {
+                        StringBuffer output = new StringBuffer(5);
 
+                        for (int i = 0; i < hashMap.size(); i++) {
+                            output.append(hashMap.get(i));
+                        }
+
+                        SubmitAssessmentReq submitAssessmentReq = new SubmitAssessmentReq();
+                        submitAssessmentReq.setAssessment_id(assismentId);
+                        submitAssessmentReq.setUser_id(TrigAppPreferences.getUserId(mActivity));
+                        submitAssessmentReq.setOptString(String.valueOf(output));
+
+                        viewModel.submitAssessment(submitAssessmentReq);
+
+                    } else {
+                        Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.answer_all_questions));
+                    }
+                } else {
+                    Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.no_internet_message));
+                }
+                break;
+        }
     }
 
     @Override
@@ -191,55 +210,6 @@ public class AssessmentFragmentNew extends Fragment implements IPresenter, View.
         }
         setQuizAdapter();
     }
+
+
 }
-
-
-    /**
-     * Create summary of the test result.
-     *
-     * @param name  of the passing the test
-     * @param score of the counting of right answers
-     * @return text of the test result
-     *//*
-    private String createTestResult(String name, int score) {
-        String test_result = getString(R.string.test_result_name) + name;
-        test_result += "\n" + getString(R.string.test_result_score) + score;
-        return test_result;
-    }
-
-
-    *//**
-     * This method displays the given text on the screen.
-     *//*
-    private void displayResult(String result, View view) {
-        TextView testResultTextView = view.findViewById(R.id.test_result_text_view);
-        testResultTextView.setText(result);
-    }
-
-    *//**
-     * This method is called when user selected the correct answer.
-     * Added +1 to score for each correct answer
-     *//*
-    private int increment_score() {
-        Log.d("increment_score", "before onClick: " + score);
-        score = ++score;
-        Log.d("increment_score", "after onClick: " + score);
-        *//*if(increment_score() == 10) {
-            endTestButton.setEnabled(true);
-            endTestButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d("result", "onClick: ");
-                }
-            });
-        }
-        return score;
-    }
-
-    @Override
-    public void onClick(View v) {
-        increment_score();
-    }
-
-
-}*/

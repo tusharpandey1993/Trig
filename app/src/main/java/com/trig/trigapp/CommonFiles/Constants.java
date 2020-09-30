@@ -230,6 +230,7 @@ public class Constants {
     public String My_Courses = "My Courses";
     public String Courses = "Courses";
     public String Assessments = "Assessments";
+    public String Question = "Question ";
 
 
     // Bundle

@@ -9,6 +9,7 @@ import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Request.GetProfileDetailsReq;
 import com.trig.trigapp.api.Request.LoadAssignmentsReq;
 import com.trig.trigapp.api.Request.LoginRequest;
+import com.trig.trigapp.api.Request.SubmitAssessmentReq;
 import com.trig.trigapp.api.Request.getCourseDetailsReq;
 import com.trig.trigapp.api.Response.getAssessmentListRes;
 import com.trig.trigapp.api.Response.getCourseDetailsRes;
@@ -278,7 +279,7 @@ public class ViewModel {
                             Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
-//                                iPresenter.onResponseVideoList(response.body());
+                                iPresenter.onResponseAssessmentTopicList(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
                         } else {
@@ -346,6 +347,39 @@ public class ViewModel {
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse: 3 " + response.body());
                                 iPresenter.onResponseLoadAssessmentQuestions(response.body());
+//                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
+                            }
+                        } else {
+                            Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
+                            if (response.errorBody() != null) {
+                                iPresenter.onError(response.errorBody());
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonArray> call, Throwable t) {
+                        Log.e(TAG, "onFailure: callLoadAssessment" + t.getCause());
+                        iPresenter.onError(t.getCause());
+                    }
+                });
+    }
+
+    // This is submit button Api hit in assessment
+    public void submitAssessment(SubmitAssessmentReq submitAssessmentReq) {
+        Utility.getInstance().createServiceForTrigApp(mContext)
+                .submitAssessment(submitAssessmentReq)
+                .enqueue(new Callback<JsonArray>() {
+                    @Override
+                    public void onResponse(Call<JsonArray> call,
+                                           Response<JsonArray> response) {
+                        Log.d(TAG, "onResponse: 1 " + response.body());
+                        if (response.isSuccessful()) {
+                            Log.d(TAG, "onResponse: 2 " + response.body());
+                            if (response.body() != null) {
+                                Log.d(TAG, "onResponse: 3 " + response.body());
+//                                iPresenter.onResponseLoadAssessmentQuestions(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
                         } else {

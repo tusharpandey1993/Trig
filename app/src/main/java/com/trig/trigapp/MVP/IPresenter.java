@@ -22,6 +22,7 @@ public interface IPresenter {
     default void onResponseProfile(CommonResponse commonResponse){}
     default void onResponseProfile(getDashboardRes dashboardResponse){}
     default void onResponseCourseTopicList(JsonArray JsonArray){}
+    default void onResponseAssessmentTopicList(JsonArray JsonArray){}
     default void onResponseFeedback(getFeedbackRes getFeedbackRes){}
     default void onResponseLoadAssessmentQuestions(JsonArray jsonElements){}
     default void onResponseVideoList(JsonArray jsonArray){}

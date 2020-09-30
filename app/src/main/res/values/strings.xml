@@ -16,6 +16,7 @@
     <string name="error_invalid_username">Please enter a valid username.</string>
     <string name="error_invalid_password">Please enter a valid password.</string>
     <string name="error_invalid_username_password">Please enter a valid username and password.</string>
+    <string name="answer_all_questions">Answer all questions to Submit</string>
     <string name="error_empty_field"> cannot be empty.</string>
     <string name="error_mobilenumberZero">"Mobile number cannot begin with a '0'."</string>
     <string name="error_invalid_email">Please enter valid email address</string>

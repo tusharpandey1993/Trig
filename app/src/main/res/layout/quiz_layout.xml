@@ -37,14 +37,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include2">
 
-        <EditText
-            android:id="@+id/name_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
-            android:hint="@string/enter_your_name"
-            android:inputType="textCapWords"
-            app:layout_constraintTop_toBottomOf="@+id/include2" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/quizListRecycler"
@@ -75,28 +67,6 @@
                 android:background="@drawable/access_pack_bg_gradient"
                 android:text="@string/end_test" />
 
-
-            <TextView
-                android:id="@+id/textView"
-                style="@style/HeaderTextStyle"
-                android:layout_below="@+id/end_test_button"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_80sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/test_result" />
-
-            <TextView
-                android:id="@+id/test_result_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/end_test_button"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:layout_toEndOf="@+id/textView"
-                android:text=" vjkkv"
-                android:textColor="@android:color/black" />
 
         </RelativeLayout>
     </LinearLayout>

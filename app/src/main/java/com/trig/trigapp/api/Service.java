@@ -5,6 +5,7 @@ import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Request.LoadAssignmentsReq;
 import com.trig.trigapp.api.Request.LoginRequest;
 import com.trig.trigapp.api.Request.GetProfileDetailsReq;
+import com.trig.trigapp.api.Request.SubmitAssessmentReq;
 import com.trig.trigapp.api.Request.getCourseDetailsReq;
 import com.trig.trigapp.api.Response.CommonResponse;
 import com.trig.trigapp.api.Response.getAssessmentListRes;
@@ -53,5 +54,9 @@ public interface Service {
 
     @POST("UserAssessment/LoadAssessment")
     Call<JsonArray> loadAssignments(@Body LoadAssignmentsReq req);
+
+
+    @POST("SubmitAssessment/save")
+    Call<JsonArray> submitAssessment(@Body SubmitAssessmentReq submitAssessmentReq);
 
    }

@@ -181,7 +181,9 @@
         android:id="@+id/DashboardTrainer"
         android:name="com.trig.trigapp.Fragments.DashboardTrainer"
         android:label="Dashboard Fragment"
-        tools:layout="@layout/dashboard_trainer"></fragment>
+        tools:layout="@layout/dashboard_trainer">
+
+    </fragment>
 
     <fragment
         android:id="@+id/Contact"

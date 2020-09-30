@@ -32,6 +32,9 @@ import com.trig.trigapp.Adapter.OnClickInterface;
 import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.CustomViewsFiles.LoaderFragment;
+import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogBuilder;
+import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogClickListener;
+import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogPopup;
 import com.trig.trigapp.R;
 import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
@@ -41,7 +44,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class BaseFragment  extends Fragment {
+public class BaseFragment  extends Fragment implements GenericDialogClickListener {
 
     protected final String TAG = getClass().getSimpleName();
     protected View mContent;
@@ -207,6 +210,24 @@ public class BaseFragment  extends Fragment {
             Log.e(TAG, "onOptionsItemSelected: error "+ e.getMessage());
         }
         return true;
+    }
+
+    public void ShowGenericDialog(int FunctionNum,String ButtonText,String DialogMessage, String dialogHeading){
+        GenericDialogBuilder genericDialogBuilder = new GenericDialogBuilder.Builder()
+                .setShowCloseButton(false)
+                .setHeading(dialogHeading.isEmpty()?mActivity.getResources().getString(R.string.DialogHeading): dialogHeading)
+                .setDescription(DialogMessage)
+                .setPositiveButtonText(ButtonText)
+                .setGenericDialogClickListener(this)
+                .setFucntionNumber(FunctionNum)
+                .build();
+        showDynamicDialog(genericDialogBuilder);
+    }
+
+
+    public void showDynamicDialog(GenericDialogBuilder genericDialogBuilder) {
+        GenericDialogPopup genericDialogPopup = new GenericDialogPopup(genericDialogBuilder);
+        genericDialogPopup.show(mActivity.getSupportFragmentManager(), TAG);
     }
 
 

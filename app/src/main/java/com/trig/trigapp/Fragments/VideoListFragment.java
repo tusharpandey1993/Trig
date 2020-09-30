@@ -70,88 +70,122 @@ public class VideoListFragment extends BaseFragment implements IPresenter, OnCli
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        item_id_from_bundle = getArguments().getInt(Constants.getInstance().item_id);
+        try {
+            if (getArguments() != null) {
+                item_id_from_bundle = getArguments().getInt(Constants.getInstance().item_id);
+            }
+        } catch (Exception e){
+            Log.e(TAG, "onCreate: exception" + e.getMessage() );
+        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.fragment_video_list, container, false);
+        try {
+            mView = inflater.inflate(R.layout.fragment_video_list, container, false);
 
-        init(mView);
+            init(mView);
 
-        hitListApi();
+            hitListApi();
 
-        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
-            @Override
-            public void handleOnBackPressed() {
-                // Handle the back button event
-                navigationCode(R.id.action_VideoListFrag_to_topics);
-            }
-        };
-        requireActivity().getOnBackPressedDispatcher().addCallback(mActivity, callback);
+            OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+                @Override
+                public void handleOnBackPressed() {
+                    // Handle the back button event
+                    navigationCode(R.id.action_VideoListFrag_to_topics);
+                }
+            };
+            requireActivity().getOnBackPressedDispatcher().addCallback(mActivity, callback);
 
-        setDataToRecyclerView();
+            setDataToRecyclerView();
 
+        } catch (Exception e) {
+            Log.e(TAG, "onCreateView: exception" + e.getMessage());
+        }
         return mView;
-
     }
 
     private void setDataToRecyclerView() {
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
-        videoListRecycler.setLayoutManager(mLayoutManager);
-        videoListRecycler.setNestedScrollingEnabled(false);
-        videoListRecycler.setAdapter(new DynamicSliderAdapter(mActivity,this));
+        try {
+            LinearLayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
+            videoListRecycler.setLayoutManager(mLayoutManager);
+            videoListRecycler.setNestedScrollingEnabled(false);
+            videoListRecycler.setAdapter(new DynamicSliderAdapter(mActivity,this));
+        } catch (Exception e) {
+            Log.e(TAG, "setDataToRecyclerView: exception" + e.getMessage());
+        }
     }
 
     private void hitListApi() {
-        getCourseDetailsReq courseDetailsReq = new getCourseDetailsReq();
-        courseDetailsReq.setUserid(TrigAppPreferences.getUserId(mActivity));
-        courseDetailsReq.setTopic_id(item_id_from_bundle);
-        viewModel.callCourses(courseDetailsReq);
+        try {
+            getCourseDetailsReq courseDetailsReq = new getCourseDetailsReq();
+            courseDetailsReq.setUserid(TrigAppPreferences.getUserId(mActivity));
+            courseDetailsReq.setTopic_id(item_id_from_bundle);
+            viewModel.callCourses(courseDetailsReq);
+        } catch (Exception e) {
+            Log.e(TAG, "hitListApi: exception" + e.getMessage());
+        }
     }
 
     private void navigationCode(int nav) {
-        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                .navigate(nav);
+        try {
+            Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                    .navigate(nav);
+        } catch (Exception e) {
+            Log.e(TAG, "setDataToRecyclerView: exception" + e.getMessage());
+        }
     }
 
     private void init(View view) {
-        viewModel = new ViewModel(mActivity, this);
-        videoListRecycler =  view.findViewById(R.id.videoListRecycler);
-        backIcon = view.findViewById(R.id.backIcon);
-        toolBarText = view.findViewById(R.id.toolBarText);
+        try {
+            viewModel = new ViewModel(mActivity, this);
+            videoListRecycler =  view.findViewById(R.id.videoListRecycler);
+            backIcon = view.findViewById(R.id.backIcon);
+            toolBarText = view.findViewById(R.id.toolBarText);
 
-        backIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navigationCode(R.id.action_VideoListFrag_to_topics);
+            backIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    navigationCode(R.id.action_VideoListFrag_to_topics);
+                }
+            });
+
+            if(fromCourses) {
+                toolBarText.setText(Constants.getInstance().My_Courses);
+            } else {
+                toolBarText.setText(Constants.getInstance().My_Assessments);
             }
-        });
-
-        if(fromCourses) {
-            toolBarText.setText(Constants.getInstance().My_Courses);
-        } else {
-            toolBarText.setText(Constants.getInstance().My_Assessments);
+        } catch (Exception e) {
+            Log.e(TAG, "init: exception" + e.getMessage());
         }
     }
 
     @Override
     public void onClick(View view, int position) {
-        if(fromCourses) {
-            navigationCode(R.id.action_VideoListFrag_to_VideoStreamingFrag);
-        } else {
-            navigationCode(R.id.action_VideoListFrag_to_AssessmentFragment);
+        try {
+            if(fromCourses) {
+                navigationCode(R.id.action_VideoListFrag_to_VideoStreamingFrag);
+            } else {
+                navigationCode(R.id.action_VideoListFrag_to_AssessmentFragment);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onClick: exception" + e.getMessage());
         }
     }
 
     @Override
     public void onResponseVideoList(JsonArray jsonArray) {
-        getAssessmentListResArray = new ArrayList<>();
-        for(int i =0; i < jsonArray.size(); i++) {
-            getCourseListRes getAssessmentListRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), getCourseListRes.class);
-            getAssessmentListResArray.add(getAssessmentListRes);
+        try {
+            getAssessmentListResArray = new ArrayList<>();
+            for(int i =0; i < jsonArray.size(); i++) {
+                getCourseListRes getAssessmentListRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), getCourseListRes.class);
+                getAssessmentListResArray.add(getAssessmentListRes);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onResponseVideoList: exception" + e.getMessage());
         }
+
     }
 }
