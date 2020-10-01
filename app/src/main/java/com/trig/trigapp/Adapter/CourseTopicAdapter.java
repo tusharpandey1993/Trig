@@ -50,7 +50,6 @@ public class CourseTopicAdapter extends RecyclerView.Adapter<CourseTopicAdapter.
 
     @Override
     public int getItemCount() {
-
         return mValues.size();
     }
 
@@ -61,7 +60,7 @@ public class CourseTopicAdapter extends RecyclerView.Adapter<CourseTopicAdapter.
 
     public class MyVi extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView cardHeading, totalCourses, completedCourses;
+        public TextView cardHeading, totalCourses, completedCourses, progressEndPercentage;
         public ImageView imageView;
         public ConstraintLayout relativeLayout;
         public ProgressBar courseCompletionProgess;
@@ -71,25 +70,34 @@ public class CourseTopicAdapter extends RecyclerView.Adapter<CourseTopicAdapter.
 
             super(v);
 
+            try {
+
+            } catch (Exception e) {
+                Log.e(TAG, "MyVi: exception" +e.getMessage() );
+            }
             v.setOnClickListener(this);
             cardHeading = (TextView) v.findViewById(R.id.cardHeading);
             totalCourses = (TextView) v.findViewById(R.id.totalCourses);
             completedCourses = (TextView) v.findViewById(R.id.completedCourses);
             relativeLayout = (ConstraintLayout) v.findViewById(R.id.relativeLayout);
             courseCompletionProgess = (ProgressBar) v.findViewById(R.id.courseCompletionProgess);
-
+            progressEndPercentage = (TextView) v.findViewById(R.id.progressEndPercentage);
         }
 
         public void setData(getCourseListRes item) {
-            this.item = item;
+            try {
+                this.item = item;
 
+                cardHeading.setText(item.getTopic_name());
+                totalCourses.setText(String.valueOf(item.getAll()));
+                completedCourses.setText(String.valueOf(item.getCompleted()));
 
-            cardHeading.setText(item.getTopic_name());
-            totalCourses.setText(String.valueOf(item.getAll()));
-            completedCourses.setText(String.valueOf(item.getCompleted()));
-
-            float percentage = (float)((item.getCompleted()  * 100)/ item.getAll());
-            courseCompletionProgess.setProgress((int) percentage);
+                float percentage = (float)((item.getCompleted()  * 100)/ item.getAll());
+                courseCompletionProgess.setProgress((int) percentage);
+                progressEndPercentage.setText(Math.round(percentage) + " %");
+            } catch (Exception e) {
+                Log.e(TAG, "setData: exception " + e.getMessage() );
+            }
         }
 
 

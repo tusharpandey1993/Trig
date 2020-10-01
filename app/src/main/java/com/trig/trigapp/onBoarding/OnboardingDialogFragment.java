@@ -34,7 +34,7 @@ public class OnboardingDialogFragment extends DialogFragment {
     private TextView tv_next;
     private TextView tv_skip;
     private ViewPager view_pager_onboarding;
-    Activity mActivity;
+    private Activity mActivity;
     private static final String TAG = "OnboardingDialogFragmen";
 
     @Override
@@ -66,7 +66,7 @@ public class OnboardingDialogFragment extends DialogFragment {
     private void setData() {
         ArrayList<OnBoarding> onBoardingArrayList = new ArrayList<>();
 
-        onBoardingArrayList.add(new OnBoarding(R.drawable.trig_logo, "TRIG GROUP", "TRIG is one of India's leading professionally managed Watch & Ward Security Solutions Provider with a holistic range of specialized services to offer to its clients. With its 360 DEGREE  SECURITY SYSTEMS APPROACH, TRIG Group not only specializes in offering Man Power Security Solutions to Corporates and Residential Spaces, but have also established a niche in offering state-of-the-art Electronic Security Solutions to meet the growing need of Digital Surveillance Systems.\n" +
+        onBoardingArrayList.add(new OnBoarding(R.drawable.trig_logo, "TRIG GROUP", "T Trusted R Resourceful I Integrated G Guardforce \nTRIG is one of India's leading professionally managed Watch & Ward Security Solutions Provider with a holistic range of specialized services to offer to its clients. With its 360 DEGREE  SECURITY SYSTEMS APPROACH, TRIG Group not only specializes in offering Man Power Security Solutions to Corporates and Residential Spaces, but have also established a niche in offering state-of-the-art Electronic Security Solutions to meet the growing need of Digital Surveillance Systems.\n" +
                 "Since its inception in 1980, TRIG Group has defined its priority in offering error-free and vigilant security surveillance to exceed customer satisfaction. As on this day, TRIG Group has enrolled over 15,000 security professionals, 3,000 chauffeurs and a dedicated team of Trained Managers and Officers to seamlessly manage its 26 branches across India."));
 
         onBoardingArrayList.add(new OnBoarding(R.drawable.founder, "Mr. Swaran Salaria\n" +

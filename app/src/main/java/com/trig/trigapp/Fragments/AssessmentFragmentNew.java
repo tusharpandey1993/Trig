@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
@@ -38,6 +39,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trig.trigapp.CommonFiles.Constants;
+import com.trig.trigapp.CommonFiles.NoInternetDialog;
 import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogBuilder;
@@ -48,6 +50,7 @@ import com.trig.trigapp.R;
 import com.trig.trigapp.api.Request.SubmitAssessmentReq;
 import com.trig.trigapp.api.Response.getCourseListRes;
 import com.trig.trigapp.api.Response.getLoadAssignmentsRes;
+import com.trig.trigapp.onBoarding.OnboardingDialogFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,12 +72,9 @@ public class AssessmentFragmentNew extends BaseFragment implements IPresenter, V
     private ViewModel viewModel;
     private List<getLoadAssignmentsRes> getLoadAssignmentsRes;
     private QuizModel quizModel = new QuizModel();
-    private List<QuizModel> quizModelList;
     private Button end_test_button;
-    private int[] intArray = new int[3];
     private int assismentId;
     private HashMap<Integer,String > hashMap;
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -82,7 +82,6 @@ public class AssessmentFragmentNew extends BaseFragment implements IPresenter, V
         mActivity = getActivity();
         hashMap = new HashMap<Integer,String>();
     }
-
 
     public AssessmentFragmentNew() {
         // Required empty public constructor
@@ -93,64 +92,86 @@ public class AssessmentFragmentNew extends BaseFragment implements IPresenter, V
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        mView = inflater.inflate(R.layout.quiz_layout, container, false);
+        try {
 
-        init(mView);
+            mView = inflater.inflate(R.layout.quiz_layout, container, false);
 
-        viewModel.callLoadAssessment(Constants.getInstance().Assessment_1st_item, TrigAppPreferences.getUserId(mActivity), Constants.getInstance().ATTEMPT);
+            init(mView);
 
-        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
-            @Override
-            public void handleOnBackPressed() {
-                backToPreviousFragment();
+            if (Constants.getInstance().Assessment_1st_status.equalsIgnoreCase(Constants.getInstance().completed)) {
+                viewModel.callLoadAssessment(Constants.getInstance().Assessment_1st_item, TrigAppPreferences.getUserId(mActivity), Constants.getInstance().REVIEW);
+                end_test_button.setVisibility(View.GONE);
+            } else if(Constants.getInstance().Assessment_1st_status.equalsIgnoreCase(Constants.getInstance().not_started)){
+                viewModel.callLoadAssessment(Constants.getInstance().Assessment_1st_item, TrigAppPreferences.getUserId(mActivity), Constants.getInstance().ATTEMPT);
             }
-        };
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
-        backIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                backToPreviousFragment();
-            }
-        });
+
+            OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+                @Override
+                public void handleOnBackPressed() {
+                    backToPreviousFragment();
+                }
+            };
+            requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+            backIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    backToPreviousFragment();
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, "onCreateView: exception " + e.getMessage() );
+        }
 
         return mView;
     }
 
 
     public void setQuizAdapter() {
-        quizListRecycler.setNestedScrollingEnabled(false);
-        QuizAdapter quizAdapter = new QuizAdapter(mActivity, this, getLoadAssignmentsRes);
-        quizListRecycler.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-        quizListRecycler.setAdapter(quizAdapter);
+        try {
+            quizListRecycler.setNestedScrollingEnabled(false);
+            QuizAdapter quizAdapter = new QuizAdapter(mActivity, this, getLoadAssignmentsRes);
+            quizListRecycler.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+            quizListRecycler.setAdapter(quizAdapter);
+        } catch (Exception e) {
+            Log.e(TAG, "setQuizAdapter: exception " + e.getMessage());
+        }
     }
 
     @Override
     public void onClickQuiz(View view, int position, int id, int assismentID, String optionID) {
 
-        quizModel.setPosition(position);
-        quizModel.setSelectedID(id);
+        try {
+            quizModel.setPosition(position);
+            quizModel.setSelectedID(id);
 
-        assismentId = assismentID;
+            assismentId = assismentID;
 
-        switch (position) {
-            case 0:
-                hashMap.put(position, optionID+";");
-            break;
-            case 1:
-                hashMap.put(position, optionID+";");
-            break;
-            case 2:
-                hashMap.put(position, optionID+";");
-            break;
-            case 3:
-                hashMap.put(position, optionID+";");
-            break;
+            switch (position) {
+                case 0:
+                    hashMap.put(position, optionID + ";");
+                    break;
+                case 1:
+                    hashMap.put(position, optionID + ";");
+                    break;
+                case 2:
+                    hashMap.put(position, optionID + ";");
+                    break;
+                case 3:
+                    hashMap.put(position, optionID + ";");
+                    break;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onClickQuiz: exception " + e.getMessage());
         }
     }
 
     private void backToPreviousFragment() {
-        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                .navigate(R.id.action_AssessmentFrag_to_CoursesTopics);
+        try {
+            Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                    .navigate(R.id.action_AssessmentFrag_to_CoursesTopics);
+        } catch (Exception e) {
+            Log.e(TAG, "backToPreviousFragment: exception " + e.getMessage());
+        }
 
     }
 
@@ -169,30 +190,35 @@ public class AssessmentFragmentNew extends BaseFragment implements IPresenter, V
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.end_test_button:
-                if (Utility.getInstance().isNetworkAvailable(mActivity)) {
-                    if (getLoadAssignmentsRes.size() == hashMap.size()) {
-                        StringBuffer output = new StringBuffer(5);
+        try {
+            switch (view.getId()) {
+                case R.id.end_test_button:
+                    if (Utility.getInstance().isNetworkAvailable(mActivity)) {
+                        if (getLoadAssignmentsRes.size() == hashMap.size()) {
+                            StringBuffer output = new StringBuffer(5);
 
-                        for (int i = 0; i < hashMap.size(); i++) {
-                            output.append(hashMap.get(i));
+                            for (int i = 0; i < hashMap.size(); i++) {
+                                output.append(hashMap.get(i));
+                            }
+
+                            SubmitAssessmentReq submitAssessmentReq = new SubmitAssessmentReq();
+                            submitAssessmentReq.setAssessment_id(assismentId);
+                            submitAssessmentReq.setUser_id(TrigAppPreferences.getUserId(mActivity));
+                            submitAssessmentReq.setOptString(String.valueOf(output));
+
+                            viewModel.submitAssessment(submitAssessmentReq);
+
+                        } else {
+                            Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.answer_all_questions));
                         }
-
-                        SubmitAssessmentReq submitAssessmentReq = new SubmitAssessmentReq();
-                        submitAssessmentReq.setAssessment_id(assismentId);
-                        submitAssessmentReq.setUser_id(TrigAppPreferences.getUserId(mActivity));
-                        submitAssessmentReq.setOptString(String.valueOf(output));
-
-                        viewModel.submitAssessment(submitAssessmentReq);
-
                     } else {
-                        Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.answer_all_questions));
+                        Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.no_internet_message));
                     }
-                } else {
-                    Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.no_internet_message));
-                }
-                break;
+                    break;
+            }
+
+        } catch (Exception e) {
+            Log.e(TAG, "onResponseLoadAssessmentQuestions: exception " + e.getMessage());
         }
     }
 
@@ -203,18 +229,29 @@ public class AssessmentFragmentNew extends BaseFragment implements IPresenter, V
 
     @Override
     public void onResponseLoadAssessmentQuestions(JsonArray jsonArray) {
-        getLoadAssignmentsRes = new ArrayList<>();
-        for(int i =0; i < jsonArray.size(); i++) {
-            getLoadAssignmentsRes getCourseListRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), getLoadAssignmentsRes.class);
-            getLoadAssignmentsRes.add(getCourseListRes);
+        try {
+            if(jsonArray != null) {
+                getLoadAssignmentsRes = new ArrayList<>();
+                for(int i =0; i < jsonArray.size(); i++) {
+                    getLoadAssignmentsRes getCourseListRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), getLoadAssignmentsRes.class);
+                    getLoadAssignmentsRes.add(getCourseListRes);
+                }
+                setQuizAdapter();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onResponseLoadAssessmentQuestions: exception " + e.getMessage() );
         }
-        setQuizAdapter();
+
     }
 
     @Override
     public void onResponseSubmitAssessment() {
-        TrigAppPreferences.setSource_To_Desitnation(mActivity, Constants.getInstance().assessment);
-        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                .navigate(R.id.action_AssessmentFrag_to_SuccessFragment);
+        try {
+            TrigAppPreferences.setSource_To_Desitnation(mActivity, Constants.getInstance().assessment);
+            Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                    .navigate(R.id.action_AssessmentFrag_to_SuccessFragment);
+        } catch (Exception e) {
+            Log.e(TAG, "onResponseSubmitAssessment: exception " + e.getMessage());
+        }
     }
 }

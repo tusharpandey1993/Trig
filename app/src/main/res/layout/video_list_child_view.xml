@@ -27,15 +27,15 @@
 
         <TextView
             android:id="@+id/listViewTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/sub_heading_text"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/open_sans_bold"
+            android:gravity="start"
             android:singleLine="true"
             android:text="@string/hello_blank_fragment"
-            android:textColor="@color/moduleName"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toTopOf="@+id/startDateHeading"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,6 @@
         <TextView
             android:id="@+id/StatusTitle"
             style="@style/hint_text"
-            android:textStyle="bold"
             android:layout_marginBottom="@dimen/_3sdp"
             android:text="Status"
             app:layout_constraintBottom_toTopOf="@+id/status"
@@ -53,12 +52,12 @@
         <TextView
             android:id="@+id/status"
             style="@style/normal_text"
-            android:layout_marginLeft="@dimen/_80sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:text="Completed"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/guideline" />
 
         <View
             android:id="@+id/barrier2"
@@ -74,7 +73,6 @@
             android:id="@+id/startDateHeading"
             style="@style/hint_text"
             android:text="Start Date"
-            android:textStyle="bold"
             android:layout_marginBottom="@dimen/_3sdp"
             app:layout_constraintBottom_toTopOf="@+id/date"
             app:layout_constraintStart_toStartOf="@+id/date" />

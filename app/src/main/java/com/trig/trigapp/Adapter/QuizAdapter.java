@@ -140,6 +140,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
 
         TextView headerTxt,QuestionText;
         RadioButton answer_1_radiobutton,answer_2_radiobutton,answer_3_radiobutton,answer_4_radiobutton;
+        private ImageView option_one, option_two, option_three, option_four;
         View view;
         RadioGroup radioGrp;
         private RadioButton radioButton;
@@ -155,6 +156,10 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
             answer_2_radiobutton = itemView.findViewById(R.id.answer_2_radiobutton);
             answer_3_radiobutton = itemView.findViewById(R.id.answer_3_radiobutton);
             answer_4_radiobutton = itemView.findViewById(R.id.answer_4_radiobutton);
+            option_one = itemView.findViewById(R.id.option_one);
+            option_two = itemView.findViewById(R.id.option_two);
+            option_three = itemView.findViewById(R.id.option_three);
+            option_four = itemView.findViewById(R.id.option_four);
 
         }
     }

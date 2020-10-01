@@ -10,9 +10,9 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         card_view:cardCornerRadius="0dp"
-        android:layout_margin="@dimen/_15sdp"
+        android:layout_margin="@dimen/_10sdp"
         android:elevation="@dimen/_10sdp"
         card_view:cardElevation="@dimen/margin10"
         card_view:cardMaxElevation="@dimen/margin10"
@@ -28,14 +28,15 @@
 
             <TextView
                 android:id="@+id/cardHeading"
-                android:layout_width="0dp"
                 style="@style/sub_heading_text"
+                android:layout_width="0dp"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
                 android:padding="@dimen/_2sdp"
                 android:text="Card Heading"
-
+                app:layout_constraintBottom_toTopOf="@+id/totalCoursesHeading"
                 app:layout_constraintEnd_toStartOf="@+id/buttonInstallSchedule"
                 app:layout_constraintStart_toEndOf="@+id/completedIcon"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -102,7 +103,7 @@
                 android:id="@+id/completedOn"
                 style="@style/normal_text"
                 android:layout_marginLeft="@dimen/_5sdp"
-                android:text="dssdsd"
+                android:text="28 Sep 2020"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/barrier"
                 app:layout_constraintStart_toEndOf="@+id/barrier" />
@@ -122,7 +123,6 @@
                 style="@style/hint_text"
                 android:layout_marginBottom="@dimen/_3sdp"
                 android:text="Completed On"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/completedOn"
                 app:layout_constraintStart_toStartOf="@+id/completedOn" />
 
@@ -131,7 +131,6 @@
                 style="@style/hint_text"
                 android:layout_marginBottom="@dimen/_3sdp"
                 android:text="Assigned On"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/assignedDate"
                 app:layout_constraintStart_toStartOf="@+id/assignedDate" />
 
@@ -160,7 +159,6 @@
                 style="@style/hint_text"
                 android:layout_marginBottom="@dimen/_3sdp"
                 android:text="Status"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/status"
                 app:layout_constraintStart_toStartOf="@+id/status" />
 
@@ -188,7 +186,6 @@
                 android:id="@+id/scoreHeading"
                 style="@style/hint_text"
                 android:text="Score"
-                android:textStyle="bold"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_3sdp"
                 app:layout_constraintBottom_toTopOf="@+id/percentage"
@@ -214,14 +211,37 @@
                 app:layout_constraintStart_toEndOf="@+id/status"
                 app:layout_constraintTop_toTopOf="@+id/statusHeading" />
 
-            <ProgressBar
+            <!--<ProgressBar
                 android:id="@+id/courseCompletionProgess"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_15sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />-->
+
+            <ProgressBar
+                android:id="@+id/courseCompletionProgess"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="12dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:indeterminate="false"
+                android:max="100"
+                android:layout_margin="@dimen/_5sdp"
+                android:progressDrawable="@drawable/progress_bar_bg"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/progressEndPercentage"
+                app:layout_constraintStart_toStartOf="parent"  />
+
+            <TextView
+                android:id="@+id/progressEndPercentage"
+                style="@style/hint_text"
+                android:text="100 %"
+                android:layout_marginEnd="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/courseCompletionProgess"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/courseCompletionProgess" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

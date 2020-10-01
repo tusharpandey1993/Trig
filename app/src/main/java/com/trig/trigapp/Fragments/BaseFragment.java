@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
@@ -29,6 +30,7 @@ import android.widget.TextView;
 import com.airbnb.lottie.utils.Utils;
 import com.trig.trigapp.Adapter.NavDrawerAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
+import com.trig.trigapp.CommonFiles.NoInternetDialog;
 import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.CustomViewsFiles.LoaderFragment;
@@ -228,6 +230,19 @@ public class BaseFragment  extends Fragment implements GenericDialogClickListene
     public void showDynamicDialog(GenericDialogBuilder genericDialogBuilder) {
         GenericDialogPopup genericDialogPopup = new GenericDialogPopup(genericDialogBuilder);
         genericDialogPopup.show(mActivity.getSupportFragmentManager(), TAG);
+    }
+
+    public void showNoInternet() {
+        try {
+            if (Utility.getInstance().isAppOnForeground(mActivity, mActivity.getPackageName())) {
+                NoInternetDialog onboardingDialogFragment = new NoInternetDialog();
+                onboardingDialogFragment.show(mActivity.getSupportFragmentManager(), TAG);
+                onboardingDialogFragment.setCancelable(true);
+                onboardingDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.You_Dialog);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

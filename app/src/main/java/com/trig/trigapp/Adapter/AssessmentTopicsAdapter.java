@@ -12,9 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.trig.trigapp.CommonFiles.Constants;
+import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.R;
 import com.trig.trigapp.api.Response.getAssessmentListRes;
+import com.trig.trigapp.onBoarding.OnboardingDialogFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -59,7 +64,7 @@ public class AssessmentTopicsAdapter extends RecyclerView.Adapter<AssessmentTopi
 
     public class MyVi extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView cardHeading, assignedDate, completedOn, status, percentage;
+        public TextView cardHeading, assignedDate, completedOn, status, percentage, InstallScheduleText, progressEndPercentage;
         public ImageView imageView, completedIcon;
         public ConstraintLayout relativeLayout;
         public ProgressBar courseCompletionProgess;
@@ -76,6 +81,8 @@ public class AssessmentTopicsAdapter extends RecyclerView.Adapter<AssessmentTopi
             status = (TextView) v.findViewById(R.id.status);
             percentage = (TextView) v.findViewById(R.id.percentage);
             completedIcon = (ImageView) v.findViewById(R.id.completedIcon);
+            InstallScheduleText = (TextView) v.findViewById(R.id.InstallScheduleText);
+            progressEndPercentage = (TextView) v.findViewById(R.id.progressEndPercentage);
 
 
             relativeLayout = (ConstraintLayout) v.findViewById(R.id.relativeLayout);
@@ -94,14 +101,16 @@ public class AssessmentTopicsAdapter extends RecyclerView.Adapter<AssessmentTopi
                 float score = Float.parseFloat(item.getScore());
                 percentage.setText(""+Math.round(score) + "%");
                 courseCompletionProgess.setProgress(Math.round(score));
+                progressEndPercentage.setText(Math.round(score) + " %");
             }
 
             if(item.getStatus().equalsIgnoreCase("Completed")) {
                 completedIcon.setVisibility(View.VISIBLE);
+                InstallScheduleText.setText(Constants.getInstance().Result);
             } else {
-                completedIcon.setVisibility(View.INVISIBLE);
+                completedIcon.setVisibility(View.GONE);
+                InstallScheduleText.setText(Constants.getInstance().ATTEMPT_small);
             }
-
 
         }
 
@@ -114,4 +123,6 @@ public class AssessmentTopicsAdapter extends RecyclerView.Adapter<AssessmentTopi
             }
         }
     }
+
+
 }

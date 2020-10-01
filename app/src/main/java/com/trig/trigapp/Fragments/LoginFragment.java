@@ -123,12 +123,12 @@ public class LoginFragment extends BaseFragment implements IPresenter, GenericDi
         backIcon.setVisibility(View.GONE);
         toolBarText.setText("Login");
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (Utility.getInstance().arePermissionsEnabled(mActivity)) {
             } else {
                 Utility.getInstance().requestMultiplePermissions(mActivity);
             }
-        }
+        }*/
     }
 
 

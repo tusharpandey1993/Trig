@@ -231,7 +231,7 @@ public class ProfileFragment extends BaseFragment implements IPresenter, View.On
 
         @Override
         public void permissionRefused() {
-            checkPermissionAndThenLoad();
+            /*checkPermissionAndThenLoad();*/
         }
     };
 

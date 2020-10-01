@@ -221,7 +221,9 @@ public class Constants {
     public String contactUsNumber = "022 66783333";
     public String defaultEmail = "info@triggroup.in";
     public String ATTEMPT = "ATTEMPT";
+    public String ATTEMPT_small = "Attempt";
     public String REVIEW = "REVIEW";
+    public String Result = "Result";
 
 
 
@@ -237,10 +239,13 @@ public class Constants {
 
     // Bundle
     public String item_id = "item_id";
+    public String completed = "completed";
+    public String not_started = "not started";
 
     public int Courses_1st_item = 1;
     public int Courses_2st_item = 1;
 
 
     public int Assessment_1st_item = 1;
+    public String Assessment_1st_status = "";
 }
