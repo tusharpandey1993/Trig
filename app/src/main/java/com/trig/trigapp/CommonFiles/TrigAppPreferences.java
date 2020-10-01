@@ -45,12 +45,12 @@ public class TrigAppPreferences {
     }
 
     public static boolean getIsShowedShowcaseAppStore(Context context) {
-        return getPreferences(context).getBoolean( KEY_IS_COACH_MARKS_SHOWN_APP_STORE,false);
+        return getPreferencesConstants(context).getBoolean( KEY_IS_COACH_MARKS_SHOWN_APP_STORE,false);
 //        return getBoolean(context, KEY_IS_COACH_MARKS_SHOWN_APP_STORE, false);
     }
 
     public static void setIsShowedShowcaseAppStore(Context context, boolean value) {
-        getPreferences(context).edit().putBoolean( KEY_IS_COACH_MARKS_SHOWN_APP_STORE, value).apply();
+        getPreferencesConstants(context).edit().putBoolean( KEY_IS_COACH_MARKS_SHOWN_APP_STORE, value).apply();
 //        putBoolean(context, KEY_IS_COACH_MARKS_SHOWN_APP_STORE, value);
     }
 
@@ -64,7 +64,11 @@ public class TrigAppPreferences {
 
 
     private static SharedPreferences getPreferences(Context context) {
-        return context.getSharedPreferences("parental", Context.MODE_PRIVATE);
+        return context.getSharedPreferences("TrigApp", Context.MODE_PRIVATE);
+    }
+
+    private static SharedPreferences getPreferencesConstants(Context context) {
+        return context.getSharedPreferences("TrigAppConstants", Context.MODE_PRIVATE);
     }
 
     public static void putLong(Context context, String key, long value) {

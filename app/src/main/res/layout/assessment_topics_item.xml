@@ -13,7 +13,6 @@
         android:layout_height="150dp"
         card_view:cardCornerRadius="0dp"
         android:layout_margin="@dimen/_15sdp"
-        android:background="@drawable/round_bg"
         android:elevation="@dimen/_10sdp"
         card_view:cardElevation="@dimen/margin10"
         card_view:cardMaxElevation="@dimen/margin10"
@@ -21,30 +20,83 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/relativeLayout"
+            android:background="@drawable/round_bg"
+            android:elevation="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <TextView
                 android:id="@+id/cardHeading"
+                android:layout_width="0dp"
                 style="@style/sub_heading_text"
-                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:padding="@dimen/_2sdp"
                 android:text="Card Heading"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
+                app:layout_constraintEnd_toStartOf="@+id/buttonInstallSchedule"
+                app:layout_constraintStart_toEndOf="@+id/completedIcon"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/completedIcon"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:src="@drawable/ic_done"
+                android:layout_marginStart="@dimen/_8sdp"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toTopOf="@+id/totalCoursesHeading"
-                app:layout_constraintEnd_toEndOf="@+id/cardHeading"
-                app:layout_constraintStart_toStartOf="@+id/cardHeading"
-                app:layout_constraintTop_toBottomOf="@+id/cardHeading" />
+                app:layout_constraintBottom_toBottomOf="@+id/cardHeading"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cardHeading" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/buttonInstallSchedule"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/as_home_install_schedule_bg"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/cardHeading"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cardHeading">
+
+                <TextView
+                    android:id="@+id/InstallScheduleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:gravity="center"
+                    android:text="Attempt"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!--
+                <TextView
+                    android:id="@+id/onMiko2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:fontFamily="@font/open_sans_light"
+                    android:gravity="center"
+
+                    android:textColor="#555555"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/InstallScheduleText" />
+-->
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
             <TextView
                 android:id="@+id/completedOn"

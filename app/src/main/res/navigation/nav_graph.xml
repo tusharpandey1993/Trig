@@ -100,6 +100,25 @@
             android:id="@+id/action_VideoListFrag_to_topics"
             app:destination="@id/CoursesTopics" />
 
+        <action
+            android:id="@+id/action_dashboardFrag_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_AssessmentFragment"
+            app:destination="@id/AssessmentFragmentNew" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_FeedbackFragment"
+            app:destination="@id/FeedbackFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_Contact"
+            app:destination="@id/Contact" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_topics"
+            app:destination="@id/CoursesTopics" />
+
 
     </fragment>
 
@@ -112,6 +131,25 @@
         <action
             android:id="@+id/action_VideoStreamingFrag_to_VideoListFragment"
             app:destination="@id/VideoFragment" />
+
+        <action
+            android:id="@+id/action_dashboardFrag_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_AssessmentFragment"
+            app:destination="@id/AssessmentFragmentNew" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_FeedbackFragment"
+            app:destination="@id/FeedbackFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_Contact"
+            app:destination="@id/Contact" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_topics"
+            app:destination="@id/CoursesTopics" />
     </fragment>
 
     <fragment
@@ -133,6 +171,25 @@
         <action
             android:id="@+id/action_AssessmentFrag_to_SuccessFragment"
             app:destination="@id/SuccessFragment" />
+
+        <action
+            android:id="@+id/action_dashboardFrag_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_AssessmentFragment"
+            app:destination="@id/AssessmentFragmentNew" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_FeedbackFragment"
+            app:destination="@id/FeedbackFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_Contact"
+            app:destination="@id/Contact" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_topics"
+            app:destination="@id/CoursesTopics" />
     </fragment>
 
     <fragment
@@ -148,7 +205,24 @@
         <action
             android:id="@+id/action_dashboardFrag_to_SuccessFragment"
             app:destination="@id/SuccessFragment" />
-
+        <action
+            android:id="@+id/action_dashboardFrag_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_AssessmentFragment"
+            app:destination="@id/AssessmentFragmentNew" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_FeedbackFragment"
+            app:destination="@id/FeedbackFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_Contact"
+            app:destination="@id/Contact" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_topics"
+            app:destination="@id/CoursesTopics" />
 
     </fragment>
 
@@ -177,8 +251,24 @@
         <action
             android:id="@+id/action_profile_to_dashboardFragment"
             app:destination="@id/DashboardFragment" />
-
-
+        <action
+            android:id="@+id/action_dashboardFrag_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_AssessmentFragment"
+            app:destination="@id/AssessmentFragmentNew" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_FeedbackFragment"
+            app:destination="@id/FeedbackFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_Contact"
+            app:destination="@id/Contact" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_topics"
+            app:destination="@id/CoursesTopics" />
     </fragment>
 
     <fragment
@@ -198,6 +288,25 @@
         <action
             android:id="@+id/action_contact_to_dashboardFragment"
             app:destination="@id/DashboardFragment" />
+
+        <action
+            android:id="@+id/action_dashboardFrag_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_AssessmentFragment"
+            app:destination="@id/AssessmentFragmentNew" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_FeedbackFragment"
+            app:destination="@id/FeedbackFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_Contact"
+            app:destination="@id/Contact" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_topics"
+            app:destination="@id/CoursesTopics" />
 
     </fragment>
 
@@ -221,12 +330,31 @@
                 app:argType="integer" />
         </action>
         <action
+            android:id="@+id/action_dashboardFrag_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_AssessmentFragment"
+            app:destination="@id/AssessmentFragmentNew" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_FeedbackFragment"
+            app:destination="@id/FeedbackFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_Contact"
+            app:destination="@id/Contact" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_topics"
+            app:destination="@id/CoursesTopics" />
+        <action
             android:id="@+id/action_topics_to_AssessmentFragment"
             app:destination="@id/AssessmentFragmentNew">
             <argument
                 android:name="item_id"
                 android:defaultValue="1"
                 app:argType="integer" />
+
         </action>
 
     </fragment>

@@ -186,8 +186,7 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
                         .navigate(R.id.action_dashboardFrag_to_FeedbackFragment);
                 break;
             case R.id.logout:
-                SharedPreferences settings = mActivity.getSharedPreferences("ParentalPreferences", Context.MODE_PRIVATE);
-                settings.edit().clear().commit();
+                TrigAppPreferences.clear(mActivity);
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
                         .navigate(R.id.action_dashboardFrag_to_LoginFragment);
                 break;
@@ -334,14 +333,14 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
         Fragment navHostFragment = mActivity.getSupportFragmentManager().findFragmentById(R.id.navHostFragment);
         Fragment fragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
         if (fragment!=null && !(fragment instanceof DashboardFragment)){
-            slidingRootNav = new SlidingRootNavBuilder(mActivity)
+           /* slidingRootNav = new SlidingRootNavBuilder(mActivity)
                     .withMenuOpened(false)
                     .addDragListener(this)
                     .withGravity(SlideGravity.LEFT)
                     .withContentClickableWhenMenuOpened(true)
                     .withMenuLayout(R.layout.menu_left_drawer)
                     .withMenuLocked(true)
-                    .inject();
+                    .inject();*/
         }
     }
 
