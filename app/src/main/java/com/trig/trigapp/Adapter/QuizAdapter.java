@@ -13,6 +13,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trig.trigapp.CommonFiles.Constants;
@@ -57,10 +60,15 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         holder.headerTxt.setText(Constants.getInstance().Question +(position+1));
         holder.QuestionText.setText(quizPayLoadModelList.get(position).getQuestionText());
 
-        getOptions(holder,position);
+        QuizRadioAdapter adapter = new QuizRadioAdapter(context, onClickListner,quizPayLoadModelList.get(position).getOptions(),quizPayLoadModelList.get(position));
+        holder.radioList.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        holder.radioList.setAdapter(adapter);
 
-        holder.radioGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
+//        getOptions(holder,position);
+
+       /* holder.radioGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {*/
+/*
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId){
                     case R.id.answer_1_radiobutton:
@@ -85,45 +93,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
                         break;
                 }
             }
-        });
+*/
+//        });
 
-    }
-
-    public void getOptions(QuizViewHolder holder,int position){
-        options =  quizPayLoadModelList.get(position).getOptions();
-        if(options!=null) {
-            if(options.size() == 2){
-                if (options.get(0).optionText != null) {
-                    holder.answer_1_radiobutton.setText(options.get(0).optionText);
-                }
-                if (options.get(1).optionText != null) {
-                    holder.answer_2_radiobutton.setText(options.get(1).optionText);
-                }
-            }else if(options.size() == 3) {
-                if (options.get(0).optionText != null) {
-                    holder.answer_1_radiobutton.setText(options.get(0).optionText);
-                }
-                if (options.get(1).optionText != null) {
-                    holder.answer_2_radiobutton.setText(options.get(1).optionText);
-                }
-                if (options.get(2).optionText != null) {
-                    holder.answer_3_radiobutton.setText(options.get(2).optionText);
-                }
-            }else if(options.size() == 4) {
-                if (options.get(0).optionText != null) {
-                    holder.answer_1_radiobutton.setText(options.get(0).optionText);
-                }
-                if (options.get(1).optionText != null) {
-                    holder.answer_2_radiobutton.setText(options.get(1).optionText);
-                }
-                if (options.get(2).optionText != null) {
-                    holder.answer_3_radiobutton.setText(options.get(2).optionText);
-                }
-                if (options.get(3).optionText != null) {
-                    holder.answer_4_radiobutton.setText(options.get(3).optionText);
-                }
-            }
-        }
     }
 
     @Override
@@ -136,31 +108,36 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         return 0;
     }
 
+    protected class QuizRadioViewHolder  extends RecyclerView.ViewHolder  {
+
+        TextView radioText;
+        private ImageView selectionRadioImg, correctRadioImg;
+        private ConstraintLayout selectionLayout;
+
+        public QuizRadioViewHolder(View itemView) {
+            super(itemView);
+
+            selectionRadioImg = itemView.findViewById(R.id.selectionRadioImg);
+            correctRadioImg = itemView.findViewById(R.id.correctRadioImg);
+            radioText = itemView.findViewById(R.id.radioText);
+            selectionLayout = itemView.findViewById(R.id.selectionLayout);
+        }
+    }
+
+
     protected class QuizViewHolder extends RecyclerView.ViewHolder  {
 
         TextView headerTxt,QuestionText;
-        RadioButton answer_1_radiobutton,answer_2_radiobutton,answer_3_radiobutton,answer_4_radiobutton;
-        private ImageView option_one, option_two, option_three, option_four;
         View view;
-        RadioGroup radioGrp;
-        private RadioButton radioButton;
+        RecyclerView radioList;
 
         public QuizViewHolder(View itemView) {
             super(itemView);
 
-            radioGrp = itemView.findViewById(R.id.radioGrp);
             headerTxt = itemView.findViewById(R.id.headerTxt);
             view = itemView.findViewById(R.id.view);
             QuestionText = itemView.findViewById(R.id.QuestionText);
-            answer_1_radiobutton = itemView.findViewById(R.id.answer_1_radiobutton);
-            answer_2_radiobutton = itemView.findViewById(R.id.answer_2_radiobutton);
-            answer_3_radiobutton = itemView.findViewById(R.id.answer_3_radiobutton);
-            answer_4_radiobutton = itemView.findViewById(R.id.answer_4_radiobutton);
-            option_one = itemView.findViewById(R.id.option_one);
-            option_two = itemView.findViewById(R.id.option_two);
-            option_three = itemView.findViewById(R.id.option_three);
-            option_four = itemView.findViewById(R.id.option_four);
-
+            radioList = itemView.findViewById(R.id.radioList);
         }
     }
 }
