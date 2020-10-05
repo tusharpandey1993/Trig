@@ -23,11 +23,19 @@ public class NavDrawerAdapter extends RecyclerView.Adapter<NavDrawerAdapter.NavH
     private Drawable[] screenIcons;
     OnClickInterface onClickListner;
     private int selectedPosition = 0;
+    private int userType = 0;
 
-    public NavDrawerAdapter(Context context, OnClickInterface mListner) {
+    public NavDrawerAdapter(Context context, OnClickInterface mListner,int userType) {
         this.context= context;
-        this.screenIcons = loadScreenIcons();
-        this.screenTitles = loadScreenTitles();
+        this.userType= userType;
+        if(userType == 0){
+            this.screenIcons = loadTrainerScreenIcons();
+            this.screenTitles = loadTrainerScreenTitles();
+        }else{
+            this.screenIcons = loadScreenIcons();
+            this.screenTitles = loadScreenTitles();
+        }
+
         this.onClickListner = mListner;
     }
 
@@ -100,6 +108,23 @@ public class NavDrawerAdapter extends RecyclerView.Adapter<NavDrawerAdapter.NavH
 
     private Drawable[] loadScreenIcons() {
         TypedArray ta = context.getResources().obtainTypedArray(R.array.ld_activityScreenIcons);
+        Drawable[] icons = new Drawable[ta.length()];
+        for (int i = 0; i < ta.length(); i++) {
+            int id = ta.getResourceId(i, 0);
+            if (id != 0) {
+                icons[i] = ContextCompat.getDrawable(context, id);
+            }
+        }
+        ta.recycle();
+        return icons;
+    }
+
+    private String[] loadTrainerScreenTitles() {
+        return context.getResources().getStringArray(R.array.ld_TrainerScreenTitles);
+    }
+
+    private Drawable[] loadTrainerScreenIcons() {
+        TypedArray ta = context.getResources().obtainTypedArray(R.array.ld_TrainerScreenIcons);
         Drawable[] icons = new Drawable[ta.length()];
         for (int i = 0; i < ta.length(); i++) {
             int id = ta.getResourceId(i, 0);

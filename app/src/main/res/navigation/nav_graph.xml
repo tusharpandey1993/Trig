@@ -277,6 +277,17 @@
         android:label="Dashboard Fragment"
         tools:layout="@layout/dashboard_trainer">
 
+        <action
+            android:id="@+id/action_dashboardFrag_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_Contact"
+            app:destination="@id/Contact" />
+
+
     </fragment>
 
     <fragment

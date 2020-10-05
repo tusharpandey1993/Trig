@@ -24,5 +24,20 @@
         <item>@drawable/ic_logout</item>
     </array>
 
+    <string-array name="ld_TrainerScreenTitles">
+        <item>Dashboard</item>
+        <item>Profile</item>
+        <item>Contact Us</item>
+        <item>Log Out</item>
+    </string-array>
+
+
+    <array name="ld_TrainerScreenIcons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_profile</item>
+        <item>@drawable/ic_contact</item>
+        <item>@drawable/ic_logout</item>
+    </array>
+
 
 </resources>

@@ -6,28 +6,47 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.trig.trigapp.Adapter.NavDrawerAdapter;
+import com.trig.trigapp.Adapter.OnClickInterface;
 import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.CustomSelectionDialog;
+import com.trig.trigapp.CommonFiles.TrigAppPreferences;
+import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.CommonFiles.ViewDialogCustom;
 import com.trig.trigapp.CommonFiles.onDialogClickCallback;
+import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogBuilder;
+import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogClickListener;
+import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogPopup;
 import com.trig.trigapp.R;
+import com.yarolegovich.slidingrootnav.SlideGravity;
+import com.yarolegovich.slidingrootnav.SlidingRootNav;
+import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
+import com.yarolegovich.slidingrootnav.callback.DragListener;
 
 import java.util.ArrayList;
 
-public class DashboardTrainer extends Fragment implements onDialogClickCallback, View.OnClickListener{
+public class DashboardTrainer extends Fragment implements GenericDialogClickListener,  onDialogClickCallback, View.OnClickListener , OnClickInterface {
 
     private static final String TAG = "ProfileFragment";
     FragmentActivity mActivity;
     View mView;
     TextInputEditText edit_branch, edit_unit;
     ArrayList<String> typeOfList;
+    private RecyclerView list;
+    private ImageView closeIcon;
+
+    private SlidingRootNav slidingRootNav;
 
     public DashboardTrainer() {
         // Required empty public constructor
@@ -47,9 +66,29 @@ public class DashboardTrainer extends Fragment implements onDialogClickCallback,
         init(mView);
 
         backButtonHandling();
+        Toolbar toolbar = mView.findViewById(R.id.toolbar2);
+
+        slidingRootNav = new SlidingRootNavBuilder(mActivity)
+                .withToolbarMenuToggle(toolbar)
+                .withMenuOpened(false)
+                .withGravity(SlideGravity.LEFT)
+                .withContentClickableWhenMenuOpened(false)
+                .withMenuLayout(R.layout.menu_left_drawer)
+                .inject();
+
+        list = mActivity.findViewById(R.id.list);
+        closeIcon = mActivity.findViewById(R.id.closeIcon);
+        closeIcon.setOnClickListener(this);
+        setAdapter();
 
 
         return mView;
+    }
+    public void setAdapter(){
+        list.setNestedScrollingEnabled(false);
+        NavDrawerAdapter asCommonAdapter = new NavDrawerAdapter(mActivity, this,0);
+        list.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        list.setAdapter(asCommonAdapter);
     }
 
     private void backButtonHandling() {
@@ -66,6 +105,26 @@ public class DashboardTrainer extends Fragment implements onDialogClickCallback,
             mActivity.getOnBackPressedDispatcher().addCallback(this, callback);
         } catch (Exception e) {
             Log.e(TAG, "backButtonHandling: exception" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void onPositiveButtonClick(View view, int FucntionNumber) {
+        try {
+            switch (FucntionNumber) {
+                case 800:
+                    mActivity.finish();
+                    break;
+                case 810:
+                    Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                            .navigate(R.id.action_dashboardFrag_to_LoginFragment);
+                    break;
+                default:
+                    break;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -86,7 +145,58 @@ public class DashboardTrainer extends Fragment implements onDialogClickCallback,
             case R.id.edit_unit:
                 openDialog(typeOfList,0,0,"Category");
                 break;
+            case R.id.logout:
+                TrigAppPreferences.clear(mActivity);
+                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                        .navigate(R.id.action_dashboardFrag_to_LoginFragment);
+                break;
 
+            case R.id.closeIcon:
+                slidingRootNav.closeMenu();
+                break;
+
+        }
+    }
+
+    public final int POS_DASHBOARD = 0;
+    public final int POS_PROFILE = 1;
+    public final int POS_CONTACT_US = 2;
+    public final int POS_LOGOUT = 3;
+
+    @Override
+    public void onClick(View view, int position) {
+        try {
+
+            switch (position) {
+                case POS_DASHBOARD:
+                    break;
+                case POS_PROFILE:
+                    Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                            .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
+                    break;
+                case POS_CONTACT_US:
+                    Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+                            .navigate(R.id.action_dashboardFrag_to_Contact);
+                    break;
+                case POS_LOGOUT:TrigAppPreferences.setLoginPref(mActivity, false);
+                    GenericDialogPopup genericDialogPopup = null;
+                    GenericDialogBuilder genericDialogBuilder = new GenericDialogBuilder.Builder()
+                            .setShowCloseButton(false)
+                            .setHeading(mActivity.getResources().getString(R.string.logoutHeading))
+                            .setDescription(mActivity.getResources().getString(R.string.appLogout))
+                            .setPositiveButtonText(Constants.LOGOUT)
+                            .setNegativeButtonText(Constants.Cancel)
+                            .setGenericDialogClickListener(DashboardTrainer.this)
+                            .setFucntionNumber(Constants.getInstance().logout)
+                            .build();
+                    Utility.getInstance().showDynamicDialog(mActivity, genericDialogBuilder, genericDialogPopup, mActivity.getSupportFragmentManager());
+                    break;
+            }
+            if(slidingRootNav != null) {
+                slidingRootNav.closeMenu();
+            }
+        } catch (Exception e){
+            Log.e(TAG, "onClick: exception" + e.getMessage());
         }
     }
 
@@ -117,4 +227,5 @@ public class DashboardTrainer extends Fragment implements onDialogClickCallback,
     public void onOkClick(Context context, String text, Integer FunctionNum) {
 
     }
+
 }

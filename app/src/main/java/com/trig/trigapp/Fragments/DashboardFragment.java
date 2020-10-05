@@ -132,7 +132,7 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
 
     public void setAdapter(){
         list.setNestedScrollingEnabled(false);
-        NavDrawerAdapter asCommonAdapter = new NavDrawerAdapter(mActivity, this);
+        NavDrawerAdapter asCommonAdapter = new NavDrawerAdapter(mActivity, this,1);
         list.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         list.setAdapter(asCommonAdapter);
     }
