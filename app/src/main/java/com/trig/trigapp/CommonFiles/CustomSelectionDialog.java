@@ -140,7 +140,11 @@ public class CustomSelectionDialog extends Dialog implements
 
             @Override
             public int getItemCount() {
-                return mango.size();
+                if(mango != null) {
+                    return mango.size();
+                } else {
+                    return 0;
+                }
             }
         }
 

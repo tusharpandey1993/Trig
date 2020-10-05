@@ -26,7 +26,7 @@ public class DashboardTrainer extends Fragment implements onDialogClickCallback,
     private static final String TAG = "ProfileFragment";
     FragmentActivity mActivity;
     View mView;
-    TextInputEditText edit_city;
+    TextInputEditText edit_branch, edit_unit;
     ArrayList<String> typeOfList;
 
     public DashboardTrainer() {
@@ -70,15 +70,20 @@ public class DashboardTrainer extends Fragment implements onDialogClickCallback,
     }
 
     private void init(View mView) {
-        edit_city = mView.findViewById(R.id.edit_city);
-        edit_city.setOnClickListener(this);
+        edit_branch = mView.findViewById(R.id.edit_branch);
+        edit_unit = mView.findViewById(R.id.edit_unit);
+        edit_branch.setOnClickListener(this);
+        edit_unit.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
 
-            case R.id.edit_city:
+            case R.id.edit_branch:
+                openDialog(typeOfList,0,0,"Category");
+                break;
+            case R.id.edit_unit:
                 openDialog(typeOfList,0,0,"Category");
                 break;
 
