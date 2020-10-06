@@ -79,13 +79,13 @@ public class SuccessFragment extends Fragment {
     public void proceed() {
         if(TrigAppPreferences.getSource_To_Desitnation(mActivity) == Constants.getInstance().loginScreen) {
             Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                    .navigate(R.id.action_fragment_success_to_dashboardTrainerFragment);
+                    .navigate(R.id.action_fragment_success_to_dashboardFragment);
         } else if(TrigAppPreferences.getSource_To_Desitnation(mActivity) == Constants.getInstance().loginScreen) {
             Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                    .navigate(R.id.action_fragment_success_to_dashboardTrainerFragment);
+                    .navigate(R.id.action_fragment_success_to_dashboardFragment);
         } else {
             Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                    .navigate(R.id.action_fragment_success_to_dashboardTrainerFragment);
+                    .navigate(R.id.action_fragment_success_to_dashboardFragment);
         }
     }
 }

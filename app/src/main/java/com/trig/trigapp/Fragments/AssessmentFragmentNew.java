@@ -17,17 +17,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.trig.trigapp.Adapter.OnClickInterface;
 import com.trig.trigapp.Adapter.QuizAdapter;
-import com.trig.trigapp.Adapter.QuizPayLoadModel;
-import com.trig.trigapp.Adapter.OnClickInterface;
-import com.trig.trigapp.Adapter.QuizAdapter;
 import com.trig.trigapp.Adapter.QuizModel;
-import com.trig.trigapp.Adapter.QuizPayLoadModel;
-import com.trig.trigapp.AssessmentFactory.TriviaQuestion;
-import com.trig.trigapp.AssessmentFactory.TriviaQuizHelper;
 
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -74,13 +67,13 @@ public class AssessmentFragmentNew extends BaseFragment implements IPresenter, V
     private QuizModel quizModel = new QuizModel();
     private Button end_test_button;
     private int assismentId;
-    private HashMap<Integer,String > hashMap;
+    private static HashMap<Integer,String > hashMap = new HashMap<Integer,String>();
+    private ArrayList<Integer> assessmentQuestionIdList = new ArrayList<>();
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         mActivity = getActivity();
-        hashMap = new HashMap<Integer,String>();
     }
 
     public AssessmentFragmentNew() {
@@ -138,7 +131,7 @@ public class AssessmentFragmentNew extends BaseFragment implements IPresenter, V
     }
 
     @Override
-    public void onClickQuiz(View view, int position, int id, int assismentID, String optionID) {
+    public void onClickQuiz(View view, int position, int id, int assismentID, String optionID, int assessmentQuestionId) {
 
         try {
             quizModel.setPosition(position);
@@ -146,18 +139,22 @@ public class AssessmentFragmentNew extends BaseFragment implements IPresenter, V
 
             assismentId = assismentID;
 
+            if(assessmentQuestionIdList!= null && !assessmentQuestionIdList.contains(assessmentQuestionId)){
+                assessmentQuestionIdList.add(assessmentQuestionId);
+            }
+
             switch (position) {
                 case 0:
-                    hashMap.put(position, optionID + ";");
+                    hashMap.put(assessmentQuestionId, optionID + ";");
                     break;
                 case 1:
-                    hashMap.put(position, optionID + ";");
+                    hashMap.put(assessmentQuestionId, optionID + ";");
                     break;
                 case 2:
-                    hashMap.put(position, optionID + ";");
+                    hashMap.put(assessmentQuestionId, optionID + ";");
                     break;
                 case 3:
-                    hashMap.put(position, optionID + ";");
+                    hashMap.put(assessmentQuestionId, optionID + ";");
                     break;
             }
         } catch (Exception e) {
@@ -194,20 +191,22 @@ public class AssessmentFragmentNew extends BaseFragment implements IPresenter, V
             switch (view.getId()) {
                 case R.id.end_test_button:
                     if (Utility.getInstance().isNetworkAvailable(mActivity)) {
-                        if (getLoadAssignmentsRes.size() == hashMap.size()) {
-                            StringBuffer output = new StringBuffer(5);
+                        if (getLoadAssignmentsRes != null && assessmentQuestionIdList != null) {
+                            if (getLoadAssignmentsRes.size() == assessmentQuestionIdList.size()) {
+                                StringBuffer output = new StringBuffer(5);
+                                for (HashMap.Entry<Integer, String> entry : hashMap.entrySet()) {
+                                    output.append(entry.getValue());
+                                }
+                                SubmitAssessmentReq submitAssessmentReq = new SubmitAssessmentReq();
+                                submitAssessmentReq.setAssessment_id(assismentId);
+                                submitAssessmentReq.setUser_id(TrigAppPreferences.getUserId(mActivity));
+                                submitAssessmentReq.setOptString(String.valueOf(output));
 
-                            for (int i = 0; i < hashMap.size(); i++) {
-                                output.append(hashMap.get(i));
+                                viewModel.submitAssessment(submitAssessmentReq);
+
+                            } else {
+                                Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.answer_all_questions));
                             }
-
-                            SubmitAssessmentReq submitAssessmentReq = new SubmitAssessmentReq();
-                            submitAssessmentReq.setAssessment_id(assismentId);
-                            submitAssessmentReq.setUser_id(TrigAppPreferences.getUserId(mActivity));
-                            submitAssessmentReq.setOptString(String.valueOf(output));
-
-                            viewModel.submitAssessment(submitAssessmentReq);
-
                         } else {
                             Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.answer_all_questions));
                         }
@@ -216,7 +215,6 @@ public class AssessmentFragmentNew extends BaseFragment implements IPresenter, V
                     }
                     break;
             }
-
         } catch (Exception e) {
             Log.e(TAG, "onResponseLoadAssessmentQuestions: exception " + e.getMessage());
         }

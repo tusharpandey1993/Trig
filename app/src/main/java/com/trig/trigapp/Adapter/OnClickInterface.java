@@ -6,7 +6,7 @@ public interface OnClickInterface {
 
     default void   onClick(View view, int position){}
 
-    default void   onClickQuiz(View view, int position, int id, int assismentID,String optionID){}
+    default void   onClickQuiz(View view, int position, int id, int assismentID,String optionID, int assessmentQuestionId){}
 
 //    void  onClickChildView(View view, String viewID, int position);
 

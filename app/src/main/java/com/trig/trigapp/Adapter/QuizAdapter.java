@@ -52,50 +52,17 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
     @Override
     public void onBindViewHolder(@NonNull QuizAdapter.QuizViewHolder holder, final int position) {
 
-        if(position == 0){
+        if (position == 0) {
             holder.view.setVisibility(View.GONE);
-        }else{
+        } else {
             holder.view.setVisibility(View.VISIBLE);
         }
-        holder.headerTxt.setText(Constants.getInstance().Question +(position+1));
+        holder.headerTxt.setText(Constants.getInstance().Question + (position + 1));
         holder.QuestionText.setText(quizPayLoadModelList.get(position).getQuestionText());
 
-        QuizRadioAdapter adapter = new QuizRadioAdapter(context, onClickListner,quizPayLoadModelList.get(position).getOptions(),quizPayLoadModelList.get(position));
+        QuizRadioAdapter adapter = new QuizRadioAdapter(context, onClickListner, quizPayLoadModelList.get(position).getOptions(), quizPayLoadModelList.get(position));
         holder.radioList.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         holder.radioList.setAdapter(adapter);
-
-//        getOptions(holder,position);
-
-       /* holder.radioGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {*/
-/*
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch(checkedId){
-                    case R.id.answer_1_radiobutton:
-                        onClickListner.onClickQuiz(view,position,R.id.answer_1_radiobutton,quizPayLoadModelList.get(position).getAssestmentId(), quizPayLoadModelList.get(position).options.get(0).getOptionId());
-//                        Log.e("TAG", "onCheckedChanged: answer_1_radiobutton"+position +holder.answer_1_radiobutton.getText().toString());
-                        Log.d(TAG, "onCheckedChanged:0 " + quizPayLoadModelList.get(0).options.get(0).getOptionId());
-                        break;
-                    case R.id.answer_2_radiobutton:
-                        onClickListner.onClickQuiz(view,position,R.id.answer_2_radiobutton,quizPayLoadModelList.get(position).getAssestmentId(), quizPayLoadModelList.get(position).options.get(1).getOptionId());
-//                        Log.e("TAG", "onCheckedChanged: answer_2_radiobutton"+position+holder.answer_2_radiobutton.getText().toString());
-                        Log.d(TAG, "onCheckedChanged:1 " + options.get(1).getOptionId());
-                        break;
-                    case R.id.answer_3_radiobutton:
-                        onClickListner.onClickQuiz(view,position,R.id.answer_3_radiobutton,quizPayLoadModelList.get(position).getAssestmentId(), quizPayLoadModelList.get(position).options.get(2).getOptionId());
-//                        Log.e("TAG", "onCheckedChanged: answer_3_radiobutton"+position+holder.answer_3_radiobutton.getText().toString());
-                        Log.d(TAG, "onCheckedChanged:2 " + options.get(2).getOptionId());
-                        break;
-                    case R.id.answer_4_radiobutton:
-                        onClickListner.onClickQuiz(view,position,R.id.answer_4_radiobutton,quizPayLoadModelList.get(position).getAssestmentId(), quizPayLoadModelList.get(position).options.get(3).getOptionId());
-//                        Log.e("TAG", "onCheckedChanged: answer_4_radiobutton"+position+holder.answer_4_radiobutton.getText().toString());
-                        Log.d(TAG, "onCheckedChanged:3 " + options.get(3).getOptionId());
-                        break;
-                }
-            }
-*/
-//        });
-
     }
 
     @Override
