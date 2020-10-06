@@ -1,5 +1,7 @@
 package com.trig.trigapp.CommonFiles;
 
+import java.util.HashMap;
+
 public class Constants {
 
 
@@ -248,4 +250,5 @@ public class Constants {
 
     public int Assessment_1st_item = 1;
     public String Assessment_1st_status = "";
+
 }

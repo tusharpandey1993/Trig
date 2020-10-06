@@ -26,6 +26,8 @@
 
     <string-array name="ld_TrainerScreenTitles">
         <item>Dashboard</item>
+        <item>Assign Course/Assessment</item>
+        <item>Report</item>
         <item>Profile</item>
         <item>Contact Us</item>
         <item>Log Out</item>
@@ -34,6 +36,8 @@
 
     <array name="ld_TrainerScreenIcons">
         <item>@drawable/ic_home</item>
+        <item>@drawable/ic_assign</item>
+        <item>@drawable/ic_result</item>
         <item>@drawable/ic_profile</item>
         <item>@drawable/ic_contact</item>
         <item>@drawable/ic_logout</item>

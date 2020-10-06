@@ -12,16 +12,12 @@ import android.widget.ImageView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.gson.JsonArray;
-import com.trig.trigapp.Adapter.CourseTopicAdapter;
 import com.trig.trigapp.Adapter.NavDrawerAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
 import com.trig.trigapp.CommonFiles.Constants;
@@ -33,20 +29,14 @@ import com.trig.trigapp.CommonFiles.onDialogClickCallback;
 import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogBuilder;
 import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogClickListener;
 import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogPopup;
-import com.trig.trigapp.MVP.IPresenter;
-import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
-import com.trig.trigapp.api.Request.User_id;
-import com.trig.trigapp.api.Response.GetBranchRes;
-import com.trig.trigapp.api.Response.getCourseListRes;
 import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
-import com.yarolegovich.slidingrootnav.callback.DragListener;
 
 import java.util.ArrayList;
 
-public class DashboardTrainer extends BaseFragment implements GenericDialogClickListener,  onDialogClickCallback, View.OnClickListener , OnClickInterface, IPresenter {
+public class AssignCourseTrainer extends BaseFragment implements GenericDialogClickListener, onDialogClickCallback, View.OnClickListener , OnClickInterface {
 
     private static final String TAG = "ProfileFragment";
     FragmentActivity mActivity;
@@ -57,9 +47,9 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     private ImageView closeIcon;
     private AppCompatAutoCompleteTextView autoTextView;
     private SlidingRootNav slidingRootNav;
-    private String[] branchList = new String[0];
-    private ViewModel viewModel;
-    public DashboardTrainer() {
+    private String[] branchList = {"Apple", "Appy", "Banana", "Cherry", "Date", "Grape", "Kiwi"};
+
+    public AssignCourseTrainer() {
         // Required empty public constructor
     }
 
@@ -73,10 +63,8 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.dashboard_trainer, container, false);
+        mView = inflater.inflate(R.layout.assign_courses, container, false);
         init(mView);
-
-        viewModel.getBranch(new User_id(TrigAppPreferences.getUserId(mActivity)));
 
         backButtonHandling();
         Toolbar toolbar = mView.findViewById(R.id.toolbar2);
@@ -112,7 +100,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
                     // Handle the back button event
                     Log.d(TAG, "handleOnBackPressed: ");
                     ViewDialogCustom.customDialog2Btn(mActivity, mActivity.getResources().getString(R.string.exitConfirmation),
-                            Constants.Cancel, Constants.Ok, Constants.ExitConfirm, DashboardTrainer.this);
+                            Constants.Cancel, Constants.Ok, Constants.ExitConfirm, AssignCourseTrainer.this);
                 }
             };
             mActivity.getOnBackPressedDispatcher().addCallback(this, callback);
@@ -130,7 +118,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
                     break;
                 case 810:
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                            .navigate(R.id.action_dashboardFrag_to_LoginFragment);
+                            .navigate(R.id.action_assign_course_to_LoginFragment);
                     break;
                 default:
                     break;
@@ -143,7 +131,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
 
     private void init(View mView) {
 //        edit_branch = mView.findViewById(R.id.edit_branch);
-        viewModel = new ViewModel(mActivity, this);
+
         edit_unit = mView.findViewById(R.id.edit_unit);
         edit_unit = mView.findViewById(R.id.edit_unit);
 //        edit_branch.setOnClickListener(this);
@@ -170,7 +158,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
             case R.id.logout:
                 TrigAppPreferences.clear(mActivity);
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_LoginFragment);
+                        .navigate(R.id.action_assign_course_to_LoginFragment);
                 break;
 
             case R.id.closeIcon:
@@ -181,11 +169,9 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     }
 
     public final int POS_DASHBOARD = 0;
-    public final int POS_ASSIGN = 1;
-    public final int POS_REPORT = 2;
-    public final int POS_PROFILE = 3;
-    public final int POS_CONTACT_US = 4;
-    public final int POS_LOGOUT = 5;
+    public final int POS_PROFILE = 1;
+    public final int POS_CONTACT_US = 2;
+    public final int POS_LOGOUT = 3;
 
     @Override
     public void onClick(View view, int position) {
@@ -194,21 +180,13 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
             switch (position) {
                 case POS_DASHBOARD:
                     break;
-                case POS_ASSIGN:
-                    Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                            .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
-                    break;
-                case POS_REPORT:
-                    Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                            .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
-                    break;
                 case POS_PROFILE:
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                            .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
+                            .navigate(R.id.action_assign_course_to_ProfileFragment);
                     break;
                 case POS_CONTACT_US:
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                            .navigate(R.id.action_dashboardFrag_to_Contact);
+                            .navigate(R.id.action_assign_course_to_Contact);
                     break;
                 case POS_LOGOUT:TrigAppPreferences.setLoginPref(mActivity, false);
                     GenericDialogPopup genericDialogPopup = null;
@@ -218,7 +196,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
                             .setDescription(mActivity.getResources().getString(R.string.appLogout))
                             .setPositiveButtonText(Constants.LOGOUT)
                             .setNegativeButtonText(Constants.Cancel)
-                            .setGenericDialogClickListener(DashboardTrainer.this)
+                            .setGenericDialogClickListener(AssignCourseTrainer.this)
                             .setFucntionNumber(Constants.getInstance().logout)
                             .build();
                     Utility.getInstance().showDynamicDialog(mActivity, genericDialogBuilder, genericDialogPopup, mActivity.getSupportFragmentManager());
@@ -260,35 +238,4 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
 
     }
 
-    @Override
-    public void onResponsegetBranch(JsonArray jsonArray) {
-        try {
-            if (jsonArray != null) {
-                for (int i = 0; i < jsonArray.size(); i++) {
-                    GetBranchRes getBranchRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), GetBranchRes.class);
-                    Log.d(TAG, "onResponsegetBranch:1L " + branchList.length);
-                    branchList = increaseArray(new String[]{getBranchRes.getBranchName()});
-                    Log.d(TAG, "onResponsegetBranch:2L " + branchList.length);
-                }
-
-                
-            }
-
-            for (int i =0; i< branchList.length;i++){
-                Log.d(TAG, "onResponsegetBranch: " + branchList[i]);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "onResponsegetBranch: exception " + e.getMessage());
-        }
-    }
-
-    public String[] increaseArray(String[] theArray) {
-        int i = theArray.length;
-        int n = ++i;
-        String[] newArray = new String[n];
-        for (int count = 0; count < theArray.length; count++) {
-            newArray[count] = theArray[count];
-        }
-        return newArray;
-    }
 }

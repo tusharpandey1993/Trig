@@ -29,4 +29,9 @@ public interface IPresenter {
     default void onResponseGetVideoUrl(getCourseDetailsRes getCourseDetailsRes){}
     default void onResponseSubmitAssessment(){}
 
+
+    default void onResponsegetBranch(JsonArray jsonArray){}
+
+
+
 }

@@ -294,6 +294,24 @@
     </fragment>
 
     <fragment
+        android:id="@+id/AssignCourseTrainer"
+        android:name="com.trig.trigapp.Fragments.AssignCourseTrainer"
+        android:label="Dashboard Fragment"
+        tools:layout="@layout/assign_courses">
+
+        <action
+            android:id="@+id/action_assign_course_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_assign_course_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_assign_course_to_Contact"
+            app:destination="@id/Contact" />
+
+    </fragment>
+
+    <fragment
         android:id="@+id/Contact"
         android:name="com.trig.trigapp.Fragments.Contact"
         android:label="Contact Fragment"

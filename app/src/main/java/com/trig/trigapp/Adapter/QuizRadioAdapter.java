@@ -53,15 +53,27 @@ public class QuizRadioAdapter extends RecyclerView.Adapter<QuizRadioAdapter.Quiz
 
         holder.radioText.setText(quizOptionsModelList.get(position).optionText);
 
-        if(res != null) {
-            if(res.getCorrectOpts() != null) {
+        if (res.getCorrectOpts().toString().contains(res.options.get(position).getOptionId())) {
+            holder.correctRadioImg.setBackgroundResource(R.drawable.ic_radio_button_tick);
+        }
+
+        if (res != null) {
+            if (res.getCorrectOpts() != null) {
+
                 holder.correctRadioImg.setVisibility(View.VISIBLE);
-//                holder.correctRadioImg.setBackgroundResource(R.drawable.ic_radio_button_tick);
-                holder.correctRadioImg.setBackgroundResource(R.drawable.ic_close);
-                Log.d(TAG, "onBindViewHolder: " + res.getSelectedOpts());
-                String[] arrSplit = res.getSelectedOpts().toString().split(",");
-                for (int i=0; i < arrSplit.length; i++) {
-                    Log.d(TAG, "onBindViewHolder: " + arrSplit[i]);
+
+                if (res.options != null && res.options.get(position) != null) {
+
+                    if (res.getCorrectOpts().toString().contains(res.options.get(position).getOptionId())) {
+                        holder.correctRadioImg.setBackgroundResource(R.drawable.ic_radio_button_tick);
+                    }
+
+                    String[] arrSplit = res.getSelectedOpts().toString().split(",");
+                    for (int i = 0; i < arrSplit.length; i++) {
+                        if (!res.getCorrectOpts().toString().contains(arrSplit[i]) && arrSplit[i].equalsIgnoreCase(res.options.get(position).getOptionId())) {
+                            holder.correctRadioImg.setBackgroundResource(R.drawable.ic_close);
+                        }
+                    }
                 }
 
             } else {
@@ -77,7 +89,7 @@ public class QuizRadioAdapter extends RecyclerView.Adapter<QuizRadioAdapter.Quiz
                     if (selectedPosition >= 0)
                         notifyItemChanged(selectedPosition);
                     selectedPosition = holder.getAdapterPosition();
-                    onClickListner.onClickQuiz(view,position,R.id.selectionLayout,res.getAssestmentId(), res.options.get(position).getOptionId(), res.assessmentQuestionId);
+                    onClickListner.onClickQuiz(view, position, R.id.selectionLayout, res.getAssestmentId(), res.options.get(position).getOptionId(), res.assessmentQuestionId);
                     notifyItemChanged(selectedPosition);
                 });
             }

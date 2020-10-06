@@ -60,4 +60,7 @@ public interface Service {
     @POST("SubmitAssessment/save")
     Call<JsonArray> submitAssessment(@Body SubmitAssessmentReq submitAssessmentReq);
 
+    @POST("TrainerUnit/GetBranch")
+    Call<JsonArray> getBranch(@Body  User_id req);
+
    }
