@@ -112,8 +112,13 @@ public class Contact  extends Fragment implements IPresenter, View.OnClickListen
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_contact_to_dashboardFragment);
+                if (TrigAppPreferences.getUser_Type(mActivity).equalsIgnoreCase(Constants.getInstance().user)) {
+                    Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                            .navigate(R.id.action_contact_to_dashboardFragment);
+                } else if (TrigAppPreferences.getUser_Type(mActivity).equalsIgnoreCase(Constants.getInstance().trainer)) {
+                    Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                            .navigate(R.id.action_contact_to_dashboardTrainerFragment);
+                }
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
@@ -121,8 +126,14 @@ public class Contact  extends Fragment implements IPresenter, View.OnClickListen
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                        .navigate(R.id.action_contact_to_dashboardFragment);
+
+                if (TrigAppPreferences.getUser_Type(mActivity).equalsIgnoreCase(Constants.getInstance().user)) {
+                    Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                            .navigate(R.id.action_contact_to_dashboardFragment);
+                } else if (TrigAppPreferences.getUser_Type(mActivity).equalsIgnoreCase(Constants.getInstance().trainer)) {
+                    Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                            .navigate(R.id.action_contact_to_dashboardTrainerFragment);
+                }
             }
         });
     }

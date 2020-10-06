@@ -252,6 +252,9 @@
             android:id="@+id/action_profile_to_dashboardFragment"
             app:destination="@id/DashboardFragment" />
         <action
+            android:id="@+id/action_profile_to_dashboardTrainerFragment"
+            app:destination="@id/DashboardTrainer" />
+        <action
             android:id="@+id/action_dashboardFrag_to_LoginFragment"
             app:destination="@id/LoginFragment" />
         <action
@@ -299,6 +302,10 @@
         <action
             android:id="@+id/action_contact_to_dashboardFragment"
             app:destination="@id/DashboardFragment" />
+
+        <action
+            android:id="@+id/action_contact_to_dashboardTrainerFragment"
+            app:destination="@id/DashboardTrainer" />
 
         <action
             android:id="@+id/action_dashboardFrag_to_LoginFragment"
