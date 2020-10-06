@@ -6,9 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -45,9 +47,9 @@ public class DashboardTrainer extends Fragment implements GenericDialogClickList
     ArrayList<String> typeOfList;
     private RecyclerView list;
     private ImageView closeIcon;
-
+    private AppCompatAutoCompleteTextView autoTextView;
     private SlidingRootNav slidingRootNav;
-
+    private String[] branchList = {"Apple", "Appy", "Banana", "Cherry", "Date", "Grape", "Kiwi"};
     public DashboardTrainer() {
         // Required empty public constructor
     }
@@ -129,19 +131,28 @@ public class DashboardTrainer extends Fragment implements GenericDialogClickList
     }
 
     private void init(View mView) {
-        edit_branch = mView.findViewById(R.id.edit_branch);
+//        edit_branch = mView.findViewById(R.id.edit_branch);
+
         edit_unit = mView.findViewById(R.id.edit_unit);
-        edit_branch.setOnClickListener(this);
+        edit_unit = mView.findViewById(R.id.edit_unit);
+//        edit_branch.setOnClickListener(this);
         edit_unit.setOnClickListener(this);
+        autoTextView = mView.findViewById(R.id.autoTextView);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (mActivity, android.R.layout.select_dialog_item, branchList);
+        autoTextView.setThreshold(1); //will start working from first character
+        autoTextView.setAdapter(adapter);
+
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
 
-            case R.id.edit_branch:
+            /*case R.id.edit_branch:
                 openDialog(typeOfList,0,0,"Category");
-                break;
+                break;*/
             case R.id.edit_unit:
                 openDialog(typeOfList,0,0,"Category");
                 break;
