@@ -36,9 +36,13 @@ import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogPopup;
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
+import com.trig.trigapp.api.Request.CommonReq;
+import com.trig.trigapp.api.Request.TrainerDashboardReq;
 import com.trig.trigapp.api.Request.User_id;
 import com.trig.trigapp.api.Response.GetBranchRes;
+import com.trig.trigapp.api.Response.GetUnitRes;
 import com.trig.trigapp.api.Response.getCourseListRes;
+import com.trig.trigapp.api.Response.getDashboardRes;
 import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
@@ -58,6 +62,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     private AppCompatAutoCompleteTextView autoTextView;
     private SlidingRootNav slidingRootNav;
     private String[] branchList = new String[0];
+    private ArrayList<GetUnitRes> getUnitResArrayList;
     private ViewModel viewModel;
     public DashboardTrainer() {
         // Required empty public constructor
@@ -73,10 +78,18 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.dashboard_trainer, container, false);
+        mView = inflater.inflate(R.layout.assign_course_trainer, container, false);
         init(mView);
 
         viewModel.getBranch(new User_id(TrigAppPreferences.getUserId(mActivity)));
+        CommonReq commonReq = new CommonReq();
+        commonReq.setBranchId(""+2);
+        viewModel.getUnit(commonReq);
+
+        TrainerDashboardReq trainerDashboardReq = new TrainerDashboardReq();
+        trainerDashboardReq.setEmp_code("9082461859");
+        trainerDashboardReq.setUnitId(4755);
+        viewModel.getTrainerDashboard(trainerDashboardReq);
 
         backButtonHandling();
         Toolbar toolbar = mView.findViewById(R.id.toolbar2);
@@ -290,5 +303,35 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
             newArray[count] = theArray[count];
         }
         return newArray;
+    }
+
+    @Override
+    public void onResponsegetUnit(JsonArray jsonArray) {
+        try {
+            getUnitResArrayList = new ArrayList<>();
+            if (jsonArray != null) {
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    GetUnitRes getUnitRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), GetUnitRes.class);
+                    getUnitResArrayList.add(getUnitRes);
+                    Log.d(TAG, "onResponsegetUnit: " + getUnitRes.toString());
+                }
+
+
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onResponsegetUnit: exception " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void onResponseDashboardTrainer(getDashboardRes getDashboardRes) {
+        try {
+            hideLoader();
+            if (getDashboardRes != null && !Utility.getInstance().getG().toJson(getDashboardRes).equals("{}")) {
+
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onResponseDashboardTrainer: exception" + e.getMessage());
+        }
     }
 }

@@ -31,6 +31,7 @@ public class TrigAppPreferences {
     private static final String ContactApiResponse = "ContactApiResponse";
     private static final String ContactTrainerApiResponse = "ContactTrainerApiResponse";
     private static final String FeedbackApiResponse = "FeedbackApiResponse";
+    private static final String VideoApiResponse = "VideoApiResponse";
     private static final String isUserModeTrainer = "isUserModeTrainer";
 
 
@@ -220,6 +221,15 @@ public class TrigAppPreferences {
 
     public static String getFeedbackApiResponse(Context context) {
         String value = getStringPrefrence(context, FeedbackApiResponse);
+        return value;
+    }
+
+    public static void setVideoApiResponse(Context context, String value) {
+        setStringPrefrence(context, VideoApiResponse, value);
+    }
+
+    public static String setVideoApiResponse(Context context) {
+        String value = getStringPrefrence(context, VideoApiResponse);
         return value;
     }
 

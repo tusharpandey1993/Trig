@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trig.trigapp.Adapter.CourseTopicAdapter;
+import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Response.getAssessmentListRes;
 import com.trig.trigapp.api.Response.getCourseListRes;
 
@@ -88,7 +89,9 @@ public class CoursesTopics extends BaseFragment implements IPresenter, CourseTop
         try {
             if (Utility.getInstance().isNetworkAvailable(mActivity)) {
                 if (fromCourses) {
-                    viewModel.callgetCourseTopics(TrigAppPreferences.getUserId(mActivity));
+                    CommonReq commonReq = new CommonReq();
+                    commonReq.setUserid(TrigAppPreferences.getUserId(mActivity));
+                    viewModel.callgetCourseTopics(commonReq);
                 } else {
                     viewModel.callgetAssessmentList(TrigAppPreferences.getUserId(mActivity));
                 }
@@ -141,6 +144,8 @@ public class CoursesTopics extends BaseFragment implements IPresenter, CourseTop
                     arrayListOfgetCousreList.add(getCourseListRes);
 
                 }
+                Log.d(TAG, "onResponseCourseTopicList: " + jsonArray);
+//                TrigAppPreferences.setVideoApiResponse(mActivity, arrayListOfgetCousreList);
                 CourseTopicAdapter adapter = new CourseTopicAdapter(mActivity, arrayListOfgetCousreList, this);
                 recyclerView.setAdapter(adapter);
                 GridLayoutManager manager = new GridLayoutManager(mActivity, 2, GridLayoutManager.VERTICAL, false);

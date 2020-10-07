@@ -93,6 +93,7 @@ public class CourseTopicAdapter extends RecyclerView.Adapter<CourseTopicAdapter.
                 completedCourses.setText(String.valueOf(item.getCompleted()));
 
                 float percentage = (float)((item.getCompleted()  * 100)/ item.getAll());
+                courseCompletionProgess.setProgress(1);
                 courseCompletionProgess.setProgress((int) percentage);
                 progressEndPercentage.setText(Math.round(percentage) + " %");
             } catch (Exception e) {

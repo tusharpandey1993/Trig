@@ -46,6 +46,7 @@ import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogPopup;
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
+import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Response.getDashboardRes;
 import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
@@ -95,7 +96,9 @@ public class DashboardFragment extends BaseFragment implements GenericDialogClic
 
 
         init(mView);
-        viewModel.getDashboard(TrigAppPreferences.getUserId(mActivity));
+        CommonReq commonReq = new CommonReq();
+        commonReq.setUserid(TrigAppPreferences.getUserId(mActivity));
+        viewModel.getDashboard(commonReq);
 
         backButtonHandling();
 

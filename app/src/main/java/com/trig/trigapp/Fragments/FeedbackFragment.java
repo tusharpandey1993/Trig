@@ -27,6 +27,7 @@ import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
+import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Response.CommonResponse;
 import com.trig.trigapp.api.Response.getFeedbackRes;
 
@@ -63,7 +64,9 @@ public class FeedbackFragment extends Fragment implements IPresenter, View.OnCli
         mView = inflater.inflate(R.layout.fragment_feedback, container, false);
 
         init(mView);
-        viewModel.callgetFeedback(TrigAppPreferences.getUserId(mActivity));
+        CommonReq commonReq = new CommonReq();
+        commonReq.setUserid(TrigAppPreferences.getUserId(mActivity));
+        viewModel.callgetFeedback(commonReq);
         getFeedbackRes getFeedbackRes = Utility.getInstance().getG().fromJson(TrigAppPreferences.getFeedbackApiResponse(mActivity), getFeedbackRes.class);
         if(getFeedbackRes != null){
             if(!getFeedbackRes.getFeedback().isEmpty() || !getFeedbackRes.getRemarksSuggestion().isEmpty() || !getFeedbackRes.getFeedbackBy().isEmpty() || !getFeedbackRes.getFeedbackOn().isEmpty()){

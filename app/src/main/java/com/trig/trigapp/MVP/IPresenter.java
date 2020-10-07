@@ -31,6 +31,8 @@ public interface IPresenter {
 
 
     default void onResponsegetBranch(JsonArray jsonArray){}
+    default void onResponsegetUnit(JsonArray jsonArray){}
+    default void onResponseDashboardTrainer(getDashboardRes getDashboardRes){}
 
 
 

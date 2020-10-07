@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/toolbar_dash" />
+
+    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/autoTextView"
+        android:hint="Select Branch"
+        android:textColor="#000000"
+        android:textColorHint="#000000"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutGetUnit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:hint="Select Unit">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_unit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:maxLines="1"
+            android:textSize="@dimen/_13ssp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <View
+        android:id="@+id/barrierView"
+        android:background="@color/gray_300"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_height="2dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/filteredListRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp" />
+
+
+</LinearLayout>

@@ -10,6 +10,7 @@ import com.trig.trigapp.api.Request.GetProfileDetailsReq;
 import com.trig.trigapp.api.Request.LoadAssignmentsReq;
 import com.trig.trigapp.api.Request.LoginRequest;
 import com.trig.trigapp.api.Request.SubmitAssessmentReq;
+import com.trig.trigapp.api.Request.TrainerDashboardReq;
 import com.trig.trigapp.api.Request.User_id;
 import com.trig.trigapp.api.Request.getCourseDetailsReq;
 import com.trig.trigapp.api.Response.getAssessmentListRes;
@@ -68,9 +69,9 @@ public class ViewModel {
 
 
     // Dashboard 1st and 2nd card details
-    public void getDashboard(String userId) {
+    public void getDashboard(CommonReq commonReq){
         Utility.getInstance().createServiceForTrigApp(mContext)
-                .getDashboard(new CommonReq(userId))
+                .getDashboard(commonReq)
                 .enqueue(new Callback<getDashboardRes>() {
                     @Override
                     public void onResponse(Call<getDashboardRes> call,
@@ -168,9 +169,9 @@ public class ViewModel {
     }
 
     // To get Grid Cards data
-    public void callgetCourseTopics(String userId) {
+    public void callgetCourseTopics(CommonReq commonReq) {
         Utility.getInstance().createServiceForTrigApp(mContext)
-                .getCourseTopics(new CommonReq(userId))
+                .getCourseTopics(commonReq)
                 .enqueue(new Callback<JsonArray>() {
                     @Override
                     public void onResponse(Call<JsonArray> call,
@@ -201,9 +202,9 @@ public class ViewModel {
     }
 
     // To get Feedback From Trainer
-    public void callgetFeedback(String userId) {
+    public void callgetFeedback(CommonReq commonReq) {
         Utility.getInstance().createServiceForTrigApp(mContext)
-                .getFeedback(new CommonReq(userId))
+                .getFeedback(commonReq)
                 .enqueue(new Callback<getFeedbackRes>() {
                     @Override
                     public void onResponse(Call<getFeedbackRes> call,
@@ -402,7 +403,7 @@ public class ViewModel {
     }
 
 
-    // This is submit button Api hit in assessment
+    // This is to get Trainer Branch List
     public void getBranch(User_id user_id) {
         Utility.getInstance().createServiceForTrigApp(mContext)
                 .getBranch(user_id)
@@ -429,6 +430,74 @@ public class ViewModel {
 
                     @Override
                     public void onFailure(Call<JsonArray> call, Throwable t) {
+                        Log.e(TAG, "onFailure: callLoadAssessment" + t.getCause());
+                        iPresenter.onResponseSubmitAssessment();
+                        iPresenter.onError(t.getCause());
+                    }
+                });
+    }
+
+    // This is to get Trainer Unit List
+    public void getUnit(CommonReq commonReq) {
+        Utility.getInstance().createServiceForTrigApp(mContext)
+                .getUnit(commonReq)
+                .enqueue(new Callback<JsonArray>() {
+                    @Override
+                    public void onResponse(Call<JsonArray> call,
+                                           Response<JsonArray> response) {
+                        Log.d(TAG, "onResponse: 1 " + response.body());
+                        if (response.isSuccessful()) {
+                            Log.d(TAG, "onResponse: 2 " + response.body());
+                            if (response.body() != null) {
+                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                iPresenter.onResponsegetUnit(response.body());
+//                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
+                            }
+                        } else {
+                            Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
+                            if (response.errorBody() != null) {
+                                iPresenter.onError(response.errorBody());
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonArray> call, Throwable t) {
+                        Log.e(TAG, "onFailure: callLoadAssessment" + t.getCause());
+                        iPresenter.onResponseSubmitAssessment();
+                        iPresenter.onError(t.getCause());
+                    }
+                });
+    }
+
+    // This is to get Dashboard Trainer from selecting a Unit
+    public void getTrainerDashboard(TrainerDashboardReq trainerDashboardReq) {
+        Utility.getInstance().createServiceForTrigApp(mContext)
+                .getTainerDashboard(trainerDashboardReq)
+                .enqueue(new Callback<getDashboardRes>() {
+                    @Override
+                    public void onResponse(Call<getDashboardRes> call,
+                                           Response<getDashboardRes> response) {
+                        Log.d(TAG, "onResponse: 1 " + response.body());
+                        if (response.isSuccessful()) {
+                            Log.d(TAG, "onResponse: 2 " + response.body());
+                            if (response.body() != null) {
+                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                iPresenter.onResponseDashboardTrainer(response.body());
+//                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
+                            }
+                        } else {
+                            Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
+                            if (response.errorBody() != null) {
+                                iPresenter.onError(response.errorBody());
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<getDashboardRes> call, Throwable t) {
                         Log.e(TAG, "onFailure: callLoadAssessment" + t.getCause());
                         iPresenter.onResponseSubmitAssessment();
                         iPresenter.onError(t.getCause());

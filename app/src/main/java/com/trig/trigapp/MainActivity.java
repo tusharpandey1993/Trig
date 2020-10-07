@@ -11,6 +11,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
 
@@ -34,11 +35,26 @@ public class MainActivity extends AppCompatActivity {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
             setContentView(R.layout.activity_main);
 
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            int height = displayMetrics.heightPixels;
+            int width = displayMetrics.widthPixels;
+            Log.d(TAG, "onCreate: height " + height );
+            Log.d(TAG, "onCreate: height dp: " + dpFromPx(this, height) );
+            Log.d(TAG, "onCreate: height px: " + pxFromDp(this, dpFromPx(this,height)) );
+
             navController = Navigation.findNavController(this, R.id.navHostFragment);
 
         } catch (Exception e) {
             Log.e(TAG, "onCreate: " + e.getMessage() );
         }
+    }
+    public static float dpFromPx(final Context context, final float px) {
+        return px / context.getResources().getDisplayMetrics().density;
+    }
+
+    public static float pxFromDp(final Context context, final float dp) {
+        return dp * context.getResources().getDisplayMetrics().density;
     }
 
     @Override

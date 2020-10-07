@@ -6,6 +6,7 @@ import com.trig.trigapp.api.Request.LoadAssignmentsReq;
 import com.trig.trigapp.api.Request.LoginRequest;
 import com.trig.trigapp.api.Request.GetProfileDetailsReq;
 import com.trig.trigapp.api.Request.SubmitAssessmentReq;
+import com.trig.trigapp.api.Request.TrainerDashboardReq;
 import com.trig.trigapp.api.Request.User_id;
 import com.trig.trigapp.api.Request.getCourseDetailsReq;
 import com.trig.trigapp.api.Response.CommonResponse;
@@ -62,5 +63,11 @@ public interface Service {
 
     @POST("TrainerUnit/GetBranch")
     Call<JsonArray> getBranch(@Body  User_id req);
+
+    @POST("TrainerUnit/GetUnit")
+    Call<JsonArray> getUnit(@Body  CommonReq commonReq);
+
+    @POST("TrainerDashBoard/GetDashBoard")
+    Call<getDashboardRes> getTainerDashboard(@Body TrainerDashboardReq trainerDashboardReq);
 
    }

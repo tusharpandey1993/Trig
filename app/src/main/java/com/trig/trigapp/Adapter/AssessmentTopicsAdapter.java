@@ -100,6 +100,7 @@ public class AssessmentTopicsAdapter extends RecyclerView.Adapter<AssessmentTopi
             if(!item.getScore().isEmpty()) {
                 float score = Float.parseFloat(item.getScore());
                 percentage.setText(""+Math.round(score) + "%");
+                courseCompletionProgess.setProgress(1);
                 courseCompletionProgess.setProgress(Math.round(score));
                 progressEndPercentage.setText(Math.round(score) + " %");
             }
