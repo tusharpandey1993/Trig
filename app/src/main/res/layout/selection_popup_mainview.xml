@@ -2,64 +2,52 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="@dimen/_300sdp"
+    android:layout_height="@dimen/_400sdp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/topConstraint"
+
+    <TextView
+        android:id="@+id/titledialog"
+        style="@style/child_profile_tv_lbl"
+        android:layout_marginStart="@dimen/_19sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:fontFamily="@font/open_sans_semibold"
+        android:text="Category "
+        android:textColor="@color/AS_headingBlack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*"
+        android:textColor="@color/red"
+        app:layout_constraintBottom_toBottomOf="@+id/titledialog"
+        app:layout_constraintStart_toEndOf="@+id/titledialog"
+        app:layout_constraintTop_toTopOf="@+id/titledialog" />
+
+
+
+    <EditText
+        android:id="@+id/editTextSearch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/titledialog"
-            style="@style/child_profile_tv_lbl"
-            android:layout_marginStart="@dimen/_19sdp"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:fontFamily="@font/open_sans_semibold"
-            android:text="Category "
-            android:textColor="@color/AS_headingBlack"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-            android:id="@+id/star"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="*"
-            android:textColor="@color/red"
-            app:layout_constraintBottom_toBottomOf="@+id/titledialog"
-            app:layout_constraintStart_toEndOf="@+id/titledialog"
-            app:layout_constraintTop_toTopOf="@+id/titledialog" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/titledialog" />
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout7"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listdialog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topConstraint">
+        app:layout_constraintTop_toBottomOf="@+id/editTextSearch" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listdialog"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_18sdp"
-            android:paddingBottom="@dimen/_25sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

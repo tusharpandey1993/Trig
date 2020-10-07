@@ -3,67 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:elevation="@dimen/_1sdp"
+    android:layout_margin="@dimen/_5sdp"
+    android:background="@android:color/white"
     android:id="@+id/mainLayoutClickable"
     android:layout_height="wrap_content">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:background="@color/hr_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/listitemdialogText"
         style="@style/child_profile_tv_lbl"
-        android:layout_marginStart="@dimen/_19sdp"
-        android:layout_marginTop="@dimen/_13sdp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_margin="@dimen/_10sdp"
         android:text="Male "
         android:textColor="@color/AS_headingBlack"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/NotselectedRB"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-  <!--  <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_13sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />-->
-
-    <ImageView
-        android:id="@+id/selectedRB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_13sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:background="@drawable/ic_radio_button_checked_black_24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        android:visibility="invisible"/>
-
-    <ImageView
-        android:id="@+id/NotselectedRB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_13sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:background="@drawable/ic_radio_button_unchecked_black_24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        android:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

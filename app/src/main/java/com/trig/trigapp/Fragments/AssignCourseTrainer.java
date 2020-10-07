@@ -212,7 +212,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
 
     private void openDialog(ArrayList<String> typeOfList, int pos, int po, String title) {
         try {
-            CustomSelectionDialog cdd = new CustomSelectionDialog(mActivity, typeOfList, pos, po, title);
+            CustomSelectionDialog cdd = new CustomSelectionDialog(mActivity, typeOfList, title,this);
             cdd.show();
         } catch (Exception e){
             Log.e("", "onClick: " + e.getMessage() );

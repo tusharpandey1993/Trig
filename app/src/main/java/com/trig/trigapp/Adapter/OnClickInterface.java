@@ -6,6 +6,8 @@ public interface OnClickInterface {
 
     default void   onClick(View view, int position){}
 
+    default void   onClick(View view, int position,String selectedValue,String type){}
+
     default void   onClickQuiz(View view, int position, int id, int assismentID,String optionID, int assessmentQuestionId){}
 
 //    void  onClickChildView(View view, String viewID, int position);

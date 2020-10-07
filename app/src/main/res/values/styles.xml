@@ -166,6 +166,38 @@
         <item name="android:background">@android:color/darker_gray</item>
     </style>
 
+    <style name="lineBarrier">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">@color/moduleview</item>
+    </style>
+
+
+
+    <style name="AS_TagLine">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:textColor">@color/grey_text</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="android:fontFamily">@font/open_sans_italic</item>
+    </style>
+
+    <style name="AS_CommonText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/bold_text</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+    </style>
+
+    <style name="AS_AppIcon">
+        <item name="android:layout_width">@dimen/_81sdp</item>
+        <item name="android:layout_height">@dimen/_81sdp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+
     <!-- Style for answer text in the radio buttons -->
     <style name="RadioButton_Answer">
         <item name="android:layout_height">wrap_content</item>

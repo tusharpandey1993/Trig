@@ -59,11 +59,11 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     ArrayList<String> typeOfList;
     private RecyclerView list;
     private ImageView closeIcon;
-    private AppCompatAutoCompleteTextView autoTextView;
     private SlidingRootNav slidingRootNav;
     private String[] branchList = new String[0];
     private ArrayList<GetUnitRes> getUnitResArrayList;
     private ViewModel viewModel;
+    CustomSelectionDialog cdd;
     public DashboardTrainer() {
         // Required empty public constructor
     }
@@ -155,30 +155,36 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     }
 
     private void init(View mView) {
-//        edit_branch = mView.findViewById(R.id.edit_branch);
-        viewModel = new ViewModel(mActivity, this);
+        edit_branch = mView.findViewById(R.id.edit_branch);
         edit_unit = mView.findViewById(R.id.edit_unit);
-        edit_unit = mView.findViewById(R.id.edit_unit);
-//        edit_branch.setOnClickListener(this);
+        edit_branch.setOnClickListener(this);
         edit_unit.setOnClickListener(this);
-        autoTextView = mView.findViewById(R.id.autoTextView);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (mActivity, android.R.layout.select_dialog_item, branchList);
-        autoTextView.setThreshold(1); //will start working from first character
-        autoTextView.setAdapter(adapter);
+        viewModel = new ViewModel(mActivity, this);
 
+    }
+
+    @Override
+    public void onClick(View view, int position, String selectedValue,String title) {
+        if(title.equalsIgnoreCase("Branch")){
+            edit_branch.setText(selectedValue);
+            edit_unit.setEnabled(true);
+            edit_unit.setHintTextColor(getResources().getColor(R.color.hint_color));
+        }else if(title.equalsIgnoreCase("Unit")){
+            edit_unit.setText(selectedValue);
+        }
+        cdd.dismiss();
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
 
-            /*case R.id.edit_branch:
-                openDialog(typeOfList,0,0,"Category");
-                break;*/
+            case R.id.edit_branch:
+                openDialog(typeOfList,"Branch");
+                break;
             case R.id.edit_unit:
-                openDialog(typeOfList,0,0,"Category");
+                openDialog(typeOfList,"Unit");
                 break;
             case R.id.logout:
                 TrigAppPreferences.clear(mActivity);
@@ -245,9 +251,23 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
         }
     }
 
-    private void openDialog(ArrayList<String> typeOfList, int pos, int po, String title) {
+    private void openDialog(ArrayList<String> typeOfList, String title) {
         try {
-            CustomSelectionDialog cdd = new CustomSelectionDialog(mActivity, typeOfList, pos, po, title);
+            typeOfList = new ArrayList<>();
+
+            typeOfList.add("Ramiz");
+            typeOfList.add("Belal");
+            typeOfList.add("Azad");
+            typeOfList.add("Manish");
+            typeOfList.add("Sunny");
+            typeOfList.add("Shahid");
+            typeOfList.add("Deepak");
+            typeOfList.add("Deepika");
+            typeOfList.add("Sumit");
+            typeOfList.add("Mehtab");
+            typeOfList.add("Vivek");
+
+            cdd = new CustomSelectionDialog(mActivity, typeOfList, title,this);
             cdd.show();
         } catch (Exception e){
             Log.e("", "onClick: " + e.getMessage() );
@@ -284,7 +304,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
                     Log.d(TAG, "onResponsegetBranch:2L " + branchList.length);
                 }
 
-                
+
             }
 
             for (int i =0; i< branchList.length;i++){

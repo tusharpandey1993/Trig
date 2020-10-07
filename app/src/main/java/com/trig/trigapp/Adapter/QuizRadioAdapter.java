@@ -29,10 +29,17 @@ public class QuizRadioAdapter extends RecyclerView.Adapter<QuizRadioAdapter.Quiz
     Context context;
     OnClickInterface onClickListner;
     List<getLoadAssignmentsRes.Option> quizOptionsModelList;
-    private int selectedPosition = 0;
+    private int selectedPosition = -1;
     private getLoadAssignmentsRes res;
 
     public QuizRadioAdapter(Context context, OnClickInterface mListner,List<getLoadAssignmentsRes.Option> quizOptionsModelList,getLoadAssignmentsRes res) {
+        this.context= context;
+        this.onClickListner = mListner;
+        this.quizOptionsModelList = quizOptionsModelList;
+        this.res = res;
+    }
+
+    public QuizRadioAdapter(Context context, OnClickInterface mListner,List<getLoadAssignmentsRes.Option> quizOptionsModelList) {
         this.context= context;
         this.onClickListner = mListner;
         this.quizOptionsModelList = quizOptionsModelList;
