@@ -193,7 +193,7 @@ public class AssessmentFragmentNew extends BaseFragment implements IPresenter, V
                     if (Utility.getInstance().isNetworkAvailable(mActivity)) {
                         if (getLoadAssignmentsRes != null && assessmentQuestionIdList != null) {
                             if (getLoadAssignmentsRes.size() == assessmentQuestionIdList.size()) {
-                                StringBuffer output = new StringBuffer(5);
+                                StringBuffer output = new StringBuffer(10);
                                 for (HashMap.Entry<Integer, String> entry : hashMap.entrySet()) {
                                     output.append(entry.getValue());
                                 }

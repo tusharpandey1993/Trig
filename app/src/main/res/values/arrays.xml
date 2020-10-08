@@ -22,6 +22,7 @@
         <item>@drawable/ic_contact_trainer</item>
         <item>@drawable/ic_contact</item>
         <item>@drawable/ic_feedback</item>
+        <item>@drawable/ic_logout</item>
         <item>@drawable/ic_version</item>
     </array>
 
