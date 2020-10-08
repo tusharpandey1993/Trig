@@ -60,12 +60,13 @@ public class QuizRadioAdapter extends RecyclerView.Adapter<QuizRadioAdapter.Quiz
 
         holder.radioText.setText(quizOptionsModelList.get(position).optionText);
 
-        if (res.getCorrectOpts().toString().contains(res.options.get(position).getOptionId())) {
-            holder.correctRadioImg.setBackgroundResource(R.drawable.ic_radio_button_tick);
-        }
 
         if (res != null) {
             if (res.getCorrectOpts() != null) {
+
+                if (res.getCorrectOpts().toString().contains(res.options.get(position).getOptionId())) {
+                    holder.correctRadioImg.setBackgroundResource(R.drawable.ic_radio_button_tick);
+                }
 
                 holder.correctRadioImg.setVisibility(View.VISIBLE);
 
@@ -77,8 +78,9 @@ public class QuizRadioAdapter extends RecyclerView.Adapter<QuizRadioAdapter.Quiz
 
                     String[] arrSplit = res.getSelectedOpts().toString().split(",");
                     for (int i = 0; i < arrSplit.length; i++) {
+                        Log.d(TAG, "onBindViewHolder:CCCC " + arrSplit[i].equalsIgnoreCase(res.options.get(position).getOptionId()));
                         if (!res.getCorrectOpts().toString().contains(arrSplit[i]) && arrSplit[i].equalsIgnoreCase(res.options.get(position).getOptionId())) {
-                            holder.correctRadioImg.setBackgroundResource(R.drawable.ic_close);
+                            holder.correctRadioImg.setBackgroundResource(R.drawable.ic_wrong_ans);
                         }
                     }
                 }

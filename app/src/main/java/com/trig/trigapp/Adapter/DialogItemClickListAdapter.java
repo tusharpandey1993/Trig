@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trig.trigapp.CommonFiles.DataPayload;
 import com.trig.trigapp.R;
+import com.trig.trigapp.api.Response.GetBranchRes;
+import com.trig.trigapp.api.Response.GetUnitRes;
 
 import java.util.ArrayList;
 
@@ -18,11 +20,15 @@ public class DialogItemClickListAdapter extends RecyclerView.Adapter<DialogItemC
     private DataPayload payload;
     private OnClickInterface mListner;
     private ArrayList<String> dataList;
+    ArrayList<GetBranchRes> getBranchResArrayList;
+    ArrayList<GetUnitRes> getUnitResArrayList;
 
     public DialogItemClickListAdapter(DataPayload payload, OnClickInterface mListner) {
         this.payload = payload;
         this.mListner = mListner;
         dataList = payload.getDataList();
+        getBranchResArrayList = payload.getGetBranchResArrayList();
+        getUnitResArrayList = payload.getGetUnitResArrayList();
     }
 
     @Override
@@ -42,9 +48,12 @@ public class DialogItemClickListAdapter extends RecyclerView.Adapter<DialogItemC
                 @Override
                 public void onClick(View v) {
                     if(payload.getTitle().equalsIgnoreCase("Branch")){
-                        mListner.onClick(v,position,dataList.get(position),"" +payload.getGetBranchResArrayList().get(position).getBranchID(),payload.getTitle());
+                        mListner.onClick(v,position,dataList.get(position),"" +
+                                getBranchResArrayList.get(position).getBranchID(),payload.getTitle());
                     }else{
-                        mListner.onClick(v,position,dataList.get(position),"" +payload.getGetUnitResArrayList().get(position).getUnitID(),payload.getTitle());
+                        dataList.get(position).equalsIgnoreCase(dataList.get(position));
+                        mListner.onClick(v,position,dataList.get(position),"" +
+                                getUnitResArrayList.get(position).getUnitID(),payload.getTitle());
                     }
 
                 }
@@ -58,8 +67,10 @@ public class DialogItemClickListAdapter extends RecyclerView.Adapter<DialogItemC
     //This method will filter the list
     //here we are passing the filtered data
     //and assigning it to the list with notifydatasetchanged method
-    public void filterList(ArrayList<String> filterdData) {
+    public void filterList(ArrayList<String> filterdData, ArrayList<GetBranchRes> filteredGetBranchRes, ArrayList<GetUnitRes> filteredGetUnitRes ) {
         dataList = filterdData;
+        getBranchResArrayList = filteredGetBranchRes;
+        getUnitResArrayList = filteredGetUnitRes;
         notifyDataSetChanged();
     }
 

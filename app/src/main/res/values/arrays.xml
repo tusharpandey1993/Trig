@@ -10,6 +10,7 @@
         <item>Contact Us</item>
         <item>Feedback</item>
         <item>Log Out</item>
+        <item>Version 1.0</item>
     </string-array>
 
 
@@ -21,7 +22,7 @@
         <item>@drawable/ic_contact_trainer</item>
         <item>@drawable/ic_contact</item>
         <item>@drawable/ic_feedback</item>
-        <item>@drawable/ic_logout</item>
+        <item>@drawable/ic_version</item>
     </array>
 
     <string-array name="ld_TrainerScreenTitles">
@@ -31,6 +32,7 @@
         <item>Profile</item>
         <item>Contact Us</item>
         <item>Log Out</item>
+        <item>Version 1.0</item>
     </string-array>
 
 
@@ -41,6 +43,7 @@
         <item>@drawable/ic_profile</item>
         <item>@drawable/ic_contact</item>
         <item>@drawable/ic_logout</item>
+        <item>@drawable/ic_version</item>
     </array>
 
 

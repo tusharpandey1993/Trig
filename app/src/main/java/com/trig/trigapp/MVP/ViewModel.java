@@ -445,11 +445,8 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<JsonArray> call,
                                            Response<JsonArray> response) {
-                        Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: 3 " + response.body());
                                 iPresenter.onResponsegetUnit(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }

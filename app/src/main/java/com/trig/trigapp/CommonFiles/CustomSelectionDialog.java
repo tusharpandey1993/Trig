@@ -18,10 +18,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.trig.trigapp.Adapter.DialogItemClickListAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
 import com.trig.trigapp.R;
 import com.trig.trigapp.api.Request.CommonReq;
+import com.trig.trigapp.api.Response.GetBranchRes;
+import com.trig.trigapp.api.Response.GetUnitRes;
 
 import java.util.ArrayList;
 
@@ -96,6 +99,8 @@ public class CustomSelectionDialog extends Dialog implements
     private void filter(String text) {
         //new array list that will hold the filtered data
         ArrayList<String> filterdData = new ArrayList<>();
+        ArrayList<GetBranchRes> filteredGetBranchRes = new ArrayList<>();
+        ArrayList<GetUnitRes> filteredGetUnitRes = new ArrayList<>();
 
         //looping through existing elements
         if(payload.getTitle().equalsIgnoreCase("Branch")){
@@ -103,6 +108,7 @@ public class CustomSelectionDialog extends Dialog implements
                 if (payload.getGetBranchResArrayList().get(i).getBranchName().toLowerCase().contains(text.toLowerCase())) {
                     //adding the element to filtered list
                     filterdData.add(payload.getGetBranchResArrayList().get(i).getBranchName());
+                    filteredGetBranchRes.add((payload.getGetBranchResArrayList().get(i)));
                 }
             }
 
@@ -111,11 +117,12 @@ public class CustomSelectionDialog extends Dialog implements
                 if (payload.getGetUnitResArrayList().get(i).getUnitName().toLowerCase().contains(text.toLowerCase())) {
                     //adding the element to filtered list
                     filterdData.add(payload.getGetUnitResArrayList().get(i).getUnitName());
+                    filteredGetUnitRes.add((payload.getGetUnitResArrayList().get(i)));
                 }
             }
         }
         //calling a method of the adapter class and passing the filtered list
-        dialogItemClickListAdapter.filterList(filterdData);
+        dialogItemClickListAdapter.filterList(filterdData, filteredGetBranchRes, filteredGetUnitRes );
     }
 
     @Override

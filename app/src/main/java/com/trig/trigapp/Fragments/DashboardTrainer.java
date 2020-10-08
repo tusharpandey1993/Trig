@@ -6,12 +6,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
@@ -19,9 +20,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonArray;
-import com.trig.trigapp.Adapter.CourseTopicAdapter;
 import com.trig.trigapp.Adapter.NavDrawerAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
 import com.trig.trigapp.CommonFiles.Constants;
@@ -53,7 +58,7 @@ import java.util.ArrayList;
 
 public class DashboardTrainer extends BaseFragment implements GenericDialogClickListener,  onDialogClickCallback, View.OnClickListener , OnClickInterface, IPresenter {
 
-    private static final String TAG = "ProfileFragment";
+    private static final String TAG = "DashboardTrainer";
     FragmentActivity mActivity;
     View mView;
     TextInputEditText edit_branch, edit_unit;
@@ -65,6 +70,10 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     private ArrayList<GetBranchRes> getBranchResArrayList;
     private ViewModel viewModel;
     CustomSelectionDialog cdd;
+    private PieChart pieChartCourses, pieChartAssessment;
+    private TextView courseNumber, courseCompletedNumber, assessmentNumber, assementCompleted;
+    private ConstraintLayout courseContainer, assessmentContainer;
+
     public DashboardTrainer() {
         // Required empty public constructor
     }
@@ -84,12 +93,8 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
 
         viewModel.getBranch(new User_id(TrigAppPreferences.getUserId(mActivity)));
 
-        TrainerDashboardReq trainerDashboardReq = new TrainerDashboardReq();
-        trainerDashboardReq.setEmp_code("9082461859");
-        trainerDashboardReq.setUnitId(4755);
-        viewModel.getTrainerDashboard(trainerDashboardReq);
-
         backButtonHandling();
+
         Toolbar toolbar = mView.findViewById(R.id.toolbar2);
 
         slidingRootNav = new SlidingRootNavBuilder(mActivity)
@@ -104,7 +109,6 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
         closeIcon = mActivity.findViewById(R.id.closeIcon);
         closeIcon.setOnClickListener(this);
         setAdapter();
-
 
         return mView;
     }
@@ -157,6 +161,16 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
         edit_unit = mView.findViewById(R.id.edit_unit);
         edit_branch.setOnClickListener(this);
         edit_unit.setOnClickListener(this);
+        pieChartCourses = mView.findViewById(R.id.pieChartCourses);
+        pieChartAssessment = mView.findViewById(R.id.pieChartAssessment);
+
+        courseNumber = mView.findViewById(R.id.courseNumber);
+        courseCompletedNumber = mView.findViewById(R.id.courseCompletedNumber);
+        assessmentNumber = mView.findViewById(R.id.assessmentNumber);
+        assementCompleted = mView.findViewById(R.id.assementCompleted);
+
+        courseContainer = mView.findViewById(R.id.courseContainer);
+        assessmentContainer = mView.findViewById(R.id.assessmentContainer);
 
         viewModel = new ViewModel(mActivity, this);
 
@@ -175,6 +189,10 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
 
         }else if(title.equalsIgnoreCase("Unit")){
             edit_unit.setText(selectedValue);
+            TrainerDashboardReq trainerDashboardReq = new TrainerDashboardReq();
+            trainerDashboardReq.setEmp_code(TrigAppPreferences.getEmployee_Code(mActivity));
+            trainerDashboardReq.setUnitId(Integer.parseInt(selectedID));
+            viewModel.getTrainerDashboard(trainerDashboardReq);
         }
         cdd.dismiss();
     }
@@ -313,15 +331,6 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
         }
     }
 
-    public String[] increaseArray(String[] theArray) {
-        int i = theArray.length;
-        int n = ++i;
-        String[] newArray = new String[n];
-        for (int count = 0; count < theArray.length; count++) {
-            newArray[count] = theArray[count];
-        }
-        return newArray;
-    }
 
     @Override
     public void onResponsegetUnit(JsonArray jsonArray) {
@@ -345,9 +354,58 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
             hideLoader();
             if (getDashboardRes != null && !Utility.getInstance().getG().toJson(getDashboardRes).equals("{}")) {
 
+                courseContainer.setVisibility(View.VISIBLE);
+                assessmentContainer.setVisibility(View.VISIBLE);
+
+                courseNumber.setText(String.valueOf((getDashboardRes.getCourseAssigned())));
+                courseCompletedNumber.setText(String.valueOf(getDashboardRes.getCourseCompleted()));
+                assessmentNumber.setText(String.valueOf(getDashboardRes.getAssessmentAssigned()));
+                assementCompleted.setText(String.valueOf(getDashboardRes.getAssessmentCompleted()));
+
+                pieChartCourses.setDescription(null);
+                pieChartAssessment.setDescription(null);
+
+                courseChart(getDashboardRes.getCourseCompleted(), getDashboardRes.getCourseAssigned());
+                assessmentChart(getDashboardRes.getAssessmentCompleted(), getDashboardRes.getAssessmentAssigned());
             }
         } catch (Exception e) {
             Log.e(TAG, "onResponseDashboardTrainer: exception" + e.getMessage());
         }
+    }
+
+    private void courseChart(int completed, int total){
+        float percentage = (float)((completed  * 100)/ total);
+        float remaining = 100 - percentage;
+        ArrayList completedCourses = new ArrayList();
+        completedCourses.add(new Entry(percentage, 6));
+        completedCourses.add(new Entry(remaining, 1 ));
+        PieDataSet dataSet = new PieDataSet(completedCourses, "");
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        PieData data = new PieData(textOnPieChart(), dataSet);
+        pieChartCourses.setData(data);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieChartCourses.animateXY(1000, 1000);
+    }
+
+
+    private void assessmentChart(int completed, int total){
+        float percentage = (float)((completed  * 100)/ total);
+        float remaining = 100 - percentage;
+        ArrayList completedCourses = new ArrayList();
+        completedCourses.add(new Entry(percentage, 6));
+        completedCourses.add(new Entry(remaining, 1 ));
+        PieDataSet dataSet = new PieDataSet(completedCourses, "");
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        PieData data = new PieData(textOnPieChart(), dataSet);
+        pieChartAssessment.setData(data);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieChartAssessment.animateXY(1000, 1000);
+    }
+
+    private ArrayList textOnPieChart(){
+        ArrayList textBelowPie = new ArrayList();
+        textBelowPie.add("Assigned %");
+        textBelowPie.add("Pending %");
+        return textBelowPie;
     }
 }
