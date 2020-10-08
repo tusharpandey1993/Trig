@@ -44,14 +44,9 @@
             android:enabled="false"
             android:textColorHint="@color/greyed_out"
             android:focusableInTouchMode="true"
-            android:maxLines="1"
             android:textSize="@dimen/_13ssp" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
 
     <View
         android:id="@+id/barrierView"

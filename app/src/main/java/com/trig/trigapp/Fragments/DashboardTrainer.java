@@ -26,6 +26,7 @@ import com.trig.trigapp.Adapter.NavDrawerAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
 import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.CustomSelectionDialog;
+import com.trig.trigapp.CommonFiles.DataPayload;
 import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.CommonFiles.ViewDialogCustom;
@@ -60,8 +61,8 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     private RecyclerView list;
     private ImageView closeIcon;
     private SlidingRootNav slidingRootNav;
-    private String[] branchList = new String[0];
     private ArrayList<GetUnitRes> getUnitResArrayList;
+    private ArrayList<GetBranchRes> getBranchResArrayList;
     private ViewModel viewModel;
     CustomSelectionDialog cdd;
     public DashboardTrainer() {
@@ -82,9 +83,6 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
         init(mView);
 
         viewModel.getBranch(new User_id(TrigAppPreferences.getUserId(mActivity)));
-        CommonReq commonReq = new CommonReq();
-        commonReq.setBranchId(""+2);
-        viewModel.getUnit(commonReq);
 
         TrainerDashboardReq trainerDashboardReq = new TrainerDashboardReq();
         trainerDashboardReq.setEmp_code("9082461859");
@@ -165,11 +163,16 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     }
 
     @Override
-    public void onClick(View view, int position, String selectedValue,String title) {
+    public void onClick(View view, int position, String selectedValue,String selectedID,String title) {
         if(title.equalsIgnoreCase("Branch")){
             edit_branch.setText(selectedValue);
             edit_unit.setEnabled(true);
             edit_unit.setHintTextColor(getResources().getColor(R.color.hint_color));
+
+            CommonReq commonReq = new CommonReq();
+            commonReq.setBranchId(selectedID);
+            viewModel.getUnit(commonReq);
+
         }else if(title.equalsIgnoreCase("Unit")){
             edit_unit.setText(selectedValue);
         }
@@ -181,10 +184,10 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
         switch(v.getId()) {
 
             case R.id.edit_branch:
-                openDialog(typeOfList,"Branch");
+                openDialog("Branch");
                 break;
             case R.id.edit_unit:
-                openDialog(typeOfList,"Unit");
+                openDialog("Unit");
                 break;
             case R.id.logout:
                 TrigAppPreferences.clear(mActivity);
@@ -251,24 +254,26 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
         }
     }
 
-    private void openDialog(ArrayList<String> typeOfList, String title) {
+    private void openDialog(String title) {
         try {
-            typeOfList = new ArrayList<>();
-
-            typeOfList.add("Ramiz");
-            typeOfList.add("Belal");
-            typeOfList.add("Azad");
-            typeOfList.add("Manish");
-            typeOfList.add("Sunny");
-            typeOfList.add("Shahid");
-            typeOfList.add("Deepak");
-            typeOfList.add("Deepika");
-            typeOfList.add("Sumit");
-            typeOfList.add("Mehtab");
-            typeOfList.add("Vivek");
-
-            cdd = new CustomSelectionDialog(mActivity, typeOfList, title,this);
-            cdd.show();
+            DataPayload payload = null;
+            if(title.equalsIgnoreCase("Branch")){
+                if(getBranchResArrayList!=null) {
+                    payload = new DataPayload();
+                    payload.setTitle(title);
+                    payload.setGetBranchResArrayList(getBranchResArrayList);
+                }
+            }else{
+                if(getUnitResArrayList!=null) {
+                    payload = new DataPayload();
+                    payload.setTitle(title);
+                    payload.setGetUnitResArrayList(getUnitResArrayList);
+                }
+            }
+            if(payload!=null) {
+                cdd = new CustomSelectionDialog(mActivity, payload, this);
+                cdd.show();
+            }
         } catch (Exception e){
             Log.e("", "onClick: " + e.getMessage() );
         }
@@ -297,18 +302,11 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     public void onResponsegetBranch(JsonArray jsonArray) {
         try {
             if (jsonArray != null) {
+                getBranchResArrayList = new ArrayList<>();
                 for (int i = 0; i < jsonArray.size(); i++) {
                     GetBranchRes getBranchRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), GetBranchRes.class);
-                    Log.d(TAG, "onResponsegetBranch:1L " + branchList.length);
-                    branchList = increaseArray(new String[]{getBranchRes.getBranchName()});
-                    Log.d(TAG, "onResponsegetBranch:2L " + branchList.length);
+                    getBranchResArrayList.add(getBranchRes);
                 }
-
-
-            }
-
-            for (int i =0; i< branchList.length;i++){
-                Log.d(TAG, "onResponsegetBranch: " + branchList[i]);
             }
         } catch (Exception e) {
             Log.e(TAG, "onResponsegetBranch: exception " + e.getMessage());
@@ -335,8 +333,6 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
                     getUnitResArrayList.add(getUnitRes);
                     Log.d(TAG, "onResponsegetUnit: " + getUnitRes.toString());
                 }
-
-
             }
         } catch (Exception e) {
             Log.e(TAG, "onResponsegetUnit: exception " + e.getMessage());

@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.trig.trigapp.Adapter.DialogItemClickListAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
 import com.trig.trigapp.R;
+import com.trig.trigapp.api.Request.CommonReq;
 
 import java.util.ArrayList;
 
@@ -31,17 +32,15 @@ public class CustomSelectionDialog extends Dialog implements
     public Dialog d;
     public TextView titledialog;
     public RecyclerView listdialog;
-    private ArrayList<String> dataList;
     private DialogItemClickListAdapter dialogItemClickListAdapter;
-    private String title;
     EditText editTextSearch;
     OnClickInterface mListner;
+    DataPayload payload;
 
-    public CustomSelectionDialog(Activity activity, ArrayList<String> dataList, String title, OnClickInterface mListner) {
+    public CustomSelectionDialog(Activity activity,DataPayload payload, OnClickInterface mListner) {
         super(activity);
         this.mActivity = activity;
-        this.dataList = dataList;
-        this.title = title;
+        this.payload = payload;
         this.mListner = mListner;
     }
 
@@ -53,11 +52,22 @@ public class CustomSelectionDialog extends Dialog implements
             setContentView(R.layout.selection_popup_mainview);
             titledialog = findViewById(R.id.titledialog);
             editTextSearch = findViewById(R.id.editTextSearch);
-            editTextSearch.setHint("Select "+title);
+            editTextSearch.setHint("Select "+payload.getTitle());
             listdialog = findViewById(R.id.listdialog);
-            titledialog.setText(title);
+            titledialog.setText(payload.getTitle());
+            if(payload.getTitle().equalsIgnoreCase("Branch")){
+                for(int i=0;i<payload.getGetBranchResArrayList().size();i++){
+                    payload.setDataList(payload.getGetBranchResArrayList().get(i).getBranchName());
+                }
+            }else{
+                for(int i=0;i<payload.getGetUnitResArrayList().size();i++){
+                    payload.setDataList(payload.getGetUnitResArrayList().get(i).getUnitName());
+                }
+            }
             listdialog.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-            dialogItemClickListAdapter = new DialogItemClickListAdapter(dataList,mListner,title);
+            dialogItemClickListAdapter = new DialogItemClickListAdapter(payload,mListner);
+
+
             listdialog.setAdapter(dialogItemClickListAdapter);
 
 
@@ -88,14 +98,22 @@ public class CustomSelectionDialog extends Dialog implements
         ArrayList<String> filterdData = new ArrayList<>();
 
         //looping through existing elements
-        for (String s : dataList) {
-            //if the existing elements contains the search input
-            if (s.toLowerCase().contains(text.toLowerCase())) {
-                //adding the element to filtered list
-                filterdData.add(s);
+        if(payload.getTitle().equalsIgnoreCase("Branch")){
+            for(int i =0;i<payload.getGetBranchResArrayList().size();i++){
+                if (payload.getGetBranchResArrayList().get(i).getBranchName().toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdData.add(payload.getGetBranchResArrayList().get(i).getBranchName());
+                }
+            }
+
+        }else if(payload.getTitle().equalsIgnoreCase("Unit")){
+            for(int i =0;i<payload.getGetUnitResArrayList().size();i++){
+                if (payload.getGetUnitResArrayList().get(i).getUnitName().toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdData.add(payload.getGetUnitResArrayList().get(i).getUnitName());
+                }
             }
         }
-
         //calling a method of the adapter class and passing the filtered list
         dialogItemClickListAdapter.filterList(filterdData);
     }
