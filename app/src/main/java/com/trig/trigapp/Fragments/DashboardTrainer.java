@@ -404,8 +404,8 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
 
     private ArrayList textOnPieChart(){
         ArrayList textBelowPie = new ArrayList();
-        textBelowPie.add("Assigned %");
-        textBelowPie.add("Pending %");
+        textBelowPie.add("Completed %");
+        textBelowPie.add("Not started %");
         return textBelowPie;
     }
 }
