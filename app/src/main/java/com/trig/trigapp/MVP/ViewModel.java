@@ -4,7 +4,9 @@ import android.content.Context;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.trig.trigapp.CommonFiles.Utility;
+import com.trig.trigapp.api.Request.AssignCoursesToEmp;
 import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Request.GetProfileDetailsReq;
 import com.trig.trigapp.api.Request.LoadAssignmentsReq;
@@ -495,6 +497,74 @@ public class ViewModel {
 
                     @Override
                     public void onFailure(Call<getDashboardRes> call, Throwable t) {
+                        Log.e(TAG, "onFailure: callLoadAssessment" + t.getCause());
+                        iPresenter.onResponseSubmitAssessment();
+                        iPresenter.onError(t.getCause());
+                    }
+                });
+    }
+
+// This is to get Dashboard Trainer from selecting a Unit
+    public void getUserList(TrainerDashboardReq trainerDashboardReq) {
+        Utility.getInstance().createServiceForTrigApp(mContext)
+                .getUserList(trainerDashboardReq)
+                .enqueue(new Callback<JsonArray>() {
+                    @Override
+                    public void onResponse(Call<JsonArray> call,
+                                           Response<JsonArray> response) {
+                        Log.d(TAG, "onResponse: 1 " + response.body());
+                        if (response.isSuccessful()) {
+                            Log.d(TAG, "onResponse: 2 " + response.body());
+                            if (response.body() != null) {
+                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                iPresenter.onResponseGetUserList(response.body());
+//                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
+                            }
+                        } else {
+                            Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
+                            if (response.errorBody() != null) {
+                                iPresenter.onError(response.errorBody());
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonArray> call, Throwable t) {
+                        Log.e(TAG, "onFailure: callLoadAssessment" + t.getCause());
+                        iPresenter.onResponseSubmitAssessment();
+                        iPresenter.onError(t.getCause());
+                    }
+                });
+    }
+
+// This is to get Assign Courses to Employess (Specific to 1 and all options)
+    public void assignCourseTrainerToEmp(AssignCoursesToEmp assignCoursesToEmp) {
+        Utility.getInstance().createServiceForTrigApp(mContext)
+                .assignCourseTrainerToEmp(assignCoursesToEmp)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call,
+                                           Response<String> response) {
+                        Log.d(TAG, "onResponse: 1 " + response.body());
+                        if (response.isSuccessful()) {
+                            Log.d(TAG, "onResponse: 2 " + response.body());
+                            if (response.body() != null) {
+                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                iPresenter.onResponseAssignCourseRes(response.body());
+//                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
+                            }
+                        } else {
+                            Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
+                            if (response.errorBody() != null) {
+                                iPresenter.onError(response.errorBody());
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
                         Log.e(TAG, "onFailure: callLoadAssessment" + t.getCause());
                         iPresenter.onResponseSubmitAssessment();
                         iPresenter.onError(t.getCause());

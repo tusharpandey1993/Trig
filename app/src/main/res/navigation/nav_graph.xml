@@ -289,6 +289,9 @@
         <action
             android:id="@+id/action_dashboardFrag_to_Contact"
             app:destination="@id/Contact" />
+        <action
+            android:id="@+id/action_dashboardFrag_to_AssignCourseTrainer"
+            app:destination="@id/AssignCourseTrainer" />
 
 
     </fragment>

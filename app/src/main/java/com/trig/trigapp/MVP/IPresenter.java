@@ -1,6 +1,7 @@
 package com.trig.trigapp.MVP;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.trig.trigapp.api.Response.CommonResponse;
 import com.trig.trigapp.api.Response.getAssessmentListRes;
 import com.trig.trigapp.api.Response.getCourseDetailsRes;
@@ -33,6 +34,8 @@ public interface IPresenter {
     default void onResponsegetBranch(JsonArray jsonArray){}
     default void onResponsegetUnit(JsonArray jsonArray){}
     default void onResponseDashboardTrainer(getDashboardRes getDashboardRes){}
+    default void onResponseGetUserList(JsonArray jsonArray){}
+    default void onResponseAssignCourseRes(String string){}
 
 
 

@@ -1,6 +1,8 @@
 package com.trig.trigapp.api;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.trig.trigapp.api.Request.AssignCoursesToEmp;
 import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Request.LoadAssignmentsReq;
 import com.trig.trigapp.api.Request.LoginRequest;
@@ -67,7 +69,16 @@ public interface Service {
     @POST("TrainerUnit/GetUnit")
     Call<JsonArray> getUnit(@Body  CommonReq commonReq);
 
+    // Dashboard Trainer
     @POST("TrainerDashBoard/GetDashBoard")
     Call<getDashboardRes> getTainerDashboard(@Body TrainerDashboardReq trainerDashboardReq);
+
+    // Assign Course Trainer
+    @POST("Trainer/GetUserList")
+    Call<JsonArray> getUserList(@Body TrainerDashboardReq trainerDashboardReq);
+
+    // Assign Course To Employees
+    @POST("Trainer/AssignToEmployee")
+    Call<String> assignCourseTrainerToEmp(@Body AssignCoursesToEmp assignCoursesToEmp);
 
    }

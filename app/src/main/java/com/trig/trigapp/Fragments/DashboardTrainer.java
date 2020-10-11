@@ -74,6 +74,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     private TextView courseNumber, courseCompletedNumber, assessmentNumber, assementCompleted;
     private ConstraintLayout courseContainer, assessmentContainer;
 
+
     public DashboardTrainer() {
         // Required empty public constructor
     }
@@ -88,7 +89,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.assign_course_trainer, container, false);
+        mView = inflater.inflate(R.layout.dashboard_trainer, container, false);
         init(mView);
 
         viewModel.getBranch(new User_id(TrigAppPreferences.getUserId(mActivity)));
@@ -236,7 +237,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
                     break;
                 case POS_ASSIGN:
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                            .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
+                            .navigate(R.id.action_dashboardFrag_to_AssignCourseTrainer);
                     break;
                 case POS_REPORT:
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)

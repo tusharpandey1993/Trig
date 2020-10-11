@@ -12,6 +12,7 @@ public class TrainerDashboardReq {
     @SerializedName("emp_code")
     private String emp_code;
 
+
     public int getUnitId() {
         return unitId;
     }
