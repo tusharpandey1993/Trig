@@ -37,7 +37,7 @@ public class LoaderFragment extends DialogFragment {
         mView = inflater.inflate(R.layout.fragment_loader, container, false);
         setCancelable(false);
         animationView = mView.findViewById(R.id.gifConnectingOnOpponent);
-        animationView.setAnimation("loader_one.json");
+        animationView.setAnimation("loader_three.json");
         if (!animationView.isAnimating()) {
             animationView.playAnimation();
             animationView.loop(true);

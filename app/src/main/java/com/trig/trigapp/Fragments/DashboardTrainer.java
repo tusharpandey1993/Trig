@@ -73,7 +73,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     private PieChart pieChartCourses, pieChartAssessment;
     private TextView courseNumber, courseCompletedNumber, assessmentNumber, assementCompleted;
     private ConstraintLayout courseContainer, assessmentContainer;
-
+    private TextView toolBarText;
 
     public DashboardTrainer() {
         // Required empty public constructor
@@ -89,7 +89,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.dashboard_trainer, container, false);
+        mView = inflater.inflate(R.layout.trainer_dash, container, false);
         init(mView);
 
         viewModel.getBranch(new User_id(TrigAppPreferences.getUserId(mActivity)));
@@ -158,6 +158,8 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     }
 
     private void init(View mView) {
+        toolBarText = mView.findViewById(R.id.toolBarText);
+        toolBarText.setText("Dashboard Trainer");
         edit_branch = mView.findViewById(R.id.edit_branch);
         edit_unit = mView.findViewById(R.id.edit_unit);
         edit_branch.setOnClickListener(this);
@@ -239,19 +241,19 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
                     break;
                 case POS_ASSIGN:
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                            .navigate(R.id.action_dashboardFrag_to_AssignCourseTrainer);
+                            .navigate(R.id.action_DashboardTrainerFrag_to_AssignCourseTrainerFrag);
                     break;
                 case POS_REPORT:
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                            .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
+                            .navigate(R.id.action_DashboardTrainerFrag_to_ReportFrag);
                     break;
                 case POS_PROFILE:
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                            .navigate(R.id.action_dashboardFrag_to_ProfileFragment);
+                            .navigate(R.id.action_DashboardTrainerFrag_to_ProfileFragment);
                     break;
                 case POS_CONTACT_US:
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                            .navigate(R.id.action_dashboardFrag_to_Contact);
+                            .navigate(R.id.action_DashboardTrainerFrag_to_Contact);
                     break;
                 case POS_LOGOUT:TrigAppPreferences.setLoginPref(mActivity, false);
                     GenericDialogPopup genericDialogPopup = null;

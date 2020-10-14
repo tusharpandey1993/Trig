@@ -235,7 +235,6 @@
         <action
             android:id="@+id/action_fragment_success_to_dashboardFragment"
             app:destination="@id/DashboardFragment" />
-
         <action
             android:id="@+id/action_fragment_success_to_dashboardTrainerFragment"
             app:destination="@id/DashboardTrainer" />
@@ -254,6 +253,7 @@
         <action
             android:id="@+id/action_profile_to_dashboardTrainerFragment"
             app:destination="@id/DashboardTrainer" />
+        <!--  dashboard -->
         <action
             android:id="@+id/action_dashboardFrag_to_LoginFragment"
             app:destination="@id/LoginFragment" />
@@ -272,6 +272,24 @@
         <action
             android:id="@+id/action_dashboardFrag_to_topics"
             app:destination="@id/CoursesTopics" />
+
+        <!-- dashboard trainer-->
+
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_Contact"
+            app:destination="@id/Contact" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_ReportFrag"
+            app:destination="@id/ReportFragment" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_AssignCourseTrainerFrag"
+            app:destination="@id/AssignCourseTrainer" />
     </fragment>
 
     <fragment
@@ -281,20 +299,73 @@
         tools:layout="@layout/dashboard_trainer">
 
         <action
-            android:id="@+id/action_dashboardFrag_to_LoginFragment"
+            android:id="@+id/action_DashboardTrainerFrag_to_LoginFragment"
             app:destination="@id/LoginFragment" />
         <action
-            android:id="@+id/action_dashboardFrag_to_ProfileFragment"
+            android:id="@+id/action_DashboardTrainerFrag_to_ProfileFragment"
             app:destination="@id/ProfileFragment" />
         <action
-            android:id="@+id/action_dashboardFrag_to_Contact"
+            android:id="@+id/action_DashboardTrainerFrag_to_Contact"
             app:destination="@id/Contact" />
         <action
-            android:id="@+id/action_dashboardFrag_to_AssignCourseTrainer"
+            android:id="@+id/action_DashboardTrainerFrag_to_ReportFrag"
+            app:destination="@id/ReportFragment" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_AssignCourseTrainerFrag"
             app:destination="@id/AssignCourseTrainer" />
 
 
     </fragment>
+
+
+    <fragment
+        android:id="@+id/ReportFragment"
+        android:name="com.trig.trigapp.Fragments.ReportFragment"
+        android:label="Dashboard Fragment"
+        tools:layout="@layout/dashboard_trainer">
+
+        <action
+            android:id="@+id/action_Report_to_dashboardTrainerFragment"
+            app:destination="@id/DashboardTrainer" />
+
+<!--        dashboard-->
+
+        <action
+            android:id="@+id/action_ReportFrag_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_ReportFrag_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_ReportFrag_to_Contact"
+            app:destination="@id/Contact" />
+        <action
+            android:id="@+id/action_ReportFrag_to_AssignCourseTrainerFrag"
+            app:destination="@id/AssignCourseTrainer" />
+
+<!--        dashboard trainer-->
+
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_Contact"
+            app:destination="@id/Contact" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_ReportFrag"
+            app:destination="@id/ReportFragment" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_AssignCourseTrainerFrag"
+            app:destination="@id/AssignCourseTrainer" />
+
+
+
+    </fragment>
+
+
 
     <fragment
         android:id="@+id/AssignCourseTrainer"
@@ -303,14 +374,41 @@
         tools:layout="@layout/assign_course_trainer">
 
         <action
-            android:id="@+id/action_assign_course_to_LoginFragment"
+            android:id="@+id/action_AssignCourse_to_dashboardTrainerFragment"
+            app:destination="@id/DashboardTrainer" />
+
+        <action
+            android:id="@+id/action_AssignCourseTrainerFrag_to_LoginFragment"
             app:destination="@id/LoginFragment" />
         <action
-            android:id="@+id/action_assign_course_to_ProfileFragment"
+            android:id="@+id/action_AssignCourseTrainerFrag_to_ProfileFragment"
             app:destination="@id/ProfileFragment" />
         <action
-            android:id="@+id/action_assign_course_to_Contact"
+            android:id="@+id/action_AssignCourseTrainerFrag_to_Contact"
             app:destination="@id/Contact" />
+        <action
+            android:id="@+id/action_AssignCourseTrainerFrag_to_ReportFrag"
+            app:destination="@id/ReportFragment" />
+        <action
+            android:id="@+id/action_AssignCourseTrainerFrag_to_AssignCourseTrainerFrag"
+            app:destination="@id/AssignCourseTrainer" />
+
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_Contact"
+            app:destination="@id/Contact" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_ReportFrag"
+            app:destination="@id/ReportFragment" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_AssignCourseTrainerFrag"
+            app:destination="@id/AssignCourseTrainer" />
+
 
     </fragment>
 
@@ -323,11 +421,10 @@
         <action
             android:id="@+id/action_contact_to_dashboardFragment"
             app:destination="@id/DashboardFragment" />
-
         <action
             android:id="@+id/action_contact_to_dashboardTrainerFragment"
             app:destination="@id/DashboardTrainer" />
-
+        <!--    Dashboard -->
         <action
             android:id="@+id/action_dashboardFrag_to_LoginFragment"
             app:destination="@id/LoginFragment" />
@@ -346,6 +443,24 @@
         <action
             android:id="@+id/action_dashboardFrag_to_topics"
             app:destination="@id/CoursesTopics" />
+
+        <!--    Dashboard trainer-->
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_Contact"
+            app:destination="@id/Contact" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_ReportFrag"
+            app:destination="@id/ReportFragment" />
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_AssignCourseTrainerFrag"
+            app:destination="@id/AssignCourseTrainer" />
+
 
     </fragment>
 

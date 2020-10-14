@@ -11,17 +11,11 @@ import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonArray;
 import com.trig.trigapp.Adapter.NavDrawerAdapter;
@@ -39,14 +33,6 @@ import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogPopup;
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
-import com.trig.trigapp.api.Request.AssignCoursesToEmp;
-import com.trig.trigapp.api.Request.CommonReq;
-import com.trig.trigapp.api.Request.TrainerDashboardReq;
-import com.trig.trigapp.api.Request.User_id;
-import com.trig.trigapp.api.Response.GetBranchRes;
-import com.trig.trigapp.api.Response.GetUnitRes;
-import com.trig.trigapp.api.Response.UserListResponse;
-import com.trig.trigapp.api.Response.getDashboardRes;
 import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Request.TrainerDashboardReq;
 import com.trig.trigapp.api.Request.User_id;
@@ -59,31 +45,20 @@ import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import java.util.ArrayList;
 
-public class AssignCourseTrainer extends BaseFragment implements GenericDialogClickListener,  onDialogClickCallback, View.OnClickListener , OnClickInterface, IPresenter {
+public class ReportFragment extends BaseFragment implements GenericDialogClickListener,  onDialogClickCallback, View.OnClickListener , OnClickInterface, IPresenter {
 
-    private static final String TAG = "DashboardTrainer";
+    private static final String TAG = "ProfileFragment";
     FragmentActivity mActivity;
     View mView;
     TextInputEditText edit_branch, edit_unit;
-    ArrayList<String> typeOfList;
-    private RecyclerView list;
-    private ImageView closeIcon;
-    private SlidingRootNav slidingRootNav;
     private ArrayList<GetUnitRes> getUnitResArrayList;
     private ArrayList<GetBranchRes> getBranchResArrayList;
-    private ArrayList<UserListResponse> userListResponseArrayList;
     private ViewModel viewModel;
     CustomSelectionDialog cdd;
-    private PieChart pieChartCourses, pieChartAssessment;
-    private TextView courseNumber, courseCompletedNumber, assessmentNumber, assementCompleted;
-    private ConstraintLayout courseContainer, assessmentContainer;
-    private TextView toolBarText;
-//    private ArrayList<GetUnitRes> getUnitResArrayList;
-//    private ArrayList<GetBranchRes> getBranchResArrayList;
-//    private ViewModel viewModel;
-//    CustomSelectionDialog cdd;
     ImageView backIcon;
-    public AssignCourseTrainer() {
+    private TextView toolBarText;
+
+    public ReportFragment() {
         // Required empty public constructor
     }
 
@@ -126,9 +101,12 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
         return mView;
     }
     private void moveBackNavigation() {
-        if (TrigAppPreferences.getUser_Type(mActivity).equalsIgnoreCase(Constants.getInstance().trainer)) {
+        if (TrigAppPreferences.getUser_Type(mActivity).equalsIgnoreCase(Constants.getInstance().user)) {
             Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                    .navigate(R.id.action_AssignCourse_to_dashboardTrainerFragment);
+                    .navigate(R.id.action_profile_to_dashboardFragment);
+        } else if (TrigAppPreferences.getUser_Type(mActivity).equalsIgnoreCase(Constants.getInstance().trainer)) {
+            Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                    .navigate(R.id.action_Report_to_dashboardTrainerFragment);
         }
     }
 
@@ -154,24 +132,13 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
 
     private void init(View mView) {
         toolBarText = mView.findViewById(R.id.toolBarText);
-        toolBarText.setText("Assign Course");
+        toolBarText.setText("Report");
         edit_branch = mView.findViewById(R.id.edit_branch);
         edit_unit = mView.findViewById(R.id.edit_unit);
         edit_branch.setOnClickListener(this);
         edit_unit.setOnClickListener(this);
-        pieChartCourses = mView.findViewById(R.id.pieChartCourses);
-        pieChartAssessment = mView.findViewById(R.id.pieChartAssessment);
-
-        courseNumber = mView.findViewById(R.id.courseNumber);
-        courseCompletedNumber = mView.findViewById(R.id.courseCompletedNumber);
-        assessmentNumber = mView.findViewById(R.id.assessmentNumber);
-        assementCompleted = mView.findViewById(R.id.assementCompleted);
         backIcon = mView.findViewById(R.id.backIcon);
         viewModel = new ViewModel(mActivity, this);
-
-        courseContainer = mView.findViewById(R.id.courseContainer);
-        assessmentContainer = mView.findViewById(R.id.assessmentContainer);
-
 
     }
 
@@ -188,10 +155,6 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
 
         }else if(title.equalsIgnoreCase("Unit")){
             edit_unit.setText(selectedValue);
-            TrainerDashboardReq trainerDashboardReq = new TrainerDashboardReq();
-            trainerDashboardReq.setEmp_code(TrigAppPreferences.getEmployee_Code(mActivity));
-            trainerDashboardReq.setUnitId(Integer.parseInt(selectedID));
-            viewModel.getUserList(trainerDashboardReq);
         }
         cdd.dismiss();
     }
@@ -205,15 +168,6 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
                 break;
             case R.id.edit_unit:
                 openDialog("Unit");
-                break;
-            case R.id.logout:
-                TrigAppPreferences.clear(mActivity);
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_LoginFragment);
-                break;
-
-            case R.id.closeIcon:
-                slidingRootNav.closeMenu();
                 break;
 
         }
@@ -296,38 +250,14 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
     }
 
     @Override
-    public void onResponseGetUserList(JsonArray jsonArray) {
+    public void onResponseDashboardTrainer(getDashboardRes getDashboardRes) {
         try {
             hideLoader();
-            try {
-                userListResponseArrayList = new ArrayList<>();
-                if (jsonArray != null) {
-                    for (int i = 0; i < jsonArray.size(); i++) {
-                        UserListResponse userListResponse = Utility.getInstance().getG().fromJson(jsonArray.get(i), UserListResponse.class);
-                        userListResponseArrayList.add(userListResponse);
-                        Log.d(TAG, "onResponsegetUnit: " + userListResponse.toString());
-                    }
-                }
-            } catch (Exception e) {
-                Log.e(TAG, "onResponsegetUnit: exception " + e.getMessage());
+            if (getDashboardRes != null && !Utility.getInstance().getG().toJson(getDashboardRes).equals("{}")) {
+
             }
         } catch (Exception e) {
             Log.e(TAG, "onResponseDashboardTrainer: exception" + e.getMessage());
         }
     }
-
-    public void assignCourse() {
-        AssignCoursesToEmp assignCoursesToEmp = new AssignCoursesToEmp();
-        assignCoursesToEmp.setAssessment("1");
-        assignCoursesToEmp.setCourse("1");
-        assignCoursesToEmp.setTrainer_emp_code(Integer.parseInt(TrigAppPreferences.getEmployee_Code(mActivity)));
-        assignCoursesToEmp.setUserName(TrigAppPreferences.getUserName(mActivity));
-        viewModel.assignCourseTrainerToEmp(assignCoursesToEmp);
-    }
-
-    @Override
-    public void onResponseAssignCourseRes(String string) {
-        Log.d(TAG, "onResponseAssignCourseRes: " + string);
-    }
 }
-
