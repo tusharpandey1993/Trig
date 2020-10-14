@@ -36,7 +36,7 @@ public interface IPresenter {
     default void onResponseDashboardTrainer(getDashboardRes getDashboardRes){}
     default void onResponseGetUserList(JsonArray jsonArray){}
     default void onResponseAssignCourseRes(String string){}
-
+    default void onResponseGetUserReportRes(JsonArray jsonArray){}
 
 
 }

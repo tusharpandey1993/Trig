@@ -9,6 +9,7 @@ import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.api.Request.AssignCoursesToEmp;
 import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Request.GetProfileDetailsReq;
+import com.trig.trigapp.api.Request.GetReportReq;
 import com.trig.trigapp.api.Request.LoadAssignmentsReq;
 import com.trig.trigapp.api.Request.LoginRequest;
 import com.trig.trigapp.api.Request.SubmitAssessmentReq;
@@ -543,5 +544,39 @@ public class ViewModel {
                     }
                 });
     }
+
+
+    // This is to get User list after selecting UNIT
+    public void getReport(GetReportReq getReportReq) {
+        Utility.getInstance().createServiceForTrigApp(mContext)
+                .getUserReport(getReportReq)
+                .enqueue(new Callback<JsonArray>() {
+                    @Override
+                    public void onResponse(Call<JsonArray> call,
+                                           Response<JsonArray> response) {
+                        if (response.isSuccessful()) {
+
+                            if (response.body() != null) {
+                                Log.d(TAG, "onResponse:getUserList 3 " + response.body());
+                                iPresenter.onResponseGetUserReportRes(response.body());
+                            }
+                        } else {
+                            Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
+                            if (response.errorBody() != null) {
+                                iPresenter.onError(response.errorBody());
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonArray> call, Throwable t) {
+                        Log.e(TAG, "onFailure: callLoadAssessment" + t.getCause());
+                        iPresenter.onResponseSubmitAssessment();
+                        iPresenter.onError(t.getCause());
+                    }
+                });
+    }
+
 
 }

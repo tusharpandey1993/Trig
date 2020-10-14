@@ -34,9 +34,11 @@ import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
 import com.trig.trigapp.api.Request.CommonReq;
+import com.trig.trigapp.api.Request.GetReportReq;
 import com.trig.trigapp.api.Request.TrainerDashboardReq;
 import com.trig.trigapp.api.Request.User_id;
 import com.trig.trigapp.api.Response.GetBranchRes;
+import com.trig.trigapp.api.Response.GetReportRes;
 import com.trig.trigapp.api.Response.GetUnitRes;
 import com.trig.trigapp.api.Response.getDashboardRes;
 import com.yarolegovich.slidingrootnav.SlideGravity;
@@ -53,6 +55,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
     TextInputEditText edit_branch, edit_unit;
     private ArrayList<GetUnitRes> getUnitResArrayList;
     private ArrayList<GetBranchRes> getBranchResArrayList;
+    private ArrayList<GetReportRes> getReportResArrayList;
     private ViewModel viewModel;
     CustomSelectionDialog cdd;
     ImageView backIcon;
@@ -77,10 +80,11 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
 
         viewModel.getBranch(new User_id(TrigAppPreferences.getUserId(mActivity)));
 
-        TrainerDashboardReq trainerDashboardReq = new TrainerDashboardReq();
-        trainerDashboardReq.setEmp_code("9082461859");
-        trainerDashboardReq.setUnitId(4755);
-        viewModel.getTrainerDashboard(trainerDashboardReq);
+        GetReportReq getReportReq = new GetReportReq();
+        getReportReq.setEmp_code("9082461859");
+        getReportReq.setUnitId(456);
+        getReportReq.setStatus("all");
+        viewModel.getReport(getReportReq);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
@@ -258,6 +262,22 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
             }
         } catch (Exception e) {
             Log.e(TAG, "onResponseDashboardTrainer: exception" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void onResponseGetUserReportRes(JsonArray jsonArray) {
+        try {
+            getReportResArrayList = new ArrayList<>();
+            if (jsonArray != null) {
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    GetReportRes getReportRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), GetReportRes.class);
+                    getReportResArrayList.add(getReportRes);
+                    Log.d(TAG, "onResponseGetUserReportRes: " + getReportResArrayList.toString());
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onResponsegetUnit: exception " + e.getMessage());
         }
     }
 }
