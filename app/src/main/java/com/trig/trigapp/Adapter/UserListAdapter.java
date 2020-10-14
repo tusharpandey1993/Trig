@@ -55,54 +55,21 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.MyVi> 
 
     public class MyVi extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView cardHeading, assignedDate, completedOn, status, percentage, InstallScheduleText, progressEndPercentage;
-        public ImageView imageView, completedIcon;
-        public ConstraintLayout relativeLayout;
-        public ProgressBar courseCompletionProgess;
+        public TextView key, value;
         getAssessmentListRes item;
 
         public MyVi(View v) {
-
             super(v);
-
             v.setOnClickListener(this);
-            cardHeading = (TextView) v.findViewById(R.id.cardHeading);
-            assignedDate = (TextView) v.findViewById(R.id.assignedDate);
-            completedOn = (TextView) v.findViewById(R.id.completedOn);
-            status = (TextView) v.findViewById(R.id.status);
-            percentage = (TextView) v.findViewById(R.id.percentage);
-            completedIcon = (ImageView) v.findViewById(R.id.completedIcon);
-            InstallScheduleText = (TextView) v.findViewById(R.id.InstallScheduleText);
-            progressEndPercentage = (TextView) v.findViewById(R.id.progressEndPercentage);
-
-
-            relativeLayout = (ConstraintLayout) v.findViewById(R.id.relativeLayout);
-            courseCompletionProgess = (ProgressBar) v.findViewById(R.id.courseCompletionProgess);
-
+            key = (TextView) v.findViewById(R.id.key);
+            value = (TextView) v.findViewById(R.id.value);
         }
 
         public void setData(getAssessmentListRes item) {
             this.item = item;
 
-            cardHeading.setText(""+item.getAssessment_name());
-            assignedDate.setText(""+item.getAssigned_date());
-            completedOn.setText(item.getAssestment_completed_date());
-            status.setText(item.getStatus());
-            if(!item.getScore().isEmpty()) {
-                float score = Float.parseFloat(item.getScore());
-                percentage.setText(""+Math.round(score) + "%");
-                courseCompletionProgess.setProgress(1);
-                courseCompletionProgess.setProgress(Math.round(score));
-                progressEndPercentage.setText(Math.round(score) + " %");
-            }
-
-            if(item.getStatus().equalsIgnoreCase("Completed")) {
-                completedIcon.setVisibility(View.VISIBLE);
-                InstallScheduleText.setText(Constants.getInstance().Result);
-            } else {
-                completedIcon.setVisibility(View.GONE);
-                InstallScheduleText.setText(Constants.getInstance().ATTEMPT_small);
-            }
+            key.setText(""+item.getAssessment_name());
+            value.setText(""+item.getAssigned_date());
 
         }
 
