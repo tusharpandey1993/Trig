@@ -78,12 +78,32 @@
         android:orientation="horizontal"
         android:weightSum="1">
 
-        <AutoCompleteTextView
+       <!-- <AutoCompleteTextView
             android:id="@+id/resetOneEmpET"
             style="@style/desc_text"
             android:layout_margin="@dimen/_5sdp"
             android:hint="Select Employee Code*"
-            android:layout_weight="0.6"/>
+            android:layout_weight="0.6"/>-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/resetOneEmpET"
+                style="@style/desc_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:focusable="false"
+                android:textColorHint="@color/greyed_out"
+                android:focusableInTouchMode="true"
+                android:hint="Select Employee Code*"
+                android:layout_weight="0.6" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
             android:id="@+id/reassignEmp"

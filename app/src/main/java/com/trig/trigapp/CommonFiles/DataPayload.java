@@ -2,6 +2,7 @@ package com.trig.trigapp.CommonFiles;
 
 import com.trig.trigapp.api.Response.GetBranchRes;
 import com.trig.trigapp.api.Response.GetUnitRes;
+import com.trig.trigapp.api.Response.UserListResponse;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,20 @@ public class DataPayload {
     public GetUnitRes getUnitRes;
     private ArrayList<GetUnitRes> getUnitResArrayList = new ArrayList<>();
     private ArrayList<GetBranchRes> getBranchResArrayList = new ArrayList<>();
+    private ArrayList<UserListResponse> userListResponses = new ArrayList<>();
     private ArrayList<String> dataList = new ArrayList<>();
+
+    public ArrayList<UserListResponse> getUserListResponses() {
+        return userListResponses;
+    }
+
+    public void setUserListResponses(ArrayList<UserListResponse> userListResponses) {
+        this.userListResponses = userListResponses;
+    }
+
+    public void setDataList(ArrayList<String> dataList) {
+        this.dataList = dataList;
+    }
 
     public ArrayList<String> getDataList() {
         return dataList;

@@ -51,7 +51,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
     private static final String TAG = "DashboardTrainer";
     private FragmentActivity mActivity;
     private View mView;
-    private TextInputEditText edit_branch, edit_unit;
+    private TextInputEditText edit_branch, edit_unit,resetOneEmpET;
     private ArrayList<String> typeOfList;
     private RecyclerView list, filteredListRecycler;
     private ImageView closeIcon;
@@ -64,7 +64,6 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
     private CustomSelectionDialog cdd;
     private CheckBox assignCourseCB, assignAssessCB;
     private Button reassignEmp, reassignAll;
-    private AutoCompleteTextView resetOneEmpET;
     private Toolbar toolbar;
 
     public AssignCourseTrainer() {
@@ -168,6 +167,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
         edit_unit.setOnClickListener(this);
         reassignEmp.setOnClickListener(this);
         reassignAll.setOnClickListener(this);
+        resetOneEmpET.setOnClickListener(this);
 
     }
 
@@ -175,6 +175,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
     public void onClick(View view, int position, String selectedValue,String selectedID,String title) {
         if(title.equalsIgnoreCase(Constants.getInstance().Branch)){
             edit_branch.setText(selectedValue);
+            showLoader();
             edit_unit.setEnabled(true);
             edit_unit.setHintTextColor(getResources().getColor(R.color.hint_color));
 
@@ -203,6 +204,9 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
                 break;
             case R.id.edit_unit:
                 openDialog(Constants.getInstance().Unit);
+                break;
+            case R.id.resetOneEmpET:
+                openDialog(Constants.getInstance().EMPCode);
                 break;
             case R.id.logout:
                 TrigAppPreferences.clear(mActivity);
@@ -318,11 +322,17 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
                     payload.setTitle(title);
                     payload.setGetBranchResArrayList(getBranchResArrayList);
                 }
-            }else{
+            }else if(title.equalsIgnoreCase("Unit")){
                 if(getUnitResArrayList!=null) {
                     payload = new DataPayload();
                     payload.setTitle(title);
                     payload.setGetUnitResArrayList(getUnitResArrayList);
+                }
+            }else{
+                if(userListResponseArrayList!=null) {
+                    payload = new DataPayload();
+                    payload.setTitle(title);
+                    payload.setUserListResponses(userListResponseArrayList);
                 }
             }
             if(payload!=null) {
@@ -380,6 +390,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
                     Log.d(TAG, "onResponsegetUnit: " + getUnitRes.toString());
                 }
             }
+            hideLoader();
         } catch (Exception e) {
             Log.e(TAG, "onResponsegetUnit: exception " + e.getMessage());
         }

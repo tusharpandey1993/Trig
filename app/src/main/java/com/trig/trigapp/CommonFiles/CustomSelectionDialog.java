@@ -25,6 +25,7 @@ import com.trig.trigapp.R;
 import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Response.GetBranchRes;
 import com.trig.trigapp.api.Response.GetUnitRes;
+import com.trig.trigapp.api.Response.UserListResponse;
 
 import java.util.ArrayList;
 
@@ -58,13 +59,17 @@ public class CustomSelectionDialog extends Dialog implements
             editTextSearch.setHint("Select "+payload.getTitle());
             listdialog = findViewById(R.id.listdialog);
             titledialog.setText(payload.getTitle());
-            if(payload.getTitle().equalsIgnoreCase("Branch")){
+            if(payload.getTitle().equalsIgnoreCase(Constants.getInstance().Branch)){
                 for(int i=0;i<payload.getGetBranchResArrayList().size();i++){
                     payload.setDataList(payload.getGetBranchResArrayList().get(i).getBranchName());
                 }
-            }else{
+            }else if(payload.getTitle().equalsIgnoreCase(Constants.getInstance().Unit)){
                 for(int i=0;i<payload.getGetUnitResArrayList().size();i++){
                     payload.setDataList(payload.getGetUnitResArrayList().get(i).getUnitName());
+                }
+            }else if(payload.getTitle().equalsIgnoreCase(Constants.getInstance().EMPCode)){
+                for(int i=0;i<payload.getUserListResponses().size();i++){
+                    payload.setDataList(payload.getUserListResponses().get(i).getTirg_EmpCode());
                 }
             }
             listdialog.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
@@ -101,9 +106,10 @@ public class CustomSelectionDialog extends Dialog implements
         ArrayList<String> filterdData = new ArrayList<>();
         ArrayList<GetBranchRes> filteredGetBranchRes = new ArrayList<>();
         ArrayList<GetUnitRes> filteredGetUnitRes = new ArrayList<>();
+        ArrayList<UserListResponse> filteredGetUserListRes = new ArrayList<>();
 
         //looping through existing elements
-        if(payload.getTitle().equalsIgnoreCase("Branch")){
+        if(payload.getTitle().equalsIgnoreCase(Constants.getInstance().Branch)){
             for(int i =0;i<payload.getGetBranchResArrayList().size();i++){
                 if (payload.getGetBranchResArrayList().get(i).getBranchName().toLowerCase().contains(text.toLowerCase())) {
                     //adding the element to filtered list
@@ -112,7 +118,7 @@ public class CustomSelectionDialog extends Dialog implements
                 }
             }
 
-        }else if(payload.getTitle().equalsIgnoreCase("Unit")){
+        }else if(payload.getTitle().equalsIgnoreCase(Constants.getInstance().Unit)){
             for(int i =0;i<payload.getGetUnitResArrayList().size();i++){
                 if (payload.getGetUnitResArrayList().get(i).getUnitName().toLowerCase().contains(text.toLowerCase())) {
                     //adding the element to filtered list
@@ -120,9 +126,17 @@ public class CustomSelectionDialog extends Dialog implements
                     filteredGetUnitRes.add((payload.getGetUnitResArrayList().get(i)));
                 }
             }
+        }else if(payload.getTitle().equalsIgnoreCase(Constants.getInstance().EMPCode)){
+            for(int i =0;i<payload.getUserListResponses().size();i++){
+                if (payload.getUserListResponses().get(i).getTirg_EmpCode().toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdData.add(payload.getUserListResponses().get(i).getTirg_EmpCode());
+                    filteredGetUserListRes.add((payload.getUserListResponses().get(i)));
+                }
+            }
         }
         //calling a method of the adapter class and passing the filtered list
-        dialogItemClickListAdapter.filterList(filterdData, filteredGetBranchRes, filteredGetUnitRes );
+        dialogItemClickListAdapter.filterList(filterdData, filteredGetBranchRes, filteredGetUnitRes ,filteredGetUserListRes);
     }
 
     @Override

@@ -193,6 +193,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     public void onClick(View view, int position, String selectedValue,String selectedID,String title) {
         if(title.equalsIgnoreCase(Constants.getInstance().Branch)){
             edit_branch.setText(selectedValue);
+            showLoader();
             edit_unit.setEnabled(true);
             edit_unit.setHintTextColor(getResources().getColor(R.color.hint_color));
 
@@ -352,6 +353,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
                     Log.d(TAG, "onResponsegetUnit: " + getUnitRes.toString());
                 }
             }
+            hideLoader();
         } catch (Exception e) {
             Log.e(TAG, "onResponsegetUnit: exception " + e.getMessage());
         }

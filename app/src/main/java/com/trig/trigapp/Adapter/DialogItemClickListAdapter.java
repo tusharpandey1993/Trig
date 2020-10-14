@@ -8,10 +8,12 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.DataPayload;
 import com.trig.trigapp.R;
 import com.trig.trigapp.api.Response.GetBranchRes;
 import com.trig.trigapp.api.Response.GetUnitRes;
+import com.trig.trigapp.api.Response.UserListResponse;
 
 import java.util.ArrayList;
 
@@ -22,13 +24,21 @@ public class DialogItemClickListAdapter extends RecyclerView.Adapter<DialogItemC
     private ArrayList<String> dataList;
     ArrayList<GetBranchRes> getBranchResArrayList;
     ArrayList<GetUnitRes> getUnitResArrayList;
+    ArrayList<UserListResponse> getUserListRes;
 
     public DialogItemClickListAdapter(DataPayload payload, OnClickInterface mListner) {
         this.payload = payload;
         this.mListner = mListner;
         dataList = payload.getDataList();
-        getBranchResArrayList = payload.getGetBranchResArrayList();
-        getUnitResArrayList = payload.getGetUnitResArrayList();
+        if(payload.getGetBranchResArrayList()!=null) {
+            getBranchResArrayList = payload.getGetBranchResArrayList();
+        }
+        if(payload.getGetUnitResArrayList()!=null) {
+            getUnitResArrayList = payload.getGetUnitResArrayList();
+        }
+        if(payload.getUserListResponses()!=null) {
+            getUserListRes = payload.getUserListResponses();
+        }
     }
 
     @Override
@@ -47,13 +57,19 @@ public class DialogItemClickListAdapter extends RecyclerView.Adapter<DialogItemC
             holder.mainLayoutClickable.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(payload.getTitle().equalsIgnoreCase("Branch")){
+                    if(payload.getTitle().equalsIgnoreCase(Constants.getInstance().Branch)){
                         mListner.onClick(v,position,dataList.get(position),"" +
                                 getBranchResArrayList.get(position).getBranchID(),payload.getTitle());
-                    }else{
+                    }
+                    else if(payload.getTitle().equalsIgnoreCase(Constants.getInstance().Unit)){
                         dataList.get(position).equalsIgnoreCase(dataList.get(position));
                         mListner.onClick(v,position,dataList.get(position),"" +
                                 getUnitResArrayList.get(position).getUnitID(),payload.getTitle());
+                    }
+                    else if(payload.getTitle().equalsIgnoreCase(Constants.getInstance().EMPCode)){
+                        dataList.get(position).equalsIgnoreCase(dataList.get(position));
+                        mListner.onClick(v,position,dataList.get(position),"" +
+                                getUserListRes.get(position).getTirg_EmpCode(),payload.getTitle());
                     }
 
                 }
@@ -67,10 +83,17 @@ public class DialogItemClickListAdapter extends RecyclerView.Adapter<DialogItemC
     //This method will filter the list
     //here we are passing the filtered data
     //and assigning it to the list with notifydatasetchanged method
-    public void filterList(ArrayList<String> filterdData, ArrayList<GetBranchRes> filteredGetBranchRes, ArrayList<GetUnitRes> filteredGetUnitRes ) {
+    public void filterList(ArrayList<String> filterdData, ArrayList<GetBranchRes> filteredGetBranchRes, ArrayList<GetUnitRes> filteredGetUnitRes ,ArrayList<UserListResponse> filteredGetUserListRes) {
         dataList = filterdData;
-        getBranchResArrayList = filteredGetBranchRes;
-        getUnitResArrayList = filteredGetUnitRes;
+        if(filteredGetBranchRes!=null) {
+            getBranchResArrayList = filteredGetBranchRes;
+        }
+        if(filteredGetUnitRes!=null) {
+            getUnitResArrayList = filteredGetUnitRes;
+        }
+        if(filteredGetUserListRes!=null){
+            this.getUserListRes = filteredGetUserListRes;
+        }
         notifyDataSetChanged();
     }
 

@@ -252,5 +252,6 @@ public class Constants {
     public String Assessment_1st_status = "";
     public String Branch = "Branch";
     public String Unit = "Unit";
+    public String EMPCode = "EMPCode";
 
 }
