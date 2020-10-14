@@ -300,7 +300,7 @@
         android:id="@+id/AssignCourseTrainer"
         android:name="com.trig.trigapp.Fragments.AssignCourseTrainer"
         android:label="Dashboard Fragment"
-        tools:layout="@layout/assign_courses">
+        tools:layout="@layout/assign_course_trainer">
 
         <action
             android:id="@+id/action_assign_course_to_LoginFragment"

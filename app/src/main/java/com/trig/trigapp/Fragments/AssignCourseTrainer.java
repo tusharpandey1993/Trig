@@ -6,24 +6,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.TextView;
-
 import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonArray;
 import com.trig.trigapp.Adapter.NavDrawerAdapter;
@@ -48,11 +40,9 @@ import com.trig.trigapp.api.Request.User_id;
 import com.trig.trigapp.api.Response.GetBranchRes;
 import com.trig.trigapp.api.Response.GetUnitRes;
 import com.trig.trigapp.api.Response.UserListResponse;
-import com.trig.trigapp.api.Response.getDashboardRes;
 import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
-
 import java.util.ArrayList;
 
 public class AssignCourseTrainer extends BaseFragment implements GenericDialogClickListener,  onDialogClickCallback, View.OnClickListener , OnClickInterface, IPresenter {
@@ -62,17 +52,18 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
     View mView;
     TextInputEditText edit_branch, edit_unit;
     ArrayList<String> typeOfList;
-    private RecyclerView list;
+    private RecyclerView list, filteredListRecycler;
     private ImageView closeIcon;
     private SlidingRootNav slidingRootNav;
     private ArrayList<GetUnitRes> getUnitResArrayList;
     private ArrayList<GetBranchRes> getBranchResArrayList;
     private ArrayList<UserListResponse> userListResponseArrayList;
     private ViewModel viewModel;
-    CustomSelectionDialog cdd;
-    private PieChart pieChartCourses, pieChartAssessment;
-    private TextView courseNumber, courseCompletedNumber, assessmentNumber, assementCompleted;
-    private ConstraintLayout courseContainer, assessmentContainer;
+    private CustomSelectionDialog cdd;
+    private CheckBox assignCourseCB, assignAssessCB;
+    private Button reassignEmp, reassignAll;
+    private AutoCompleteTextView resetOneEmpET;
+    private Toolbar toolbar;
 
     public AssignCourseTrainer() {
         // Required empty public constructor
@@ -95,7 +86,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
 
         backButtonHandling();
 
-        Toolbar toolbar = mView.findViewById(R.id.toolbar2);
+
 
         slidingRootNav = new SlidingRootNavBuilder(mActivity)
                 .withToolbarMenuToggle(toolbar)
@@ -157,41 +148,41 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
     }
 
     private void init(View mView) {
-        edit_branch = mView.findViewById(R.id.edit_branch);
-        edit_unit = mView.findViewById(R.id.edit_unit);
+        toolbar                 = mView.findViewById(R.id.toolbar2);
+        viewModel               = new ViewModel(mActivity, this);
+        edit_branch             = mView.findViewById(R.id.edit_branch);
+        edit_unit               = mView.findViewById(R.id.edit_unit);
+        assignCourseCB          = mView.findViewById(R.id.assignCourseCB);
+        assignAssessCB          = mView.findViewById(R.id.assignAssessCB);
+        reassignEmp             = mView.findViewById(R.id.reassignEmp);
+        reassignAll             = mView.findViewById(R.id.reassignAll);
+        resetOneEmpET           = mView.findViewById(R.id.resetOneEmpET);
+        filteredListRecycler    = mView.findViewById(R.id.filteredListRecycler);
+
         edit_branch.setOnClickListener(this);
         edit_unit.setOnClickListener(this);
-        pieChartCourses = mView.findViewById(R.id.pieChartCourses);
-        pieChartAssessment = mView.findViewById(R.id.pieChartAssessment);
-
-        courseNumber = mView.findViewById(R.id.courseNumber);
-        courseCompletedNumber = mView.findViewById(R.id.courseCompletedNumber);
-        assessmentNumber = mView.findViewById(R.id.assessmentNumber);
-        assementCompleted = mView.findViewById(R.id.assementCompleted);
-
-        courseContainer = mView.findViewById(R.id.courseContainer);
-        assessmentContainer = mView.findViewById(R.id.assessmentContainer);
-
-        viewModel = new ViewModel(mActivity, this);
-
+        reassignEmp.setOnClickListener(this);
+        reassignAll.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view, int position, String selectedValue,String selectedID,String title) {
-        if(title.equalsIgnoreCase("Branch")){
+        if(title.equalsIgnoreCase(Constants.getInstance().Branch)){
             edit_branch.setText(selectedValue);
             edit_unit.setEnabled(true);
             edit_unit.setHintTextColor(getResources().getColor(R.color.hint_color));
 
             CommonReq commonReq = new CommonReq();
             commonReq.setBranchId(selectedID);
+
             viewModel.getUnit(commonReq);
 
-        }else if(title.equalsIgnoreCase("Unit")){
+        }else if(title.equalsIgnoreCase(Constants.getInstance().Unit)){
             edit_unit.setText(selectedValue);
             TrainerDashboardReq trainerDashboardReq = new TrainerDashboardReq();
             trainerDashboardReq.setEmp_code(TrigAppPreferences.getEmployee_Code(mActivity));
             trainerDashboardReq.setUnitId(Integer.parseInt(selectedID));
+
             viewModel.getUserList(trainerDashboardReq);
         }
         cdd.dismiss();
@@ -202,10 +193,10 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
         switch(v.getId()) {
 
             case R.id.edit_branch:
-                openDialog("Branch");
+                openDialog(Constants.getInstance().Branch);
                 break;
             case R.id.edit_unit:
-                openDialog("Unit");
+                openDialog(Constants.getInstance().Unit);
                 break;
             case R.id.logout:
                 TrigAppPreferences.clear(mActivity);
@@ -217,6 +208,42 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
                 slidingRootNav.closeMenu();
                 break;
 
+            case R.id.reassignEmp:
+                hitAssignAllApi(true);
+                break;
+
+            case R.id.reassignAll:
+                hitAssignAllApi(false);
+                break;
+        }
+    }
+
+    private void hitAssignAllApi(boolean singleUser) {
+        try {
+            if (Utility.getInstance().isNetworkAvailable(mActivity)) {
+                AssignCoursesToEmp assignCoursesToEmp = new AssignCoursesToEmp();
+                if (singleUser) {
+                    assignCoursesToEmp.setUserName(TrigAppPreferences.getUserName(mActivity));
+                }
+                if (assignAssessCB != null && assignAssessCB.isChecked()) {
+                    assignCoursesToEmp.setAssessment("1");
+                } else {
+                    assignCoursesToEmp.setAssessment("0");
+                }
+                if (assignCourseCB != null && assignCourseCB.isChecked()) {
+                    assignCoursesToEmp.setCourse("1");
+                } else {
+                    assignCoursesToEmp.setCourse("0");
+                }
+                assignCoursesToEmp.setTrainer_emp_code(Long.parseLong(TrigAppPreferences.getEmployee_Code(mActivity)));
+
+                viewModel.assignCourseTrainerToEmp(assignCoursesToEmp);
+
+            } else {
+                Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.no_internet_message));
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "hitAssignAllApi: " + e.getMessage());
         }
     }
 
@@ -358,7 +385,6 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
                     for (int i = 0; i < jsonArray.size(); i++) {
                         UserListResponse userListResponse = Utility.getInstance().getG().fromJson(jsonArray.get(i), UserListResponse.class);
                         userListResponseArrayList.add(userListResponse);
-                        Log.d(TAG, "onResponsegetUnit: " + userListResponse.toString());
                     }
                 }
             } catch (Exception e) {
@@ -367,15 +393,6 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
         } catch (Exception e) {
             Log.e(TAG, "onResponseDashboardTrainer: exception" + e.getMessage());
         }
-    }
-
-    public void assignCourse() {
-        AssignCoursesToEmp assignCoursesToEmp = new AssignCoursesToEmp();
-        assignCoursesToEmp.setAssessment("1");
-        assignCoursesToEmp.setCourse("1");
-        assignCoursesToEmp.setTrainer_emp_code(Integer.parseInt(TrigAppPreferences.getEmployee_Code(mActivity)));
-        assignCoursesToEmp.setUserName(TrigAppPreferences.getUserName(mActivity));
-        viewModel.assignCourseTrainerToEmp(assignCoursesToEmp);
     }
 
     @Override

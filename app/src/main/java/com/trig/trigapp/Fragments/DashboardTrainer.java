@@ -179,7 +179,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
 
     @Override
     public void onClick(View view, int position, String selectedValue,String selectedID,String title) {
-        if(title.equalsIgnoreCase("Branch")){
+        if(title.equalsIgnoreCase(Constants.getInstance().Branch)){
             edit_branch.setText(selectedValue);
             edit_unit.setEnabled(true);
             edit_unit.setHintTextColor(getResources().getColor(R.color.hint_color));
@@ -188,7 +188,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
             commonReq.setBranchId(selectedID);
             viewModel.getUnit(commonReq);
 
-        }else if(title.equalsIgnoreCase("Unit")){
+        }else if(title.equalsIgnoreCase(Constants.getInstance().Unit)){
             edit_unit.setText(selectedValue);
             TrainerDashboardReq trainerDashboardReq = new TrainerDashboardReq();
             trainerDashboardReq.setEmp_code(TrigAppPreferences.getEmployee_Code(mActivity));
@@ -203,11 +203,13 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
         switch(v.getId()) {
 
             case R.id.edit_branch:
-                openDialog("Branch");
+                openDialog(Constants.getInstance().Branch);
                 break;
+
             case R.id.edit_unit:
-                openDialog("Unit");
+                openDialog(Constants.getInstance().Unit);
                 break;
+
             case R.id.logout:
                 TrigAppPreferences.clear(mActivity);
                 Navigation.findNavController(requireActivity(),R.id.navHostFragment)
@@ -276,7 +278,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
     private void openDialog(String title) {
         try {
             DataPayload payload = null;
-            if(title.equalsIgnoreCase("Branch")){
+            if(title.equalsIgnoreCase(Constants.getInstance().Branch)){
                 if(getBranchResArrayList!=null) {
                     payload = new DataPayload();
                     payload.setTitle(title);

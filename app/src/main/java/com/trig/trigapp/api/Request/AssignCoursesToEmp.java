@@ -8,7 +8,7 @@ public class AssignCoursesToEmp {
 
     @Expose
     @SerializedName("trainer_emp_code")
-    private int trainer_emp_code;
+    private long trainer_emp_code;
     @Expose
     @SerializedName("course")
     private String course;
@@ -19,11 +19,11 @@ public class AssignCoursesToEmp {
     @SerializedName("userName")
     private String userName;
 
-    public int getTrainer_emp_code() {
+    public long getTrainer_emp_code() {
         return trainer_emp_code;
     }
 
-    public void setTrainer_emp_code(int trainer_emp_code) {
+    public void setTrainer_emp_code(long trainer_emp_code) {
         this.trainer_emp_code = trainer_emp_code;
     }
 

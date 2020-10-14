@@ -78,11 +78,9 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<getDashboardRes> call,
                                            Response<getDashboardRes> response) {
-                        Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                Log.d(TAG, "onResponse:getDashboard 3 " + response.body());
                                 iPresenter.onResponseGetDashboard(response.body());
                                 Log.e(TAG, "onResponse:DashboardResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
@@ -111,11 +109,9 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<JsonArray> call,
                                            Response<JsonArray> response) {
-                        Log.d(TAG, "onResponse: callCourses 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: callCourses 2 " + response.body());
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: callCourses 3 " + response.body());
+                                Log.d(TAG, "onResponse:callCourses 3 " + response.body());
                                 iPresenter.onResponseVideoList(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
@@ -145,11 +141,9 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<getCourseDetailsRes> call,
                                            Response<getCourseDetailsRes> response) {
-                        Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                Log.d(TAG, "onResponse:callgetCourseDetails 3 " + response.body());
                                 iPresenter.onResponseGetVideoUrl(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
@@ -178,11 +172,9 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<JsonArray> call,
                                            Response<JsonArray> response) {
-                        Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                Log.d(TAG, "onResponse:callgetCourseTopics 3 " + response.body());
                                 iPresenter.onResponseCourseTopicList(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
@@ -211,11 +203,9 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<getFeedbackRes> call,
                                            Response<getFeedbackRes> response) {
-                        Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                Log.d(TAG, "onResponse:callgetFeedback 3 " + response.body());
                                 iPresenter.onResponseFeedback(response.body());
                             }
                         } else {
@@ -244,11 +234,9 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<CommonResponse> call,
                                            Response<CommonResponse> response) {
-                        Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                Log.d(TAG, "onResponse:callProfileApi 3 " + response.body());
                                 iPresenter.onResponseProfile(response.body());
                                 Log.e(TAG, "onResponse:profile " + Utility.getInstance().getG().toJson(response.body()));
                             }
@@ -278,11 +266,9 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<JsonArray> call,
                                            Response<JsonArray> response) {
-                        Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                Log.d(TAG, "onResponse:callgetAssessmentList 3 " + response.body());
                                 iPresenter.onResponseAssessmentTopicList(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
@@ -311,11 +297,9 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<getScoreRes> call,
                                            Response<getScoreRes> response) {
-                        Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                Log.d(TAG, "onResponse:callgetScore 3 " + response.body());
 //                                iPresenter.onResponseCourseList(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
@@ -345,11 +329,9 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<JsonArray> call,
                                            Response<JsonArray> response) {
-                        Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                Log.d(TAG, "onResponse:callLoadAssessment 3 " + response.body());
                                 iPresenter.onResponseLoadAssessmentQuestions(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
@@ -378,11 +360,9 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<JsonArray> call,
                                            Response<JsonArray> response) {
-                        Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                Log.d(TAG, "onResponse:submitAssessment 3 " + response.body());
                                 iPresenter.onResponseSubmitAssessment();
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
@@ -413,11 +393,9 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<JsonArray> call,
                                            Response<JsonArray> response) {
-                        Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                Log.d(TAG, "onResponse:getBranch 3 " + response.body());
                                 iPresenter.onResponsegetBranch(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
@@ -445,10 +423,10 @@ public class ViewModel {
                 .getUnit(commonReq)
                 .enqueue(new Callback<JsonArray>() {
                     @Override
-                    public void onResponse(Call<JsonArray> call,
-                                           Response<JsonArray> response) {
+                    public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
+                                Log.d(TAG, "onResponse:getUnit " + response.body());
                                 iPresenter.onResponsegetUnit(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
@@ -478,11 +456,9 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<getDashboardRes> call,
                                            Response<getDashboardRes> response) {
-                        Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                Log.d(TAG, "onResponse:getTrainerDashboard 3 " + response.body());
                                 iPresenter.onResponseDashboardTrainer(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
@@ -504,7 +480,7 @@ public class ViewModel {
                 });
     }
 
-// This is to get Dashboard Trainer from selecting a Unit
+    // This is to get User list after selecting UNIT
     public void getUserList(TrainerDashboardReq trainerDashboardReq) {
         Utility.getInstance().createServiceForTrigApp(mContext)
                 .getUserList(trainerDashboardReq)
@@ -512,13 +488,11 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<JsonArray> call,
                                            Response<JsonArray> response) {
-                        Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: 2 " + response.body());
+
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                Log.d(TAG, "onResponse:getUserList 3 " + response.body());
                                 iPresenter.onResponseGetUserList(response.body());
-//                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }
                         } else {
                             Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
@@ -546,11 +520,9 @@ public class ViewModel {
                     @Override
                     public void onResponse(Call<String> call,
                                            Response<String> response) {
-                        Log.d(TAG, "onResponse: 1 " + response.body());
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: 2 " + response.body());
                             if (response.body() != null) {
-                                Log.d(TAG, "onResponse: 3 " + response.body());
+                                Log.d(TAG, "onResponse:assignCourseTrainerToEmp 3 " + response.body());
                                 iPresenter.onResponseAssignCourseRes(response.body());
 //                                Log.e(TAG, "onResponse:CourseListResponse " + Utility.getInstance().getG().toJson(response.body()));
                             }

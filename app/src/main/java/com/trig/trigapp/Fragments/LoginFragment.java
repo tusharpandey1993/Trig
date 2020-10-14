@@ -256,6 +256,9 @@ public class LoginFragment extends BaseFragment implements IPresenter, GenericDi
                     if (loginResponse.getTirgEmpCode() != null && !loginResponse.getTirgEmpCode().isEmpty()) {
                         TrigAppPreferences.setEmployee_Code(mActivity, loginResponse.getTirgEmpCode());
                     }
+                    if (loginResponse.getUsername() != null && !loginResponse.getUsername().isEmpty()) {
+                        TrigAppPreferences.setUserName(mActivity, loginResponse.getUsername());
+                    }
                     if(loginResponse.getUserCourseCompletedStatus() != null  && !loginResponse.getUserCourseCompletedStatus().isEmpty() && loginResponse.getUserCourseCompletedStatus().equalsIgnoreCase("T")){
                         TrigAppPreferences.setisUserModeTrainer(mActivity, true);
                     } else {

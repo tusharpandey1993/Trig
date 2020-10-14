@@ -250,5 +250,7 @@ public class Constants {
 
     public int Assessment_1st_item = 1;
     public String Assessment_1st_status = "";
+    public String Branch = "Branch";
+    public String Unit = "Unit";
 
 }
