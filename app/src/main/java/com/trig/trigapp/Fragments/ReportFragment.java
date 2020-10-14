@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonArray;
 import com.trig.trigapp.Adapter.NavDrawerAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
+import com.trig.trigapp.Adapter.ReportAdapter;
 import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.CustomSelectionDialog;
 import com.trig.trigapp.CommonFiles.DataPayload;
@@ -60,6 +61,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
     CustomSelectionDialog cdd;
     ImageView backIcon;
     private TextView toolBarText;
+    RecyclerView filteredListRecycler;
 
     public ReportFragment() {
         // Required empty public constructor
@@ -114,6 +116,15 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
         }
     }
 
+    public void setAdapter(){
+        if(getReportResArrayList!=null) {
+            filteredListRecycler.setNestedScrollingEnabled(false);
+            ReportAdapter asCommonAdapter = new ReportAdapter(mActivity, this, getReportResArrayList);
+            filteredListRecycler.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+            filteredListRecycler.setAdapter(asCommonAdapter);
+        }
+    }
+
     @Override
     public void onPositiveButtonClick(View view, int FucntionNumber) {
         try {
@@ -142,6 +153,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
         edit_branch.setOnClickListener(this);
         edit_unit.setOnClickListener(this);
         backIcon = mView.findViewById(R.id.backIcon);
+        filteredListRecycler = mView.findViewById(R.id.filteredListRecycler);
         viewModel = new ViewModel(mActivity, this);
 
     }
@@ -275,6 +287,8 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
                     getReportResArrayList.add(getReportRes);
                     Log.d(TAG, "onResponseGetUserReportRes: " + getReportResArrayList.toString());
                 }
+
+                setAdapter();
             }
         } catch (Exception e) {
             Log.e(TAG, "onResponsegetUnit: exception " + e.getMessage());

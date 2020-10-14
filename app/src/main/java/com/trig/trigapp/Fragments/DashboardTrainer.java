@@ -127,8 +127,17 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
                 public void handleOnBackPressed() {
                     // Handle the back button event
                     Log.d(TAG, "handleOnBackPressed: ");
-                    ViewDialogCustom.customDialog2Btn(mActivity, mActivity.getResources().getString(R.string.exitConfirmation),
-                            Constants.Cancel, Constants.Ok, Constants.ExitConfirm, DashboardTrainer.this);
+                    GenericDialogPopup genericDialogPopup = null;
+                    GenericDialogBuilder genericDialogBuilder = new GenericDialogBuilder.Builder()
+                            .setShowCloseButton(false)
+                            .setHeading(mActivity.getResources().getString(R.string.DialogHeading))
+                            .setDescription(mActivity.getResources().getString(R.string.appExit))
+                            .setPositiveButtonText(Constants.EXIT)
+                            .setNegativeButtonText(Constants.Cancel)
+                            .setGenericDialogClickListener(DashboardTrainer.this)
+                            .setFucntionNumber(Constants.getInstance().exitApp)
+                            .build();
+                    Utility.getInstance().showDynamicDialog(mActivity, genericDialogBuilder, genericDialogPopup, mActivity.getSupportFragmentManager());
                 }
             };
             mActivity.getOnBackPressedDispatcher().addCallback(this, callback);
@@ -145,8 +154,9 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
                     mActivity.finish();
                     break;
                 case 810:
+                    TrigAppPreferences.clear(mActivity);
                     Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                            .navigate(R.id.action_dashboardFrag_to_LoginFragment);
+                            .navigate(R.id.action_DashboardTrainerFrag_to_LoginFragment);
                     break;
                 default:
                     break;
@@ -210,12 +220,6 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
 
             case R.id.edit_unit:
                 openDialog(Constants.getInstance().Unit);
-                break;
-
-            case R.id.logout:
-                TrigAppPreferences.clear(mActivity);
-                Navigation.findNavController(requireActivity(),R.id.navHostFragment)
-                        .navigate(R.id.action_dashboardFrag_to_LoginFragment);
                 break;
 
             case R.id.closeIcon:
