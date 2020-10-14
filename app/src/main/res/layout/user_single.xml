@@ -6,10 +6,17 @@
     android:id="@+id/navChildLYT"
     android:layout_margin="@dimen/_5sdp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/furtherDetailsRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp" />
+    <TextView
+        android:id="@+id/key"
+        style="@style/hint_text"
+        android:layout_gravity="start"
+        android:text="Total" />
+
+    <TextView
+        android:id="@+id/value"
+        style="@style/hint_text"
+        android:text="10"
+        android:layout_gravity="start"
+        android:textStyle="bold" />
 
 </LinearLayout>

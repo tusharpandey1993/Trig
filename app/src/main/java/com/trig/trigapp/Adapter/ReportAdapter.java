@@ -1,6 +1,7 @@
 package com.trig.trigapp.Adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,19 +45,16 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHold
     @Override
     public void onBindViewHolder(@NonNull ReportAdapter.ReportHolder holder, final int position) {
 
-        setAdapter(holder,position);
+        holder.key.setText(getReportRes.get(position).getFullName());
+        holder.value.setText(getReportRes.get(position).getEmp_password());
+        holder.navChildLYT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickListner.onClick(view,position);
+            }
+        });
 
     }
-
-    public void setAdapter(ReportAdapter.ReportHolder holder,int pos){
-        if(getReportRes!=null) {
-            holder.furtherDetailsRecycler.setNestedScrollingEnabled(false);
-            ReportChildAdapter asCommonAdapter = new ReportChildAdapter(context, onClickListner, getReportRes.get(pos));
-            holder.furtherDetailsRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-            holder.furtherDetailsRecycler.setAdapter(asCommonAdapter);
-        }
-    }
-
 
 
     @Override
@@ -67,11 +65,14 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHold
 
     protected class ReportHolder extends RecyclerView.ViewHolder  {
 
-        RecyclerView furtherDetailsRecycler;
+        TextView key,value;
+        LinearLayout navChildLYT;
 
         public ReportHolder(View itemView) {
             super(itemView);
-            furtherDetailsRecycler = itemView.findViewById(R.id.furtherDetailsRecycler);
+            key = itemView.findViewById(R.id.key);
+            value = itemView.findViewById(R.id.value);
+            navChildLYT = itemView.findViewById(R.id.navChildLYT);
         }
     }
 
