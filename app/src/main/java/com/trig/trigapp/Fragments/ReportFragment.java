@@ -2,11 +2,14 @@ package com.trig.trigapp.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -62,6 +65,9 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
     ImageView backIcon;
     private TextView toolBarText;
     RecyclerView filteredListRecycler;
+    LinearLayout assignCourseCheckboxContainer;
+    private Button reassignAll, reassignEmp;
+    private int selectedUnitId;
 
     public ReportFragment() {
         // Required empty public constructor
@@ -82,11 +88,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
 
         viewModel.getBranch(new User_id(TrigAppPreferences.getUserId(mActivity)));
 
-        GetReportReq getReportReq = new GetReportReq();
-        getReportReq.setEmp_code("9082461859");
-        getReportReq.setUnitId(456);
-        getReportReq.setStatus("all");
-        viewModel.getReport(getReportReq);
+
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
@@ -153,8 +155,16 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
         edit_branch.setOnClickListener(this);
         edit_unit.setOnClickListener(this);
         backIcon = mView.findViewById(R.id.backIcon);
+        reassignEmp = mView.findViewById(R.id.reassignEmp);
         filteredListRecycler = mView.findViewById(R.id.filteredListRecycler);
+        reassignAll = mView.findViewById(R.id.reassignAll);
+        assignCourseCheckboxContainer = mView.findViewById(R.id.assignCourseCheckboxContainer);
+        assignCourseCheckboxContainer.setVisibility(View.GONE);
+        reassignAll.setVisibility(View.GONE);
         viewModel = new ViewModel(mActivity, this);
+
+        reassignEmp.setText("Get Report");
+        reassignEmp.setOnClickListener(this);
 
     }
 
@@ -171,6 +181,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
             viewModel.getUnit(commonReq);
 
         }else if(title.equalsIgnoreCase("Unit")){
+            selectedUnitId = selectedUnitId;
             edit_unit.setText(selectedValue);
         }
         cdd.dismiss();
@@ -181,10 +192,13 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
         switch(v.getId()) {
 
             case R.id.edit_branch:
-                openDialog("Branch");
+                openDialog(Constants.getInstance().Branch);
                 break;
             case R.id.edit_unit:
-                openDialog("Unit");
+                openDialog(Constants.getInstance().Unit);
+                break;
+            case R.id.reassignEmp:
+                hitReportApi();
                 break;
 
         }
@@ -294,6 +308,26 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
             }
         } catch (Exception e) {
             Log.e(TAG, "onResponsegetUnit: exception " + e.getMessage());
+        }
+    }
+
+    private void hitReportApi() {
+        try {
+            if (Utility.getInstance().isNetworkAvailable(mActivity)) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+                GetReportReq getReportReq = new GetReportReq();
+                getReportReq.setEmp_code(TrigAppPreferences.getEmployee_Code(mActivity));
+                getReportReq.setUnitId(selectedUnitId);
+                getReportReq.setStatus("all");
+                viewModel.getReport(getReportReq);
+            } else {
+                Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.no_internet_message));
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "hitAssignAllApi: " + e.getMessage());
         }
     }
 }

@@ -21,6 +21,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonArray;
 import com.trig.trigapp.Adapter.NavDrawerAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
+import com.trig.trigapp.Adapter.ReportAdapter;
+import com.trig.trigapp.Adapter.UserListAdapter;
 import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.CustomSelectionDialog;
 import com.trig.trigapp.CommonFiles.DataPayload;
@@ -406,8 +408,9 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
                     for (int i = 0; i < jsonArray.size(); i++) {
                         UserListResponse userListResponse = Utility.getInstance().getG().fromJson(jsonArray.get(i), UserListResponse.class);
                         userListResponseArrayList.add(userListResponse);
-                        Log.d(TAG, "onResponseGetUserList: response " + i + userListResponseArrayList.get(i));
+                        Log.d(TAG, "onResponseGetUserList: response " + i + userListResponseArrayList.get(i).getTirg_EmpCode());
                     }
+                    setAdapterUserList();
                 }
             } catch (Exception e) {
                 Log.e(TAG, "onResponsegetUnit: exception " + e.getMessage());
@@ -420,6 +423,15 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
     @Override
     public void onResponseAssignCourseRes(String string) {
         Log.d(TAG, "onResponseAssignCourseRes: " + string);
+    }
+
+    public void setAdapterUserList(){
+        if(userListResponseArrayList!=null) {
+            filteredListRecycler.setNestedScrollingEnabled(false);
+            UserListAdapter userListAdapter = new UserListAdapter(mActivity, this, userListResponseArrayList);
+            filteredListRecycler.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+            filteredListRecycler.setAdapter(userListAdapter);
+        }
     }
 }
 

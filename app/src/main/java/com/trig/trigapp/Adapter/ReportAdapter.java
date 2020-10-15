@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,14 +46,32 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHold
     @Override
     public void onBindViewHolder(@NonNull ReportAdapter.ReportHolder holder, final int position) {
 
-        holder.key.setText(getReportRes.get(position).getFullName());
-        holder.value.setText(getReportRes.get(position).getEmp_password());
-        holder.navChildLYT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickListner.onClick(view,position);
-            }
-        });
+        holder.name.setText(getReportRes.get(position).getFullName());
+        if(getReportRes.get(position).getTotal_course_Count() >0) {
+            holder.AssignedCourse.setText("Yes");
+        } else {
+            holder.AssignedCourse.setText("No");
+        }
+        holder.CourseStatus.setText("Not started");
+
+        if(getReportRes.get(position).getTotal_a_Count() >0) {
+            holder.AssignedAssessment.setText("Yes");
+        } else {
+            holder.AssignedAssessment.setText("No");
+        }
+
+        holder.AssessmentStatus.setText("Not started");
+        holder.AssessmentScore.setText("");
+        holder.empCode.setText(getReportRes.get(position).getTirg_EmpCode());
+        holder.EmpPassword.setText(getReportRes.get(position).getEmp_password());
+
+        if(getReportRes.get(position).getIs_active() ==1){
+            holder.UserStatus.setChecked(true);
+        } else {
+            holder.UserStatus.setChecked(false);
+        }
+
+
 
     }
 
@@ -65,14 +84,22 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHold
 
     protected class ReportHolder extends RecyclerView.ViewHolder  {
 
-        TextView key,value;
+        TextView name, AssignedCourse, CourseStatus, AssignedAssessment, AssessmentStatus, AssessmentScore, empCode, EmpPassword, ViewCoursedetails, Assessment, feedback;
         LinearLayout navChildLYT;
+        SwitchCompat UserStatus;
 
         public ReportHolder(View itemView) {
             super(itemView);
-            key = itemView.findViewById(R.id.key);
-            value = itemView.findViewById(R.id.value);
-            navChildLYT = itemView.findViewById(R.id.navChildLYT);
+            name = itemView.findViewById(R.id.name);
+            AssignedCourse = itemView.findViewById(R.id.AssignedCourse);
+            CourseStatus = itemView.findViewById(R.id.CourseStatus);
+            AssignedAssessment = itemView.findViewById(R.id.AssignedAssessment);
+            AssessmentStatus = itemView.findViewById(R.id.AssessmentStatus);
+            AssessmentScore = itemView.findViewById(R.id.AssessmentScore);
+            empCode = itemView.findViewById(R.id.empCode);
+            EmpPassword = itemView.findViewById(R.id.EmpPassword);
+            UserStatus = itemView.findViewById(R.id.UserStatus);
+
         }
     }
 

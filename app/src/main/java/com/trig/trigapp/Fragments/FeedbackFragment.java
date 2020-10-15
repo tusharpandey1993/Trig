@@ -39,9 +39,10 @@ public class FeedbackFragment extends Fragment implements IPresenter, View.OnCli
     private TextView toolBarText;
     private Button btn_submit;
     private String feedBackText, feebackRemarkText, feedbackByText, feedbackOnText;
-    private TextInputEditText feedback, suggestion, FeedbackBy, FeedbackOn;
+    private TextInputEditText feedback, suggestion, FeedbackBy;
     private ImageView backIcon;
     private ViewModel viewModel;
+    private TextView FeedbackOn;
 
 
 
@@ -64,18 +65,31 @@ public class FeedbackFragment extends Fragment implements IPresenter, View.OnCli
         mView = inflater.inflate(R.layout.fragment_feedback, container, false);
 
         init(mView);
-        CommonReq commonReq = new CommonReq();
-        commonReq.setUserid(TrigAppPreferences.getUserId(mActivity));
-        viewModel.callgetFeedback(commonReq);
-        getFeedbackRes getFeedbackRes = Utility.getInstance().getG().fromJson(TrigAppPreferences.getFeedbackApiResponse(mActivity), getFeedbackRes.class);
-        if(getFeedbackRes != null){
-            if(!getFeedbackRes.getFeedback().isEmpty() || !getFeedbackRes.getRemarksSuggestion().isEmpty() || !getFeedbackRes.getFeedbackBy().isEmpty() || !getFeedbackRes.getFeedbackOn().isEmpty()){
-                feedback.setText(getFeedbackRes.getFeedback());
-                suggestion.setText(getFeedbackRes.getRemarksSuggestion());
-                FeedbackBy.setText(getFeedbackRes.getFeedbackBy());
-                FeedbackOn.setText(getFeedbackRes.getFeedbackOn());
+
+        if(TrigAppPreferences.getUser_Type(mActivity).equalsIgnoreCase(Constants.getInstance().user)) {
+            CommonReq commonReq = new CommonReq();
+            commonReq.setUserid(TrigAppPreferences.getUserId(mActivity));
+            viewModel.callgetFeedback(commonReq);
+
+            getFeedbackRes getFeedbackRes = Utility.getInstance().getG().fromJson(TrigAppPreferences.getFeedbackApiResponse(mActivity), getFeedbackRes.class);
+            if(getFeedbackRes != null){
+                if(!getFeedbackRes.getFeedback().isEmpty() || !getFeedbackRes.getRemarksSuggestion().isEmpty() || !getFeedbackRes.getFeedbackBy().isEmpty() || !getFeedbackRes.getFeedbackOn().isEmpty()){
+                    feedback.setText(getFeedbackRes.getFeedback());
+                    suggestion.setText(getFeedbackRes.getRemarksSuggestion());
+                    FeedbackBy.setText(getFeedbackRes.getFeedbackBy());
+                    FeedbackOn.setText(getFeedbackRes.getFeedbackOn());
+                }
             }
+        } else {
+            feedback.setEnabled(true);
+            suggestion.setEnabled(true);
+            FeedbackBy.setEnabled(true);
+            FeedbackOn.setEnabled(true);
+            btn_submit.setVisibility(View.VISIBLE);
+            FeedbackBy.setText(TrigAppPreferences.getName(mActivity));
         }
+
+
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
@@ -104,7 +118,7 @@ public class FeedbackFragment extends Fragment implements IPresenter, View.OnCli
     private void init(View mView) {
         viewModel = new ViewModel(mActivity, this);
         toolBarText = mView.findViewById(R.id.toolBarText);
-        toolBarText.setText("Feedback Form");
+        toolBarText.setText(Constants.getInstance().feedback_form);
 
         feedback = mView.findViewById(R.id.feedback);
         suggestion = mView.findViewById(R.id.suggestion);

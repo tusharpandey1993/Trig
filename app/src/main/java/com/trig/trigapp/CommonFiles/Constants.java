@@ -237,6 +237,7 @@ public class Constants {
     public String Assessments = "Assessments";
     public String Question = "Question ";
     public String Video = "Video ";
+    public String feedback_form = "Feedback Form ";
 
 
     // Bundle

@@ -64,7 +64,11 @@ public class ProfileFragment extends BaseFragment implements IPresenter, View.On
 
         if (Utility.getInstance().isNetworkAvailable(mActivity)) {
             showLoader();
-            viewModel.callProfileApi(TrigAppPreferences.getUserId(mActivity),"user");
+            if(TrigAppPreferences.getUser_Type(mActivity).equalsIgnoreCase(Constants.getInstance().user)) {
+                viewModel.callProfileApi(TrigAppPreferences.getUserId(mActivity),Constants.getInstance().user);
+            } else {
+                viewModel.callProfileApi(TrigAppPreferences.getUserId(mActivity),Constants.getInstance().trainer);
+            }
         } else {
 //            ShowGenericDialog(Constants.getInstance().NoInternetCase, Constants.OK, mActivity.getResources().getString(R.string.no_internet_message),"");
         }

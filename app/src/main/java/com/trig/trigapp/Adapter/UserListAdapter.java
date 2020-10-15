@@ -5,83 +5,73 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.R;
-import com.trig.trigapp.api.Response.getAssessmentListRes;
-import org.jetbrains.annotations.NotNull;
+import com.trig.trigapp.api.Response.UserListResponse;
 import java.util.ArrayList;
 
-public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.MyVi> {
+public class UserListAdapter extends RecyclerView.Adapter< UserListAdapter.ReportHolder>  {
 
-    ArrayList mValuesAssessment;
-    Context mContext;
-    protected AssessmentTopicsAdapter.ItemListener mListener;
-    private static final String TAG = "CourseTopicAdapter";
+    View view;
+    Context context;
+    OnClickInterface onClickListner;
+    ArrayList< UserListResponse> userListResponseArrayList;
 
-    public UserListAdapter(Context context, ArrayList values, AssessmentTopicsAdapter.ItemListener itemListener) {
-        mValuesAssessment = values;
-        mContext = context;
-        mListener=itemListener;
+    public  UserListAdapter(Context context, OnClickInterface mListner, ArrayList<UserListResponse> getUserListResponseList) {
+        this.context= context;
+        this.onClickListner = mListner;
+        this.userListResponseArrayList = getUserListResponseList;
+    }
+
+    @NonNull
+    @Override
+    public  UserListAdapter.ReportHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+
+        view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_single_assign, viewGroup, false);
+        return new  UserListAdapter.ReportHolder(view);
+
     }
 
 
     @Override
-    public UserListAdapter.MyVi onCreateViewHolder(ViewGroup parent, int viewType) {
+    public void onBindViewHolder(@NonNull  UserListAdapter.ReportHolder holder, final int position) {
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.user_single, parent, false);
+        holder.name.setText(userListResponseArrayList.get(position).getFullName());
+        holder.AssignedCourse.setText(""+userListResponseArrayList.get(position).getTotal_course_Count());
+        holder.AssignedAssessment.setText(""+userListResponseArrayList.get(position).getTotal_a_Count());
+        holder.empCode.setText(""+userListResponseArrayList.get(position).getTirg_EmpCode());
+        holder.EmpUnit.setText(userListResponseArrayList.get(position).getUnit());
 
-        return new UserListAdapter.MyVi(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull @NotNull UserListAdapter.MyVi holder, int position) {
-        holder.setData((getAssessmentListRes) mValuesAssessment.get(position));
-    }
 
     @Override
     public int getItemCount() {
-        return mValuesAssessment.size();
-    }
-
-    public interface ItemListener {
-        void onItemClick(getAssessmentListRes item);
+        return userListResponseArrayList.size();
     }
 
 
-    public class MyVi extends RecyclerView.ViewHolder implements View.OnClickListener {
+    protected class ReportHolder extends RecyclerView.ViewHolder  {
 
-        public TextView key, value;
-        getAssessmentListRes item;
+        TextView name, AssignedCourse, AssignedAssessment, empCode, EmpUnit;
+        SwitchCompat UserStatus;
 
-        public MyVi(View v) {
-            super(v);
-            v.setOnClickListener(this);
-            key = (TextView) v.findViewById(R.id.key);
-            value = (TextView) v.findViewById(R.id.value);
-        }
+        public ReportHolder(View itemView) {
+            super(itemView);
+            name = itemView.findViewById(R.id.name);
+            AssignedCourse = itemView.findViewById(R.id.AssignedCourse);
+            AssignedAssessment = itemView.findViewById(R.id.AssignedAssessment);
+            empCode = itemView.findViewById(R.id.empCode);
+            EmpUnit = itemView.findViewById(R.id.EmpUnit);
 
-        public void setData(getAssessmentListRes item) {
-            this.item = item;
-
-            key.setText(""+item.getAssessment_name());
-            value.setText(""+item.getAssigned_date());
-
-        }
-
-
-
-        @Override
-        public void onClick(View view) {
-            if (mListener != null) {
-                mListener.onItemClick(item);
-            }
         }
     }
-
 
 }

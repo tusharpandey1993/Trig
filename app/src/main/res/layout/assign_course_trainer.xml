@@ -50,10 +50,12 @@
 
 
     <LinearLayout
+        android:id="@+id/assignCourseCheckboxContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
         android:orientation="horizontal"
+        android:visibility="visible"
         android:weightSum="1">
 
 
@@ -78,12 +80,6 @@
         android:orientation="horizontal"
         android:weightSum="1">
 
-       <!-- <AutoCompleteTextView
-            android:id="@+id/resetOneEmpET"
-            style="@style/desc_text"
-            android:layout_margin="@dimen/_5sdp"
-            android:hint="Select Employee Code*"
-            android:layout_weight="0.6"/>-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="@dimen/_180sdp"
@@ -94,13 +90,13 @@
                 android:id="@+id/resetOneEmpET"
                 style="@style/desc_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="37dp"
                 android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="0.5"
                 android:focusable="false"
-                android:textColorHint="@color/greyed_out"
                 android:focusableInTouchMode="true"
                 android:hint="Select Employee Code*"
-                android:layout_weight="0.6" />
+                android:textColorHint="@color/greyed_out" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,13 +104,13 @@
         <Button
             android:id="@+id/reassignEmp"
             android:text="Reassign"
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/_30sdp"
             android:background="@drawable/access_pack_bg_gradient"
             style="@style/btn_login"
             android:layout_gravity="center_vertical"
             android:layout_margin="@dimen/_2sdp"
-            android:layout_weight="0.4"/>
+            android:layout_weight="0.5"/>
 
     </LinearLayout>
 
