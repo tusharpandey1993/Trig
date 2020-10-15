@@ -203,6 +203,7 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
 
         }else if(title.equalsIgnoreCase(Constants.getInstance().Unit)){
             edit_unit.setText(selectedValue);
+            showLoader();
             TrainerDashboardReq trainerDashboardReq = new TrainerDashboardReq();
             trainerDashboardReq.setEmp_code(TrigAppPreferences.getEmployee_Code(mActivity));
             trainerDashboardReq.setUnitId(Integer.parseInt(selectedID));
@@ -418,5 +419,11 @@ public class DashboardTrainer extends BaseFragment implements GenericDialogClick
         textBelowPie.add("Completed %");
         textBelowPie.add("Not started %");
         return textBelowPie;
+    }
+
+    @Override
+    public void onError(Object error) {
+        Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.server_error));
+        hideLoader();
     }
 }

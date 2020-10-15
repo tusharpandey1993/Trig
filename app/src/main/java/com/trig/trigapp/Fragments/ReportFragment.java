@@ -85,7 +85,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.assign_course_trainer, container, false);
         init(mView);
-
+        showLoader();
         viewModel.getBranch(new User_id(TrigAppPreferences.getUserId(mActivity)));
 
 
@@ -170,9 +170,11 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
 
     @Override
     public void onClick(View view, int position, String selectedValue,String selectedID,String title) {
-        if(title.equalsIgnoreCase("Branch")){
-            edit_branch.setText(selectedValue);
+        if(title.equalsIgnoreCase(Constants.getInstance().Branch)){
+
             showLoader();
+
+            edit_branch.setText(selectedValue);
             edit_unit.setEnabled(true);
             edit_unit.setHintTextColor(getResources().getColor(R.color.hint_color));
 
@@ -180,8 +182,8 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
             commonReq.setBranchId(selectedID);
             viewModel.getUnit(commonReq);
 
-        }else if(title.equalsIgnoreCase("Unit")){
-            selectedUnitId = selectedUnitId;
+        }else if(title.equalsIgnoreCase(Constants.getInstance().Unit)){
+            selectedUnitId = Integer.parseInt(selectedValue);
             edit_unit.setText(selectedValue);
         }
         cdd.dismiss();
@@ -251,6 +253,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
     @Override
     public void onResponsegetBranch(JsonArray jsonArray) {
         try {
+            hideLoader();
             if (jsonArray != null) {
                 getBranchResArrayList = new ArrayList<>();
                 for (int i = 0; i < jsonArray.size(); i++) {
@@ -267,6 +270,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
     @Override
     public void onResponsegetUnit(JsonArray jsonArray) {
         try {
+            hideLoader();
             getUnitResArrayList = new ArrayList<>();
             if (jsonArray != null) {
                 for (int i = 0; i < jsonArray.size(); i++) {
@@ -296,6 +300,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
     @Override
     public void onResponseGetUserReportRes(JsonArray jsonArray) {
         try {
+            hideLoader();
             getReportResArrayList = new ArrayList<>();
             if (jsonArray != null) {
                 for (int i = 0; i < jsonArray.size(); i++) {
@@ -317,6 +322,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
                     return;
                 }
+                showLoader();
                 mLastClickTime = SystemClock.elapsedRealtime();
                 GetReportReq getReportReq = new GetReportReq();
                 getReportReq.setEmp_code(TrigAppPreferences.getEmployee_Code(mActivity));
@@ -329,5 +335,10 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
         } catch (Exception e) {
             Log.e(TAG, "hitAssignAllApi: " + e.getMessage());
         }
+    }
+    @Override
+    public void onError(Object error) {
+        Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.server_error));
+        hideLoader();
     }
 }

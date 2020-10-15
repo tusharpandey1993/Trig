@@ -50,7 +50,8 @@ import java.util.ArrayList;
 
 public class AssignCourseTrainer extends BaseFragment implements GenericDialogClickListener,  onDialogClickCallback, View.OnClickListener , OnClickInterface, IPresenter {
 
-    private static final String TAG = "DashboardTrainer";
+
+    private static final String TAG = "AssignCourseTrainer";
     private FragmentActivity mActivity;
     private View mView;
     private TextInputEditText edit_branch, edit_unit,resetOneEmpET;
@@ -84,7 +85,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.assign_course_trainer, container, false);
         init(mView);
-
+        showLoader();
         viewModel.getBranch(new User_id(TrigAppPreferences.getUserId(mActivity)));
 
 
@@ -183,7 +184,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
 
             CommonReq commonReq = new CommonReq();
             commonReq.setBranchId(selectedID);
-
+            showLoader();
             viewModel.getUnit(commonReq);
 
         }else if(title.equalsIgnoreCase(Constants.getInstance().Unit)){
@@ -191,7 +192,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
             TrainerDashboardReq trainerDashboardReq = new TrainerDashboardReq();
             trainerDashboardReq.setEmp_code(TrigAppPreferences.getEmployee_Code(mActivity));
             trainerDashboardReq.setUnitId(Integer.parseInt(selectedID));
-
+            showLoader();
             viewModel.getUserList(trainerDashboardReq);
         }
         cdd.dismiss();
@@ -252,7 +253,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
                     assignCoursesToEmp.setCourse("0");
                 }
                 assignCoursesToEmp.setTrainer_emp_code(Long.parseLong(TrigAppPreferences.getEmployee_Code(mActivity)));
-
+                showLoader();
                 viewModel.assignCourseTrainerToEmp(assignCoursesToEmp);
 
             } else {
@@ -368,7 +369,9 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
     @Override
     public void onResponsegetBranch(JsonArray jsonArray) {
         try {
+            hideLoader();
             if (jsonArray != null) {
+
                 getBranchResArrayList = new ArrayList<>();
                 for (int i = 0; i < jsonArray.size(); i++) {
                     GetBranchRes getBranchRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), GetBranchRes.class);
@@ -384,8 +387,10 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
     @Override
     public void onResponsegetUnit(JsonArray jsonArray) {
         try {
+            hideLoader();
             getUnitResArrayList = new ArrayList<>();
             if (jsonArray != null) {
+
                 for (int i = 0; i < jsonArray.size(); i++) {
                     GetUnitRes getUnitRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), GetUnitRes.class);
                     getUnitResArrayList.add(getUnitRes);
@@ -422,6 +427,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
 
     @Override
     public void onResponseAssignCourseRes(String string) {
+        hideLoader();
         Log.d(TAG, "onResponseAssignCourseRes: " + string);
     }
 
@@ -432,6 +438,11 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
             filteredListRecycler.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
             filteredListRecycler.setAdapter(userListAdapter);
         }
+    }
+    @Override
+    public void onError(Object error) {
+        Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.server_error));
+        hideLoader();
     }
 }
 

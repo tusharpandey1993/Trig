@@ -30,7 +30,6 @@ public interface IPresenter {
     default void onResponseGetVideoUrl(getCourseDetailsRes getCourseDetailsRes){}
     default void onResponseSubmitAssessment(){}
 
-
     default void onResponsegetBranch(JsonArray jsonArray){}
     default void onResponsegetUnit(JsonArray jsonArray){}
     default void onResponseDashboardTrainer(getDashboardRes getDashboardRes){}

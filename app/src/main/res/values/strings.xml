@@ -210,4 +210,5 @@
     <string name="full_name">Full Name</string>
     <string name="select_branch">Select Branch</string>
     <string name="select_unit">Select Unit</string>
+    <string name="server_error">Things are little unstable here \nCome back later</string>
 </resources>
