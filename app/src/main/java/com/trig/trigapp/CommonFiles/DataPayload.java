@@ -14,6 +14,7 @@ public class DataPayload {
     private ArrayList<GetBranchRes> getBranchResArrayList = new ArrayList<>();
     private ArrayList<UserListResponse> userListResponses = new ArrayList<>();
     private ArrayList<String> dataList = new ArrayList<>();
+    private ArrayList<String> filterList = new ArrayList<>();
 
     public ArrayList<UserListResponse> getUserListResponses() {
         return userListResponses;
@@ -29,6 +30,14 @@ public class DataPayload {
 
     public ArrayList<String> getDataList() {
         return dataList;
+    }
+
+    public ArrayList<String> getFilterList() {
+        return filterList;
+    }
+
+    public void setFilterList(ArrayList<String> filterList) {
+        this.filterList = filterList;
     }
 
     public void setDataList(String dataList) {

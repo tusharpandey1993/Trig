@@ -254,5 +254,13 @@ public class Constants {
     public String Branch = "Branch";
     public String Unit = "Unit";
     public String EMPCode = "EMPCode";
+    public String FilterList = "FilterList";
+
+
+    public final int getCourseTrainer = 220;
+    public final int getAssessmentTrainer = 221;
+    public final int getFeedbackTrainer = 222;
+    // To avoid sending bundle, we use this constant to pass unit it to send Feedback API
+    public int sendUnitIdForFeedBack = 0;
 
 }

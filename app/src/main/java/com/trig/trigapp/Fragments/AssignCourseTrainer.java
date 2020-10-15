@@ -86,6 +86,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
         mView = inflater.inflate(R.layout.assign_course_trainer, container, false);
         init(mView);
         showLoader();
+
         viewModel.getBranch(new User_id(TrigAppPreferences.getUserId(mActivity)));
 
 
@@ -184,7 +185,6 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
 
             CommonReq commonReq = new CommonReq();
             commonReq.setBranchId(selectedID);
-            showLoader();
             viewModel.getUnit(commonReq);
 
         }else if(title.equalsIgnoreCase(Constants.getInstance().Unit)){
@@ -319,13 +319,13 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
     private void openDialog(String title) {
         try {
             DataPayload payload = null;
-            if(title.equalsIgnoreCase("Branch")){
+            if(title.equalsIgnoreCase(Constants.getInstance().Branch)){
                 if(getBranchResArrayList!=null) {
                     payload = new DataPayload();
                     payload.setTitle(title);
                     payload.setGetBranchResArrayList(getBranchResArrayList);
                 }
-            }else if(title.equalsIgnoreCase("Unit")){
+            }else if(title.equalsIgnoreCase(Constants.getInstance().Unit)){
                 if(getUnitResArrayList!=null) {
                     payload = new DataPayload();
                     payload.setTitle(title);

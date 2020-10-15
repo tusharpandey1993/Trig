@@ -9,6 +9,7 @@ import com.trig.trigapp.api.Request.LoadAssignmentsReq;
 import com.trig.trigapp.api.Request.LoginRequest;
 import com.trig.trigapp.api.Request.GetProfileDetailsReq;
 import com.trig.trigapp.api.Request.SubmitAssessmentReq;
+import com.trig.trigapp.api.Request.SubmitFeedback;
 import com.trig.trigapp.api.Request.TrainerDashboardReq;
 import com.trig.trigapp.api.Request.User_id;
 import com.trig.trigapp.api.Request.getCourseDetailsReq;
@@ -85,5 +86,13 @@ public interface Service {
     // Get Report
     @POST("TrainerReport/GetReport")
     Call<JsonArray> getUserReport(@Body GetReportReq getReportReq);
+
+    // Get Report
+    @POST("GetUserCourse/GetCourse")
+    Call<JsonArray> getCourseTrainer(@Body CommonReq commonReq);
+
+    // Submit Feedback
+    @POST("TrainerReport/SubmitFeedback")
+    Call<String> submitFeedback(@Body SubmitFeedback submitFeedback);
 
    }

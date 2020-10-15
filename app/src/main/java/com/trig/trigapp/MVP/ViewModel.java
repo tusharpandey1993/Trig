@@ -13,6 +13,7 @@ import com.trig.trigapp.api.Request.GetReportReq;
 import com.trig.trigapp.api.Request.LoadAssignmentsReq;
 import com.trig.trigapp.api.Request.LoginRequest;
 import com.trig.trigapp.api.Request.SubmitAssessmentReq;
+import com.trig.trigapp.api.Request.SubmitFeedback;
 import com.trig.trigapp.api.Request.TrainerDashboardReq;
 import com.trig.trigapp.api.Request.User_id;
 import com.trig.trigapp.api.Request.getCourseDetailsReq;
@@ -571,6 +572,72 @@ public class ViewModel {
 
                     @Override
                     public void onFailure(Call<JsonArray> call, Throwable t) {
+                        Log.e(TAG, "onFailure: callLoadAssessment" + t.getCause());
+                        iPresenter.onResponseSubmitAssessment();
+                        iPresenter.onError(t.getCause());
+                    }
+                });
+    }
+
+
+
+    // This is to get Course Trainers after click couse from recyclerview
+    public void getCourseTrainer(CommonReq commonReq) {
+        Utility.getInstance().createServiceForTrigApp(mContext)
+                .getCourseTrainer(commonReq)
+                .enqueue(new Callback<JsonArray>() {
+                    @Override
+                    public void onResponse(Call<JsonArray> call,
+                                           Response<JsonArray> response) {
+                        if (response.isSuccessful()) {
+
+                            if (response.body() != null) {
+                                Log.d(TAG, "onResponse:getUserList 3 " + response.body());
+                                iPresenter.onResponseGetCourseTrainerRes(response.body());
+                            }
+                        } else {
+                            Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
+                            if (response.errorBody() != null) {
+                                iPresenter.onError(response.errorBody());
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonArray> call, Throwable t) {
+                        Log.e(TAG, "onFailure: callLoadAssessment" + t.getCause());
+                        iPresenter.onResponseSubmitAssessment();
+                        iPresenter.onError(t.getCause());
+                    }
+                });
+    }
+
+ // This is to get User list after selecting UNIT
+    public void submitFeedback(SubmitFeedback submitFeedback) {
+        Utility.getInstance().createServiceForTrigApp(mContext)
+                .submitFeedback(submitFeedback)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call,
+                                           Response<String> response) {
+                        if (response.isSuccessful()) {
+
+                            if (response.body() != null) {
+                                Log.d(TAG, "onResponse:getUserList 3 " + response.body());
+                                iPresenter.onResponseSubmitFeedback(response.body());
+                            }
+                        } else {
+                            Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
+                            if (response.errorBody() != null) {
+                                iPresenter.onError(response.errorBody());
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
                         Log.e(TAG, "onFailure: callLoadAssessment" + t.getCause());
                         iPresenter.onResponseSubmitAssessment();
                         iPresenter.onError(t.getCause());

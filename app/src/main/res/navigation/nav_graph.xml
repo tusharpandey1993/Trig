@@ -328,8 +328,6 @@
             android:id="@+id/action_Report_to_dashboardTrainerFragment"
             app:destination="@id/DashboardTrainer" />
 
-<!--        dashboard-->
-
         <action
             android:id="@+id/action_ReportFrag_to_LoginFragment"
             app:destination="@id/LoginFragment" />
@@ -342,8 +340,6 @@
         <action
             android:id="@+id/action_ReportFrag_to_AssignCourseTrainerFrag"
             app:destination="@id/AssignCourseTrainer" />
-
-<!--        dashboard trainer-->
 
         <action
             android:id="@+id/action_DashboardTrainerFrag_to_LoginFragment"
@@ -361,10 +357,12 @@
             android:id="@+id/action_DashboardTrainerFrag_to_AssignCourseTrainerFrag"
             app:destination="@id/AssignCourseTrainer" />
 
+        <action
+            android:id="@+id/action_DashboardTrainerFrag_to_FeedbackFragment"
+            app:destination="@id/FeedbackFragment" />
 
 
     </fragment>
-
 
 
     <fragment

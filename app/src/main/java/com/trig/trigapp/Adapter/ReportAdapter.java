@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.R;
 import com.trig.trigapp.api.Response.GetReportRes;
 
@@ -71,7 +72,26 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHold
             holder.UserStatus.setChecked(false);
         }
 
+        holder.ViewCoursedetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickListner.onClickReport(view, Constants.getInstance().getCourseTrainer, getReportRes.get(position).getUserId());
+            }
+        });
 
+        holder.Assessment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickListner.onClickReport(view, Constants.getInstance().getAssessmentTrainer, getReportRes.get(position).getUserId());
+            }
+        });
+
+        holder.feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickListner.onClickReport(view, Constants.getInstance().getFeedbackTrainer, getReportRes.get(position).getUserId());
+            }
+        });
 
     }
 
@@ -99,7 +119,9 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHold
             empCode = itemView.findViewById(R.id.empCode);
             EmpPassword = itemView.findViewById(R.id.EmpPassword);
             UserStatus = itemView.findViewById(R.id.UserStatus);
-
+            ViewCoursedetails = itemView.findViewById(R.id.ViewCoursedetails);
+            Assessment = itemView.findViewById(R.id.Assessment);
+            feedback = itemView.findViewById(R.id.feedback);
         }
     }
 

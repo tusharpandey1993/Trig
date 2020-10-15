@@ -28,6 +28,7 @@ import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
 import com.trig.trigapp.api.Request.CommonReq;
+import com.trig.trigapp.api.Request.SubmitFeedback;
 import com.trig.trigapp.api.Response.CommonResponse;
 import com.trig.trigapp.api.Response.getFeedbackRes;
 
@@ -167,10 +168,17 @@ public class FeedbackFragment extends Fragment implements IPresenter, View.OnCli
             Utility.getInstance().showSnackbar(getView(), "Feedback On "+getResources().getString(R.string.error_empty_field));
             Utility.getInstance().requestFocus(mActivity, FeedbackOn);
         } else {
-            TrigAppPreferences.setSource_To_Desitnation(mActivity, Constants.getInstance().feedback);
-            Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                    .navigate(R.id.action_dashboardFrag_to_SuccessFragment);
+
+            SubmitFeedback submitFeedback = new SubmitFeedback();
+            submitFeedback.setUser_id(Integer.parseInt(TrigAppPreferences.getUserId(mActivity)));
+            submitFeedback.setFeedback_id(0);
+            submitFeedback.setFeedback_text(feedBackText);
+            submitFeedback.setSuggestion(feebackRemarkText);
+            submitFeedback.setTo_id(Constants.getInstance().sendUnitIdForFeedBack);
+
+            viewModel.submitFeedback(submitFeedback);
         }
+
     }
 
     @Override
@@ -184,5 +192,12 @@ public class FeedbackFragment extends Fragment implements IPresenter, View.OnCli
                 FeedbackOn.setText(getFeedbackRes.getFeedbackOn());
             }
         }
+    }
+
+    @Override
+    public void onResponseSubmitFeedback(Object o) {
+        TrigAppPreferences.setSource_To_Desitnation(mActivity, Constants.getInstance().feedback);
+        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                .navigate(R.id.action_dashboardFrag_to_SuccessFragment);
     }
 }

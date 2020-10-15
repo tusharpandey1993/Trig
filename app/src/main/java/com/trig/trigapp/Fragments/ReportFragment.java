@@ -23,6 +23,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonArray;
 import com.trig.trigapp.Adapter.NavDrawerAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
+import com.trig.trigapp.Adapter.PopCourseAssessmentAdapter;
 import com.trig.trigapp.Adapter.ReportAdapter;
 import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.CustomSelectionDialog;
@@ -44,6 +45,7 @@ import com.trig.trigapp.api.Request.User_id;
 import com.trig.trigapp.api.Response.GetBranchRes;
 import com.trig.trigapp.api.Response.GetReportRes;
 import com.trig.trigapp.api.Response.GetUnitRes;
+import com.trig.trigapp.api.Response.getCourseDetailsRes;
 import com.trig.trigapp.api.Response.getDashboardRes;
 import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
@@ -56,10 +58,11 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
     private static final String TAG = "ProfileFragment";
     FragmentActivity mActivity;
     View mView;
-    TextInputEditText edit_branch, edit_unit;
+    TextInputEditText edit_branch, edit_unit, resetOneEmpET;
     private ArrayList<GetUnitRes> getUnitResArrayList;
     private ArrayList<GetBranchRes> getBranchResArrayList;
     private ArrayList<GetReportRes> getReportResArrayList;
+    private ArrayList<getCourseDetailsRes> getCourseDetailsResArrayList;
     private ViewModel viewModel;
     CustomSelectionDialog cdd;
     ImageView backIcon;
@@ -67,6 +70,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
     RecyclerView filteredListRecycler;
     LinearLayout assignCourseCheckboxContainer;
     private Button reassignAll, reassignEmp;
+    private ArrayList<String> moreFilters;
     private int selectedUnitId;
 
     public ReportFragment() {
@@ -85,6 +89,15 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.assign_course_trainer, container, false);
         init(mView);
+
+
+        moreFilters = new ArrayList<>();
+        moreFilters.add("All");
+        moreFilters.add("Completed");
+        moreFilters.add("Pending");
+        moreFilters.add("Active");
+
+
         showLoader();
         viewModel.getBranch(new User_id(TrigAppPreferences.getUserId(mActivity)));
 
@@ -127,6 +140,15 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
         }
     }
 
+    public void setAdapterGetCourse(){
+        if(getCourseDetailsResArrayList!=null) {
+            filteredListRecycler.setNestedScrollingEnabled(false);
+            PopCourseAssessmentAdapter popCourseAssessmentAdapter = new PopCourseAssessmentAdapter(mActivity, this, getCourseDetailsResArrayList);
+            filteredListRecycler.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+            filteredListRecycler.setAdapter(popCourseAssessmentAdapter);
+        }
+    }
+
     @Override
     public void onPositiveButtonClick(View view, int FucntionNumber) {
         try {
@@ -152,6 +174,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
         toolBarText.setText("Report");
         edit_branch = mView.findViewById(R.id.edit_branch);
         edit_unit = mView.findViewById(R.id.edit_unit);
+        resetOneEmpET           = mView.findViewById(R.id.resetOneEmpET);
         edit_branch.setOnClickListener(this);
         edit_unit.setOnClickListener(this);
         backIcon = mView.findViewById(R.id.backIcon);
@@ -165,6 +188,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
 
         reassignEmp.setText("Get Report");
         reassignEmp.setOnClickListener(this);
+        resetOneEmpET.setOnClickListener(this);
 
     }
 
@@ -183,7 +207,8 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
             viewModel.getUnit(commonReq);
 
         }else if(title.equalsIgnoreCase(Constants.getInstance().Unit)){
-            selectedUnitId = Integer.parseInt(selectedValue);
+            Log.d(TAG, "onClick: position " + position + " selectedValue " + selectedValue + " selectedID " + selectedID+ " title " + title);
+//            selectedUnitId = Integer.parseInt(selectedValue);
             edit_unit.setText(selectedValue);
         }
         cdd.dismiss();
@@ -198,6 +223,9 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
                 break;
             case R.id.edit_unit:
                 openDialog(Constants.getInstance().Unit);
+                break;
+            case R.id.resetOneEmpET:
+                openDialog(Constants.getInstance().FilterList);
                 break;
             case R.id.reassignEmp:
                 hitReportApi();
@@ -215,11 +243,17 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
                     payload.setTitle(title);
                     payload.setGetBranchResArrayList(getBranchResArrayList);
                 }
-            }else{
+            }else if(title.equalsIgnoreCase(Constants.getInstance().Unit)){
                 if(getUnitResArrayList!=null) {
                     payload = new DataPayload();
                     payload.setTitle(title);
                     payload.setGetUnitResArrayList(getUnitResArrayList);
+                }
+            } else {
+                if(moreFilters!=null) {
+                    payload = new DataPayload();
+                    payload.setTitle(title);
+                    payload.setFilterList(moreFilters);
                 }
             }
             if(payload!=null) {
@@ -326,7 +360,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
                 mLastClickTime = SystemClock.elapsedRealtime();
                 GetReportReq getReportReq = new GetReportReq();
                 getReportReq.setEmp_code(TrigAppPreferences.getEmployee_Code(mActivity));
-                getReportReq.setUnitId(selectedUnitId);
+                getReportReq.setUnitId(456);
                 getReportReq.setStatus("all");
                 viewModel.getReport(getReportReq);
             } else {
@@ -340,5 +374,45 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
     public void onError(Object error) {
         Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.server_error));
         hideLoader();
+    }
+
+    @Override
+    public void onClickReport(View view, int viewName, int UnitId) {
+        CommonReq commonReq = new CommonReq();
+        switch (viewName) {
+            case 220:
+                commonReq.setUserid("" + UnitId);
+                viewModel.getCourseTrainer(commonReq);
+                break;
+            case 221:
+                commonReq.setUserid("" + UnitId);
+                viewModel.getCourseTrainer(commonReq);
+                break;
+            case 222:
+                Constants.getInstance().sendUnitIdForFeedBack = UnitId;
+                Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                        .navigate(R.id.action_DashboardTrainerFrag_to_FeedbackFragment);
+                break;
+        }
+
+    }
+
+    @Override
+    public void onResponseGetCourseTrainerRes(JsonArray jsonArray) {
+        try {
+            hideLoader();
+            getCourseDetailsResArrayList = new ArrayList<>();
+            if (jsonArray != null) {
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    getCourseDetailsRes getCourseDetailsRes = Utility.getInstance().getG().fromJson(jsonArray.get(i), getCourseDetailsRes.class);
+                    getCourseDetailsResArrayList.add(getCourseDetailsRes);
+                    Log.d(TAG, "onResponseGetCourseTrainerRes: " + getCourseDetailsResArrayList.toString());
+                }
+
+                setAdapterGetCourse();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onResponsegetUnit: exception " + e.getMessage());
+        }
     }
 }

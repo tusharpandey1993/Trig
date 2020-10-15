@@ -36,6 +36,8 @@ public interface IPresenter {
     default void onResponseGetUserList(JsonArray jsonArray){}
     default void onResponseAssignCourseRes(String string){}
     default void onResponseGetUserReportRes(JsonArray jsonArray){}
+    default void onResponseGetCourseTrainerRes(JsonArray jsonArray){}
+    default void onResponseSubmitFeedback(Object o){}
 
 
 }
