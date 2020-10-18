@@ -1,5 +1,6 @@
 package com.trig.trigapp.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -11,6 +12,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentActivity;
@@ -68,6 +71,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
     private CheckBox assignCourseCB, assignAssessCB;
     private Button reassignEmp, reassignAll;
     private Toolbar toolbar;
+    private TextView toolBarText;
 
     public AssignCourseTrainer() {
         // Required empty public constructor
@@ -148,6 +152,8 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
     }
 
     private void init(View mView) {
+        toolBarText = mView.findViewById(R.id.toolBarText);
+        toolBarText.setText("Assign Course");
         edit_branch = mView.findViewById(R.id.edit_branch);
         edit_unit = mView.findViewById(R.id.edit_unit);
         edit_branch.setOnClickListener(this);

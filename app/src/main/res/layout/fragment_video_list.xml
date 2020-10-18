@@ -11,8 +11,6 @@
         android:id="@+id/include2"
         layout="@layout/toolbar" />
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/videoListRecycler"
         android:layout_width="match_parent"

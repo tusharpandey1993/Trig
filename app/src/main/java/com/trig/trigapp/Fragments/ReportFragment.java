@@ -11,46 +11,35 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonArray;
-import com.trig.trigapp.Adapter.NavDrawerAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
-import com.trig.trigapp.Adapter.PopCourseAssessmentAdapter;
 import com.trig.trigapp.Adapter.ReportAdapter;
+import com.trig.trigapp.Adapter.ReportChildAdapter;
 import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.CommonFiles.CustomSelectionDialog;
 import com.trig.trigapp.CommonFiles.DataPayload;
 import com.trig.trigapp.CommonFiles.TrigAppPreferences;
 import com.trig.trigapp.CommonFiles.Utility;
-import com.trig.trigapp.CommonFiles.ViewDialogCustom;
 import com.trig.trigapp.CommonFiles.onDialogClickCallback;
-import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogBuilder;
+import com.trig.trigapp.CustomViewsFiles.CustomListViewDialog;
 import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogClickListener;
-import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogPopup;
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
 import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Request.GetReportReq;
-import com.trig.trigapp.api.Request.TrainerDashboardReq;
 import com.trig.trigapp.api.Request.User_id;
 import com.trig.trigapp.api.Response.GetBranchRes;
 import com.trig.trigapp.api.Response.GetReportRes;
 import com.trig.trigapp.api.Response.GetUnitRes;
 import com.trig.trigapp.api.Response.getCourseDetailsRes;
 import com.trig.trigapp.api.Response.getDashboardRes;
-import com.yarolegovich.slidingrootnav.SlideGravity;
-import com.yarolegovich.slidingrootnav.SlidingRootNav;
-import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
-
 import java.util.ArrayList;
 
 public class ReportFragment extends BaseFragment implements GenericDialogClickListener,  onDialogClickCallback, View.OnClickListener , OnClickInterface, IPresenter {
@@ -140,13 +129,26 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
         }
     }
 
-    public void setAdapterGetCourse(){
-        if(getCourseDetailsResArrayList!=null) {
-            filteredListRecycler.setNestedScrollingEnabled(false);
-            PopCourseAssessmentAdapter popCourseAssessmentAdapter = new PopCourseAssessmentAdapter(mActivity, this, getCourseDetailsResArrayList);
-            filteredListRecycler.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-            filteredListRecycler.setAdapter(popCourseAssessmentAdapter);
+    public void setAdapterGetCourse() {
+        if (getCourseDetailsResArrayList != null) {
+
+            CustomListViewDialog customDialog;
+
+            ReportChildAdapter reportChildAdapter = new ReportChildAdapter(mActivity, this, getCourseDetailsResArrayList);
+            customDialog = new CustomListViewDialog(mActivity, reportChildAdapter);
+
+            customDialog.show();
+            customDialog.setCanceledOnTouchOutside(false);
+
         }
+
+
+       /* if(getCourseDetailsResArrayList!=null) {
+            filteredListRecycler.setNestedScrollingEnabled(false);
+            ReportChildAdapter reportChildAdapter = new ReportChildAdapter(mActivity, this, getCourseDetailsResArrayList);
+            filteredListRecycler.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+            filteredListRecycler.setAdapter(reportChildAdapter);
+        }*/
     }
 
     @Override
@@ -382,6 +384,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
         switch (viewName) {
             case 220:
                 commonReq.setUserid("" + UnitId);
+                Log.d(TAG, "onClickReport: " + UnitId);
                 viewModel.getCourseTrainer(commonReq);
                 break;
             case 221:

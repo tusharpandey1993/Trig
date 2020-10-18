@@ -48,7 +48,7 @@
                 style="@style/hint_text"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/_2sdp"
-                android:text="User Name" />
+                android:text="Course Name" />
 
             <TextView
                 android:id="@+id/course_name"
@@ -95,7 +95,7 @@
                 style="@style/hint_text"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/_2sdp"
-                android:text="Course Assigned Date" />
+                android:text="Assigned Date" />
 
             <TextView
                 android:id="@+id/course_assigned_date"
@@ -105,7 +105,25 @@
                 android:layout_margin="@dimen/_2sdp"
                 android:text="" />
 
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray_300"
+                android:layout_height="1dp"/>
 
+            <TextView
+                android:id="@+id/course_completed_dateHeading"
+                style="@style/hint_text"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="Completed Date" />
+
+            <TextView
+                android:id="@+id/course_completed_date"
+                style="@style/desc_text"
+                android:textSize="@dimen/_12ssp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_2sdp"
+                android:text="" />
 
         </LinearLayout>
 
