@@ -224,6 +224,10 @@
             android:id="@+id/action_dashboardFrag_to_topics"
             app:destination="@id/CoursesTopics" />
 
+        <action
+            android:id="@+id/action_Feedback_to_ReportFragment"
+            app:destination="@id/ReportFragment" />
+
     </fragment>
 
     <fragment

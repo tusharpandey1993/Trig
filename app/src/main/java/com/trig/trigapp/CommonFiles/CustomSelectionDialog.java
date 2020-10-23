@@ -72,6 +72,8 @@ public class CustomSelectionDialog extends Dialog implements
                     payload.setDataList(payload.getUserListResponses().get(i).getTirg_EmpCode());
                 }
             }else if(payload.getTitle().equalsIgnoreCase(Constants.getInstance().FilterList)){
+
+                editTextSearch.setHint("Select Status");
                 for(int i=0;i<payload.getFilterList().size();i++){
                     payload.setDataList(payload.getFilterList().get(i));
                 }

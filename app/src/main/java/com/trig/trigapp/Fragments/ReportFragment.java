@@ -60,7 +60,8 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
     LinearLayout assignCourseCheckboxContainer;
     private Button reassignAll, reassignEmp;
     private ArrayList<String> moreFilters;
-    private int selectedUnitId;
+    private int selectedUnitId = 0;
+    private String categoryFilter;
 
     public ReportFragment() {
         // Required empty public constructor
@@ -78,7 +79,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.assign_course_trainer, container, false);
         init(mView);
-
+        selectedUnitId = 0;
 
         moreFilters = new ArrayList<>();
         moreFilters.add("All");
@@ -210,10 +211,11 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
 
         }else if(title.equalsIgnoreCase(Constants.getInstance().Unit)){
             Log.d(TAG, "onClick: position " + position + " selectedValue " + selectedValue + " selectedID " + selectedID+ " title " + title);
-//            selectedUnitId = Integer.parseInt(selectedValue);
+            selectedUnitId = Integer.parseInt(selectedID);
             edit_unit.setText(selectedValue);
         }else if(title.equalsIgnoreCase(Constants.getInstance().FilterList)){
             resetOneEmpET.setText(selectedValue);
+            categoryFilter = selectedValue;
         }
         cdd.dismiss();
     }
@@ -359,12 +361,17 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
                     return;
                 }
-                showLoader();
+
                 mLastClickTime = SystemClock.elapsedRealtime();
                 GetReportReq getReportReq = new GetReportReq();
                 getReportReq.setEmp_code(TrigAppPreferences.getEmployee_Code(mActivity));
-                getReportReq.setUnitId(456);
-                getReportReq.setStatus("all");
+                if(selectedUnitId == 0){
+                    Utility.getInstance().showSnackbar(getView(), "Select Valid Unit");
+                    return;
+                }
+                getReportReq.setUnitId(selectedUnitId);
+                getReportReq.setStatus(categoryFilter);
+                showLoader();
                 viewModel.getReport(getReportReq);
             } else {
                 Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.no_internet_message));

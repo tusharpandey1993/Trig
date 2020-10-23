@@ -72,6 +72,8 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
     private Button reassignEmp, reassignAll;
     private Toolbar toolbar;
     private TextView toolBarText;
+    private String selectSepecificEmployee;
+    private boolean selectedUnit = false;
 
     public AssignCourseTrainer() {
         // Required empty public constructor
@@ -90,7 +92,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
         mView = inflater.inflate(R.layout.assign_course_trainer, container, false);
         init(mView);
         showLoader();
-
+        selectedUnit = false;
         viewModel.getBranch(new User_id(TrigAppPreferences.getUserId(mActivity)));
 
 
@@ -199,9 +201,12 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
             trainerDashboardReq.setEmp_code(TrigAppPreferences.getEmployee_Code(mActivity));
             trainerDashboardReq.setUnitId(Integer.parseInt(selectedID));
             showLoader();
+            selectedUnit = true;
             viewModel.getUserList(trainerDashboardReq);
         }else if(title.equalsIgnoreCase(Constants.getInstance().EMPCode)){
             resetOneEmpET.setText(selectedValue);
+
+            selectSepecificEmployee = selectedValue;
         }
         cdd.dismiss();
     }
@@ -230,16 +235,17 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
                 break;
 
             case R.id.reassignEmp:
-                hitAssignAllApi(true);
+                hitAssignSpecificApi();
                 break;
 
             case R.id.reassignAll:
-                hitAssignAllApi(false);
+                hitAssignAllApi();
                 break;
         }
     }
 
-    private void hitAssignAllApi(boolean singleUser) {
+
+    private void hitAssignSpecificApi() {
         try {
             if (Utility.getInstance().isNetworkAvailable(mActivity)) {
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
@@ -247,9 +253,34 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
                 AssignCoursesToEmp assignCoursesToEmp = new AssignCoursesToEmp();
-                if (singleUser) {
-                    assignCoursesToEmp.setUserName(TrigAppPreferences.getUserName(mActivity));
+                assignCoursesToEmp.setTrainer_emp_code(Long.parseLong(TrigAppPreferences.getEmployee_Code(mActivity)));
+                Log.d(TAG, "hitAssignSpecificApi: " + selectSepecificEmployee);
+                if(selectSepecificEmployee != null && !selectSepecificEmployee.isEmpty()) {
+                    assignCoursesToEmp.setUserName(selectSepecificEmployee);
+                } else {
+                    Utility.getInstance().showSnackbar(getView(), "Select Valid Employee Code");
+                    return;
                 }
+                showLoader();
+                viewModel.assignCourseTrainerToEmp(assignCoursesToEmp);
+
+            } else {
+                Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.no_internet_message));
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "hitAssignAllApi: " + e.getMessage());
+        }
+    }
+
+    private void hitAssignAllApi() {
+        try {
+            if (Utility.getInstance().isNetworkAvailable(mActivity)) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+                AssignCoursesToEmp assignCoursesToEmp = new AssignCoursesToEmp();
+
                 if (assignAssessCB != null && assignAssessCB.isChecked()) {
                     assignCoursesToEmp.setAssessment("1");
                 } else {
@@ -260,6 +291,14 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
                 } else {
                     assignCoursesToEmp.setCourse("0");
                 }
+
+                if(selectedUnit && assignAssessCB.isChecked() && assignCourseCB.isChecked()) {
+
+                } else {
+                    Utility.getInstance().showSnackbar(getView(), "Select Valid Fields");
+                    return;
+                }
+
                 assignCoursesToEmp.setTrainer_emp_code(Long.parseLong(TrigAppPreferences.getEmployee_Code(mActivity)));
                 showLoader();
                 viewModel.assignCourseTrainerToEmp(assignCoursesToEmp);

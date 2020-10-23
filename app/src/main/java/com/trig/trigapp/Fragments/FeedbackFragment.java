@@ -112,8 +112,13 @@ public class FeedbackFragment extends Fragment implements IPresenter, View.OnCli
     }
 
     private void goBackToPreviousPageNav() {
-        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-                .navigate(R.id.action_Feedback_to_Dasboard);
+        if(TrigAppPreferences.getUser_Type(mActivity).equalsIgnoreCase(Constants.getInstance().user)) {
+            Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                    .navigate(R.id.action_Feedback_to_Dasboard);
+        } else {
+            Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+                    .navigate(R.id.action_Feedback_to_ReportFragment);
+        }
     }
 
     private void init(View mView) {

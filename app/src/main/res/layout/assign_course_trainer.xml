@@ -90,12 +90,12 @@
                 android:id="@+id/resetOneEmpET"
                 style="@style/desc_text"
                 android:layout_width="match_parent"
-                android:layout_height="37dp"
+                android:layout_height="57dp"
                 android:layout_margin="@dimen/_5sdp"
                 android:layout_weight="0.5"
                 android:focusable="false"
                 android:focusableInTouchMode="true"
-                android:hint="Employee Code*"
+                android:hint="Select"
                 android:textColorHint="@color/greyed_out" />
 
         </com.google.android.material.textfield.TextInputLayout>
