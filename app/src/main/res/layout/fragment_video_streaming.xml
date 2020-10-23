@@ -19,7 +19,8 @@
         android:layout_height="300dp"
         android:layout_marginTop="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:visibility="gone"
+        app:resize_mode="fill"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include2" />

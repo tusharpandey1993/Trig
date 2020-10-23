@@ -54,7 +54,8 @@ import static com.trig.trigapp.Fragments.DashboardFragment.fromCourses;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VideoStreamingFragment extends Fragment implements IPresenter {
+public class
+VideoStreamingFragment extends Fragment implements IPresenter {
 
     private static final String TAG = "VideoStreamingFragment";
 
