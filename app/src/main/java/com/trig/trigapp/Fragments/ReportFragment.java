@@ -212,6 +212,8 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
             Log.d(TAG, "onClick: position " + position + " selectedValue " + selectedValue + " selectedID " + selectedID+ " title " + title);
 //            selectedUnitId = Integer.parseInt(selectedValue);
             edit_unit.setText(selectedValue);
+        }else if(title.equalsIgnoreCase(Constants.getInstance().FilterList)){
+            resetOneEmpET.setText(selectedValue);
         }
         cdd.dismiss();
     }
@@ -251,12 +253,11 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
                     payload.setTitle(title);
                     payload.setGetUnitResArrayList(getUnitResArrayList);
                 }
-            } else {
-                if(moreFilters!=null) {
+            } else if(moreFilters!=null && title.equalsIgnoreCase(Constants.getInstance().FilterList)) {
                     payload = new DataPayload();
                     payload.setTitle(title);
                     payload.setFilterList(moreFilters);
-                }
+
             }
             if(payload!=null) {
                 cdd = new CustomSelectionDialog(mActivity, payload, this);

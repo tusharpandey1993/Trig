@@ -71,6 +71,10 @@ public class CustomSelectionDialog extends Dialog implements
                 for(int i=0;i<payload.getUserListResponses().size();i++){
                     payload.setDataList(payload.getUserListResponses().get(i).getTirg_EmpCode());
                 }
+            }else if(payload.getTitle().equalsIgnoreCase(Constants.getInstance().FilterList)){
+                for(int i=0;i<payload.getFilterList().size();i++){
+                    payload.setDataList(payload.getFilterList().get(i));
+                }
             }
             listdialog.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
             dialogItemClickListAdapter = new DialogItemClickListAdapter(payload,mListner);
@@ -107,6 +111,7 @@ public class CustomSelectionDialog extends Dialog implements
         ArrayList<GetBranchRes> filteredGetBranchRes = new ArrayList<>();
         ArrayList<GetUnitRes> filteredGetUnitRes = new ArrayList<>();
         ArrayList<UserListResponse> filteredGetUserListRes = new ArrayList<>();
+        ArrayList<String> filteredMoreList = new ArrayList<>();
 
         //looping through existing elements
         if(payload.getTitle().equalsIgnoreCase(Constants.getInstance().Branch)){
@@ -134,9 +139,17 @@ public class CustomSelectionDialog extends Dialog implements
                     filteredGetUserListRes.add((payload.getUserListResponses().get(i)));
                 }
             }
+        }else if(payload.getTitle().equalsIgnoreCase(Constants.getInstance().FilterList)){
+            for(int i =0;i<payload.getFilterList().size();i++){
+                if (payload.getFilterList().get(i).toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdData.add(payload.getFilterList().get(i));
+                    filteredMoreList.add((payload.getFilterList().get(i)));
+                }
+            }
         }
         //calling a method of the adapter class and passing the filtered list
-        dialogItemClickListAdapter.filterList(filterdData, filteredGetBranchRes, filteredGetUnitRes ,filteredGetUserListRes);
+        dialogItemClickListAdapter.filterList(filterdData, filteredGetBranchRes, filteredGetUnitRes ,filteredGetUserListRes,filteredMoreList);
     }
 
     @Override

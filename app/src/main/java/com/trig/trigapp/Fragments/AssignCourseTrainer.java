@@ -200,6 +200,8 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
             trainerDashboardReq.setUnitId(Integer.parseInt(selectedID));
             showLoader();
             viewModel.getUserList(trainerDashboardReq);
+        }else if(title.equalsIgnoreCase(Constants.getInstance().EMPCode)){
+            resetOneEmpET.setText(selectedValue);
         }
         cdd.dismiss();
     }

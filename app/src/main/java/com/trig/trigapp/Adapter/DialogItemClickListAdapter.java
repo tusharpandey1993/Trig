@@ -22,6 +22,7 @@ public class DialogItemClickListAdapter extends RecyclerView.Adapter<DialogItemC
     private DataPayload payload;
     private OnClickInterface mListner;
     private ArrayList<String> dataList;
+    private ArrayList<String> moreList;
     ArrayList<GetBranchRes> getBranchResArrayList;
     ArrayList<GetUnitRes> getUnitResArrayList;
     ArrayList<UserListResponse> getUserListRes;
@@ -38,6 +39,9 @@ public class DialogItemClickListAdapter extends RecyclerView.Adapter<DialogItemC
         }
         if(payload.getUserListResponses()!=null) {
             getUserListRes = payload.getUserListResponses();
+        }
+        if(payload.getFilterList()!=null) {
+            moreList = payload.getFilterList();
         }
     }
 
@@ -70,6 +74,9 @@ public class DialogItemClickListAdapter extends RecyclerView.Adapter<DialogItemC
                         dataList.get(position).equalsIgnoreCase(dataList.get(position));
                         mListner.onClick(v,position,dataList.get(position),"" +
                                 getUserListRes.get(position).getTirg_EmpCode(),payload.getTitle());
+                    } else if(payload.getTitle().equalsIgnoreCase(Constants.getInstance().FilterList)){
+                        dataList.get(position).equalsIgnoreCase(dataList.get(position));
+                        mListner.onClick(v,position,dataList.get(position),"",payload.getTitle());
                     }
 
                 }
@@ -83,7 +90,7 @@ public class DialogItemClickListAdapter extends RecyclerView.Adapter<DialogItemC
     //This method will filter the list
     //here we are passing the filtered data
     //and assigning it to the list with notifydatasetchanged method
-    public void filterList(ArrayList<String> filterdData, ArrayList<GetBranchRes> filteredGetBranchRes, ArrayList<GetUnitRes> filteredGetUnitRes ,ArrayList<UserListResponse> filteredGetUserListRes) {
+    public void filterList(ArrayList<String> filterdData, ArrayList<GetBranchRes> filteredGetBranchRes, ArrayList<GetUnitRes> filteredGetUnitRes ,ArrayList<UserListResponse> filteredGetUserListRes,ArrayList<String> filteredMoreList) {
         dataList = filterdData;
         if(filteredGetBranchRes!=null) {
             getBranchResArrayList = filteredGetBranchRes;
@@ -93,6 +100,12 @@ public class DialogItemClickListAdapter extends RecyclerView.Adapter<DialogItemC
         }
         if(filteredGetUserListRes!=null){
             this.getUserListRes = filteredGetUserListRes;
+        }
+        if(filteredGetUserListRes!=null){
+            this.getUserListRes = filteredGetUserListRes;
+        }
+        if(filteredMoreList!=null){
+            this.moreList = filteredMoreList;
         }
         notifyDataSetChanged();
     }
