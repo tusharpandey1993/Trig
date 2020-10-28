@@ -292,7 +292,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
                     assignCoursesToEmp.setCourse("0");
                 }
 
-                if(selectedUnit && assignAssessCB.isChecked() && assignCourseCB.isChecked()) {
+                if(selectedUnit && assignAssessCB.isChecked() || assignCourseCB.isChecked()) {
 
                 } else {
                     Utility.getInstance().showSnackbar(getView(), "Select Valid Fields");
