@@ -79,7 +79,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHold
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    onClickListner.onClickReportWithEmp(view, Constants.getInstance().getCourseTrainer, getReportRes.get(position).getUserId(), getReportRes.get(position).getTirg_EmpCode());
+                    onClickListner.onClickReportWithEmp(view, Constants.getInstance().getCourseTrainer, getReportRes.get(position).getUserId(), getReportRes.get(position).getUserId());
                 }
             }
         });

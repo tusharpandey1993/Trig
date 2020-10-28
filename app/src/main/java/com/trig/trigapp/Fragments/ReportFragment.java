@@ -406,23 +406,17 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
                 Navigation.findNavController(requireActivity(), R.id.navHostFragment)
                         .navigate(R.id.action_DashboardTrainerFrag_to_FeedbackFragment);
                 break;
-            case 223:
-                ChangeStatusReq changeStatusReq = new ChangeStatusReq();
-                changeStatusReq.setUser_id(TrigAppPreferences.getUserId(mActivity));
-                changeStatusReq.setUserName(String.valueOf(UnitId));
-                viewModel.changeStatus(changeStatusReq);
-                break;
+
         }
 
     }
 
     @Override
-    public void onClickReportWithEmp(View view, int viewName, int UnitId, String employeeId) {
-        Log.d(TAG, "onClickReportWithEmp: ");
+    public void onClickReportWithEmp(View view, int viewName, int UnitId, int employeeId) {
+        Log.d(TAG, "onClickReportWithEmp: UnitId " + UnitId);
 
         ChangeStatusReq changeStatusReq = new ChangeStatusReq();
-        changeStatusReq.setUser_id(employeeId);
-        changeStatusReq.setUserName(String.valueOf(UnitId));
+        changeStatusReq.setUser_id(""+employeeId);
         viewModel.changeStatus(changeStatusReq);
 
     }
