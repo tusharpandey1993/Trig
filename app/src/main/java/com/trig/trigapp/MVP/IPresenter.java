@@ -38,6 +38,7 @@ public interface IPresenter {
     default void onResponseGetUserReportRes(JsonArray jsonArray){}
     default void onResponseGetCourseTrainerRes(JsonArray jsonArray){}
     default void onResponseSubmitFeedback(Object o){}
+    default void onResponseChangeStatus(Object o){}
 
 
 }

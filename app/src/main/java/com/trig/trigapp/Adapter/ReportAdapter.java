@@ -2,11 +2,14 @@ package com.trig.trigapp.Adapter;
 
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -66,11 +69,20 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHold
         holder.empCode.setText(getReportRes.get(position).getTirg_EmpCode());
         holder.EmpPassword.setText(getReportRes.get(position).getEmp_password());
 
-        if(getReportRes.get(position).getIs_active() ==1){
+        if(getReportRes.get(position).getIs_active() == 1){
             holder.UserStatus.setChecked(true);
         } else {
             holder.UserStatus.setChecked(false);
         }
+
+        holder.UserStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    onClickListner.onClickReportWithEmp(view, Constants.getInstance().getCourseTrainer, getReportRes.get(position).getUserId(), getReportRes.get(position).getTirg_EmpCode());
+                }
+            }
+        });
 
         holder.ViewCoursedetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +118,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHold
 
         TextView name, AssignedCourse, CourseStatus, AssignedAssessment, AssessmentStatus, AssessmentScore, empCode, EmpPassword, ViewCoursedetails, Assessment, feedback;
         LinearLayout navChildLYT;
-        SwitchCompat UserStatus;
+        Switch UserStatus;
 
         public ReportHolder(View itemView) {
             super(itemView);

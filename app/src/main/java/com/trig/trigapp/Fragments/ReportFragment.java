@@ -32,6 +32,7 @@ import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogClickListener
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
+import com.trig.trigapp.api.Request.ChangeStatusReq;
 import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Request.GetReportReq;
 import com.trig.trigapp.api.Request.User_id;
@@ -380,6 +381,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
             Log.e(TAG, "hitAssignAllApi: " + e.getMessage());
         }
     }
+
     @Override
     public void onError(Object error) {
         Utility.getInstance().showSnackbar(getView(), getResources().getString(R.string.server_error));
@@ -404,7 +406,24 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
                 Navigation.findNavController(requireActivity(), R.id.navHostFragment)
                         .navigate(R.id.action_DashboardTrainerFrag_to_FeedbackFragment);
                 break;
+            case 223:
+                ChangeStatusReq changeStatusReq = new ChangeStatusReq();
+                changeStatusReq.setUser_id(TrigAppPreferences.getUserId(mActivity));
+                changeStatusReq.setUserName(String.valueOf(UnitId));
+                viewModel.changeStatus(changeStatusReq);
+                break;
         }
+
+    }
+
+    @Override
+    public void onClickReportWithEmp(View view, int viewName, int UnitId, String employeeId) {
+        Log.d(TAG, "onClickReportWithEmp: ");
+
+        ChangeStatusReq changeStatusReq = new ChangeStatusReq();
+        changeStatusReq.setUser_id(employeeId);
+        changeStatusReq.setUserName(String.valueOf(UnitId));
+        viewModel.changeStatus(changeStatusReq);
 
     }
 
@@ -425,5 +444,10 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
         } catch (Exception e) {
             Log.e(TAG, "onResponsegetUnit: exception " + e.getMessage());
         }
+    }
+
+    @Override
+    public void onResponseChangeStatus(Object o) {
+        Log.d(TAG, "onResponseChangeStatus: "  +o);
     }
 }

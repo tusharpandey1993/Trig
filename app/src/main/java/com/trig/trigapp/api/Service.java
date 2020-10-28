@@ -1,8 +1,8 @@
 package com.trig.trigapp.api;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.trig.trigapp.api.Request.AssignCoursesToEmp;
+import com.trig.trigapp.api.Request.ChangeStatusReq;
 import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Request.GetReportReq;
 import com.trig.trigapp.api.Request.LoadAssignmentsReq;
@@ -14,16 +14,11 @@ import com.trig.trigapp.api.Request.TrainerDashboardReq;
 import com.trig.trigapp.api.Request.User_id;
 import com.trig.trigapp.api.Request.getCourseDetailsReq;
 import com.trig.trigapp.api.Response.CommonResponse;
-import com.trig.trigapp.api.Response.getAssessmentListRes;
 import com.trig.trigapp.api.Response.getCourseDetailsRes;
-import com.trig.trigapp.api.Response.getCourseListRes;
-import com.trig.trigapp.api.Response.getCourseTopicsRes;
 import com.trig.trigapp.api.Response.getDashboardRes;
 import com.trig.trigapp.api.Response.getFeedbackRes;
-import com.trig.trigapp.api.Response.getLoadAssignmentsRes;
 import com.trig.trigapp.api.Response.getLoginRes;
 import com.trig.trigapp.api.Response.getScoreRes;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -94,5 +89,9 @@ public interface Service {
     // Submit Feedback
     @POST("TrainerReport/SubmitFeedback")
     Call<String> submitFeedback(@Body SubmitFeedback submitFeedback);
+
+    // Submit Feedback
+    @POST("TrainerReport/ChangeStatus")
+    Call<String> changeStatus(@Body ChangeStatusReq changeStatusReq);
 
    }

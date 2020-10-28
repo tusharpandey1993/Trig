@@ -12,6 +12,8 @@ public interface OnClickInterface {
 
     default void   onClickReport(View view, int viewName, int UnitId){}
 
+    default void   onClickReportWithEmp(View view, int viewName, int UnitId, String employeeId){}
+
 //    void  onClickChildView(View view, String viewID, int position);
 
 //    void  onAppsStoreChildViewClicked(View view, String viewID, int position, int AppID);

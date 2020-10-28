@@ -39,10 +39,6 @@ public class MainActivity extends AppCompatActivity {
             getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             int height = displayMetrics.heightPixels;
             int width = displayMetrics.widthPixels;
-            Log.d(TAG, "onCreate: height " + height );
-            Log.d(TAG, "onCreate: height dp: " + dpFromPx(this, height) );
-            Log.d(TAG, "onCreate: height px: " + pxFromDp(this, dpFromPx(this,height)) );
-
             navController = Navigation.findNavController(this, R.id.navHostFragment);
 
         } catch (Exception e) {
@@ -65,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                        Log.d("tushar", "onActivityResult: " + profileImg);
                         if(profileImg != null) {
                             profileImg.setImageBitmap(selectedImage);
                         }
@@ -83,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
 
                                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                                 String picturePath = cursor.getString(columnIndex);
-                                Log.d("tushar", "onActivityResult: " + profileImg);
                                 if(profileImg != null) {
                                     profileImg.setImageBitmap(BitmapFactory.decodeFile(picturePath));
                                 }

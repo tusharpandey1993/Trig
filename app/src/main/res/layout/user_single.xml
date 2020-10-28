@@ -226,12 +226,11 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:text="User Status" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <Switch
                 android:id="@+id/UserStatus"
                 android:layout_width="@dimen/_45sdp"
                 android:layout_height="@dimen/_15sdp"
-                android:layout_gravity="center"
-                android:clickable="false" />
+                android:layout_gravity="center"/>
 
 
             <View

@@ -7,6 +7,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.trig.trigapp.CommonFiles.Utility;
 import com.trig.trigapp.api.Request.AssignCoursesToEmp;
+import com.trig.trigapp.api.Request.ChangeStatusReq;
 import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Request.GetProfileDetailsReq;
 import com.trig.trigapp.api.Request.GetReportReq;
@@ -626,6 +627,39 @@ public class ViewModel {
                             if (response.body() != null) {
                                 Log.d(TAG, "onResponse:getUserList 3 " + response.body());
                                 iPresenter.onResponseSubmitFeedback(response.body());
+                            }
+                        } else {
+                            Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
+                            if (response.errorBody() != null) {
+                                iPresenter.onError(response.errorBody());
+                                Log.e(TAG, "onerror:CourseListResponse " + Utility.getInstance().getG().toJson(response.errorBody()));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.e(TAG, "onFailure: callLoadAssessment" + t.getCause());
+                        iPresenter.onResponseSubmitAssessment();
+                        iPresenter.onError(t.getCause());
+                    }
+                });
+    }
+
+
+ // This is to set User active and inactive
+    public void changeStatus(ChangeStatusReq changeStatusReq) {
+        Utility.getInstance().createServiceForTrigApp(mContext)
+                .changeStatus(changeStatusReq)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call,
+                                           Response<String> response) {
+                        if (response.isSuccessful()) {
+
+                            if (response.body() != null) {
+                                Log.d(TAG, "onResponse:getUserList 3 " + response.body());
+                                iPresenter.onResponseChangeStatus(response.body());
                             }
                         } else {
                             Log.d(TAG, "onResponse: 4 errorBody " + response.errorBody());
