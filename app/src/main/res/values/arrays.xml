@@ -9,8 +9,7 @@
         <item>Contact Trainer</item>
         <item>Contact Us</item>
         <item>Feedback</item>
-        <item>Log Out</item>
-        <item>Version 1.3</item>
+        <item>Log Out</item>=
     </string-array>
 
 
@@ -32,8 +31,7 @@
         <item>Report</item>
         <item>Profile</item>
         <item>Contact Us</item>
-        <item>Log Out</item>
-        <item>Version 1.3</item>
+        <item>Log Out</item>=
     </string-array>
 
 
@@ -44,7 +42,6 @@
         <item>@drawable/ic_profile</item>
         <item>@drawable/ic_contact</item>
         <item>@drawable/ic_logout</item>
-        <item>@drawable/ic_version</item>
     </array>
 
 

@@ -226,14 +226,11 @@
 
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChartCourses"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_width="146dp"
+                    android:layout_height="195dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/guideCourse"
+                    app:layout_constraintStart_toEndOf="@+id/courseIcon"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -372,14 +369,12 @@
 
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChartAssessment"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_width="146dp"
+                    android:layout_height="195dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/guidelineAssessment"
+                    app:layout_constraintStart_toEndOf="@+id/assessmentIcon"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -519,17 +514,13 @@
 
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChartResult"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_width="146dp"
+                    android:layout_height="195dp"
+                    android:layout_marginStart="@dimen/_2sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/guidelineAssessment2"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintStart_toEndOf="@+id/resultIcon"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

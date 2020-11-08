@@ -13,6 +13,10 @@ public class CommonReq {
     @Expose
     private String BranchId;
 
+    @SerializedName("flag")
+    @Expose
+    private String flag;
+
     public String getUserid() {
         return userid;
     }
@@ -27,5 +31,13 @@ public class CommonReq {
 
     public void setBranchId(String branchId) {
         BranchId = branchId;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }

@@ -22,8 +22,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.trig.trigapp.Adapter.CourseTopicAdapter;
-import com.trig.trigapp.Adapter.DynamicSliderAdapter;
 import com.trig.trigapp.Adapter.OnClickInterface;
 import com.trig.trigapp.Adapter.VideoListAdapter;
 import com.trig.trigapp.CommonFiles.Constants;

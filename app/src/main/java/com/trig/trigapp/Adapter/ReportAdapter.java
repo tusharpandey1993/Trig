@@ -1,25 +1,20 @@
 package com.trig.trigapp.Adapter;
 
 import android.content.Context;
-import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.trig.trigapp.CommonFiles.Constants;
 import com.trig.trigapp.R;
+import com.trig.trigapp.api.Response.AssessmentTrainerFromReportRes;
 import com.trig.trigapp.api.Response.GetReportRes;
 
 import java.util.ArrayList;
@@ -36,6 +31,8 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHold
         this.onClickListner = mListner;
         this.getReportRes = getReportRes;
     }
+
+
 
     @NonNull
     @Override

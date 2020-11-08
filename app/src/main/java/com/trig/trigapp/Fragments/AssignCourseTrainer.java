@@ -475,6 +475,7 @@ public class AssignCourseTrainer extends BaseFragment implements GenericDialogCl
     @Override
     public void onResponseAssignCourseRes(String string) {
         hideLoader();
+        Utility.getInstance().showSnackbar(getView(), "Assigned Successfully");
         Log.d(TAG, "onResponseAssignCourseRes: " + string);
     }
 

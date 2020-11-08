@@ -32,10 +32,12 @@ import com.trig.trigapp.CustomViewsFiles.genericPopUp.GenericDialogClickListener
 import com.trig.trigapp.MVP.IPresenter;
 import com.trig.trigapp.MVP.ViewModel;
 import com.trig.trigapp.R;
+import com.trig.trigapp.api.Request.AssessmentTrainerFromReportReq;
 import com.trig.trigapp.api.Request.ChangeStatusReq;
 import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Request.GetReportReq;
 import com.trig.trigapp.api.Request.User_id;
+import com.trig.trigapp.api.Response.AssessmentTrainerFromReportRes;
 import com.trig.trigapp.api.Response.GetBranchRes;
 import com.trig.trigapp.api.Response.GetReportRes;
 import com.trig.trigapp.api.Response.GetUnitRes;
@@ -52,6 +54,7 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
     private ArrayList<GetUnitRes> getUnitResArrayList;
     private ArrayList<GetBranchRes> getBranchResArrayList;
     private ArrayList<GetReportRes> getReportResArrayList;
+    private ArrayList<AssessmentTrainerFromReportRes> getAssessmentTrainerFromReportList;
     private ArrayList<getCourseDetailsRes> getCourseDetailsResArrayList;
     private ViewModel viewModel;
     CustomSelectionDialog cdd;
@@ -144,13 +147,21 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
 
         }
 
+    }
 
-       /* if(getCourseDetailsResArrayList!=null) {
-            filteredListRecycler.setNestedScrollingEnabled(false);
-            ReportChildAdapter reportChildAdapter = new ReportChildAdapter(mActivity, this, getCourseDetailsResArrayList);
-            filteredListRecycler.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-            filteredListRecycler.setAdapter(reportChildAdapter);
-        }*/
+    public void setAdapterGetAssessment() {
+        if (getAssessmentTrainerFromReportList != null) {
+
+            CustomListViewDialog customDialog;
+
+            ReportChildAdapter reportChildAdapter = new ReportChildAdapter(mActivity, this, getAssessmentTrainerFromReportList, true);
+            customDialog = new CustomListViewDialog(mActivity, reportChildAdapter);
+
+            customDialog.show();
+            customDialog.setCanceledOnTouchOutside(false);
+
+        }
+
     }
 
     @Override
@@ -356,6 +367,25 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
         }
     }
 
+    @Override
+    public void onResponseGetAssessmentTrainerRes(JsonArray jsonArray) {
+        try {
+            hideLoader();
+            getAssessmentTrainerFromReportList = new ArrayList<>();
+            if (jsonArray != null) {
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    AssessmentTrainerFromReportRes getAssessmentTrainerFromReport = Utility.getInstance().getG().fromJson(jsonArray.get(i), AssessmentTrainerFromReportRes.class);
+                    getAssessmentTrainerFromReportList.add(getAssessmentTrainerFromReport);
+                    Log.d(TAG, "onResponseGetUserReportRes: " + getAssessmentTrainerFromReportList.toString());
+                }
+
+                setAdapterGetAssessment();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "onResponsegetUnit: exception " + e.getMessage());
+        }
+    }
+
     private void hitReportApi() {
         try {
             if (Utility.getInstance().isNetworkAvailable(mActivity)) {
@@ -390,16 +420,20 @@ public class ReportFragment extends BaseFragment implements GenericDialogClickLi
 
     @Override
     public void onClickReport(View view, int viewName, int UnitId) {
-        CommonReq commonReq = new CommonReq();
+        CommonReq commonReq;
+        AssessmentTrainerFromReportReq assessmentTrainerFromReportReq;
         switch (viewName) {
             case 220:
+                commonReq = new CommonReq();
                 commonReq.setUserid("" + UnitId);
                 Log.d(TAG, "onClickReport: " + UnitId);
                 viewModel.getCourseTrainer(commonReq);
                 break;
             case 221:
-                commonReq.setUserid("" + UnitId);
-                viewModel.getCourseTrainer(commonReq);
+                assessmentTrainerFromReportReq = new AssessmentTrainerFromReportReq();
+                assessmentTrainerFromReportReq.setFlag(Constants.getInstance().GETMYASSESSMENT);
+                assessmentTrainerFromReportReq.setUser_id("" + UnitId);
+                viewModel.getAssessmentTrainer(assessmentTrainerFromReportReq);
                 break;
             case 222:
                 Constants.getInstance().sendUnitIdForFeedBack = UnitId;

@@ -29,7 +29,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.activity.OnBackPressedCallback;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.trig.trigapp.Adapter.CourseTopicAdapter;
 import com.trig.trigapp.api.Request.CommonReq;
 import com.trig.trigapp.api.Response.getAssessmentListRes;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -69,11 +70,11 @@
         android:id="@+id/courseContainer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_170sdp"
+        android:layout_margin="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/round_bg"
-        android:visibility="gone"
-        android:layout_margin="@dimen/_10sdp"
-        android:elevation="@dimen/_10sdp">
+        android:elevation="@dimen/_10sdp"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/courseIcon"
@@ -195,14 +196,11 @@
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChartCourses"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_width="148dp"
+            android:layout_height="195dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/guideCourse"
+            app:layout_constraintStart_toEndOf="@+id/courseIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -212,12 +210,12 @@
         android:id="@+id/assessmentContainer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_170sdp"
+        android:layout_margin="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:background="@drawable/round_bg"
-        android:visibility="gone"
         android:elevation="@dimen/_10sdp"
-        android:layout_margin="@dimen/_10sdp">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/assessmentIcon"
@@ -338,14 +336,11 @@
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChartAssessment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_width="148dp"
+            android:layout_height="195dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/guidelineAssessment"
+            app:layout_constraintStart_toEndOf="@+id/assessmentIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
 

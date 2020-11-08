@@ -255,6 +255,7 @@ public class Constants {
     public String Unit = "Unit";
     public String EMPCode = "EMPCode";
     public String FilterList = "FilterList";
+    public String GETMYASSESSMENT = "GETMYASSESSMENT";
 
 
     public final int getCourseTrainer = 220;
