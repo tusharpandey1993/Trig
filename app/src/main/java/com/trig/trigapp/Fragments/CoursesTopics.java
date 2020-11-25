@@ -159,7 +159,7 @@ public class CoursesTopics extends BaseFragment implements IPresenter, CourseTop
     public void onResponseAssessmentTopicList(JsonArray jsonArrayAssessment) {
         Log.d(TAG, "onResponseCourseTopicList: " + jsonArrayAssessment);
         try {
-            assessmentListResArrayList = new ArrayList<>();
+            //assessmentListResArrayList = new ArrayList<>();
             if (jsonArrayAssessment != null) {
                 assessmentListResArrayList = new ArrayList<>();
                 for (int i = 0; i < jsonArrayAssessment.size(); i++) {

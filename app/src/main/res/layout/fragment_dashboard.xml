@@ -227,7 +227,9 @@
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChartCourses"
                     android:layout_width="146dp"
-                    android:layout_height="195dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/courseIcon"
@@ -370,7 +372,9 @@
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChartAssessment"
                     android:layout_width="146dp"
-                    android:layout_height="195dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_marginStart="@dimen/_5sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -515,7 +519,9 @@
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChartResult"
                     android:layout_width="146dp"
-                    android:layout_height="195dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_marginStart="@dimen/_2sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
